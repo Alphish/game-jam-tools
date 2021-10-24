@@ -8,7 +8,8 @@ namespace Alphicsh.JamPlayer.ViewModel
     public class CollectionViewModel<TModel, TViewModel> : IList<TViewModel>
         where TViewModel : BaseViewModel<TModel>
     {
-        protected Func<TModel, TViewModel> ViewModelMapping { get; }
+        protected CollectionViewModelStub<TModel, TViewModel> Stub { get; }
+        protected Func<TModel, TViewModel> ViewModelMapping => Stub.ViewModelMapping;
 
         protected IList<TModel> Models { get; }
         protected IList<TViewModel> ViewModels { get; }
@@ -17,9 +18,9 @@ namespace Alphicsh.JamPlayer.ViewModel
         // Creation
         // --------
 
-        public CollectionViewModel(IList<TModel> modelEntries, Func<TModel, TViewModel> viewModelMapping)
+        public CollectionViewModel(IList<TModel> modelEntries, CollectionViewModelStub<TModel, TViewModel> stub)
         {
-            ViewModelMapping = viewModelMapping;
+            Stub = stub;
 
             Models = modelEntries;
             ViewModels = modelEntries.Select(ViewModelMapping).ToList();
@@ -113,10 +114,13 @@ namespace Alphicsh.JamPlayer.ViewModel
 
     public static class CollectionViewModel
     {
-        public static CollectionViewModel<TModel, TViewModel> Create<TModel, TViewModel>(IEnumerable<TModel> modelEntries, Func<TModel, TViewModel> viewModelMapping)
+        public static CollectionViewModel<TModel, TViewModel> Create<TModel, TViewModel>(
+            IEnumerable<TModel> modelEntries,
+            CollectionViewModelStub<TModel, TViewModel> stub
+            )
             where TViewModel : BaseViewModel<TModel>
         {
-            return new CollectionViewModel<TModel, TViewModel>(modelEntries.ToList(), viewModelMapping);
+            return new CollectionViewModel<TModel, TViewModel>(modelEntries.ToList(), stub);
         }
     }
 }
