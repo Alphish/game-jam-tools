@@ -9,6 +9,8 @@
 >
   <Grid Margin="2">
     <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="24"></ColumnDefinition>
+      <ColumnDefinition Width="4"></ColumnDefinition>
       <ColumnDefinition Width="48"></ColumnDefinition>
       <ColumnDefinition Width="4"></ColumnDefinition>
       <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -18,17 +20,29 @@
       <RowDefinition Height="22"></RowDefinition>
     </Grid.RowDefinitions>
 
+    <!-- Position -->
+    <TextBlock
+      Grid.Column="0"
+      Grid.Row="0"
+      Grid.RowSpan="2"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Text="{Binding Rank, TargetNullValue=-}"
+      d:Text="999"
+    >
+    </TextBlock>
+
     <!-- Thumbnail -->
     <Rectangle
-      Grid.Column="0"
+      Grid.Column="2"
       Grid.Row="0"
       Grid.RowSpan="2"
       Fill="Black"
     ></Rectangle>
-
+    
     <!-- Game title -->
     <TextBlock
-      Grid.Column="2"
+      Grid.Column="4"
       Grid.Row="0"
       HorizontalAlignment="Left"
       VerticalAlignment="Center"
@@ -40,7 +54,7 @@
         
     <!-- Game authors -->
     <TextBlock
-      Grid.Column="2"
+      Grid.Column="4"
       Grid.Row="1"
       HorizontalAlignment="Left"
       VerticalAlignment="Center"
