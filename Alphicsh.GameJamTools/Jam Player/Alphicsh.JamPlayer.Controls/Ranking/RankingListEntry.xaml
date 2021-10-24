@@ -1,0 +1,53 @@
+﻿<UserControl
+  x:Class="Alphicsh.JamPlayer.Controls.Ranking.RankingListEntry"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  mc:Ignorable="d" 
+  d:DesignHeight="52" d:DesignWidth="400"
+>
+  <Grid Margin="2">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="48"></ColumnDefinition>
+      <ColumnDefinition Width="4"></ColumnDefinition>
+      <ColumnDefinition Width="1*"></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="26"></RowDefinition>
+      <RowDefinition Height="22"></RowDefinition>
+    </Grid.RowDefinitions>
+
+    <!-- Thumbnail -->
+    <Rectangle
+      Grid.Column="0"
+      Grid.Row="0"
+      Grid.RowSpan="2"
+      Fill="Black"
+    ></Rectangle>
+
+    <!-- Game title -->
+    <TextBlock
+      Grid.Column="2"
+      Grid.Row="0"
+      HorizontalAlignment="Left"
+      VerticalAlignment="Center"
+      FontSize="16"
+      FontWeight="Bold"
+      Text="{Binding JamEntry.Title, Mode=OneWay}"
+      d:Text="Test game"
+    ></TextBlock>
+        
+    <!-- Game authors -->
+    <TextBlock
+      Grid.Column="2"
+      Grid.Row="1"
+      HorizontalAlignment="Left"
+      VerticalAlignment="Center"
+      FontSize="13"
+    >
+      <Run Text="by"></Run>
+      <Run Text="{Binding JamEntry.Team.Description, Mode=OneWay}" d:Text="Team Testers"/>
+    </TextBlock>
+  </Grid>
+</UserControl>
