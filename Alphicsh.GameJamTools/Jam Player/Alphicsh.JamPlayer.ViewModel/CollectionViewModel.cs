@@ -11,6 +11,10 @@ namespace Alphicsh.JamPlayer.ViewModel
         protected Func<TModel, TViewModel> ViewModelMapping { get; }
         protected IList<TViewModel> ViewModels { get; }
 
+        // --------
+        // Creation
+        // --------
+
         public CollectionViewModel(IEnumerable<TModel> modelEntries, Func<TModel, TViewModel> viewModelMapping)
         {
             ViewModelMapping = viewModelMapping;
@@ -87,6 +91,15 @@ namespace Alphicsh.JamPlayer.ViewModel
         public void RemoveAt(int index)
         {
             ViewModels.RemoveAt(index);
+        }
+    }
+
+    public static class CollectionViewModel
+    {
+        public static CollectionViewModel<TModel, TViewModel> Create<TModel, TViewModel>(IEnumerable<TModel> modelEntries, Func<TModel, TViewModel> viewModelMapping)
+            where TViewModel : BaseViewModel<TModel>
+        {
+            return new CollectionViewModel<TModel, TViewModel>(modelEntries, viewModelMapping);
         }
     }
 }

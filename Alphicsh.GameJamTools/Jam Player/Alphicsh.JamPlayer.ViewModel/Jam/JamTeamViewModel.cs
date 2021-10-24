@@ -9,7 +9,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
         public JamTeamViewModel(JamTeam model)
             : base(model)
         {
-            Authors = new CollectionViewModel<JamAuthor, JamAuthorViewModel>(model.Authors, item => new JamAuthorViewModel(item));
+            Authors = CollectionViewModel.Create(model.Authors, item => new JamAuthorViewModel(item));
             Description = Model.Name ?? string.Join(", ", Authors.Select(author => author.Name));
         }
 
