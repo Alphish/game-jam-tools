@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 
 namespace Alphicsh.JamPlayer.ViewModel
 {
-    public class CollectionViewModel<TModel, TViewModel> : IList<TViewModel>
+    public class CollectionViewModel<TModel, TViewModel> : IList<TViewModel>, INotifyCollectionChanged
         where TViewModel : BaseViewModel<TModel>
     {
         protected CollectionViewModelStub<TModel, TViewModel> Stub { get; }
@@ -27,6 +28,33 @@ namespace Alphicsh.JamPlayer.ViewModel
 
             Models = modelEntries;
             ViewModels = modelEntries.Select(ViewModelMapping).ToList();
+            CompleteChanges();
+        }
+
+        // ----------------
+        // Handling changes
+        // ----------------
+
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
+
+        protected virtual void ApplyChanges()
+        {
+            // doing whichever stuff needs to be done just after collection changes
+            // but just before the collection changed event is raised
+        }
+
+        public void CompleteChanges()
+        {
+            ApplyChanges();
+
+            // for convenience sake, and also for the sake of firing only one event per set of changes
+            // I'm just going to assume every change is a Reset change (cue dramatic SFX)
+            // if it becomes a performance problem, *then* I'll think of implementing more fine-grained changes
+            // (does WPF even handle the fine-grained changes separately? I'm pretty sure a few years ago it didn't...)
+            CollectionChanged?.Invoke(
+                this,
+                new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset)
+                );
         }
 
         // --------------------------
