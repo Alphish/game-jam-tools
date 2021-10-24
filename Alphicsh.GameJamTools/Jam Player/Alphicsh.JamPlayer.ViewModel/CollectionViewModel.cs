@@ -11,6 +11,8 @@ namespace Alphicsh.JamPlayer.ViewModel
         protected CollectionViewModelStub<TModel, TViewModel> Stub { get; }
         protected Func<TModel, TViewModel> ViewModelMapping => Stub.ViewModelMapping;
 
+        protected bool IsImmutable { get; }
+
         protected IList<TModel> Models { get; }
         protected IList<TViewModel> ViewModels { get; }
 
@@ -18,9 +20,10 @@ namespace Alphicsh.JamPlayer.ViewModel
         // Creation
         // --------
 
-        public CollectionViewModel(IList<TModel> modelEntries, CollectionViewModelStub<TModel, TViewModel> stub)
+        public CollectionViewModel(IList<TModel> modelEntries, CollectionViewModelStub<TModel, TViewModel> stub, bool isImmutable)
         {
             Stub = stub;
+            IsImmutable = isImmutable;
 
             Models = modelEntries;
             ViewModels = modelEntries.Select(ViewModelMapping).ToList();
@@ -46,7 +49,7 @@ namespace Alphicsh.JamPlayer.ViewModel
 
         public int Count => ViewModels.Count;
 
-        public bool IsReadOnly => ViewModels.IsReadOnly;
+        public bool IsReadOnly => IsImmutable;
 
         public bool Contains(TViewModel item)
         {
@@ -55,6 +58,7 @@ namespace Alphicsh.JamPlayer.ViewModel
 
         public void Add(TViewModel item)
         {
+            EnsureCanWrite();
             Models.Add(item.Model);
             ViewModels.Add(item);
         }
@@ -66,12 +70,14 @@ namespace Alphicsh.JamPlayer.ViewModel
 
         public bool Remove(TViewModel item)
         {
+            EnsureCanWrite();
             Models.Remove(item.Model);
             return ViewModels.Remove(item);
         }
 
         public void Clear()
         {
+            EnsureCanWrite();
             Models.Clear();
             ViewModels.Clear();
         }
@@ -85,6 +91,7 @@ namespace Alphicsh.JamPlayer.ViewModel
             get => ViewModels[index];
             set
             {
+                EnsureCanWrite();
                 Models[index] = value.Model;
                 ViewModels[index] = value;
             }
@@ -97,14 +104,26 @@ namespace Alphicsh.JamPlayer.ViewModel
 
         public void Insert(int index, TViewModel item)
         {
+            EnsureCanWrite();
             Models.Insert(index, item.Model);
             ViewModels.Insert(index, item);
         }
 
         public void RemoveAt(int index)
         {
+            EnsureCanWrite();
             Models.RemoveAt(index);
             ViewModels.RemoveAt(index);
+        }
+
+        // -------------
+        // Miscellaneous
+        // -------------
+
+        private void EnsureCanWrite()
+        {
+            if (IsReadOnly)
+                throw new NotSupportedException("The given collection is read-only.");
         }
     }
 
@@ -114,13 +133,22 @@ namespace Alphicsh.JamPlayer.ViewModel
 
     public static class CollectionViewModel
     {
-        public static CollectionViewModel<TModel, TViewModel> Create<TModel, TViewModel>(
+        public static CollectionViewModel<TModel, TViewModel> CreateImmutable<TModel, TViewModel>(
             IEnumerable<TModel> modelEntries,
             CollectionViewModelStub<TModel, TViewModel> stub
             )
             where TViewModel : BaseViewModel<TModel>
         {
-            return new CollectionViewModel<TModel, TViewModel>(modelEntries.ToList(), stub);
+            return new CollectionViewModel<TModel, TViewModel>(modelEntries.ToList(), stub, isImmutable: true);
+        }
+
+        public static CollectionViewModel<TModel, TViewModel> CreateMutable<TModel, TViewModel>(
+            IList<TModel> modelEntries,
+            CollectionViewModelStub<TModel, TViewModel> stub
+            )
+            where TViewModel : BaseViewModel<TModel>
+        {
+            return new CollectionViewModel<TModel, TViewModel>(modelEntries, stub, isImmutable: true);
         }
     }
 }
