@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.Controls\Alphicsh.JamTools.Common.Controls.csproj" />
     <ProjectReference Include="..\Alphicsh.JamPlayer.Model\Alphicsh.JamPlayer.Model.csproj" />
     <ProjectReference Include="..\Alphicsh.JamPlayer.ViewModel\Alphicsh.JamPlayer.ViewModel.csproj" />
   </ItemGroup>
