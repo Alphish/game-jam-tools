@@ -8,15 +8,16 @@
   mc:Ignorable="d" 
   d:DesignHeight="450" d:DesignWidth="400"
 >
-  <ListBox
+  <local:RankingListBox
     ItemsSource="{Binding}"
+    RankingOverview="{Binding RankingOverview}"
     HorizontalContentAlignment="Stretch"
     ScrollViewer.VerticalScrollBarVisibility="Visible"
   >
-    <ListBox.Resources>
+    <local:RankingListBox.Resources>
       <DataTemplate DataType="{x:Type rankingVm:RankingEntryViewModel}">
         <local:RankingListEntry DataContext="{Binding}"></local:RankingListEntry>
       </DataTemplate>
-    </ListBox.Resources>
-  </ListBox>
+    </local:RankingListBox.Resources>
+  </local:RankingListBox>
 </UserControl>
