@@ -9,15 +9,19 @@ namespace Alphicsh.JamPlayer.ViewModel
         where TViewModel : BaseViewModel<TModel>
     {
         protected Func<TModel, TViewModel> ViewModelMapping { get; }
+
+        protected IList<TModel> Models { get; }
         protected IList<TViewModel> ViewModels { get; }
 
         // --------
         // Creation
         // --------
 
-        public CollectionViewModel(IEnumerable<TModel> modelEntries, Func<TModel, TViewModel> viewModelMapping)
+        public CollectionViewModel(IList<TModel> modelEntries, Func<TModel, TViewModel> viewModelMapping)
         {
             ViewModelMapping = viewModelMapping;
+
+            Models = modelEntries;
             ViewModels = modelEntries.Select(ViewModelMapping).ToList();
         }
 
@@ -50,6 +54,7 @@ namespace Alphicsh.JamPlayer.ViewModel
 
         public void Add(TViewModel item)
         {
+            Models.Add(item.Model);
             ViewModels.Add(item);
         }
 
@@ -60,11 +65,13 @@ namespace Alphicsh.JamPlayer.ViewModel
 
         public bool Remove(TViewModel item)
         {
+            Models.Remove(item.Model);
             return ViewModels.Remove(item);
         }
 
         public void Clear()
         {
+            Models.Clear();
             ViewModels.Clear();
         }
 
@@ -75,7 +82,11 @@ namespace Alphicsh.JamPlayer.ViewModel
         public TViewModel this[int index]
         {
             get => ViewModels[index];
-            set => ViewModels[index] = value;
+            set
+            {
+                Models[index] = value.Model;
+                ViewModels[index] = value;
+            }
         }
 
         public int IndexOf(TViewModel item)
@@ -85,21 +96,27 @@ namespace Alphicsh.JamPlayer.ViewModel
 
         public void Insert(int index, TViewModel item)
         {
+            Models.Insert(index, item.Model);
             ViewModels.Insert(index, item);
         }
 
         public void RemoveAt(int index)
         {
+            Models.RemoveAt(index);
             ViewModels.RemoveAt(index);
         }
     }
+
+    // ---------------
+    // Static creation
+    // ---------------
 
     public static class CollectionViewModel
     {
         public static CollectionViewModel<TModel, TViewModel> Create<TModel, TViewModel>(IEnumerable<TModel> modelEntries, Func<TModel, TViewModel> viewModelMapping)
             where TViewModel : BaseViewModel<TModel>
         {
-            return new CollectionViewModel<TModel, TViewModel>(modelEntries, viewModelMapping);
+            return new CollectionViewModel<TModel, TViewModel>(modelEntries.ToList(), viewModelMapping);
         }
     }
 }
