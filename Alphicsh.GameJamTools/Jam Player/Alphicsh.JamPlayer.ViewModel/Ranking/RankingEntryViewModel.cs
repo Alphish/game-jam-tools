@@ -9,8 +9,24 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
             : base(model)
         {
             JamEntry = new JamEntryViewModel(model.JamEntry);
+            RankProperty = new MutableProperty<int?>(
+                this, nameof(Rank), null,
+                dependingProperties: new string[] { nameof(IsRanked) }
+                );
         }
 
+        // ---------------
+        // Read properties
+        // ---------------
+
         public JamEntryViewModel JamEntry { get; }
+
+        // ------------------
+        // Mutable properties
+        // ------------------
+
+        private MutableProperty<int?> RankProperty { get; }
+        public int? Rank { get => RankProperty.Value; set => RankProperty.Value = value; }
+        public bool IsRanked => Rank.HasValue;
     }
 }
