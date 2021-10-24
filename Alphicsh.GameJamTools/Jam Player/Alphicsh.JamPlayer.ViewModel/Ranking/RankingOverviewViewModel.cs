@@ -7,11 +7,11 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
         public RankingOverviewViewModel(RankingOverview model)
             : base(model)
         {
-            RankedEntries = CollectionViewModel.Create(model.RankedEntries, entry => new RankingEntryViewModel(entry));
-            UnrankedEntries = CollectionViewModel.Create(model.UnrankedEntries, entry => new RankingEntryViewModel(entry));
+            RankedEntries = new RankedEntriesListViewModel(model.RankedEntries, rankingOverview: this);
+            UnrankedEntries = new UnrankedEntriesListViewModel(model.UnrankedEntries, rankingOverview: this);
         }
 
-        public CollectionViewModel<RankingEntry, RankingEntryViewModel> RankedEntries { get; }
-        public CollectionViewModel<RankingEntry, RankingEntryViewModel> UnrankedEntries { get; }
+        public RankedEntriesListViewModel RankedEntries { get; }
+        public UnrankedEntriesListViewModel UnrankedEntries { get; }
     }
 }

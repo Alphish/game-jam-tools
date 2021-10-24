@@ -5,6 +5,9 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
 {
     public sealed class RankingEntryViewModel : BaseViewModel<RankingEntry>
     {
+        public static CollectionViewModelStub<RankingEntry, RankingEntryViewModel> CollectionStub { get; }
+            = CollectionViewModelStub.Create((RankingEntry model) => new RankingEntryViewModel(model));
+
         public RankingEntryViewModel(RankingEntry model)
             : base(model)
         {
