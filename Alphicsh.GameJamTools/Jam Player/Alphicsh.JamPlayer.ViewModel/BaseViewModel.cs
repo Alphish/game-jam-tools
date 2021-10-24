@@ -1,12 +1,21 @@
-﻿namespace Alphicsh.JamPlayer.ViewModel
+﻿using System.ComponentModel;
+
+namespace Alphicsh.JamPlayer.ViewModel
 {
-    public abstract class BaseViewModel<TModel>
+    public abstract class BaseViewModel<TModel> : IViewModel
     {
-        protected TModel Model { get; }
+        protected internal TModel Model { get; }
 
         protected BaseViewModel(TModel model)
         {
             Model = model;
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void RaisePropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
