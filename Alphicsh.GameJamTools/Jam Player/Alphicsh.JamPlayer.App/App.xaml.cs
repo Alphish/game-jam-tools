@@ -1,6 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Media.Imaging;
 
+using Alphicsh.JamPlayer.Model;
+using Alphicsh.JamPlayer.ViewModel;
+
 namespace Alphicsh.JamPlayer.App
 {
     /// <summary>
@@ -8,6 +11,14 @@ namespace Alphicsh.JamPlayer.App
     /// </summary>
     public partial class App : Application
     {
+        public AppViewModel ViewModel { get; }
+
+        public App()
+        {
+            var model = new AppModel();
+            ViewModel = new AppViewModel(model);
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             LoadImageSourceResource("EntryPlaceholderSource", "Alphicsh.JamPlayer.App.Content.entry_placeholder.png");
