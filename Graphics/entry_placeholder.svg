@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="240"
+   height="240"
+   viewBox="0 0 240 240"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="entry_placeholder.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="115.61196"
+     inkscape:cy="132.05219"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="1072"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-global="false" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#000000;fill-rule:evenodd;stroke-width:0.987654;fill-opacity:0.5"
+       id="rect35"
+       width="240"
+       height="240"
+       x="0"
+       y="0"
+       inkscape:export-filename="E:\Development\NET\game-jam-tools\Alphicsh.GameJamTools\Jam Player\Alphicsh.JamPlayer.App\Content\entry_placeholder.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#ffffff;fill-opacity:0.5;stroke-width:0.721283"
+       id="rect1067"
+       width="96"
+       height="24"
+       x="72"
+       y="24"
+       rx="6.2857165"
+       ry="6.2857165" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:16;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.5"
+       id="rect1380"
+       width="112"
+       height="148"
+       x="64"
+       y="60"
+       rx="18.650002"
+       ry="19.168058" />
+    <path
+       id="rect824"
+       style="fill:#ffffff;fill-opacity:0.5;stroke-width:16"
+       d="m 83.365234,103.04883 c -1.745241,-0.003 -3.79141,0.23474 -7.365234,0.82812 0.02473,23.88295 -0.04945,61.76898 0.03711,85.65039 0.296176,4.36656 4.761734,7.06022 8.847657,6.47266 24.213903,-0.0247 48.430223,0.0494 72.642573,-0.0371 4.36658,-0.29615 7.06023,-4.76171 6.47266,-8.84766 v -83.1289 c -8.03571,0 -13.33049,3.56065 -21.77734,1.68945 -6.84917,-1.51727 -11.19188,-2.68407 -19.85547,-2.27734 -6.2891,0.29526 -11.58526,2.46574 -18.05078,2.17578 -6.525371,-0.29264 -8.973193,-0.90464 -15.390628,-1.9082 -2.370806,-0.37075 -3.815305,-0.61414 -5.560547,-0.61719 z m 38.142576,13.44531 c 1.8911,0.0391 3.73999,0.50004 5.36914,1.49609 8.68884,5.31229 11.21046,16.77711 0.92188,22.25977 -10.28858,5.48268 -10.81394,14.82591 -8.95117,17.4043 1.86278,2.57839 1.32057,4.76623 -0.74024,4.43164 -2.06081,-0.33456 -7.52747,-10.00112 -4.07422,-15.29297 3.45324,-5.29183 17.94152,-10.41809 15.86524,-17.9082 -2.07629,-7.49012 -8.06141,-10.73709 -14.45117,-6.57227 -6.38975,4.16483 2.40172,13.39432 -6.28711,8.08203 -4.81959,-6.33014 4.15289,-14.0699 12.34765,-13.90039 z m -1.57226,51.16602 c 0.2959,0.0161 0.59027,0.0533 0.88086,0.11132 3.36974,0.67104 5.55754,3.94663 4.88671,7.31641 -0.46306,2.29709 -2.17753,4.13916 -4.43554,4.76563 l 0.0566,1.43554 -1.26563,-0.41406 -0.4707,0.55469 -0.91992,-0.34571 -0.83985,0.15625 -0.16601,-1.46484 c -2.98584,-0.98065 -4.77147,-4.03408 -4.16211,-7.11719 0.60398,-3.03446 3.34156,-4.99804 6.43555,-4.99804 z"
+       sodipodi:nodetypes="sccccccsssssscsssssscsccccccccccccsc" />
+  </g>
+</svg>
