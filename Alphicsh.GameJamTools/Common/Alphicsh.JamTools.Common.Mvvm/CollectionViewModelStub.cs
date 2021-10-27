@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Alphicsh.JamPlayer.ViewModel
+namespace Alphicsh.JamTools.Common.Mvvm
 {
     public class CollectionViewModelStub<TModel, TViewModel>
         where TViewModel : BaseViewModel<TModel>

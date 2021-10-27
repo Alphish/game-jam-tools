@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Alphicsh.JamPlayer.ViewModel
+namespace Alphicsh.JamTools.Common.Mvvm
 {
     public class MutableProperty<TValue>
     {

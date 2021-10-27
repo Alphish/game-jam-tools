@@ -1,5 +1,7 @@
 ﻿using Alphicsh.JamPlayer.Model.Ranking;
 
+using Alphicsh.JamTools.Common.Mvvm;
+
 namespace Alphicsh.JamPlayer.ViewModel.Ranking
 {
     public class RankingOverviewViewModel : BaseViewModel<RankingOverview>

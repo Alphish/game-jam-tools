@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 
+using Alphicsh.JamTools.Common.Mvvm;
+
 using Alphicsh.JamPlayer.Model.Jam;
 
 namespace Alphicsh.JamPlayer.ViewModel.Jam

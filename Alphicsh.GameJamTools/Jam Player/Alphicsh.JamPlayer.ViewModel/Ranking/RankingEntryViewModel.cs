@@ -1,4 +1,6 @@
-﻿using Alphicsh.JamPlayer.Model.Ranking;
+﻿using Alphicsh.JamTools.Common.Mvvm;
+
+using Alphicsh.JamPlayer.Model.Ranking;
 using Alphicsh.JamPlayer.ViewModel.Jam;
 
 namespace Alphicsh.JamPlayer.ViewModel.Ranking

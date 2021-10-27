@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
-namespace Alphicsh.JamPlayer.ViewModel
+namespace Alphicsh.JamTools.Common.Mvvm
 {
     public class CollectionViewModel<TModel, TViewModel> : IList<TViewModel>, INotifyCollectionChanged
         where TViewModel : BaseViewModel<TModel>

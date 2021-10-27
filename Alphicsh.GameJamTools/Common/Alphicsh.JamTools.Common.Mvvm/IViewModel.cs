@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Alphicsh.JamPlayer.ViewModel
+namespace Alphicsh.JamTools.Common.Mvvm
 {
     public interface IViewModel : INotifyPropertyChanged
     {

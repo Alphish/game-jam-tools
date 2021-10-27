@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using Alphicsh.JamTools.Common.Mvvm;
+
 using Alphicsh.JamPlayer.Model.Ranking;
 
 namespace Alphicsh.JamPlayer.ViewModel.Ranking
