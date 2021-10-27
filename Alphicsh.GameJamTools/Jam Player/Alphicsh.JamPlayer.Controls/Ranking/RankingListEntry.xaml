@@ -33,12 +33,17 @@
     </TextBlock>
 
     <!-- Thumbnail -->
-    <Rectangle
+    <Border
       Grid.Column="2"
       Grid.Row="0"
       Grid.RowSpan="2"
-      Fill="Black"
-    ></Rectangle>
+      CornerRadius="4"
+      RenderOptions.BitmapScalingMode="Fant"
+    >
+      <Border.Background>
+        <ImageBrush ImageSource="{DynamicResource EntryPlaceholderSource}" Stretch="UniformToFill"></ImageBrush>
+      </Border.Background>
+    </Border>
     
     <!-- Game title -->
     <TextBlock
