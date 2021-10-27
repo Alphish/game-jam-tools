@@ -4,6 +4,6 @@ namespace Alphicsh.JamPlayer.Model.Ranking
 {
     public sealed class RankingEntry
     {
-        public JamEntry JamEntry { get; init; } = null!;
+        public JamEntry JamEntry { get; init; } = default!;
     }
 }

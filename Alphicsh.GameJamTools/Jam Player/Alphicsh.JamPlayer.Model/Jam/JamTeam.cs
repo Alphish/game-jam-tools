@@ -4,7 +4,7 @@ namespace Alphicsh.JamPlayer.Model.Jam
 {
     public sealed class JamTeam
     {
-        public string? Name { get; init; } = null!;
-        public IReadOnlyCollection<JamAuthor> Authors { get; init; } = null!;
+        public string? Name { get; init; } = default!;
+        public IReadOnlyCollection<JamAuthor> Authors { get; init; } = default!;
     }
 }

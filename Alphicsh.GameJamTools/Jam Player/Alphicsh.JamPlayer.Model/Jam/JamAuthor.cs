@@ -2,6 +2,6 @@
 {
     public sealed class JamAuthor
     {
-        public string Name { get; init; } = null!;
+        public string Name { get; init; } = default!;
     }
 }

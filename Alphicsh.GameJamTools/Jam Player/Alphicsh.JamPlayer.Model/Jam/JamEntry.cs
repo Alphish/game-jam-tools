@@ -2,7 +2,7 @@
 {
     public sealed class JamEntry
     {
-        public string Title { get; init; } = null!;
-        public JamTeam Team { get; init; } = null!;
+        public string Title { get; init; } = default!;
+        public JamTeam Team { get; init; } = default!;
     }
 }
