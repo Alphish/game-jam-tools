@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Alphicsh.JamTools.Common.Mvvm;
+using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 using Alphicsh.JamPlayer.Model.Ranking;
 
@@ -14,6 +15,12 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
             : base(entries, RankingEntryViewModel.CollectionStub, isImmutable: false)
         {
             RankingOverview = rankingOverview;
+
+            SelectedEntryProperty = WrapperProperty.Create(
+                this, nameof(SelectedEntry),
+                valueGetter: vm => vm.RankingOverview.GetRankedSelectedEntry(),
+                valueSetter: (vm, value) => vm.RankingOverview.SelectedEntry = value
+                );
         }
 
         protected override void ApplyChanges()
@@ -24,5 +31,8 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
                 viewModel.Rank = i + 1;
             }
         }
+
+        public WrapperProperty<RankedEntriesListViewModel, RankingEntryViewModel?> SelectedEntryProperty { get; }
+        public RankingEntryViewModel? SelectedEntry { get => SelectedEntryProperty.Value; set => SelectedEntryProperty.Value = value; }
     }
 }

@@ -20,6 +20,8 @@ namespace Alphicsh.JamPlayer.Controls.Ranking
         {
             RankingOverview.RankedEntries.CompleteChanges();
             RankingOverview.UnrankedEntries.CompleteChanges();
+
+            RankingOverview.SelectedEntry = item;
         }
     }
 }

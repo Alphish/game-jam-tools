@@ -10,6 +10,7 @@
 >
   <local:RankingListBox
     ItemsSource="{Binding}"
+    SelectedItem="{Binding SelectedEntry}"
     RankingOverview="{Binding RankingOverview}"
     HorizontalContentAlignment="Stretch"
     ScrollViewer.VerticalScrollBarVisibility="Visible"
