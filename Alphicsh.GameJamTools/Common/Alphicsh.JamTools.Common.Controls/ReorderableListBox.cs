@@ -22,7 +22,7 @@ namespace Alphicsh.JamTools.Common.Controls
         // After drop
         // ----------
 
-        public virtual void AfterDrop() { }
+        public virtual void AfterDrop(TItem item) { }
 
         // -----------------------
         // Handling the reordering
@@ -96,7 +96,7 @@ namespace Alphicsh.JamTools.Common.Controls
 
             SelectedItem = dragData;
 
-            AfterDrop();
+            AfterDrop(droppedItem);
         }
 
         private UIElement? GetElementAtPosition(Point point)

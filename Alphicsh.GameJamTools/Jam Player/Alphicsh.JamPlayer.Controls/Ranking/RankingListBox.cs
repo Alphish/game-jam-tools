@@ -16,7 +16,7 @@ namespace Alphicsh.JamPlayer.Controls.Ranking
             set => SetValue(RankingOverviewProperty, value);
         }
 
-        public override void AfterDrop()
+        public override void AfterDrop(RankingEntryViewModel item)
         {
             RankingOverview.RankedEntries.CompleteChanges();
             RankingOverview.UnrankedEntries.CompleteChanges();
