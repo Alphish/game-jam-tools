@@ -1,4 +1,5 @@
 ﻿using Alphicsh.JamTools.Common.Mvvm;
+using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 using Alphicsh.JamPlayer.Model.Ranking;
 using Alphicsh.JamPlayer.ViewModel.Jam;
@@ -14,10 +15,9 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
             : base(model)
         {
             JamEntry = new JamEntryViewModel(model.JamEntry);
-            RankProperty = new MutableProperty<int?>(
-                this, nameof(Rank), null,
-                dependingProperties: new string[] { nameof(IsRanked) }
-                );
+
+            RankProperty = MutableProperty.Create(this, nameof(Rank), (int?)null)
+                .WithDependingProperty(nameof(IsRanked));
         }
 
         // ---------------
