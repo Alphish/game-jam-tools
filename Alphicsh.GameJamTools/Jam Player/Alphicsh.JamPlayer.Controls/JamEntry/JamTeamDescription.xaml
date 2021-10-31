@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Alphicsh.JamPlayer.Controls.JamEntry.JamTeamDescription"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:system="clr-namespace:System;assembly=System.Runtime"
+  xmlns:local="clr-namespace:Alphicsh.JamPlayer.Controls.JamEntry"
+  xmlns:jamVm="clr-namespace:Alphicsh.JamPlayer.ViewModel.Jam;assembly=Alphicsh.JamPlayer.ViewModel"
+  mc:Ignorable="d" 
+  d:DesignHeight="450" d:DesignWidth="800"
+>
+  <WrapPanel>
+    <ItemsControl ItemsSource="{Binding DescriptionItems}">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <WrapPanel></WrapPanel>
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.Resources>
+        <DataTemplate DataType="{x:Type system:String}">
+          <TextBlock FontSize="16" Text="{Binding}"></TextBlock>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type jamVm:JamAuthorViewModel}">
+          <TextBlock FontSize="16" Text="{Binding Name}"></TextBlock>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type jamVm:JamTeamViewModel}">
+          <TextBlock FontSize="16" Text="{Binding Name}"></TextBlock>
+        </DataTemplate>
+      </ItemsControl.Resources>
+    </ItemsControl>
+  </WrapPanel>
+</UserControl>
