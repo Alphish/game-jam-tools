@@ -1,10 +1,12 @@
 ﻿<Application x:Class="Alphicsh.JamPlayer.App.App"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:commonConverters="clr-namespace:Alphicsh.JamTools.Common.Mvvm.Converters;assembly=Alphicsh.JamTools.Common.Mvvm"
   xmlns:local="clr-namespace:Alphicsh.JamPlayer.App"
   StartupUri="MainWindow.xaml"
 >
   <Application.Resources>
+    <commonConverters:NullVisibilityConverter x:Key="NullVisibilityConverter"></commonConverters:NullVisibilityConverter>
     <!-- ImageSource x:Key="EntryPlaceHolderSource" -->
   </Application.Resources>
 </Application>
