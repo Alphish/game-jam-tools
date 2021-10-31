@@ -21,6 +21,7 @@
     <GridSplitter
       Grid.Row="1"
       HorizontalAlignment="Stretch"
+      VerticalAlignment="Center"
       Height="8"
       ShowsPreview="True"
     ></GridSplitter>
