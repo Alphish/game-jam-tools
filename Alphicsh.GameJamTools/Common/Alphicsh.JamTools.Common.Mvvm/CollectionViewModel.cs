@@ -3,10 +3,11 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace Alphicsh.JamTools.Common.Mvvm
 {
-    public class CollectionViewModel<TModel, TViewModel> : IList<TViewModel>, INotifyCollectionChanged
+    public class CollectionViewModel<TModel, TViewModel> : IList<TViewModel>, INotifyCollectionChanged, IViewModel
         where TViewModel : BaseViewModel<TModel>
     {
         protected CollectionViewModelStub<TModel, TViewModel> Stub { get; }
@@ -34,6 +35,13 @@ namespace Alphicsh.JamTools.Common.Mvvm
         // ----------------
         // Handling changes
         // ----------------
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void RaisePropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
