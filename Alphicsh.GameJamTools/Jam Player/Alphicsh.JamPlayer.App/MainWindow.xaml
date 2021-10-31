@@ -6,9 +6,9 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:appRanking="clr-namespace:Alphicsh.JamPlayer.Controls.Ranking;assembly=Alphicsh.JamPlayer.Controls"
   mc:Ignorable="d"
-  Title="MainWindow" Height="450" Width="800"
+  Title="MainWindow" Height="600" Width="1200"
 >
   <Grid>
-    <appRanking:RankingSection DataContext="{Binding Ranking}"></appRanking:RankingSection>
+    <appRanking:RankingTab DataContext="{Binding}"></appRanking:RankingTab>
   </Grid>
 </Window>
