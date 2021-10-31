@@ -94,8 +94,6 @@ namespace Alphicsh.JamTools.Common.Controls
                 destination.Insert(insertIndex, droppedItem);
             }
 
-            SelectedItem = dragData;
-
             AfterDrop(droppedItem);
         }
 
