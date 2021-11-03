@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
+using Alphicsh.JamTools.Common.IO.Jam.Files;
+
 namespace Alphicsh.JamTools.Common.IO.Jam
 {
     public class JamInfo
@@ -12,5 +14,15 @@ namespace Alphicsh.JamTools.Common.IO.Jam
 
         [JsonPropertyName("entries")] public IReadOnlyCollection<JamEntryStub> EntriesStubs { get; init; } = default!;
         [JsonIgnore] public IReadOnlyCollection<JamEntryInfo> Entries { get; internal set; } = default!;
+
+        // -------
+        // Loading
+        // -------
+
+        public static JamInfo LoadFromDirectory(FilePath jamDirectoryPath)
+        {
+            var explorer = new JamInfoExplorer();
+            return explorer.FindJamInfo(jamDirectoryPath);
+        }
     }
 }
