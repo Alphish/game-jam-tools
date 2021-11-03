@@ -19,6 +19,12 @@ namespace Alphicsh.JamTools.Common.IO.Jam
         // Loading
         // -------
 
+        public static JamInfo? LoadFromFile(FilePath jamInfoPath)
+        {
+            var explorer = new JamInfoExplorer();
+            return explorer.TryLoadJamInfo(jamInfoPath);
+        }
+
         public static JamInfo LoadFromDirectory(FilePath jamDirectoryPath)
         {
             var explorer = new JamInfoExplorer();

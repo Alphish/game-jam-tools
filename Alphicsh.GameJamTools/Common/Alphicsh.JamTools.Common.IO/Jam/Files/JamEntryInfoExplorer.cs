@@ -14,6 +14,11 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
             EntryFilesReader = new JamEntryFilesReader();
         }
 
+        public JamEntryInfo? TryLoadJamEntryInfo(string id, FilePath entryDirectoryPath)
+        {
+            return GetEntryInfoFromFile(id, entryDirectoryPath);
+        }
+
         public JamEntryInfo FindJamEntryInfo(string id, FilePath entryDirectoryPath)
         {
             return GetEntryInfoFromFile(id, entryDirectoryPath)

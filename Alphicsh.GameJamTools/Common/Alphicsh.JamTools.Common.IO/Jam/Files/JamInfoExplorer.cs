@@ -17,13 +17,26 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
             EntryInfoExplorer = new JamEntryInfoExplorer();
         }
 
+        public JamInfo? TryLoadJamInfo(FilePath jamFilePath)
+        {
+            var jamInfo = JamFilesReader.TryLoadJamInfo(jamFilePath);
+            if (jamInfo == null)
+                return null;
+
+            var jamDirectoryPath = jamFilePath.GetParentDirectoryPath()!.Value;
+            var entriesPath = jamDirectoryPath.Append(jamInfo.EntriesSubpath);
+            jamInfo.Entries = LoadEntriesFromStubs(entriesPath, jamInfo.EntriesStubs).ToList();
+
+            return jamInfo;
+        }
+
         public JamInfo FindJamInfo(FilePath jamDirectoryPath)
         {
             var jamInfo = StubJamInfoFromFile(jamDirectoryPath)
                 ?? StubJamInfoFromDirectory(jamDirectoryPath);
 
             var entriesPath = jamDirectoryPath.Append(jamInfo.EntriesSubpath);
-            jamInfo.Entries = GetEntriesFromStubs(entriesPath, jamInfo.EntriesStubs).ToList();
+            jamInfo.Entries = FindEntriesFromStubs(entriesPath, jamInfo.EntriesStubs).ToList();
 
             return jamInfo;
         }
@@ -101,7 +114,19 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
         // Loading entries
         // ---------------
 
-        private IEnumerable<JamEntryInfo> GetEntriesFromStubs(FilePath entriesPath, IReadOnlyCollection<JamEntryStub> stubs)
+        private IEnumerable<JamEntryInfo> LoadEntriesFromStubs(FilePath entriesPath, IReadOnlyCollection<JamEntryStub> stubs)
+        {
+            foreach (var stub in stubs)
+            {
+                var id = stub.Id;
+                var entryDirectoryPath = entriesPath.Append(stub.EntrySubpath);
+                var entry = EntryInfoExplorer.TryLoadJamEntryInfo(id, entryDirectoryPath);
+                if (entry != null)
+                    yield return entry;
+            }
+        }
+
+        private IEnumerable<JamEntryInfo> FindEntriesFromStubs(FilePath entriesPath, IReadOnlyCollection<JamEntryStub> stubs)
         {
             foreach (var stub in stubs)
             {
