@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
+using Alphicsh.JamTools.Common.IO;
+using Alphicsh.JamTools.Common.IO.Search;
+
 using Alphicsh.JamPlayer.Model;
-using Alphicsh.JamPlayer.Model.Jam;
 using Alphicsh.JamPlayer.ViewModel;
 
 namespace Alphicsh.JamPlayer.App
@@ -28,7 +30,7 @@ namespace Alphicsh.JamPlayer.App
         {
             LoadImageSourceResource("EntryPlaceholderSource", "Alphicsh.JamPlayer.App.Content.entry_placeholder.png");
 
-            InitData();
+            LoadJam(e);
 
             base.OnStartup(e);
         }
@@ -48,31 +50,27 @@ namespace Alphicsh.JamPlayer.App
             Resources[resourceKey] = imageSource;
         }
 
-        private void InitData()
+        private FilePath? GetJamInfoPathInAppDirectory()
         {
-            var jamModel = new JamOverview()
-            {
-                Entries = new List<JamEntry>
-                {
-                    CreateJamEntry("Another Winning Entry", teamName: null, "TehPilot", "TheFugue"),
-                    CreateJamEntry("Cthildha", teamName: null, "Jordan Thomas", "Amber Thomas"),
-                    CreateJamEntry("Escape of the Clowns", "Firehammer Games", "kburkhart84"),
-                    CreateJamEntry("Evanski's Raccoon Adventure", teamName: null, "EvanSki"),
-                    CreateJamEntry("Forty; or the Modern Big Brother", teamName: null, "Ezra"),
-                    CreateJamEntry("Mansion Mayhem", "Team 70s", "Alice", "HayManMarc", "Micah_DS"),
-                    CreateJamEntry("The Insufferable Pan", teamName: "Pixel-Team", "Pat Ferguson"),
-                    CreateJamEntry("Ullr", teamName: null, "Siolfor the Jackal"),
-                }
-            };
+            var jamPlayerPath = FilePath.From(Assembly.GetExecutingAssembly().Location);
+            var jamPlayerDirectory = jamPlayerPath.GetParentDirectoryPath()!.Value;
 
-            ViewModel.LoadJam(jamModel);
+            var jamInfoPaths = FilesystemSearch.ForFilesIn(jamPlayerDirectory)
+                .IncludingTopDirectoryOnly()
+                .WithExtensions(".jaminfo")
+                .FindAll()
+                .FoundPaths;
+
+            // not using FirstOrDefault()
+            // because jamInfoPaths is a collection of non-nullable FilePaths
+            return jamInfoPaths.Any() ? jamInfoPaths.First() : null;
         }
 
-        private JamEntry CreateJamEntry(string title, string? teamName, params string[] authorNames)
+        private void LoadJam(StartupEventArgs e)
         {
-            var authors = authorNames.Select(name => new JamAuthor { Name = name }).ToList();
-            var team = new JamTeam { Name = teamName, Authors = authors };
-            return new JamEntry { Title = title, Team = team };
+            var jamFilePath = FilePath.FromNullable(e.Args.FirstOrDefault()) ?? GetJamInfoPathInAppDirectory();
+            if (jamFilePath.HasValue)
+                ViewModel.LoadJamFromFile(jamFilePath.Value);
         }
     }
 }
