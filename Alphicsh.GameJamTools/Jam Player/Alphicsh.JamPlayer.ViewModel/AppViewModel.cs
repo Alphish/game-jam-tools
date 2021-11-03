@@ -29,9 +29,9 @@ namespace Alphicsh.JamPlayer.ViewModel
         // Available operations
         // --------------------
 
-        public void LoadJamFromDirectory(FilePath filePath)
+        public void LoadJamFromFile(FilePath filePath)
         {
-            Model.LoadJamFromDirectory(filePath);
+            Model.LoadJamFromFile(filePath);
             RecreateViewModels();
         }
 

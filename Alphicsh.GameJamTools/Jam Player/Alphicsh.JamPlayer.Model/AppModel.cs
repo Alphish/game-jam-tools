@@ -20,9 +20,12 @@ namespace Alphicsh.JamPlayer.Model
             Ranking = new RankingOverview();
         }
 
-        public void LoadJamFromDirectory(FilePath jamDirectoryPath)
+        public void LoadJamFromFile(FilePath jamFilePath)
         {
-            var jamInfo = JamInfo.LoadFromDirectory(jamDirectoryPath);
+            var jamInfo = JamInfo.LoadFromFile(jamFilePath);
+            if (jamInfo == null)
+                return;
+
             var mapper = new JamInfoMapper();
             var jam = mapper.MapInfoToJam(jamInfo);
             LoadJam(jam);
