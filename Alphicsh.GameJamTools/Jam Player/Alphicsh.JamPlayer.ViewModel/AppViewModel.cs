@@ -1,4 +1,5 @@
-﻿using Alphicsh.JamTools.Common.Mvvm;
+﻿using Alphicsh.JamTools.Common.IO;
+using Alphicsh.JamTools.Common.Mvvm;
 
 using Alphicsh.JamPlayer.Model;
 using Alphicsh.JamPlayer.Model.Jam;
@@ -27,6 +28,12 @@ namespace Alphicsh.JamPlayer.ViewModel
         // --------------------
         // Available operations
         // --------------------
+
+        public void LoadJamFromDirectory(FilePath filePath)
+        {
+            Model.LoadJamFromDirectory(filePath);
+            RecreateViewModels();
+        }
 
         // TODO: Load Jam from a data file, rather than a model instance
         public void LoadJam(JamOverview jam)

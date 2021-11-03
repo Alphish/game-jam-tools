@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using Alphicsh.JamTools.Common.IO;
+using Alphicsh.JamTools.Common.IO.Jam;
+
 using Alphicsh.JamPlayer.Model.Jam;
 using Alphicsh.JamPlayer.Model.Ranking;
 
@@ -15,6 +18,14 @@ namespace Alphicsh.JamPlayer.Model
         {
             Jam = new JamOverview { Entries = new List<JamEntry>() };
             Ranking = new RankingOverview();
+        }
+
+        public void LoadJamFromDirectory(FilePath jamDirectoryPath)
+        {
+            var jamInfo = JamInfo.LoadFromDirectory(jamDirectoryPath);
+            var mapper = new JamInfoMapper();
+            var jam = mapper.MapInfoToJam(jamInfo);
+            LoadJam(jam);
         }
 
         public void LoadJam(JamOverview jam)
