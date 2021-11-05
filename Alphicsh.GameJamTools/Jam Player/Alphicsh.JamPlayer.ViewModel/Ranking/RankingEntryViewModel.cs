@@ -6,7 +6,7 @@ using Alphicsh.JamPlayer.ViewModel.Jam;
 
 namespace Alphicsh.JamPlayer.ViewModel.Ranking
 {
-    public sealed class RankingEntryViewModel : BaseViewModel<RankingEntry>
+    public sealed class RankingEntryViewModel : WrapperViewModel<RankingEntry>
     {
         public static CollectionViewModelStub<RankingEntry, RankingEntryViewModel> CollectionStub { get; }
             = CollectionViewModelStub.Create((RankingEntry model) => new RankingEntryViewModel(model));

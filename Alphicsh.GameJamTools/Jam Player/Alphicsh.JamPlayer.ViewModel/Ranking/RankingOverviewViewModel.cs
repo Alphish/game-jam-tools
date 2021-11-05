@@ -5,7 +5,7 @@ using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 namespace Alphicsh.JamPlayer.ViewModel.Ranking
 {
-    public class RankingOverviewViewModel : BaseViewModel<RankingOverview>
+    public class RankingOverviewViewModel : WrapperViewModel<RankingOverview>
     {
         public RankingOverviewViewModel(RankingOverview model)
             : base(model)

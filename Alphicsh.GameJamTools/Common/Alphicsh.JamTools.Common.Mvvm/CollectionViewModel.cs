@@ -7,8 +7,8 @@ using System.ComponentModel;
 
 namespace Alphicsh.JamTools.Common.Mvvm
 {
-    public class CollectionViewModel<TModel, TViewModel> : IList<TViewModel>, INotifyCollectionChanged, IViewModel
-        where TViewModel : BaseViewModel<TModel>
+    public class CollectionViewModel<TModel, TViewModel> : BaseViewModel, IList<TViewModel>, INotifyCollectionChanged
+        where TViewModel : WrapperViewModel<TModel>
     {
         protected CollectionViewModelStub<TModel, TViewModel> Stub { get; }
         protected Func<TModel, TViewModel> ViewModelMapping => Stub.ViewModelMapping;
@@ -35,13 +35,6 @@ namespace Alphicsh.JamTools.Common.Mvvm
         // ----------------
         // Handling changes
         // ----------------
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void RaisePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
@@ -173,7 +166,7 @@ namespace Alphicsh.JamTools.Common.Mvvm
             IEnumerable<TModel> modelEntries,
             CollectionViewModelStub<TModel, TViewModel> stub
             )
-            where TViewModel : BaseViewModel<TModel>
+            where TViewModel : WrapperViewModel<TModel>
         {
             return new CollectionViewModel<TModel, TViewModel>(modelEntries.ToList(), stub, isImmutable: true);
         }
@@ -182,7 +175,7 @@ namespace Alphicsh.JamTools.Common.Mvvm
             IList<TModel> modelEntries,
             CollectionViewModelStub<TModel, TViewModel> stub
             )
-            where TViewModel : BaseViewModel<TModel>
+            where TViewModel : WrapperViewModel<TModel>
         {
             return new CollectionViewModel<TModel, TViewModel>(modelEntries, stub, isImmutable: true);
         }

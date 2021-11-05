@@ -4,7 +4,7 @@ using Alphicsh.JamPlayer.Model.Jam;
 
 namespace Alphicsh.JamPlayer.ViewModel.Jam
 {
-    public sealed class JamOverviewViewModel : BaseViewModel<JamOverview>
+    public sealed class JamOverviewViewModel : WrapperViewModel<JamOverview>
     {
         public JamOverviewViewModel(JamOverview model)
             : base(model)

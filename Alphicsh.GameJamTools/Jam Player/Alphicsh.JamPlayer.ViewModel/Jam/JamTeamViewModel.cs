@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Alphicsh.JamPlayer.ViewModel.Jam
 {
-    public sealed class JamTeamViewModel : BaseViewModel<JamTeam>
+    public sealed class JamTeamViewModel : WrapperViewModel<JamTeam>
     {
         public JamTeamViewModel(JamTeam model)
             : base(model)

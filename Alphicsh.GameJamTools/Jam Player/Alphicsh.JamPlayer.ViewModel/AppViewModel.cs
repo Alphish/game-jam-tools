@@ -8,7 +8,7 @@ using Alphicsh.JamPlayer.ViewModel.Ranking;
 
 namespace Alphicsh.JamPlayer.ViewModel
 {
-    public class AppViewModel : BaseViewModel<AppModel>
+    public class AppViewModel : WrapperViewModel<AppModel>
     {
         public AppViewModel(AppModel model)
             : base(model)

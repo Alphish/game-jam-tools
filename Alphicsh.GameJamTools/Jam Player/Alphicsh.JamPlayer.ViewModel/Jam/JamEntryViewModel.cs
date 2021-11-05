@@ -4,7 +4,7 @@ using Alphicsh.JamPlayer.Model.Jam;
 
 namespace Alphicsh.JamPlayer.ViewModel.Jam
 {
-    public sealed class JamEntryViewModel : BaseViewModel<JamEntry>
+    public sealed class JamEntryViewModel : WrapperViewModel<JamEntry>
     {
         public static CollectionViewModelStub<JamEntry, JamEntryViewModel> CollectionStub { get; }
             = CollectionViewModelStub.Create((JamEntry model) => new JamEntryViewModel(model));
