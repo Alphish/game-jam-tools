@@ -75,7 +75,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
 
             return new JamInfo()
             {
-                JamDirectoryPath = jamDirectoryPath,
+                JamInfoPath = jamDirectoryPath.Append("jam.jaminfo"),
                 EntriesSubpath = entriesPath.Value.AsRelativeTo(jamDirectoryPath),
                 EntriesStubs = entriesStubs,
             };

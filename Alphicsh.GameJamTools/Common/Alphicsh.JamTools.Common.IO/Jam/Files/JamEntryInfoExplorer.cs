@@ -70,7 +70,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
             return new JamEntryInfo()
             {
                 Id = id,
-                EntryDirectoryPath = entryDirectoryPath,
+                EntryInfoPath = entryDirectoryPath.Append("entry.jamentry"),
                 Title = title,
                 Team = new JamTeamInfo
                 {

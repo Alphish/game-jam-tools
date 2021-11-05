@@ -7,13 +7,32 @@ namespace Alphicsh.JamTools.Common.IO.Jam
 {
     public class JamInfo
     {
-        [JsonIgnore] public FilePath JamDirectoryPath { get; internal set; } = default!;
-        [JsonIgnore] public FilePath? JamInfoPath { get; internal set; }
+        // -------
+        // Entries
+        // -------
 
         public FilePath EntriesSubpath { get; init; } = default!;
 
         [JsonPropertyName("entries")] public IReadOnlyCollection<JamEntryStub> EntriesStubs { get; init; } = default!;
         [JsonIgnore] public IReadOnlyCollection<JamEntryInfo> Entries { get; internal set; } = default!;
+
+        // ---------------------
+        // Filesystem properties
+        // ---------------------
+
+        [JsonIgnore] public FilePath JamInfoPath { get; set; }
+        [JsonIgnore]
+        public FilePath JamDirectoryPath
+        {
+            get => JamInfoPath.GetParentDirectoryPath()!.Value;
+            set => JamInfoPath = value.Append(JamInfoFileName);
+        }
+        [JsonIgnore]
+        public string JamInfoFileName
+        {
+            get => JamInfoPath.GetLastSegmentName();
+            set => JamInfoPath = JamDirectoryPath.Append(value);
+        }
 
         // -------
         // Loading

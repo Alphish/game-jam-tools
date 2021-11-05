@@ -27,7 +27,6 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
 
             jamEntryInfo.Id = entryId;
             jamEntryInfo.EntryInfoPath = filePath;
-            jamEntryInfo.EntryDirectoryPath = filePath.GetParentDirectoryPath()!.Value;
 
             return jamEntryInfo;
         }
