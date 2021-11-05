@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{2F663B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTools.Common.Controls", "Common\Alphicsh.JamTools.Common.Controls\Alphicsh.JamTools.Common.Controls.csproj", "{DFC4D201-9E57-42D2-ABD3-5554084F2462}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamTools.Common.Mvvm", "Common\Alphicsh.JamTools.Common.Mvvm\Alphicsh.JamTools.Common.Mvvm.csproj", "{2A0FE463-A957-47A6-969E-6C867C1C4834}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTools.Common.Mvvm", "Common\Alphicsh.JamTools.Common.Mvvm\Alphicsh.JamTools.Common.Mvvm.csproj", "{2A0FE463-A957-47A6-969E-6C867C1C4834}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamTools.Common.IO", "Common\Alphicsh.JamTools.Common.IO\Alphicsh.JamTools.Common.IO.csproj", "{4A6AB3DB-736E-42E1-89E0-A1308D33CFD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTools.Common.IO", "Common\Alphicsh.JamTools.Common.IO\Alphicsh.JamTools.Common.IO.csproj", "{4A6AB3DB-736E-42E1-89E0-A1308D33CFD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
