@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Alphicsh.JamTools.Common.IO
@@ -15,6 +16,9 @@ namespace Alphicsh.JamTools.Common.IO
         {
             SerializerOptions = new JsonSerializerOptions()
             {
+                // characters encoding
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+
                 // allowing flexible JSONs
                 AllowTrailingCommas = true,
                 ReadCommentHandling = JsonCommentHandling.Skip,
