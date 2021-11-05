@@ -49,5 +49,15 @@ namespace Alphicsh.JamTools.Common.IO.Jam
             var explorer = new JamInfoExplorer();
             return explorer.FindJamInfo(jamDirectoryPath);
         }
+
+        // ------
+        // Saving
+        // ------
+
+        public void Save()
+        {
+            var writer = new JamFilesWriter();
+            writer.SaveJamInfo(this);
+        }
     }
 }
