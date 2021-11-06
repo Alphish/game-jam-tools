@@ -10,7 +10,10 @@ namespace Alphicsh.JamTools.Common.IO.Search
         private FilePath SearchedDirectoryPath { get; }
         private bool IsDirectoriesSearch { get; }
         private EnumerationOptions EnumerationOptions { get; }
+
         private HashSet<string>? AllowedExtensions { get; set; }
+        private IEnumerable<string> RequiredPatterns { get; set; }
+        private IEnumerable<string> ExcludedPatterns { get; set; }
 
         private FilesystemSearch(FilePath directory, bool isDirectoriesSearch)
         {
@@ -76,6 +79,24 @@ namespace Alphicsh.JamTools.Common.IO.Search
         public FilesystemSearch WithExtensions(params string[] extensions)
             => WithExtensions(extensions as IEnumerable<string>);
 
+        public FilesystemSearch RequiringPatterns(IEnumerable<string> patterns)
+        {
+            RequiredPatterns = patterns;
+            return this;
+        }
+
+        public FilesystemSearch RequiringPatterns(params string[] patterns)
+            => RequiringPatterns(patterns as IEnumerable<string>);
+
+        public FilesystemSearch ExcludingPatterns(IEnumerable<string> patterns)
+        {
+            ExcludedPatterns = patterns;
+            return this;
+        }
+
+        public FilesystemSearch ExcludingPatterns(params string[] patterns)
+            => ExcludingPatterns(patterns as IEnumerable<string>);
+
         // ---------------
         // Finding results
         // ---------------
@@ -83,7 +104,15 @@ namespace Alphicsh.JamTools.Common.IO.Search
         public FilesystemSearchResult FindMatches(string pattern)
         {
             var searchedPaths = GetSearchedPaths();
-            return FilesystemPathsMatcher.MatchSearchResult(pattern, searchedPaths);
+            var foundPaths = FilesystemPathsMatcher.MatchSearchResult(pattern, searchedPaths);
+            return new FilesystemSearchResult(searchedPaths, foundPaths);
+        }
+
+        public FilesystemSearchResult FindMatches(string includes, string excludes)
+        {
+            var searchedPaths = GetSearchedPaths();
+            var foundPaths = FilesystemPathsMatcher.MatchSearchResult(includes, excludes, searchedPaths);
+            return new FilesystemSearchResult(searchedPaths, foundPaths);
         }
 
         public FilesystemSearchResult FindAll()
@@ -94,17 +123,33 @@ namespace Alphicsh.JamTools.Common.IO.Search
 
         private IReadOnlyCollection<FilePath> GetSearchedPaths()
         {
+            var enumeratedPaths = EnumerateBasicPaths();
+            var searchedPaths = FilterOutSearchedPaths(enumeratedPaths);
+            return searchedPaths;
+        }
+
+        private IReadOnlyCollection<FilePath> EnumerateBasicPaths()
+        {
             var baseDirectory = SearchedDirectoryPath.GetDirectory();
-            
+
             IEnumerable<FileSystemInfo> filesystemItems = IsDirectoriesSearch
                 ? baseDirectory.EnumerateDirectories(searchPattern: "*", this.EnumerationOptions)
                 : baseDirectory.EnumerateFiles(searchPattern: "*", this.EnumerationOptions);
 
-            var filePaths = filesystemItems.Select(item => FilePath.From(item.FullName));
+            return filesystemItems.Select(item => FilePath.From(item.FullName)).ToList();
+        }
+
+        private IReadOnlyCollection<FilePath> FilterOutSearchedPaths(IEnumerable<FilePath> filePaths)
+        {
             if (AllowedExtensions != null)
             {
                 filePaths = filePaths.Where(path => AllowedExtensions.Contains(path.GetExtension()));
             }
+
+            var includedPatternsString = RequiredPatterns != null ? string.Join(';', RequiredPatterns) : "*";
+            var excludedPatternsString = ExcludedPatterns != null ? string.Join(';', ExcludedPatterns) : null;
+            filePaths = FilesystemPathsMatcher.MatchSearchResult(includedPatternsString, excludedPatternsString, filePaths);
+
             return filePaths.ToList();
         }
     }

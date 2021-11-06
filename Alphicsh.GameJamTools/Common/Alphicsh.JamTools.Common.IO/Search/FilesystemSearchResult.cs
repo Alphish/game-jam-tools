@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Alphicsh.JamTools.Common.IO.Search
@@ -19,7 +20,17 @@ namespace Alphicsh.JamTools.Common.IO.Search
             if (FoundPaths.Any())
                 return this;
 
-            return FilesystemPathsMatcher.MatchSearchResult(pattern, this.SearchedPaths);
+            var foundPaths = FilesystemPathsMatcher.MatchSearchResult(pattern, this.SearchedPaths);
+            return new FilesystemSearchResult(this.SearchedPaths, foundPaths);
+        }
+
+        public FilesystemSearchResult ElseFindMatches(string includes, string excludes)
+        {
+            if (FoundPaths.Any())
+                return this;
+
+            var foundPaths = FilesystemPathsMatcher.MatchSearchResult(includes, excludes, this.SearchedPaths);
+            return new FilesystemSearchResult(this.SearchedPaths, foundPaths);
         }
 
         public FilesystemSearchResult ElseFindAll()
@@ -28,6 +39,11 @@ namespace Alphicsh.JamTools.Common.IO.Search
                 return this;
 
             return new FilesystemSearchResult(this.SearchedPaths, foundPaths: this.SearchedPaths);
+        }
+
+        public FilePath? FirstOrDefault()
+        {
+            return FoundPaths.Any() ? FoundPaths.First() : null;
         }
     }
 }
