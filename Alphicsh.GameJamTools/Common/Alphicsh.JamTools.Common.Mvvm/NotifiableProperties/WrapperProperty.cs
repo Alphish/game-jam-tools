@@ -9,19 +9,7 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
 
         private Func<TViewModel, TValue> ValueGetter { get; set; }
         private Action<TViewModel, TValue>? ValueSetter { get; set; }
-
         public bool IsReadonly => ValueSetter == null;
-        public TValue Value
-        {
-            get => ValueGetter(ViewModel);
-            set
-            {
-                if (ValueSetter == null)
-                    throw new NotSupportedException("Cannot set a value of the readonly wrapper property.");
-
-                ValueSetter.Invoke(ViewModel, value);
-            }
-        }
 
         public WrapperProperty(
             TViewModel viewModel, string propertyName, Func<TViewModel, TValue> valueGetter, Action<TViewModel, TValue>? valueSetter
@@ -30,6 +18,27 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
             ValueGetter = valueGetter;
             ValueSetter = valueSetter;
         }
+
+        // --------------
+        // Exposing value
+        // --------------
+
+        public TValue Value
+        {
+            get => ValueGetter(ViewModel);
+            set
+            {
+                if (ValueSetter == null)
+                    throw new NotSupportedException("Cannot set a value of the readonly wrapper property.");
+
+                if (object.Equals(ValueGetter(ViewModel), value))
+                    return;
+
+                ValueSetter.Invoke(ViewModel, value);
+                RaisePropertyChanged();
+            }
+        }
+
     }
 
     // ---------------
