@@ -37,7 +37,6 @@ namespace Alphicsh.JamPlayer.App
 
         private void LoadImageSourceResource(string resourceKey, string resourceName)
         {
-
             var assembly = typeof(MainWindow).Assembly;
             using var resourceStream = assembly.GetManifestResourceStream(resourceName);
 
