@@ -50,6 +50,30 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
 
         private JamEntryInfo StubEntryInfoFromDirectory(string id, FilePath entryDirectoryPath)
         {
+            var titleAndAuthors = ExtractTitleAndAuthors(entryDirectoryPath);
+
+            var bigThumbnailPath = FindBigThumbnailPath(entryDirectoryPath);
+            var smallThumbnailPath = FindSmallThumbnailPath(entryDirectoryPath);
+            bigThumbnailPath = bigThumbnailPath ?? smallThumbnailPath;
+            smallThumbnailPath = smallThumbnailPath ?? bigThumbnailPath;
+
+            return new JamEntryInfo()
+            {
+                Id = id,
+                EntryInfoPath = entryDirectoryPath.Append("entry.jamentry"),
+                Title = titleAndAuthors.Title,
+                Team = new JamTeamInfo
+                {
+                    Name = null,
+                    Authors = titleAndAuthors.Authors.Select(name => new JamAuthorInfo { Name = name }).ToList()
+                },
+                ThumbnailFileName = bigThumbnailPath?.GetLastSegmentName(),
+                ThumbnailSmallFileName = smallThumbnailPath?.GetLastSegmentName(),
+            };
+        }
+
+        private (string Title, string[] Authors) ExtractTitleAndAuthors(FilePath entryDirectoryPath)
+        {
             var entryDirectoryName = entryDirectoryPath.GetLastSegmentName();
             var byIndex = entryDirectoryName.LastIndexOf(" by ");
 
@@ -57,27 +81,41 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
             string[] authors;
             if (byIndex == -1)
             {
-                title = entryDirectoryName;
-                authors = new[] { "??? " };
+                return (entryDirectoryName, new[] { "???" });
             }
             else
             {
                 title = entryDirectoryName.Remove(byIndex);
                 var authorsString = entryDirectoryName.Substring(byIndex + " by ".Length);
                 authors = authorsString.Split(",", StringSplitOptions.TrimEntries);
+                return (title, authors);
             }
+        }
 
-            return new JamEntryInfo()
-            {
-                Id = id,
-                EntryInfoPath = entryDirectoryPath.Append("entry.jamentry"),
-                Title = title,
-                Team = new JamTeamInfo
-                {
-                    Name = null,
-                    Authors = authors.Select(name => new JamAuthorInfo { Name = name }).ToList()
-                }
-            };
+        private FilePath? FindBigThumbnailPath(FilePath entryDirectoryPath)
+        {
+            return FilesystemSearch.ForFilesIn(entryDirectoryPath)
+                .IncludingTopDirectoryOnly()
+                .WithExtensions(".png", ".jpg", ".jpeg")
+                .ExcludingPatterns("*small*", "*little*", "*tiny*")
+                .FindMatches("thumbnail*")
+                .ElseFindMatches("thumb*")
+                .ElseFindMatches("*thumbnail*")
+                .ElseFindMatches("*thumb*")
+                .FirstOrDefault();
+        }
+
+        private FilePath? FindSmallThumbnailPath(FilePath entryDirectoryPath)
+        {
+            return FilesystemSearch.ForFilesIn(entryDirectoryPath)
+                .IncludingTopDirectoryOnly()
+                .WithExtensions(".png", ".jpg", ".jpeg")
+                .RequiringPatterns("*small*", "*little*", "*tiny*")
+                .FindMatches("thumbnail*")
+                .ElseFindMatches("thumb*")
+                .ElseFindMatches("*thumbnail*")
+                .ElseFindMatches("*thumb*")
+                .FirstOrDefault();
         }
     }
 }
