@@ -76,6 +76,9 @@ namespace Alphicsh.JamTools.Common.IO
         // File/directory info
         // -------------------
 
+        public Uri ToUri()
+            => new Uri(this.Value);
+
         public bool HasFile()
             => File.Exists(Value);
         public FileInfo GetFile()
