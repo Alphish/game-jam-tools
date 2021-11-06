@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Alphicsh.JamTools.Common.IO\Alphicsh.JamTools.Common.IO.csproj" />
+  </ItemGroup>
+
 </Project>
