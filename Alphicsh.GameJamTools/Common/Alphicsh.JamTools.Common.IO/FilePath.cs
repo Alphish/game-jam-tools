@@ -66,6 +66,12 @@ namespace Alphicsh.JamTools.Common.IO
         public FilePath Append(FilePath relativePath)
             => Append(relativePath.Value);
 
+        public FilePath? AppendNullable(string? relativePath)
+            => relativePath != null ? Append(relativePath) : null;
+
+        public FilePath? AppendNullable(FilePath? relativePath)
+            => relativePath != null ? Append(relativePath.Value) : null;
+
         // -------------------
         // File/directory info
         // -------------------
