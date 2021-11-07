@@ -20,6 +20,7 @@ namespace Alphicsh.JamPlayer.Model.Jam
             {
                 Title = info.Title,
                 Team = MapInfoToTeam(info.Team),
+                GamePath = info.GamePath,
                 ThumbnailPath = info.ThumbnailPath,
                 ThumbnailSmallPath = info.ThumbnailSmallPath,
             };
