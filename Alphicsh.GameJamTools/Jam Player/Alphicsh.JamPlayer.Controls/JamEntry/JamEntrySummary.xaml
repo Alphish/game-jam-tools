@@ -38,6 +38,9 @@
       
       <!-- Team and authors -->
       <local:JamTeamDescription DataContext="{Binding JamEntry.Team}"></local:JamTeamDescription>
+      
+      <!-- Game launching -->
+      <Button Command="{Binding JamEntry.LaunchGameCommand}" Width="80" HorizontalAlignment="Left">Play</Button>
     </StackPanel>
   </Grid>
 </UserControl>
