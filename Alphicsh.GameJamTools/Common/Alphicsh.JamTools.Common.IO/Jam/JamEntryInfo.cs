@@ -13,6 +13,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam
         public string Title { get; init; } = default!;
         public JamTeamInfo Team { get; init; } = default!;
 
+        public string? GameFileName { get; set; }
         public string? ThumbnailFileName { get; set; }
         public string? ThumbnailSmallFileName { get; set; }
 
@@ -33,6 +34,8 @@ namespace Alphicsh.JamTools.Common.IO.Jam
             set => EntryInfoPath = EntryDirectoryPath.Append(value);
         }
 
+        [JsonIgnore] public FilePath? GamePath
+            => EntryDirectoryPath.AppendNullable(GameFileName);
         [JsonIgnore] public FilePath? ThumbnailPath
             => EntryDirectoryPath.AppendNullable(ThumbnailFileName);
         [JsonIgnore] public FilePath? ThumbnailSmallPath

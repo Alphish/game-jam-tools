@@ -52,6 +52,8 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
         {
             var titleAndAuthors = ExtractTitleAndAuthors(entryDirectoryPath);
 
+            var gamePath = FindGamePath(entryDirectoryPath);
+
             var bigThumbnailPath = FindBigThumbnailPath(entryDirectoryPath);
             var smallThumbnailPath = FindSmallThumbnailPath(entryDirectoryPath);
             bigThumbnailPath = bigThumbnailPath ?? smallThumbnailPath;
@@ -67,6 +69,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
                     Name = null,
                     Authors = titleAndAuthors.Authors.Select(name => new JamAuthorInfo { Name = name }).ToList()
                 },
+                GameFileName = gamePath?.GetLastSegmentName(),
                 ThumbnailFileName = bigThumbnailPath?.GetLastSegmentName(),
                 ThumbnailSmallFileName = smallThumbnailPath?.GetLastSegmentName(),
             };
@@ -90,6 +93,14 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
                 authors = authorsString.Split(",", StringSplitOptions.TrimEntries);
                 return (title, authors);
             }
+        }
+
+        private FilePath? FindGamePath(FilePath entryDirectoryPath)
+        {
+            return FilesystemSearch.ForFilesIn(entryDirectoryPath)
+                .WithExtensions(".exe")
+                .FindAll()
+                .FirstOrDefault();
         }
 
         private FilePath? FindBigThumbnailPath(FilePath entryDirectoryPath)
