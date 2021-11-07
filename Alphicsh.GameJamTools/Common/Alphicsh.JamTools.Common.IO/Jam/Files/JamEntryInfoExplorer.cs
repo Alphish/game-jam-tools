@@ -95,7 +95,6 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
         private FilePath? FindBigThumbnailPath(FilePath entryDirectoryPath)
         {
             return FilesystemSearch.ForFilesIn(entryDirectoryPath)
-                .IncludingTopDirectoryOnly()
                 .WithExtensions(".png", ".jpg", ".jpeg")
                 .ExcludingPatterns("*small*", "*little*", "*tiny*")
                 .FindMatches("thumbnail*")
@@ -108,7 +107,6 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
         private FilePath? FindSmallThumbnailPath(FilePath entryDirectoryPath)
         {
             return FilesystemSearch.ForFilesIn(entryDirectoryPath)
-                .IncludingTopDirectoryOnly()
                 .WithExtensions(".png", ".jpg", ".jpeg")
                 .RequiringPatterns("*small*", "*little*", "*tiny*")
                 .FindMatches("thumbnail*")

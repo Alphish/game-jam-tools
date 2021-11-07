@@ -47,18 +47,15 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
 
         private JamInfo? StubJamInfoFromFile(FilePath jamDirectoryPath)
         {
-            var jamInfoPaths = FilesystemSearch.ForFilesIn(jamDirectoryPath)
-                .IncludingTopDirectoryOnly()
+            var jamInfoPath = FilesystemSearch.ForFilesIn(jamDirectoryPath)
                 .WithExtensions(".jaminfo")
                 .FindAll()
-                .FoundPaths;
+                .FirstOrDefault();
 
-            if (!jamInfoPaths.Any())
+            if (jamInfoPath == null)
                 return null;
 
-            var jamInfoPath = jamInfoPaths.First();
-
-            return JamFilesReader.TryLoadJamInfo(jamInfoPath);
+            return JamFilesReader.TryLoadJamInfo(jamInfoPath.Value);
         }
 
         // -----------------------
@@ -83,19 +80,15 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
 
         private FilePath? FindEntriesPath(FilePath jamDirectoryPath)
         {
-            var entriesPaths = FilesystemSearch.ForDirectoriesIn(jamDirectoryPath)
-                .IncludingTopDirectoryOnly()
+            return FilesystemSearch.ForDirectoriesIn(jamDirectoryPath)
                 .FindMatches("Entries")
                 .ElseFindMatches("*Entries*")
-                .FoundPaths;
-
-            return entriesPaths.Any() ? entriesPaths.First() : null;
+                .FirstOrDefault();
         }
 
         private IEnumerable<JamEntryStub> FindEntriesStubs(FilePath entriesPath)
         {
             var jamEntries = FilesystemSearch.ForDirectoriesIn(entriesPath)
-                .IncludingTopDirectoryOnly()
                 .FindAll()
                 .FoundPaths;
 
