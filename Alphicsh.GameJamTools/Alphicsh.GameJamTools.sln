@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTools.Common.IO
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jam Packager", "Jam Packager", "{77FE7337-4F98-4CA6-90E7-DEEB44E113AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamPackager.App", "Jam Packager\Alphicsh.JamPackager.App\Alphicsh.JamPackager.App.csproj", "{3DBF5E0C-CE03-4A3E-B13E-7BE75FCFC4AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamPackager.App", "Jam Packager\Alphicsh.JamPackager.App\Alphicsh.JamPackager.App.csproj", "{3DBF5E0C-CE03-4A3E-B13E-7BE75FCFC4AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
