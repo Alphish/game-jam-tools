@@ -24,5 +24,19 @@ namespace Alphicsh.JamPlayer.Controls.Ranking
         {
             InitializeComponent();
         }
+
+        // ---------------------
+        // Dependency properties
+        // ---------------------
+
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
+            nameof(Header), typeof(string), typeof(RankingList), new PropertyMetadata(defaultValue: string.Empty)
+            );
+
+        public string Header
+        {
+            get => (string)GetValue(HeaderProperty);
+            set => SetValue(HeaderProperty, value);
+        }
     }
 }

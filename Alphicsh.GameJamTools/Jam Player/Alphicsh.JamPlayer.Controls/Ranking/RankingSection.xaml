@@ -15,7 +15,11 @@
     </Grid.RowDefinitions>
     
     <!-- Ranked entries list -->
-    <local:RankingList Grid.Row="0" DataContext="{Binding RankedEntries}"></local:RankingList>
+    <local:RankingList
+      Grid.Row="0"
+      Header="Ranked entries"
+      DataContext="{Binding RankedEntries}"
+    ></local:RankingList>
     
     <!-- Grid resizing splitter -->
     <GridSplitter
@@ -27,6 +31,10 @@
     ></GridSplitter>
     
     <!-- Unranked entries list -->
-    <local:RankingList Grid.Row="2" DataContext="{Binding UnrankedEntries}"></local:RankingList>
+    <local:RankingList
+      Grid.Row="2"
+      Header="Unranked entries"
+      DataContext="{Binding UnrankedEntries}"
+    ></local:RankingList>
   </Grid>
 </UserControl>

@@ -8,17 +8,20 @@
   mc:Ignorable="d" 
   d:DesignHeight="450" d:DesignWidth="400"
 >
-  <local:RankingListBox
-    ItemsSource="{Binding}"
-    SelectedItem="{Binding SelectedEntry}"
-    RankingOverview="{Binding RankingOverview}"
-    HorizontalContentAlignment="Stretch"
-    ScrollViewer.VerticalScrollBarVisibility="Visible"
-  >
-    <local:RankingListBox.Resources>
-      <DataTemplate DataType="{x:Type rankingVm:RankingEntryViewModel}">
-        <local:RankingListEntry DataContext="{Binding}"></local:RankingListEntry>
-      </DataTemplate>
-    </local:RankingListBox.Resources>
-  </local:RankingListBox>
+  <GroupBox Header="{Binding Header, RelativeSource={RelativeSource AncestorType={x:Type local:RankingList}}}">
+    <local:RankingListBox
+      Grid.Row="1"
+      ItemsSource="{Binding}"
+      SelectedItem="{Binding SelectedEntry}"
+      RankingOverview="{Binding RankingOverview}"
+      HorizontalContentAlignment="Stretch"
+      ScrollViewer.VerticalScrollBarVisibility="Visible"
+    >
+      <local:RankingListBox.Resources>
+        <DataTemplate DataType="{x:Type rankingVm:RankingEntryViewModel}">
+          <local:RankingListEntry DataContext="{Binding}"></local:RankingListEntry>
+        </DataTemplate>
+      </local:RankingListBox.Resources>
+    </local:RankingListBox>
+  </GroupBox>
 </UserControl>
