@@ -7,12 +7,17 @@
   mc:Ignorable="d" 
   d:DesignHeight="450" d:DesignWidth="800"
 >
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"></RowDefinition>
-      <RowDefinition Height="1*"></RowDefinition>
-    </Grid.RowDefinitions>
+  <GroupBox Header="Entry information">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"></RowDefinition>
+        <RowDefinition Height="1*"></RowDefinition>
+      </Grid.RowDefinitions>
 
-    <local:JamEntrySummary Grid.Row="0"></local:JamEntrySummary>
-  </Grid>
+      <local:JamEntrySummary
+        Grid.Row="0"
+        Visibility="{Binding Path=., Mode=OneWay, Converter={StaticResource NullVisibilityConverter}}"
+      ></local:JamEntrySummary>
+    </Grid>
+  </GroupBox>
 </UserControl>

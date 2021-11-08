@@ -33,7 +33,6 @@
     <!-- Jam entry section -->
     <jamEntry:JamEntrySection
       Grid.Column="2"
-      Visibility="{Binding Path=., Mode=OneWay, Converter={StaticResource NullVisibilityConverter}}"
       DataContext="{Binding Ranking.SelectedEntry}"
     ></jamEntry:JamEntrySection>
   </Grid>
