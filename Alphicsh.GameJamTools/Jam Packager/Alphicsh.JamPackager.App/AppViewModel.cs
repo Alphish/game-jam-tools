@@ -26,7 +26,7 @@ namespace Alphicsh.JamPackager.App
         {
             var jamDirectoryPath = FilePath.From(DirectoryPath);
 
-            var jamInfo = JamInfo.LoadFromDirectory(jamDirectoryPath);
+            var jamInfo = JamInfo.RediscoverFromDirectory(jamDirectoryPath);
             jamInfo.Save();
         }
     }
