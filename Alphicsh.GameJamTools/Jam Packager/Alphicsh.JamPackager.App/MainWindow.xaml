@@ -5,7 +5,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:local="clr-namespace:Alphicsh.JamPackager.App"
   mc:Ignorable="d"
-  Title="MainWindow" Height="80" Width="400"
+  Title="Jam Packager" Height="80" Width="400"
 >
   <Grid>
     <Grid.RowDefinitions>
