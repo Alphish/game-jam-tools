@@ -17,16 +17,10 @@
       <ColumnDefinition Width="4"></ColumnDefinition>
       <ColumnDefinition Width="1*"></ColumnDefinition>
     </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="26"></RowDefinition>
-      <RowDefinition Height="22"></RowDefinition>
-    </Grid.RowDefinitions>
 
     <!-- Position -->
     <TextBlock
       Grid.Column="0"
-      Grid.Row="0"
-      Grid.RowSpan="2"
       HorizontalAlignment="Center"
       VerticalAlignment="Center"
       Text="{Binding Rank, TargetNullValue=-}"
@@ -37,8 +31,6 @@
     <!-- Thumbnail -->
     <ctrl:ImageBox
       Grid.Column="2"
-      Grid.Row="0"
-      Grid.RowSpan="2"
       Width="48"
       Height="48"
       CornerRadius="4"
@@ -46,29 +38,25 @@
       PlaceholderSource="{DynamicResource EntryPlaceholderSource}"
     >
     </ctrl:ImageBox>
-    
-    <!-- Game title -->
-    <TextBlock
-      Grid.Column="4"
-      Grid.Row="0"
-      HorizontalAlignment="Left"
-      VerticalAlignment="Center"
-      FontSize="16"
-      FontWeight="Bold"
-      Text="{Binding JamEntry.Title, Mode=OneWay}"
-      d:Text="Test game"
-    ></TextBlock>
-        
-    <!-- Game authors -->
-    <TextBlock
-      Grid.Column="4"
-      Grid.Row="1"
-      HorizontalAlignment="Left"
-      VerticalAlignment="Center"
-      FontSize="13"
-    >
-      <Run Text="by"></Run>
-      <Run Text="{Binding JamEntry.Team.ShortDescription, Mode=OneWay}" d:Text="Team Testers"/>
-    </TextBlock>
+
+    <StackPanel Grid.Column="4" VerticalAlignment="Center">
+      <!-- Game title -->
+      <TextBlock
+        FontSize="16"
+        FontWeight="Bold"
+        Text="{Binding JamEntry.Title, Mode=OneWay}"
+        d:Text="Test game"
+      ></TextBlock>
+
+      <!-- Game authors -->
+      <TextBlock
+        HorizontalAlignment="Left"
+        VerticalAlignment="Center"
+        FontSize="13"
+      >
+        <Run Text="by"></Run>
+        <Run Text="{Binding JamEntry.Team.ShortDescription, Mode=OneWay}" d:Text="Team Testers"/>
+      </TextBlock>
+    </StackPanel>
   </Grid>
 </UserControl>
