@@ -18,13 +18,13 @@
       </ItemsControl.ItemsPanel>
       <ItemsControl.Resources>
         <DataTemplate DataType="{x:Type system:String}">
-          <TextBlock FontSize="16" Text="{Binding}"></TextBlock>
+          <TextBlock FontSize="16" Foreground="{DynamicResource DimText}" Text="{Binding}"></TextBlock>
         </DataTemplate>
         <DataTemplate DataType="{x:Type jamVm:JamAuthorViewModel}">
-          <TextBlock FontSize="16" Text="{Binding Name}"></TextBlock>
+          <TextBlock FontSize="16" Foreground="{DynamicResource DimText}" Text="{Binding Name}"></TextBlock>
         </DataTemplate>
         <DataTemplate DataType="{x:Type jamVm:JamTeamViewModel}">
-          <TextBlock FontSize="16" Text="{Binding Name}"></TextBlock>
+          <TextBlock FontSize="16" Foreground="{DynamicResource DimText}" Text="{Binding Name}"></TextBlock>
         </DataTemplate>
       </ItemsControl.Resources>
     </ItemsControl>

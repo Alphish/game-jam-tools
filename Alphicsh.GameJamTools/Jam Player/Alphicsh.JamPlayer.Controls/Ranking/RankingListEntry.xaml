@@ -23,6 +23,7 @@
       Grid.Column="0"
       HorizontalAlignment="Center"
       VerticalAlignment="Center"
+      Foreground="{DynamicResource DimText}"
       Text="{Binding Rank, TargetNullValue=-}"
       d:Text="999"
     >
@@ -42,6 +43,7 @@
     <StackPanel Grid.Column="4" VerticalAlignment="Center">
       <!-- Game title -->
       <TextBlock
+        Foreground="{DynamicResource HighlightText}"
         FontSize="16"
         FontWeight="Bold"
         Text="{Binding JamEntry.Title, Mode=OneWay}"
@@ -52,6 +54,7 @@
       <TextBlock
         HorizontalAlignment="Left"
         VerticalAlignment="Center"
+        Foreground="{DynamicResource DimText}"
         FontSize="13"
       >
         <Run Text="by"></Run>

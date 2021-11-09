@@ -30,6 +30,7 @@
       <!-- Game title -->
       <TextBlock
         HorizontalAlignment="Left"
+        Foreground="{DynamicResource HighlightText}"
         FontSize="24"
         FontWeight="Bold"
         Text="{Binding JamEntry.Title, Mode=OneWay}"
