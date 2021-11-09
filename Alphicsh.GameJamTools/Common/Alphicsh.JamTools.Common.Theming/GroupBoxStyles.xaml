@@ -19,6 +19,8 @@
               Height="32"
               CornerRadius="8,8,0,0"
               Background="{DynamicResource SectionHeaderBrush}"
+              BorderBrush="{DynamicResource SectionBorderBrush}"
+              BorderThickness="0,0,0,2"
             >
               <ContentPresenter ContentSource="Header" RecognizesAccessKey="True" />
             </Border>

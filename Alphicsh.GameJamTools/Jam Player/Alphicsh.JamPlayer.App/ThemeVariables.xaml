@@ -14,7 +14,8 @@
   </LinearGradientBrush>
   <SolidColorBrush x:Key="SectionHeaderTitleBrush" Color="#ffe3e3e3"></SolidColorBrush>
   <SolidColorBrush x:Key="SectionBackgroundBrush" Color="#ff404040"></SolidColorBrush>
-  
+  <SolidColorBrush x:Key="SectionBorderBrush" Color="#ff242424"></SolidColorBrush>
+
   <!-- List theming -->
   <SolidColorBrush x:Key="ListMouseOverBrush" Color="#0dffffff"></SolidColorBrush>
   <SolidColorBrush x:Key="ListSelectionBrush" Color="#26ffffff"></SolidColorBrush>
