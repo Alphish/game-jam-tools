@@ -6,6 +6,9 @@
     <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
 
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
     <ApplicationIcon>jam-player.ico</ApplicationIcon>
   </PropertyGroup>
 
