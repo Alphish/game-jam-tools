@@ -44,6 +44,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
                 displayItems.Insert(1, " (");
                 displayItems.Add(")");
             }
+            displayItems.Insert(0, "by ");
 
             return displayItems;
         }
