@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Alphicsh.JamPlayer.Controls.Ranking.RankingTab"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.JamPlayer.Controls.Ranking"
+  xmlns:jamEntry="clr-namespace:Alphicsh.JamPlayer.Controls.JamEntry"
+  mc:Ignorable="d" 
+  d:DesignHeight="600" d:DesignWidth="1200"
+>
+  <Border Background="{DynamicResource MainBackgroundBrush}">
+    <Grid Margin="8">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="1*" MinWidth="300"></ColumnDefinition>
+        <ColumnDefinition Width="Auto"></ColumnDefinition>
+        <ColumnDefinition Width="3*" MinWidth="400"></ColumnDefinition>
+      </Grid.ColumnDefinitions>
+
+      <!-- Ranking section -->
+      <local:RankingSection
+      Grid.Column="0"
+      DataContext="{Binding Ranking}"
+    ></local:RankingSection>
+
+      <!-- Grid resizing splitter -->
+      <GridSplitter
+      Grid.Column="1"
+      VerticalAlignment="Stretch"
+      HorizontalAlignment="Center"
+      Width="8"
+      Background="Transparent"
+      ShowsPreview="True"
+    ></GridSplitter>
+
+      <!-- Jam entry section -->
+      <jamEntry:JamEntrySection
+      Grid.Column="2"
+      DataContext="{Binding Ranking.SelectedEntry}"
+    ></jamEntry:JamEntrySection>
+    </Grid>
+  </Border>
+</UserControl>

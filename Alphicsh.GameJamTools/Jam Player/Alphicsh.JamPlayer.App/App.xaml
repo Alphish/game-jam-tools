@@ -1,9 +1,31 @@
 ﻿<Application x:Class="Alphicsh.JamPlayer.App.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Alphicsh.JamPlayer.App"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:commonConverters="clr-namespace:Alphicsh.JamTools.Common.Mvvm.Converters;assembly=Alphicsh.JamTools.Common.Mvvm"
+  xmlns:local="clr-namespace:Alphicsh.JamPlayer.App"
+  xmlns:rankingControls="clr-namespace:Alphicsh.JamPlayer.Controls.Ranking;assembly=Alphicsh.JamPlayer.Controls"
+  StartupUri="MainWindow.xaml"
+>
+  <Application.Resources>
+    <!-- Applying styles-->
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Alphicsh.JamPlayer.App;component/ThemeVariables.xaml"></ResourceDictionary>
+        
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/BorderStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/ButtonStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/TextBlockStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/GroupBoxStyles.xaml"/>
+
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/ScrollViewerStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/ListBoxStyles.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <Style TargetType="rankingControls:RankingListBox" BasedOn="{StaticResource {x:Type ListBox}}"/>
+
+      <!-- Creating converters-->
+      <commonConverters:NullVisibilityConverter x:Key="NullVisibilityConverter"></commonConverters:NullVisibilityConverter>
+      
+    </ResourceDictionary>
+  </Application.Resources>
 </Application>

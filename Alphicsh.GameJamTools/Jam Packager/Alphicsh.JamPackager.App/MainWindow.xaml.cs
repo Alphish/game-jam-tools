@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Alphicsh.JamPlayer.App
+namespace Alphicsh.JamPackager.App
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -11,7 +11,7 @@ namespace Alphicsh.JamPlayer.App
         {
             InitializeComponent();
 
-            DataContext = App.Current.ViewModel;
+            DataContext = new AppViewModel();
         }
     }
 }

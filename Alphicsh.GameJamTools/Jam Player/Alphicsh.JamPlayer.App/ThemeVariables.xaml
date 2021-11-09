@@ -1,0 +1,41 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+>
+  <!-- General theming -->
+  <SolidColorBrush x:Key="BasicText" Color="#ffe3e3e3"></SolidColorBrush>
+  <SolidColorBrush x:Key="HighlightText" Color="#ff88d658"></SolidColorBrush>
+  <SolidColorBrush x:Key="DimText" Color="#ffa7a7a7"></SolidColorBrush>
+
+  <SolidColorBrush x:Key="MainBackgroundBrush" Color="#292929"></SolidColorBrush>
+  
+  <!-- Buttons theming -->
+  <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="#ff545554"></SolidColorBrush>
+  <SolidColorBrush x:Key="ButtonHoverBrush" Color="#ff536b53"></SolidColorBrush>
+  <SolidColorBrush x:Key="ButtonShadowBrush" Color="#ff474847"></SolidColorBrush>
+  <SolidColorBrush x:Key="ButtonGlowBrush" Color="#ff616261"></SolidColorBrush>
+
+  <SolidColorBrush x:Key="PrimaryButtonBackgroundBrush" Color="#ff519735"></SolidColorBrush>
+  <SolidColorBrush x:Key="PrimaryButtonHoverBrush" Color="#ff5eb42d"></SolidColorBrush>
+  <SolidColorBrush x:Key="PrimaryButtonShadowBrush" Color="#ff4e842e"></SolidColorBrush>
+  <SolidColorBrush x:Key="PrimaryButtonGlowBrush" Color="#ff64aa4c"></SolidColorBrush>
+
+  <!-- Section theming -->
+  <LinearGradientBrush x:Key="SectionHeaderBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+    <GradientStop Color="#6d9c3f" Offset="0.0"></GradientStop>
+    <GradientStop Color="#314227" Offset="1.0"></GradientStop>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="SectionHeaderTitleBrush" Color="#ffe3e3e3"></SolidColorBrush>
+  <SolidColorBrush x:Key="SectionBackgroundBrush" Color="#ff404040"></SolidColorBrush>
+  <SolidColorBrush x:Key="SectionBorderBrush" Color="#ff242424"></SolidColorBrush>
+
+  <!-- List theming -->
+  <SolidColorBrush x:Key="ListMouseOverBrush" Color="#0dffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="ListSelectionBrush" Color="#26ffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="ListScrollBrush" Color="#80ffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="ListScrollPressedBrush" Color="#beffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="ListScrollDisabledBrush" Color="#30ffffff"></SolidColorBrush>
+
+  <!-- Image variables reference -->
+  <!-- ImageSource x:Key="EntryPlaceHolderSource" -->
+</ResourceDictionary>

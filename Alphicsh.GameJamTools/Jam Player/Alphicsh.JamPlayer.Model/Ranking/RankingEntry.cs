@@ -1,0 +1,9 @@
+﻿using Alphicsh.JamPlayer.Model.Jam;
+
+namespace Alphicsh.JamPlayer.Model.Ranking
+{
+    public sealed class RankingEntry
+    {
+        public JamEntry JamEntry { get; init; } = default!;
+    }
+}
