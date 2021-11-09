@@ -28,6 +28,7 @@
       VerticalAlignment="Center"
       Height="8"
       ShowsPreview="True"
+      Background="Transparent"
     ></GridSplitter>
     
     <!-- Unranked entries list -->

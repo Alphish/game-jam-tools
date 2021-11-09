@@ -27,6 +27,7 @@
       VerticalAlignment="Stretch"
       HorizontalAlignment="Center"
       Width="8"
+      Background="Transparent"
       ShowsPreview="True"
     ></GridSplitter>
 
