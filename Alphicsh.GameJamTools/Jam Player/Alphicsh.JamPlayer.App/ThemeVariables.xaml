@@ -15,6 +15,13 @@
   <SolidColorBrush x:Key="SectionHeaderTitleBrush" Color="#ffe3e3e3"></SolidColorBrush>
   <SolidColorBrush x:Key="SectionBackgroundBrush" Color="#ff404040"></SolidColorBrush>
   
+  <!-- List theming -->
+  <SolidColorBrush x:Key="ListMouseOverBrush" Color="#0dffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="ListSelectionBrush" Color="#26ffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="ListScrollBrush" Color="#80ffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="ListScrollPressedBrush" Color="#beffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="ListScrollDisabledBrush" Color="#30ffffff"></SolidColorBrush>
+
   <!-- Image variables reference -->
   <!-- ImageSource x:Key="EntryPlaceHolderSource" -->
 </ResourceDictionary>
