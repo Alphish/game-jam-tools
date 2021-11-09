@@ -16,7 +16,7 @@
             </Grid.RowDefinitions>
             <Border
               Grid.Row="0"
-              Height="24"
+              Height="32"
               CornerRadius="8,8,0,0"
               Background="{DynamicResource SectionHeaderBrush}"
             >
@@ -43,6 +43,8 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Foreground="{DynamicResource SectionHeaderTitleBrush}"
+            FontSize="15"
+            FontWeight="DemiBold"
             Text="{Binding}"
           />
         </DataTemplate>
