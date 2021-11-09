@@ -8,21 +8,22 @@
   mc:Ignorable="d" 
   d:DesignHeight="600" d:DesignWidth="1200"
 >
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="1*" MinWidth="300"></ColumnDefinition>
-      <ColumnDefinition Width="Auto"></ColumnDefinition>
-      <ColumnDefinition Width="3*" MinWidth="400"></ColumnDefinition>
-    </Grid.ColumnDefinitions>
+  <Border Background="{DynamicResource MainBackgroundBrush}">
+    <Grid Margin="8">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="1*" MinWidth="300"></ColumnDefinition>
+        <ColumnDefinition Width="Auto"></ColumnDefinition>
+        <ColumnDefinition Width="3*" MinWidth="400"></ColumnDefinition>
+      </Grid.ColumnDefinitions>
 
-    <!-- Ranking section -->
-    <local:RankingSection
+      <!-- Ranking section -->
+      <local:RankingSection
       Grid.Column="0"
       DataContext="{Binding Ranking}"
     ></local:RankingSection>
 
-    <!-- Grid resizing splitter -->
-    <GridSplitter
+      <!-- Grid resizing splitter -->
+      <GridSplitter
       Grid.Column="1"
       VerticalAlignment="Stretch"
       HorizontalAlignment="Center"
@@ -31,10 +32,11 @@
       ShowsPreview="True"
     ></GridSplitter>
 
-    <!-- Jam entry section -->
-    <jamEntry:JamEntrySection
+      <!-- Jam entry section -->
+      <jamEntry:JamEntrySection
       Grid.Column="2"
       DataContext="{Binding Ranking.SelectedEntry}"
     ></jamEntry:JamEntrySection>
-  </Grid>
+    </Grid>
+  </Border>
 </UserControl>
