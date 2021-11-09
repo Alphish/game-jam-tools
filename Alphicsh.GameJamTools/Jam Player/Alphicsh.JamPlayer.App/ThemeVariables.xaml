@@ -1,0 +1,15 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+>
+  <!-- Section theming -->
+  <LinearGradientBrush x:Key="SectionHeaderBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+    <GradientStop Color="#6d9c3f" Offset="0.0"></GradientStop>
+    <GradientStop Color="#314227" Offset="1.0"></GradientStop>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="SectionHeaderTitleBrush" Color="#ffe3e3e3"></SolidColorBrush>
+  <SolidColorBrush x:Key="SectionBackgroundBrush" Color="#ff404040"></SolidColorBrush>
+  
+  <!-- Image variables reference -->
+  <!-- ImageSource x:Key="EntryPlaceHolderSource" -->
+</ResourceDictionary>
