@@ -14,6 +14,8 @@
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/BorderStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/TextBlockStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/GroupBoxStyles.xaml"/>
+
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/ScrollViewerStyles.xaml"/>
       </ResourceDictionary.MergedDictionaries>
 
       <!-- Creating converters-->
