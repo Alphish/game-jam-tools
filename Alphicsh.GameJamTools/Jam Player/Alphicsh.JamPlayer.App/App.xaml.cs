@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -51,7 +51,8 @@ namespace Alphicsh.JamPlayer.App
 
         private FilePath? GetJamInfoPathInAppDirectory()
         {
-            var jamPlayerPath = FilePath.From(Assembly.GetExecutingAssembly().Location);
+            var executableFileName = Process.GetCurrentProcess().MainModule!.FileName!;
+            var jamPlayerPath = FilePath.From(executableFileName);
             var jamPlayerDirectory = jamPlayerPath.GetParentDirectoryPath()!.Value;
 
             var jamInfoPaths = FilesystemSearch.ForFilesIn(jamPlayerDirectory)
