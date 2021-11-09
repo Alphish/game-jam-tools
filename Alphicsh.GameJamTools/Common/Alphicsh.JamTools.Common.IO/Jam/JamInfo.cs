@@ -50,6 +50,12 @@ namespace Alphicsh.JamTools.Common.IO.Jam
             return explorer.FindJamInfo(jamDirectoryPath);
         }
 
+        public static JamInfo RediscoverFromDirectory(FilePath jamDirectoryPath)
+        {
+            var explorer = new JamInfoExplorer();
+            return explorer.RediscoverJamInfo(jamDirectoryPath);
+        }
+
         // ------
         // Saving
         // ------

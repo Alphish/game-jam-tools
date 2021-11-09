@@ -41,6 +41,17 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
             return jamInfo;
         }
 
+        public JamInfo RediscoverJamInfo(FilePath jamDirectoryPath)
+        {
+            var jamInfo = StubJamInfoFromFile(jamDirectoryPath)
+                ?? StubJamInfoFromDirectory(jamDirectoryPath);
+
+            var entriesPath = jamDirectoryPath.Append(jamInfo.EntriesSubpath);
+            jamInfo.Entries = RediscoverEntriesFromStubs(entriesPath, jamInfo.EntriesStubs).ToList();
+
+            return jamInfo;
+        }
+
         // ------------------
         // Stubbing from file
         // ------------------
@@ -126,6 +137,16 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
                 var id = stub.Id;
                 var entryDirectoryPath = entriesPath.Append(stub.EntrySubpath);
                 yield return EntryInfoExplorer.FindJamEntryInfo(id, entryDirectoryPath);
+            }
+        }
+
+        private IEnumerable<JamEntryInfo> RediscoverEntriesFromStubs(FilePath entriesPath, IReadOnlyCollection<JamEntryStub> stubs)
+        {
+            foreach (var stub in stubs)
+            {
+                var id = stub.Id;
+                var entryDirectoryPath = entriesPath.Append(stub.EntrySubpath);
+                yield return EntryInfoExplorer.RediscoverJamEntryInfo(id, entryDirectoryPath);
             }
         }
     }

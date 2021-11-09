@@ -21,8 +21,22 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
 
         public JamEntryInfo FindJamEntryInfo(string id, FilePath entryDirectoryPath)
         {
-            return GetEntryInfoFromFile(id, entryDirectoryPath)
-                ?? StubEntryInfoFromDirectory(id, entryDirectoryPath);
+            var fileBasedInfo = GetEntryInfoFromFile(id, entryDirectoryPath);
+            if (fileBasedInfo != null)
+                return fileBasedInfo;
+
+            var directoryBasedInfo = FindJamEntryInfo(id, entryDirectoryPath);
+            RediscoverJamEntryFiles(directoryBasedInfo);
+            return directoryBasedInfo;
+        }
+
+        public JamEntryInfo RediscoverJamEntryInfo(string id, FilePath entryDirectoryPath)
+        {
+            var jamEntryInfo = GetEntryInfoFromFile(id, entryDirectoryPath)
+                ?? FindJamEntryInfo(id, entryDirectoryPath);
+
+            RediscoverJamEntryFiles(jamEntryInfo);
+            return jamEntryInfo;
         }
 
         // -----------------
@@ -52,13 +66,6 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
         {
             var titleAndAuthors = ExtractTitleAndAuthors(entryDirectoryPath);
 
-            var gamePath = FindGamePath(entryDirectoryPath);
-
-            var bigThumbnailPath = FindBigThumbnailPath(entryDirectoryPath);
-            var smallThumbnailPath = FindSmallThumbnailPath(entryDirectoryPath);
-            bigThumbnailPath = bigThumbnailPath ?? smallThumbnailPath;
-            smallThumbnailPath = smallThumbnailPath ?? bigThumbnailPath;
-
             return new JamEntryInfo()
             {
                 Id = id,
@@ -68,10 +75,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
                 {
                     Name = null,
                     Authors = titleAndAuthors.Authors.Select(name => new JamAuthorInfo { Name = name }).ToList()
-                },
-                GameFileName = gamePath?.GetLastSegmentName(),
-                ThumbnailFileName = bigThumbnailPath?.GetLastSegmentName(),
-                ThumbnailSmallFileName = smallThumbnailPath?.GetLastSegmentName(),
+                }
             };
         }
 
@@ -93,6 +97,22 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
                 authors = authorsString.Split(",", StringSplitOptions.TrimEntries);
                 return (title, authors);
             }
+        }
+
+        private void RediscoverJamEntryFiles(JamEntryInfo jamEntryInfo)
+        {
+            var entryDirectoryPath = jamEntryInfo.EntryDirectoryPath;
+
+            var gamePath = FindGamePath(entryDirectoryPath);
+
+            var bigThumbnailPath = FindBigThumbnailPath(entryDirectoryPath);
+            var smallThumbnailPath = FindSmallThumbnailPath(entryDirectoryPath);
+            bigThumbnailPath = bigThumbnailPath ?? smallThumbnailPath;
+            smallThumbnailPath = smallThumbnailPath ?? bigThumbnailPath;
+
+            jamEntryInfo.GameFileName ??= gamePath?.GetLastSegmentName();
+            jamEntryInfo.ThumbnailFileName ??= bigThumbnailPath?.GetLastSegmentName();
+            jamEntryInfo.ThumbnailSmallFileName ??= smallThumbnailPath?.GetLastSegmentName();
         }
 
         private FilePath? FindGamePath(FilePath entryDirectoryPath)
