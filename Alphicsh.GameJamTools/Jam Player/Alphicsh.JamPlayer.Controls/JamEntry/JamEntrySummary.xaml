@@ -41,7 +41,13 @@
       <local:JamTeamDescription DataContext="{Binding JamEntry.Team}"></local:JamTeamDescription>
       
       <!-- Game launching -->
-      <Button Command="{Binding JamEntry.LaunchGameCommand}" Width="80" HorizontalAlignment="Left">Play</Button>
+      <Button
+        Style="{DynamicResource PrimaryButton}"
+        Margin="0,4,0,4"
+        Width="80"
+        HorizontalAlignment="Left"
+        Command="{Binding JamEntry.LaunchGameCommand}"
+      >Play</Button>
     </StackPanel>
   </Grid>
 </UserControl>
