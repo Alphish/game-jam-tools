@@ -5,7 +5,6 @@ using System.Windows.Data;
 
 namespace Alphicsh.JamTools.Common.Mvvm.Converters
 {
-
     public class NullVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
