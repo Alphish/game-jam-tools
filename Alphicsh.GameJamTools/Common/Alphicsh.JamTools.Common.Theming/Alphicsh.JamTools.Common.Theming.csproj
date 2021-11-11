@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Content\entry_placeholder.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Content\entry_placeholder.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Jam Player\Alphicsh.JamPlayer.Controls\Alphicsh.JamPlayer.Controls.csproj" />
   </ItemGroup>
 
