@@ -26,8 +26,8 @@
     <GradientStop Color="#314227" Offset="1.0"></GradientStop>
   </LinearGradientBrush>
   <SolidColorBrush x:Key="SectionHeaderTitleBrush" Color="#ffe3e3e3"></SolidColorBrush>
-  <SolidColorBrush x:Key="SectionBackgroundBrush" Color="#ff404040"></SolidColorBrush>
   <SolidColorBrush x:Key="SectionBorderBrush" Color="#ff242424"></SolidColorBrush>
+  <SolidColorBrush x:Key="SectionBackgroundBrush" Color="#ff404040"></SolidColorBrush>
 
   <!-- List theming -->
   <SolidColorBrush x:Key="ListMouseOverBrush" Color="#0dffffff"></SolidColorBrush>
@@ -37,7 +37,7 @@
   <SolidColorBrush x:Key="ListScrollDisabledBrush" Color="#30ffffff"></SolidColorBrush>
 
   <!-- Image variables reference -->
-  <!-- ImageSource x:Key="EntryPlaceHolderSource" -->
+  <!-- ImageSource x:Key="EntryPlaceholderSource" -->
   <!-- ImageSource x:Key="StarEmptySource" -->
   <!-- ImageSource x:Key="StarFullSource" -->
 </ResourceDictionary>
