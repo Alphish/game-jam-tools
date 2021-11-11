@@ -1,0 +1,191 @@
+﻿using System;
+using System.Linq.Expressions;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+
+// NOTE: To extract variable names, use the following regex on ThemeVariables dictionary:
+// /x:Key="(\w+)"/g
+// 
+// Apply the following substitution for variable definitions in the constructor:
+// $1Variable = VariableFor(x => x.$1);\n
+// 
+// Apply the following substitution for properties declarations:
+// public Brush $1 { get => $1Variable.Value; set => $1Variable.Value = value; }\n
+// private ThemeVariable<Brush> $1Variable { get; }\n\n
+// 
+// (you can use regexr.com or something for quick substitutions)
+
+namespace Alphicsh.JamTools.Common.Theming
+{
+    public class ThemeManager
+    {
+        private ResourceDictionary InnerDictionary { get; }
+
+        // --------
+        // Creation
+        // --------
+
+        public ThemeManager(ResourceDictionary innerDictionary)
+        {
+            InnerDictionary = innerDictionary;
+
+            // General theming
+            BasicTextVariable = VariableFor(x => x.BasicText);
+            DimTextVariable = VariableFor(x => x.DimText);
+            HighlightTextVariable = VariableFor(x => x.HighlightText);
+            MainBackgroundBrushVariable = VariableFor(x => x.MainBackgroundBrush);
+
+            // Buttons theming
+            ButtonBackgroundBrushVariable = VariableFor(x => x.ButtonBackgroundBrush);
+            ButtonHoverBrushVariable = VariableFor(x => x.ButtonHoverBrush);
+            ButtonShadowBrushVariable = VariableFor(x => x.ButtonShadowBrush);
+            ButtonGlowBrushVariable = VariableFor(x => x.ButtonGlowBrush);
+
+            PrimaryButtonBackgroundBrushVariable = VariableFor(x => x.PrimaryButtonBackgroundBrush);
+            PrimaryButtonHoverBrushVariable = VariableFor(x => x.PrimaryButtonHoverBrush);
+            PrimaryButtonShadowBrushVariable = VariableFor(x => x.PrimaryButtonShadowBrush);
+            PrimaryButtonGlowBrushVariable = VariableFor(x => x.PrimaryButtonGlowBrush);
+
+            // Section theming
+            SectionHeaderBrushVariable = VariableFor(x => x.SectionHeaderBrush);
+            SectionHeaderTitleBrushVariable = VariableFor(x => x.SectionHeaderTitleBrush);
+            SectionBorderBrushVariable = VariableFor(x => x.SectionBorderBrush);
+            SectionBackgroundBrushVariable = VariableFor(x => x.SectionBackgroundBrush);
+
+            // List theming
+            ListMouseOverBrushVariable = VariableFor(x => x.ListMouseOverBrush);
+            ListSelectionBrushVariable = VariableFor(x => x.ListSelectionBrush);
+            ListScrollBrushVariable = VariableFor(x => x.ListScrollBrush);
+            ListScrollPressedBrushVariable = VariableFor(x => x.ListScrollPressedBrush);
+            ListScrollDisabledBrushVariable = VariableFor(x => x.ListScrollDisabledBrush);
+
+            // Images
+            EntryPlaceholderSourceVariable = ImageVariableFor(x => x.EntryPlaceholderSource, "entry_placeholder.png");
+            StarEmptySourceVariable = ImageVariableFor(x => x.StarEmptySource, "star_empty.png");
+            StarFullSourceVariable = ImageVariableFor(x => x.StarFullSource, "star_full.png");
+        }
+
+        private ThemeVariable<TValue> VariableFor<TValue>(Expression<Func<ThemeManager, TValue>> propertyExpression)
+        {
+            var memberAccess = (MemberExpression)propertyExpression.Body;
+            var propertyName = memberAccess.Member.Name;
+            return new ThemeVariable<TValue>(InnerDictionary, propertyName);
+        }
+
+        private ThemeVariable<ImageSource> ImageVariableFor(Expression<Func<ThemeManager, ImageSource>> propertyExpression, string contentName)
+        {
+            var variable = VariableFor(propertyExpression);
+            variable.Value = LoadImageSourceResource(contentName);
+            return variable;
+        }
+
+        private const string ContentPrefix = "Alphicsh.JamTools.Common.Theming.Content.";
+        private ImageSource LoadImageSourceResource(string contentName)
+        {
+            var assembly = typeof(ThemeManager).Assembly;
+            var resourceName = ContentPrefix + contentName;
+            using var resourceStream = assembly.GetManifestResourceStream(resourceName);
+
+            var imageSource = new BitmapImage();
+            imageSource.BeginInit();
+            imageSource.StreamSource = resourceStream;
+            imageSource.CacheOption = BitmapCacheOption.OnLoad;
+            imageSource.EndInit();
+
+            return imageSource;
+        }
+
+        // ---------------
+        // General theming
+        // ---------------
+
+        public Brush BasicText { get => BasicTextVariable.Value; set => BasicTextVariable.Value = value; }
+        private ThemeVariable<Brush> BasicTextVariable { get; }
+
+        public Brush HighlightText { get => HighlightTextVariable.Value; set => HighlightTextVariable.Value = value; }
+        private ThemeVariable<Brush> HighlightTextVariable { get; }
+
+        public Brush DimText { get => DimTextVariable.Value; set => DimTextVariable.Value = value; }
+        private ThemeVariable<Brush> DimTextVariable { get; }
+
+        public Brush MainBackgroundBrush { get => MainBackgroundBrushVariable.Value; set => MainBackgroundBrushVariable.Value = value; }
+        private ThemeVariable<Brush> MainBackgroundBrushVariable { get; }
+
+        // ---------------
+        // Buttons theming
+        // ---------------
+
+        public Brush ButtonBackgroundBrush { get => ButtonBackgroundBrushVariable.Value; set => ButtonBackgroundBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ButtonBackgroundBrushVariable { get; }
+
+        public Brush ButtonHoverBrush { get => ButtonHoverBrushVariable.Value; set => ButtonHoverBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ButtonHoverBrushVariable { get; }
+
+        public Brush ButtonShadowBrush { get => ButtonShadowBrushVariable.Value; set => ButtonShadowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ButtonShadowBrushVariable { get; }
+
+        public Brush ButtonGlowBrush { get => ButtonGlowBrushVariable.Value; set => ButtonGlowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ButtonGlowBrushVariable { get; }
+
+        public Brush PrimaryButtonBackgroundBrush { get => PrimaryButtonBackgroundBrushVariable.Value; set => PrimaryButtonBackgroundBrushVariable.Value = value; }
+        private ThemeVariable<Brush> PrimaryButtonBackgroundBrushVariable { get; }
+
+        public Brush PrimaryButtonHoverBrush { get => PrimaryButtonHoverBrushVariable.Value; set => PrimaryButtonHoverBrushVariable.Value = value; }
+        private ThemeVariable<Brush> PrimaryButtonHoverBrushVariable { get; }
+
+        public Brush PrimaryButtonShadowBrush { get => PrimaryButtonShadowBrushVariable.Value; set => PrimaryButtonShadowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> PrimaryButtonShadowBrushVariable { get; }
+
+        public Brush PrimaryButtonGlowBrush { get => PrimaryButtonGlowBrushVariable.Value; set => PrimaryButtonGlowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> PrimaryButtonGlowBrushVariable { get; }
+
+        // ---------------
+        // Section theming
+        // ---------------
+
+        public Brush SectionHeaderBrush { get => SectionHeaderBrushVariable.Value; set => SectionHeaderBrushVariable.Value = value; }
+        private ThemeVariable<Brush> SectionHeaderBrushVariable { get; }
+
+        public Brush SectionHeaderTitleBrush { get => SectionHeaderTitleBrushVariable.Value; set => SectionHeaderTitleBrushVariable.Value = value; }
+        private ThemeVariable<Brush> SectionHeaderTitleBrushVariable { get; }
+
+        public Brush SectionBorderBrush { get => SectionBorderBrushVariable.Value; set => SectionBorderBrushVariable.Value = value; }
+        private ThemeVariable<Brush> SectionBorderBrushVariable { get; }
+
+        public Brush SectionBackgroundBrush { get => SectionBackgroundBrushVariable.Value; set => SectionBackgroundBrushVariable.Value = value; }
+        private ThemeVariable<Brush> SectionBackgroundBrushVariable { get; }
+
+        // ------------
+        // List theming
+        // ------------
+
+        public Brush ListMouseOverBrush { get => ListMouseOverBrushVariable.Value; set => ListMouseOverBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ListMouseOverBrushVariable { get; }
+
+        public Brush ListSelectionBrush { get => ListSelectionBrushVariable.Value; set => ListSelectionBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ListSelectionBrushVariable { get; }
+
+        public Brush ListScrollBrush { get => ListScrollBrushVariable.Value; set => ListScrollBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ListScrollBrushVariable { get; }
+
+        public Brush ListScrollPressedBrush { get => ListScrollPressedBrushVariable.Value; set => ListScrollPressedBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ListScrollPressedBrushVariable { get; }
+
+        public Brush ListScrollDisabledBrush { get => ListScrollDisabledBrushVariable.Value; set => ListScrollDisabledBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ListScrollDisabledBrushVariable { get; }
+
+        // ------
+        // Images
+        // ------
+
+        public ImageSource EntryPlaceholderSource { get => EntryPlaceholderSourceVariable.Value; set => EntryPlaceholderSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> EntryPlaceholderSourceVariable { get; }
+
+        public ImageSource StarEmptySource { get => StarEmptySourceVariable.Value; set => StarEmptySourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> StarEmptySourceVariable { get; }
+
+        public ImageSource StarFullSource { get => StarFullSourceVariable.Value; set => StarFullSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> StarFullSourceVariable { get; }
+    }
+}
