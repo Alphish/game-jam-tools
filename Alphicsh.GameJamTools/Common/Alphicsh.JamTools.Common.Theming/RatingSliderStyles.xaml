@@ -33,10 +33,35 @@
   </Style>
 
   <Style TargetType="{x:Type commonControls:RatingSlider}">
+    <!-- Basic properties -->
     <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="TickFrequency" Value="1"/>
     <Setter Property="IsSnapToTickEnabled" Value="True"/>
     <Setter Property="IsMoveToPointEnabled" Value="True"/>
+    <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant"/>
+
+    <!-- Default visuals -->
+    <Setter Property="InnerWidth" Value="120"/>
+    <Setter Property="Height" Value="24"/>
+
+    <Setter Property="Minimum" Value="0"/>
+    <Setter Property="Maximum" Value="5"/>
+    <Setter Property="TickFrequency" Value="0.5"/>
+    
+    <Setter Property="Foreground" Value="{DynamicResource HighlightText}"/>
+    <Setter Property="ForegroundMask">
+      <Setter.Value>
+        <ImageBrush ImageSource="{DynamicResource StarFullSource}" TileMode="Tile" Viewport="0,0,24,24" ViewportUnits="Absolute"/>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="Background" Value="{DynamicResource HighlightText}"/>
+    <Setter Property="BackgroundMask">
+      <Setter.Value>
+        <ImageBrush ImageSource="{DynamicResource StarEmptySource}" TileMode="Tile" Viewport="0,0,24,24" ViewportUnits="Absolute"/>
+      </Setter.Value>
+    </Setter>
+
+    <!-- Actually setting the template -->
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Slider">
