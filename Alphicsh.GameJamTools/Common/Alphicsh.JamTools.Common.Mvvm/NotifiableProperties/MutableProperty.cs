@@ -1,17 +1,13 @@
-﻿using System.Collections.Generic;
-
-namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
+﻿namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
 {
     public class MutableProperty<TValue> : NotifiableProperty
     {
         private TValue InnerValue { get; set; }
-        private ICollection<INotifiableProperty> DependingProperties { get; }
 
         public MutableProperty(IViewModel viewModel, string propertyName, TValue initialValue)
             : base(viewModel, propertyName)
         {
             InnerValue = initialValue;
-            DependingProperties = new List<INotifiableProperty>();
         }
 
         public TValue Value
@@ -25,39 +21,8 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
                 InnerValue = value;
 
                 RaisePropertyChanged();
-                foreach (var dependingProperty in DependingProperties)
-                {
-                    dependingProperty.RaisePropertyChanged();
-                }
             }
         }
-
-        // -------------------------------
-        // Populating depending properties
-        // -------------------------------
-
-        public void AddDependingProperty(INotifiableProperty property)
-        {
-            DependingProperties.Add(property);
-        }
-
-        public void AddDependingProperty(string propertyName)
-            => AddDependingProperty(this.ViewModel, propertyName);
-
-        public void AddDependingProperty(IViewModel viewModel, string propertyName)
-            => AddDependingProperty(NotifiableProperty.Create(viewModel, propertyName));
-
-        public MutableProperty<TValue> WithDependingProperty(INotifiableProperty property)
-        {
-            AddDependingProperty(property);
-            return this;
-        }
-
-        public MutableProperty<TValue> WithDependingProperty(IViewModel viewModel, string propertyName)
-            => WithDependingProperty(NotifiableProperty.Create(viewModel, propertyName));
-
-        public MutableProperty<TValue> WithDependingProperty(string propertyName)
-            => WithDependingProperty(this.ViewModel, propertyName);
     }
 
     // ---------------
