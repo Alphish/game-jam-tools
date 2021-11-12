@@ -17,6 +17,9 @@ namespace Alphicsh.JamTools.Common.Controls
             MaximumProperty.OverrideMetadata(typeof(RatingSlider), new FrameworkPropertyMetadata(defaultValue: 10d, RecalculateRelativeValues));
 
             WidthProperty.OverrideMetadata(typeof(RatingSlider), new FrameworkPropertyMetadata(defaultValue: 0d, RecalculateWidth));
+
+            ForegroundProperty.OverrideMetadata(typeof(RatingSlider), new FrameworkPropertyMetadata(defaultValue: null, ResolveForeground));
+            BackgroundProperty.OverrideMetadata(typeof(RatingSlider), new FrameworkPropertyMetadata(defaultValue: null, ResolveBackground));
         }
 
         // ----------------
@@ -76,6 +79,12 @@ namespace Alphicsh.JamTools.Common.Controls
         // Size properties
         // ---------------
 
+        public static readonly DependencyProperty TileSizeProperty = RegisterProperty(x => x.TileSize, new Size(24, 24));
+        public Size TileSize
+        {
+            get => (Size)GetValue(TileSizeProperty);
+            set => SetValue(TileSizeProperty, value);
+        }
 
         public static readonly DependencyProperty InnerWidthProperty = RegisterProperty(x => x.InnerWidth, 0d, RecalculateWidth);
         public double InnerWidth
@@ -93,28 +102,159 @@ namespace Alphicsh.JamTools.Common.Controls
                 rating.SetValue(WidthProperty, rating.InnerWidth + 16d);
         }
 
-        // ------------------
-        // Opacity properties
-        // ------------------
+        // ----------------
+        // Foreground brush
+        // ----------------
 
-        public static readonly DependencyProperty ForegroundMaskProperty = DependencyProperty.Register(
-            nameof(ForegroundMask), typeof(Brush), typeof(RatingSlider)
-            );
-
-        public Brush ForegroundMask
+        public static readonly DependencyProperty ForegroundImageProperty = RegisterProperty(x => x.ForegroundImage, null, ResolveForeground);
+        public ImageSource? ForegroundImage
         {
-            get => (Brush)GetValue(ForegroundMaskProperty);
+            get => (ImageSource?)GetValue(ForegroundImageProperty);
+            set => SetValue(ForegroundImageProperty, value);
+        }
+
+        private static readonly DependencyPropertyKey ActualForegroundPropertyKey = RegisterReadOnlyProperty(x => x.ActualForeground, null);
+        public static DependencyProperty ActualForegroundProperty => ActualForegroundPropertyKey.DependencyProperty;
+        public Brush? ActualForeground => (Brush)GetValue(ActualForegroundProperty);
+
+        private static void ResolveForeground(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var rating = (RatingSlider)dependencyObject;
+            var brush = ResolveBrush(rating.ForegroundImage, rating.TileSize, rating.Foreground);
+            rating.SetValue(ActualForegroundPropertyKey, brush);
+        }
+
+        // ---------------
+        // Foreground mask
+        // ---------------
+
+        public static readonly DependencyProperty ForegroundMaskProperty
+            = RegisterProperty(x => x.ForegroundMask, null, ResolveForegroundMask);
+        public Brush? ForegroundMask
+        {
+            get => (Brush?)GetValue(ForegroundMaskProperty);
             set => SetValue(ForegroundMaskProperty, value);
         }
 
-        public static readonly DependencyProperty BackgroundMaskProperty = DependencyProperty.Register(
-            nameof(BackgroundMask), typeof(Brush), typeof(RatingSlider)
-            );
-
-        public Brush BackgroundMask
+        public static readonly DependencyProperty ForegroundMaskImageProperty
+            = RegisterProperty(x => x.ForegroundMaskImage, null, ResolveForegroundMask);
+        public ImageSource? ForegroundMaskImage
         {
-            get => (Brush)GetValue(BackgroundMaskProperty);
+            get => (ImageSource?)GetValue(ForegroundMaskImageProperty);
+            set => SetValue(ForegroundMaskImageProperty, value);
+        }
+
+        private static readonly DependencyPropertyKey ActualForegroundMaskPropertyKey = RegisterReadOnlyProperty(x => x.ActualForegroundMask, null);
+        public static DependencyProperty ActualForegroundMaskProperty => ActualForegroundMaskPropertyKey.DependencyProperty;
+        public Brush? ActualForegroundMask => (Brush)GetValue(ActualForegroundMaskProperty);
+
+        private static void ResolveForegroundMask(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var rating = (RatingSlider)dependencyObject;
+            var brush = ResolveBrush(rating.ForegroundMaskImage, rating.TileSize, rating.ForegroundMask);
+            rating.SetValue(ActualForegroundMaskPropertyKey, brush);
+        }
+
+        // ----------------
+        // Background brush
+        // ----------------
+
+        public static readonly DependencyProperty BackgroundImageProperty = RegisterProperty(x => x.BackgroundImage, null, ResolveBackground);
+        public ImageSource? BackgroundImage
+        {
+            get => (ImageSource?)GetValue(BackgroundImageProperty);
+            set => SetValue(BackgroundImageProperty, value);
+        }
+
+        public static readonly DependencyProperty HasValueProperty = RegisterProperty(x => x.HasValue, defaultValue: true, ResolveBackground);
+        public bool HasValue
+        {
+            get => (bool)GetValue(HasValueProperty);
+            set => SetValue(HasValueProperty, value);
+        }
+
+        public static readonly DependencyProperty NoValueBackgroundProperty = RegisterProperty(x => x.NoValueBackground, null, ResolveBackground);
+        public Brush? NoValueBackground
+        {
+            get => (Brush?)GetValue(NoValueBackgroundProperty);
+            set => SetValue(NoValueBackgroundProperty, value);
+        }
+
+        public static readonly DependencyProperty NoValueBackgroundImageProperty = RegisterProperty(x => x.NoValueBackgroundImage, null, ResolveBackground);
+        public ImageSource? NoValueBackgroundImage
+        {
+            get => (ImageSource?)GetValue(NoValueBackgroundImageProperty);
+            set => SetValue(NoValueBackgroundImageProperty, value);
+        }
+
+        private static readonly DependencyPropertyKey ActualBackgroundPropertyKey = RegisterReadOnlyProperty(x => x.ActualBackground, null);
+        public static DependencyProperty ActualBackgroundProperty => ActualBackgroundPropertyKey.DependencyProperty;
+        public Brush? ActualBackground => (Brush)GetValue(ActualBackgroundProperty);
+
+        private static void ResolveBackground(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var rating = (RatingSlider)dependencyObject;
+
+            var backgroundImage = rating.HasValue || rating.NoValueBackgroundImage == null
+               ? rating.BackgroundImage
+               : rating.NoValueBackgroundImage;
+            var plainBrush = rating.HasValue || rating.NoValueBackground == null ? rating.Background : rating.NoValueBackground;
+
+            var brush = ResolveBrush(backgroundImage, rating.TileSize, plainBrush);
+            rating.SetValue(ActualBackgroundPropertyKey, brush);
+        }
+
+        // ---------------
+        // Background mask
+        // ---------------
+
+        public static readonly DependencyProperty BackgroundMaskProperty
+            = RegisterProperty(x => x.BackgroundMask, null, ResolveBackgroundMask);
+        public Brush? BackgroundMask
+        {
+            get => (Brush?)GetValue(BackgroundMaskProperty);
             set => SetValue(BackgroundMaskProperty, value);
+        }
+
+        public static readonly DependencyProperty BackgroundMaskImageProperty
+            = RegisterProperty(x => x.BackgroundMaskImage, null, ResolveBackgroundMask);
+        public ImageSource? BackgroundMaskImage
+        {
+            get => (ImageSource?)GetValue(BackgroundMaskImageProperty);
+            set => SetValue(BackgroundMaskImageProperty, value);
+        }
+
+        private static readonly DependencyPropertyKey ActualBackgroundMaskPropertyKey = RegisterReadOnlyProperty(x => x.ActualBackgroundMask, null);
+        public static DependencyProperty ActualBackgroundMaskProperty => ActualBackgroundMaskPropertyKey.DependencyProperty;
+        public Brush? ActualBackgroundMask => (Brush)GetValue(ActualBackgroundMaskProperty);
+
+        private static void ResolveBackgroundMask(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var rating = (RatingSlider)dependencyObject;
+            var brush = ResolveBrush(rating.BackgroundMaskImage, rating.TileSize, rating.BackgroundMask);
+            rating.SetValue(ActualBackgroundMaskPropertyKey, brush);
+        }
+
+        // -------------
+        // Miscellaneous
+        // -------------
+
+        private static Brush? ResolveBrush(ImageSource? imageSource, Size tileSize, Brush? brush)
+        {
+            if (imageSource != null)
+            {
+                return new ImageBrush
+                {
+                    ImageSource = imageSource,
+                    TileMode = TileMode.Tile,
+                    Viewport = new Rect { X = 0, Y = 0, Size = tileSize },
+                    ViewportUnits = BrushMappingMode.Absolute,
+                };
+            }
+            else
+            {
+                return brush;
+            }
         }
 
         // -------------------

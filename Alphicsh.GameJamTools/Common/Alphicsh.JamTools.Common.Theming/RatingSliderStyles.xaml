@@ -64,7 +64,7 @@
     <!-- Actually setting the template -->
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="Slider">
+        <ControlTemplate TargetType="{x:Type commonControls:RatingSlider}">
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="8"/>
@@ -81,16 +81,16 @@
               Grid.Column="1"
               HorizontalAlignment="Left"
               Width="{Binding InnerWidth, RelativeSource={RelativeSource TemplatedParent}}"
-              Background="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}"
-              OpacityMask="{Binding ForegroundMask, RelativeSource={RelativeSource TemplatedParent}}"
+              Background="{Binding ActualForeground, RelativeSource={RelativeSource TemplatedParent}}"
+              OpacityMask="{Binding ActualForegroundMask, RelativeSource={RelativeSource TemplatedParent}}"
             />
 
             <Border
               Grid.Column="2"
               HorizontalAlignment="Right"
               Width="{Binding InnerWidth, RelativeSource={RelativeSource TemplatedParent}}"
-              Background="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}"
-              OpacityMask="{Binding BackgroundMask, RelativeSource={RelativeSource TemplatedParent}}"
+              Background="{Binding ActualBackground, RelativeSource={RelativeSource TemplatedParent}}"
+              OpacityMask="{Binding ActualBackgroundMask, RelativeSource={RelativeSource TemplatedParent}}"
             />
 
             <Track x:Name="PART_Track" Grid.Column="0" Grid.ColumnSpan="4">
