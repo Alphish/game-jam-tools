@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Linq.Expressions;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -18,52 +20,64 @@ namespace Alphicsh.JamTools.Common.Controls
         }
 
         // ----------------
+        // Properties utils
+        // ----------------
+
+        private static DependencyProperty RegisterProperty<TValue>(Expression<Func<RatingSlider, TValue>> propertyExpression)
+        {
+            return DependencyPropertyHelper.Register(propertyExpression);
+        }
+
+        private static DependencyProperty RegisterProperty<TValue>(
+            Expression<Func<RatingSlider, TValue>> propertyExpression,
+            TValue defaultValue
+            )
+        {
+            return DependencyPropertyHelper.Register(propertyExpression, defaultValue);
+        }
+
+        private static DependencyProperty RegisterProperty<TValue>(
+            Expression<Func<RatingSlider, TValue>> propertyExpression,
+            TValue defaultValue,
+            PropertyChangedCallback onPropertyChanged
+            )
+        {
+            return DependencyPropertyHelper.Register(propertyExpression, defaultValue, onPropertyChanged);
+        }
+
+        private static DependencyPropertyKey RegisterReadOnlyProperty<TValue>(
+            Expression<Func<RatingSlider, TValue>> propertyExpression,
+            TValue defaultValue
+            )
+        {
+            return DependencyPropertyHelper.RegisterReadOnly(propertyExpression, defaultValue);
+        }
+
+        // ----------------
         // Value properties
         // ----------------
 
-        private static readonly DependencyPropertyKey OverValuePropertyKey = DependencyProperty.RegisterReadOnly(
-            nameof(OverValue), typeof(double), typeof(RatingSlider), new PropertyMetadata(defaultValue: 0d)
-            );
+        private static readonly DependencyPropertyKey OverValuePropertyKey = RegisterReadOnlyProperty(x => x.OverValue, 0d);
+        public static DependencyProperty OverValueProperty => OverValuePropertyKey.DependencyProperty;
+        public double OverValue => (double)GetValue(OverValueProperty);
 
-        public static DependencyProperty OverValueProperty
-            => OverValuePropertyKey.DependencyProperty;
-
-        public double OverValue
-        {
-            get => (double)GetValue(OverValueProperty);
-            set => SetValue(ValueProperty, (double)GetValue(MinimumProperty) + value);
-        }
-
-        private static readonly DependencyPropertyKey UnderValuePropertyKey = DependencyProperty.RegisterReadOnly(
-            nameof(UnderValue), typeof(double), typeof(RatingSlider), new PropertyMetadata(defaultValue: 0d)
-            );
-
-        public static DependencyProperty UnderValueProperty
-            => UnderValuePropertyKey.DependencyProperty;
-
-        public double UnderValue
-        {
-            get => (double)GetValue(UnderValueProperty);
-            set => SetValue(ValueProperty, (double)GetValue(MaximumProperty) - value);
-        }
+        private static readonly DependencyPropertyKey UnderValuePropertyKey = RegisterReadOnlyProperty(x => x.UnderValue, 0d);
+        public static DependencyProperty UnderValueProperty => UnderValuePropertyKey.DependencyProperty;
+        public double UnderValue => (double)GetValue(UnderValueProperty);
 
         private static void RecalculateRelativeValues(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
             var rating = (RatingSlider)dependencyObject;
-            var currentValue = (double)rating.GetValue(ValueProperty);
-
-            rating.SetValue(OverValuePropertyKey, currentValue - (double)rating.GetValue(MinimumProperty));
-            rating.SetValue(UnderValuePropertyKey, (double)rating.GetValue(MaximumProperty) - currentValue);
+            rating.SetValue(OverValuePropertyKey, rating.Value - rating.Minimum);
+            rating.SetValue(UnderValuePropertyKey, rating.Maximum - rating.Value);
         }
 
         // ---------------
         // Size properties
         // ---------------
 
-        public static readonly DependencyProperty InnerWidthProperty = DependencyProperty.Register(
-            nameof(InnerWidth), typeof(double), typeof(RatingSlider), new PropertyMetadata(defaultValue: 0d, RecalculateWidth)
-            );
 
+        public static readonly DependencyProperty InnerWidthProperty = RegisterProperty(x => x.InnerWidth, 0d, RecalculateWidth);
         public double InnerWidth
         {
             get => (double)GetValue(InnerWidthProperty);
@@ -74,9 +88,9 @@ namespace Alphicsh.JamTools.Common.Controls
         {
             var rating = (RatingSlider)dependencyObject;
             if (args.Property == WidthProperty)
-                rating.SetValue(InnerWidthProperty, (double)rating.GetValue(WidthProperty) - 16d);
+                rating.SetValue(InnerWidthProperty, rating.Width - 16d);
             else if (args.Property == InnerWidthProperty)
-                rating.SetValue(WidthProperty, (double)rating.GetValue(InnerWidthProperty) + 16d);
+                rating.SetValue(WidthProperty, rating.InnerWidth + 16d);
         }
 
         // ------------------
