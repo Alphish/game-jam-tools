@@ -35,6 +35,8 @@ namespace Alphicsh.JamTools.Common.Theming
             DimTextVariable = VariableFor(x => x.DimText);
             HighlightTextVariable = VariableFor(x => x.HighlightText);
             MainBackgroundBrushVariable = VariableFor(x => x.MainBackgroundBrush);
+            MouseOverHighlightVariable = VariableFor(x => x.MouseOverHighlight);
+            SelectionHighlightVariable = VariableFor(x => x.SelectionHighlight);
 
             // Buttons theming
             ButtonBackgroundBrushVariable = VariableFor(x => x.ButtonBackgroundBrush);
@@ -54,8 +56,6 @@ namespace Alphicsh.JamTools.Common.Theming
             SectionBackgroundBrushVariable = VariableFor(x => x.SectionBackgroundBrush);
 
             // List theming
-            ListMouseOverBrushVariable = VariableFor(x => x.ListMouseOverBrush);
-            ListSelectionBrushVariable = VariableFor(x => x.ListSelectionBrush);
             ListScrollBrushVariable = VariableFor(x => x.ListScrollBrush);
             ListScrollPressedBrushVariable = VariableFor(x => x.ListScrollPressedBrush);
             ListScrollDisabledBrushVariable = VariableFor(x => x.ListScrollDisabledBrush);
@@ -112,6 +112,12 @@ namespace Alphicsh.JamTools.Common.Theming
         public Brush MainBackgroundBrush { get => MainBackgroundBrushVariable.Value; set => MainBackgroundBrushVariable.Value = value; }
         private ThemeVariable<Brush> MainBackgroundBrushVariable { get; }
 
+        public Brush MouseOverHighlight { get => MouseOverHighlightVariable.Value; set => MouseOverHighlightVariable.Value = value; }
+        private ThemeVariable<Brush> MouseOverHighlightVariable { get; }
+
+        public Brush SelectionHighlight { get => SelectionHighlightVariable.Value; set => SelectionHighlightVariable.Value = value; }
+        private ThemeVariable<Brush> SelectionHighlightVariable { get; }
+
         // ---------------
         // Buttons theming
         // ---------------
@@ -159,12 +165,6 @@ namespace Alphicsh.JamTools.Common.Theming
         // ------------
         // List theming
         // ------------
-
-        public Brush ListMouseOverBrush { get => ListMouseOverBrushVariable.Value; set => ListMouseOverBrushVariable.Value = value; }
-        private ThemeVariable<Brush> ListMouseOverBrushVariable { get; }
-
-        public Brush ListSelectionBrush { get => ListSelectionBrushVariable.Value; set => ListSelectionBrushVariable.Value = value; }
-        private ThemeVariable<Brush> ListSelectionBrushVariable { get; }
 
         public Brush ListScrollBrush { get => ListScrollBrushVariable.Value; set => ListScrollBrushVariable.Value = value; }
         private ThemeVariable<Brush> ListScrollBrushVariable { get; }
