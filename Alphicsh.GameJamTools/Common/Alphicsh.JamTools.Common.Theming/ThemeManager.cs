@@ -32,8 +32,9 @@ namespace Alphicsh.JamTools.Common.Theming
 
             // General theming
             BasicTextVariable = VariableFor(x => x.BasicText);
-            DimTextVariable = VariableFor(x => x.DimText);
             HighlightTextVariable = VariableFor(x => x.HighlightText);
+            DimTextVariable = VariableFor(x => x.DimText);
+            ExtraDimTextVariable = VariableFor(x => x.ExtraDimText);
             MainBackgroundBrushVariable = VariableFor(x => x.MainBackgroundBrush);
             MouseOverHighlightVariable = VariableFor(x => x.MouseOverHighlight);
             SelectionHighlightVariable = VariableFor(x => x.SelectionHighlight);
@@ -108,6 +109,9 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public Brush DimText { get => DimTextVariable.Value; set => DimTextVariable.Value = value; }
         private ThemeVariable<Brush> DimTextVariable { get; }
+
+        public Brush ExtraDimText { get => ExtraDimTextVariable.Value; set => ExtraDimTextVariable.Value = value; }
+        private ThemeVariable<Brush> ExtraDimTextVariable { get; }
 
         public Brush MainBackgroundBrush { get => MainBackgroundBrushVariable.Value; set => MainBackgroundBrushVariable.Value = value; }
         private ThemeVariable<Brush> MainBackgroundBrushVariable { get; }
