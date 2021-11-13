@@ -1,8 +1,12 @@
-﻿using Alphicsh.JamTools.Common.Mvvm;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 using Alphicsh.JamPlayer.Model.Ranking;
 using Alphicsh.JamPlayer.ViewModel.Jam;
+using Alphicsh.JamPlayer.ViewModel.Ratings;
 
 namespace Alphicsh.JamPlayer.ViewModel.Ranking
 {
@@ -18,6 +22,8 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
 
             RankProperty = MutableProperty.Create(this, nameof(Rank), (int?)null)
                 .WithDependingProperty(nameof(IsRanked));
+
+            Ratings = model.Ratings.Select(RatingViewModel.Create).ToList();
         }
 
         // ---------------
@@ -33,5 +39,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
         private MutableProperty<int?> RankProperty { get; }
         public int? Rank { get => RankProperty.Value; set => RankProperty.Value = value; }
         public bool IsRanked => Rank.HasValue;
+
+        public IReadOnlyCollection<RatingViewModel> Ratings { get; private set; }
     }
 }
