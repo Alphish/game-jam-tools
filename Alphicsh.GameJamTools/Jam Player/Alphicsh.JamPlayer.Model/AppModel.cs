@@ -6,6 +6,8 @@ using Alphicsh.JamTools.Common.IO.Jam;
 
 using Alphicsh.JamPlayer.Model.Jam;
 using Alphicsh.JamPlayer.Model.Ranking;
+using Alphicsh.JamPlayer.Model.Ratings;
+using Alphicsh.JamPlayer.Model.Ratings.NumericScale;
 
 namespace Alphicsh.JamPlayer.Model
 {
@@ -38,8 +40,34 @@ namespace Alphicsh.JamPlayer.Model
 
             // TODO: add pending entries to randomly pick the next entry from
             Ranking.UnrankedEntries = jam.Entries
-                .Select(entry => new RankingEntry { JamEntry = entry })
+                .Select(CreateRankingEntryFromJamEntry)
                 .ToList();
+        }
+
+        private RankingEntry CreateRankingEntryFromJamEntry(JamEntry jamEntry)
+        {
+            var defaultSkin = new NumericScaleMaskSkin
+            {
+                Id = "NumericScaleDefault",
+                BackgroundMaskKey = "StarEmptySource",
+                ForegroundMaskKey = "StarFullSource",
+                ActiveBrushKey = "HighlightText",
+                NoValueBrushKey = "ExtraDimText"
+            };
+            var defaultScaleOptions = new NumericScaleOptions { MaxValue = 5, ValueStep = 0.5, Skin = defaultSkin };
+
+            return new RankingEntry
+            {
+                JamEntry = jamEntry,
+                Ratings = new List<IRating>
+                {
+                    new NumericScaleRating { Id = "theme", Name = "Theme", Options = defaultScaleOptions },
+                    new NumericScaleRating { Id = "concept", Name = "Concept", Options = defaultScaleOptions },
+                    new NumericScaleRating { Id = "presentation", Name = "Presentation", Options = defaultScaleOptions },
+                    new NumericScaleRating { Id = "story", Name = "Story", Options = defaultScaleOptions },
+                    new NumericScaleRating { Id = "overall", Name = "Overall", Options = defaultScaleOptions },
+                },
+            };
         }
     }
 }
