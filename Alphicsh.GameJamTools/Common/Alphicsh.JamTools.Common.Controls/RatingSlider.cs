@@ -97,9 +97,9 @@ namespace Alphicsh.JamTools.Common.Controls
         {
             var rating = (RatingSlider)dependencyObject;
             if (args.Property == WidthProperty)
-                rating.SetValue(InnerWidthProperty, rating.Width - 16d);
+                rating.SetValue(InnerWidthProperty, rating.Width - 8d);
             else if (args.Property == InnerWidthProperty)
-                rating.SetValue(WidthProperty, rating.InnerWidth + 16d);
+                rating.SetValue(WidthProperty, rating.InnerWidth + 8d);
         }
 
         // ----------------
