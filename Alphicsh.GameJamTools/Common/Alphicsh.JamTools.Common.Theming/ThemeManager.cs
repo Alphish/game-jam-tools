@@ -50,6 +50,17 @@ namespace Alphicsh.JamTools.Common.Theming
             PrimaryButtonShadowBrushVariable = VariableFor(x => x.PrimaryButtonShadowBrush);
             PrimaryButtonGlowBrushVariable = VariableFor(x => x.PrimaryButtonGlowBrush);
 
+            // Text box theming
+
+            TextBoxBackgroundBrushVariable = VariableFor(x => x.TextBoxBackgroundBrush);
+            TextBoxFocusBrushVariable = VariableFor(x => x.TextBoxFocusBrush);
+            TextBoxShadowBrushVariable = VariableFor(x => x.TextBoxShadowBrush);
+            TextBoxGlowBrushVariable = VariableFor(x => x.TextBoxGlowBrush);
+
+            TextBoxScrollBrushVariable = VariableFor(x => x.TextBoxScrollBrush);
+            TextBoxScrollPressedBrushVariable = VariableFor(x => x.TextBoxScrollPressedBrush);
+            TextBoxScrollDisabledBrushVariable = VariableFor(x => x.TextBoxScrollDisabledBrush);
+
             // Section theming
             SectionHeaderBrushVariable = VariableFor(x => x.SectionHeaderBrush);
             SectionHeaderTitleBrushVariable = VariableFor(x => x.SectionHeaderTitleBrush);
@@ -149,6 +160,31 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public Brush PrimaryButtonGlowBrush { get => PrimaryButtonGlowBrushVariable.Value; set => PrimaryButtonGlowBrushVariable.Value = value; }
         private ThemeVariable<Brush> PrimaryButtonGlowBrushVariable { get; }
+
+        // ----------------
+        // Text box theming
+        // ----------------
+
+        public Brush TextBoxBackgroundBrush { get => TextBoxBackgroundBrushVariable.Value; set => TextBoxBackgroundBrushVariable.Value = value; }
+        private ThemeVariable<Brush> TextBoxBackgroundBrushVariable { get; }
+
+        public Brush TextBoxFocusBrush { get => TextBoxFocusBrushVariable.Value; set => TextBoxFocusBrushVariable.Value = value; }
+        private ThemeVariable<Brush> TextBoxFocusBrushVariable { get; }
+
+        public Brush TextBoxShadowBrush { get => TextBoxShadowBrushVariable.Value; set => TextBoxShadowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> TextBoxShadowBrushVariable { get; }
+
+        public Brush TextBoxGlowBrush { get => TextBoxGlowBrushVariable.Value; set => TextBoxGlowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> TextBoxGlowBrushVariable { get; }
+
+        public Brush TextBoxScrollBrush { get => TextBoxScrollBrushVariable.Value; set => TextBoxScrollBrushVariable.Value = value; }
+        private ThemeVariable<Brush> TextBoxScrollBrushVariable { get; }
+
+        public Brush TextBoxScrollPressedBrush { get => TextBoxScrollPressedBrushVariable.Value; set => TextBoxScrollPressedBrushVariable.Value = value; }
+        private ThemeVariable<Brush> TextBoxScrollPressedBrushVariable { get; }
+
+        public Brush TextBoxScrollDisabledBrush { get => TextBoxScrollDisabledBrushVariable.Value; set => TextBoxScrollDisabledBrushVariable.Value = value; }
+        private ThemeVariable<Brush> TextBoxScrollDisabledBrushVariable { get; }
 
         // ---------------
         // Section theming

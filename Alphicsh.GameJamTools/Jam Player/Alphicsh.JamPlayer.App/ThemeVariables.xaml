@@ -23,6 +23,16 @@
   <SolidColorBrush x:Key="PrimaryButtonHoverBrush" Color="#ff5eb42d"></SolidColorBrush>
   <SolidColorBrush x:Key="PrimaryButtonShadowBrush" Color="#ff4e842e"></SolidColorBrush>
   <SolidColorBrush x:Key="PrimaryButtonGlowBrush" Color="#ff64aa4c"></SolidColorBrush>
+  
+  <!-- Text box theming -->
+  <SolidColorBrush x:Key="TextBoxBackgroundBrush" Color="#ff2e2e2e"></SolidColorBrush>
+  <SolidColorBrush x:Key="TextBoxFocusBrush" Color="#ff232323"></SolidColorBrush>
+  <SolidColorBrush x:Key="TextBoxShadowBrush" Color="#ff1c1c1c"></SolidColorBrush>
+  <SolidColorBrush x:Key="TextBoxGlowBrush" Color="#ff353535"></SolidColorBrush>
+
+  <SolidColorBrush x:Key="TextBoxScrollBrush" Color="#80ffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="TextBoxScrollPressedBrush" Color="#beffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="TextBoxScrollDisabledBrush" Color="#30ffffff"></SolidColorBrush>
 
   <!-- Section theming -->
   <LinearGradientBrush x:Key="SectionHeaderBrush" StartPoint="0.5,0" EndPoint="0.5,1">
