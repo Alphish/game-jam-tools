@@ -24,6 +24,8 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
                 .WithDependingProperty(nameof(IsRanked));
 
             Ratings = model.Ratings.Select(RatingViewModel.Create).ToList();
+
+            CommentProperty = WrapperProperty.Create(this, nameof(Comment), vm => vm.Model.Comment, (vm, value) => vm.Model.Comment = value);
         }
 
         // ---------------
@@ -41,5 +43,8 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
         public bool IsRanked => Rank.HasValue;
 
         public IReadOnlyCollection<RatingViewModel> Ratings { get; private set; }
+
+        public WrapperProperty<RankingEntryViewModel, string> CommentProperty { get; }
+        public string Comment { get => CommentProperty.Value; set => CommentProperty.Value = value; }
     }
 }
