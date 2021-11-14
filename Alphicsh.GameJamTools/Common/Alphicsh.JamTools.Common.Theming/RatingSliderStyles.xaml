@@ -4,10 +4,10 @@
   xmlns:commonControls="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
 >
   <Style TargetType="RepeatButton" x:Key="RatingSliderButton">
-    <Setter Property="SnapsToDevicePixels" Value="true"/>
-    <Setter Property="OverridesDefaultStyle" Value="true"/>
-    <Setter Property="IsTabStop" Value="false"/>
-    <Setter Property="Focusable" Value="false"/>
+    <Setter Property="SnapsToDevicePixels" Value="True"/>
+    <Setter Property="OverridesDefaultStyle" Value="True"/>
+    <Setter Property="IsTabStop" Value="False"/>
+    <Setter Property="Focusable" Value="False"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="RepeatButton">
@@ -18,10 +18,10 @@
   </Style>
 
   <Style TargetType="Thumb" x:Key="RatingSliderThumb">
-    <Setter Property="SnapsToDevicePixels" Value="true"/>
-    <Setter Property="OverridesDefaultStyle" Value="true"/>
-    <Setter Property="IsTabStop" Value="false"/>
-    <Setter Property="Focusable" Value="false"/>
+    <Setter Property="SnapsToDevicePixels" Value="True"/>
+    <Setter Property="OverridesDefaultStyle" Value="True"/>
+    <Setter Property="IsTabStop" Value="False"/>
+    <Setter Property="Focusable" Value="True"/>
     <Setter Property="Width" Value="8"/>
     <Setter Property="Template">
       <Setter.Value>
