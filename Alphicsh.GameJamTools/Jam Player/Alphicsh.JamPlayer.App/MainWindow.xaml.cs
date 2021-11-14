@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace Alphicsh.JamPlayer.App
 {
@@ -12,6 +13,13 @@ namespace Alphicsh.JamPlayer.App
             InitializeComponent();
 
             DataContext = App.Current.ViewModel;
+        }
+
+        private void OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var focusedElement = FocusManager.GetFocusedElement(this);
+            focusedElement?.RaiseEvent(new RoutedEventArgs(UIElement.LostFocusEvent));
+            FocusManager.SetFocusedElement(this, this);
         }
     }
 }
