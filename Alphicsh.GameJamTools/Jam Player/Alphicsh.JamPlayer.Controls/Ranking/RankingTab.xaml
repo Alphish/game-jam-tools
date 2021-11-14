@@ -38,6 +38,8 @@
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="8"/>
           <RowDefinition Height="1*"/>
+          <RowDefinition Height="8"/>
+          <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <!-- Jam entry section -->
@@ -48,6 +50,9 @@
 
         <!-- Rating section -->
         <ratings:RatingSection Grid.Row="2" DataContext="{Binding Ranking.SelectedEntry}"/>
+        
+        <!-- Comment section -->
+        <ratings:CommentSection Grid.Row="4" DataContext="{Binding Ranking.SelectedEntry}"/>
       </Grid>
     </Grid>
   </Border>
