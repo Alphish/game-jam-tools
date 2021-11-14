@@ -9,5 +9,6 @@ namespace Alphicsh.JamPlayer.Model.Ranking
     {
         public JamEntry JamEntry { get; init; } = default!;
         public IReadOnlyCollection<IRating> Ratings { get; init; } = default!;
+        public string Comment { get; set; } = string.Empty;
     }
 }
