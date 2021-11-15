@@ -38,8 +38,7 @@ namespace Alphicsh.JamPlayer.Model
             Jam = jam;
             Ranking = new RankingOverview();
 
-            // TODO: add pending entries to randomly pick the next entry from
-            Ranking.UnrankedEntries = jam.Entries
+            Ranking.PendingEntries = jam.Entries
                 .Select(CreateRankingEntryFromJamEntry)
                 .ToList();
         }
