@@ -67,6 +67,10 @@ namespace Alphicsh.JamTools.Common.Theming
             SectionBorderBrushVariable = VariableFor(x => x.SectionBorderBrush);
             SectionBackgroundBrushVariable = VariableFor(x => x.SectionBackgroundBrush);
 
+            SimpleSectionShadowBrushVariable = VariableFor(x => x.SimpleSectionShadowBrush);
+            SimpleSectionSideBrushVariable = VariableFor(x => x.SimpleSectionSideBrush);
+            SimpleSectionGlowBrushVariable = VariableFor(x => x.SimpleSectionGlowBrush);
+
             // List theming
             ListScrollBrushVariable = VariableFor(x => x.ListScrollBrush);
             ListScrollPressedBrushVariable = VariableFor(x => x.ListScrollPressedBrush);
@@ -201,6 +205,15 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public Brush SectionBackgroundBrush { get => SectionBackgroundBrushVariable.Value; set => SectionBackgroundBrushVariable.Value = value; }
         private ThemeVariable<Brush> SectionBackgroundBrushVariable { get; }
+
+        public Brush SimpleSectionShadowBrush { get => SimpleSectionShadowBrushVariable.Value; set => SimpleSectionShadowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> SimpleSectionShadowBrushVariable { get; }
+
+        public Brush SimpleSectionSideBrush { get => SimpleSectionSideBrushVariable.Value; set => SimpleSectionSideBrushVariable.Value = value; }
+        private ThemeVariable<Brush> SimpleSectionSideBrushVariable { get; }
+
+        public Brush SimpleSectionGlowBrush { get => SimpleSectionGlowBrushVariable.Value; set => SimpleSectionGlowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> SimpleSectionGlowBrushVariable { get; }
 
         // ------------
         // List theming
