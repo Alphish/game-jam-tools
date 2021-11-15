@@ -55,4 +55,25 @@
       </Setter.Value>
     </Setter>
   </Style>
+
+  <!-- Simple section box -->
+  <Style TargetType="GroupBox" x:Key="SimpleSection">
+    <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
+
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="GroupBox">
+          <Grid>
+            <Border CornerRadius="8" Background="{DynamicResource SectionBackgroundBrush}" Padding="{TemplateBinding Padding}">
+              <ContentPresenter/>
+            </Border>
+
+            <Border CornerRadius="8" BorderThickness="0,2,0,0" BorderBrush="{DynamicResource SimpleSectionShadowBrush}"/>
+            <Border CornerRadius="8" BorderThickness="2,0,2,0" BorderBrush="{DynamicResource SimpleSectionSideBrush}"/>
+            <Border CornerRadius="8" BorderThickness="0,0,0,2" BorderBrush="{DynamicResource SimpleSectionGlowBrush}"/>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 </ResourceDictionary>
