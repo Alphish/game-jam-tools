@@ -32,6 +32,8 @@
             >
               <ContentPresenter />
             </Border>
+
+            <Border Grid.Row="1" CornerRadius="0,0,8,8" BorderThickness="0,0,0,2" BorderBrush="{DynamicResource SimpleSectionGlowBrush}"/>
           </Grid>
         </ControlTemplate>
       </Setter.Value>
