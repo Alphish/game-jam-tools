@@ -28,8 +28,8 @@ namespace Alphicsh.JamTools.Common.Mvvm
             IsImmutable = isImmutable;
 
             Models = modelEntries;
-            ViewModels = modelEntries.Select(ViewModelMapping).ToList();
-            CompleteChanges();
+            ViewModels = new List<TViewModel>();
+            SynchronizeWithModels();
         }
 
         // ----------------
@@ -37,6 +37,16 @@ namespace Alphicsh.JamTools.Common.Mvvm
         // ----------------
 
         public event NotifyCollectionChangedEventHandler? CollectionChanged;
+
+        public void SynchronizeWithModels()
+        {
+            var viewModels = Models.Select(ViewModelMapping);
+            ViewModels.Clear();
+            foreach (var viewModel in viewModels)
+                ViewModels.Add(viewModel);
+
+            CompleteChanges();
+        }
 
         protected virtual void ApplyChanges()
         {
