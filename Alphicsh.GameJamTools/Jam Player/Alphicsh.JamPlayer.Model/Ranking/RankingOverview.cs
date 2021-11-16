@@ -7,7 +7,6 @@ namespace Alphicsh.JamPlayer.Model.Ranking
     public sealed class RankingOverview
     {
         public IList<RankingEntry> PendingEntries { get; set; }
-        
         public IList<RankingEntry> RankedEntries { get; set; }
         public IList<RankingEntry> UnrankedEntries { get; set; }
 
@@ -16,6 +15,11 @@ namespace Alphicsh.JamPlayer.Model.Ranking
             PendingEntries = new List<RankingEntry>();
             RankedEntries = new List<RankingEntry>();
             UnrankedEntries = new List<RankingEntry>();
+        }
+
+        public IEnumerable<RankingEntry> GetAllEntries()
+        {
+            return PendingEntries.Concat(RankedEntries).Concat(UnrankedEntries);
         }
 
         public RankingEntry? GetNextEntry()
