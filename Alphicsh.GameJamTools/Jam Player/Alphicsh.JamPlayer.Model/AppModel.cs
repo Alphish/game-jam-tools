@@ -14,6 +14,7 @@ namespace Alphicsh.JamPlayer.Model
     public class AppModel
     {
         public JamOverview Jam { get; private set; }
+        public JamPlayerDataManager PlayerDataManager { get; }
 
         public RatingCriteriaOverview RatingCriteria { get; internal set; }
         public RankingOverview Ranking { get; internal set; }
@@ -25,6 +26,8 @@ namespace Alphicsh.JamPlayer.Model
         public AppModel()
         {
             Jam = new JamOverview { Entries = new List<JamEntry>() };
+            PlayerDataManager = new JamPlayerDataManager { AppModel = this };
+
             Ranking = new RankingOverview();
             RatingCriteria = CreateDefaultRatingCriteria();
         }
