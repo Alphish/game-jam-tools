@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamPackager.App", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTools.Common.Theming", "Common\Alphicsh.JamTools.Common.Theming\Alphicsh.JamTools.Common.Theming.csproj", "{D08C8B3B-2D3B-48ED-A88B-45651F3792D8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamPlayer.IO", "Jam Player\Alphicsh.JamPlayer.IO\Alphicsh.JamPlayer.IO.csproj", "{0C816DCC-4D2F-4CA0-96B3-875F24F135AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{D08C8B3B-2D3B-48ED-A88B-45651F3792D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D08C8B3B-2D3B-48ED-A88B-45651F3792D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D08C8B3B-2D3B-48ED-A88B-45651F3792D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C816DCC-4D2F-4CA0-96B3-875F24F135AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C816DCC-4D2F-4CA0-96B3-875F24F135AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C816DCC-4D2F-4CA0-96B3-875F24F135AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C816DCC-4D2F-4CA0-96B3-875F24F135AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{4A6AB3DB-736E-42E1-89E0-A1308D33CFD1} = {2F663BFC-12CD-422C-B0E2-F65B401B0CD4}
 		{3DBF5E0C-CE03-4A3E-B13E-7BE75FCFC4AA} = {77FE7337-4F98-4CA6-90E7-DEEB44E113AC}
 		{D08C8B3B-2D3B-48ED-A88B-45651F3792D8} = {2F663BFC-12CD-422C-B0E2-F65B401B0CD4}
+		{0C816DCC-4D2F-4CA0-96B3-875F24F135AD} = {3BDDDEC1-D999-4D4B-A46E-0807C01F5B14}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DF6235F-0198-4921-B6F6-CC96A4448F90}
