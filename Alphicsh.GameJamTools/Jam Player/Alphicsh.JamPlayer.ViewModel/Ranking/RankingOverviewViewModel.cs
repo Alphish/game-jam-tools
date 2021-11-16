@@ -33,6 +33,9 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
         private void GetNextEntry()
         {
             var modelEntry = Model.GetNextEntry();
+            if (modelEntry == null)
+                return;
+
             RaisePropertyChanged(nameof(PendingCount));
             UnrankedEntries.SynchronizeWithModels();
 
