@@ -12,9 +12,9 @@
         TValue Value { get; set; }
     }
 
-    public interface IRating<TValue, TOptions> : IRating<TValue>
-        where TOptions : IRatingOptions<TValue>
+    public interface IRating<TValue, TCriterion> : IRating<TValue>
+        where TCriterion : IRatingCriterion<TValue, TCriterion>
     {
-        TOptions Options { get; }
+        TCriterion Criterion { get; }
     }
 }

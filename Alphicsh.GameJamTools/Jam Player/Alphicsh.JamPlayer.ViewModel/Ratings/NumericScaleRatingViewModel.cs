@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Input;
 
-using Alphicsh.JamTools.Common.Mvvm;
-
-using Alphicsh.JamPlayer.Model.Ratings;
-using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
-using System.Windows.Input;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
-using System.Windows.Media;
+using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
+
 using Alphicsh.JamPlayer.Model.Ratings.NumericScale;
 
 namespace Alphicsh.JamPlayer.ViewModel.Ratings
@@ -30,9 +22,9 @@ namespace Alphicsh.JamPlayer.ViewModel.Ratings
             ClearValueCommand = new SimpleCommand(() => ValueProperty.Value = null);
         }
 
-        public double MaxValue => Model.Options.MaxValue;
-        public double ValueStep => Model.Options.ValueStep;
-        public INumericScaleSkin Skin => Model.Options.Skin;
+        public double MaxValue => Model.Criterion.MaxValue;
+        public double ValueStep => Model.Criterion.ValueStep;
+        public INumericScaleSkin Skin => Model.Criterion.Skin;
 
         public WrapperProperty<NumericScaleRatingViewModel, double?> ValueProperty { get; }
         public ICommand ClearValueCommand { get; }
