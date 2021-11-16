@@ -38,7 +38,7 @@
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="8"/>
           <RowDefinition Height="1*"/>
-          <RowDefinition Height="8"/>
+          <RowDefinition Height="Auto"/>
           <RowDefinition Height="1*"/>
           <RowDefinition Height="8"/>
           <RowDefinition Height="Auto"/>
@@ -52,7 +52,17 @@
 
         <!-- Rating section -->
         <ratings:RatingSection Grid.Row="2" DataContext="{Binding Ranking.SelectedEntry}"/>
-        
+
+        <!-- Grid resizing splitter -->
+        <GridSplitter
+          Grid.Row="3"
+          HorizontalAlignment="Stretch"
+          VerticalAlignment="Center"
+          Height="8"
+          ShowsPreview="True"
+          Background="Transparent"
+        ></GridSplitter>
+
         <!-- Comment section -->
         <ratings:CommentSection Grid.Row="4" DataContext="{Binding Ranking.SelectedEntry}"/>
         
