@@ -22,5 +22,11 @@ namespace Alphicsh.JamPlayer.Model
             var rankingInfo = RankingInfoMapper.MapRankingToInfo(AppModel.Ranking);
             rankingInfo.SaveTo(RankingPath);
         }
+
+        public void LoadRanking()
+        {
+            var rankingInfo = JamRankingInfo.LoadOrGetDefault(RankingPath);
+            AppModel.Ranking = RankingInfoMapper.MapInfoToRanking(rankingInfo, AppModel.Jam, AppModel.RatingCriteria);
+        }
     }
 }
