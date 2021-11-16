@@ -14,13 +14,63 @@ namespace Alphicsh.JamPlayer.Model
     public class AppModel
     {
         public JamOverview Jam { get; private set; }
-        public RankingOverview Ranking { get; private set; }
+
+        public RatingCriteriaOverview RatingCriteria { get; internal set; }
+        public RankingOverview Ranking { get; internal set; }
+
+        // -----
+        // Setup
+        // -----
 
         public AppModel()
         {
             Jam = new JamOverview { Entries = new List<JamEntry>() };
             Ranking = new RankingOverview();
+            RatingCriteria = CreateDefaultRatingCriteria();
         }
+
+        private RatingCriteriaOverview CreateDefaultRatingCriteria()
+        {
+            var defaultNumericScaleSkin = new NumericScaleMaskSkin
+            {
+                Id = "NumericScaleDefault",
+                BackgroundMaskKey = "StarEmptySource",
+                ForegroundMaskKey = "StarFullSource",
+                ActiveBrushKey = "HighlightText",
+                NoValueBrushKey = "ExtraDimText"
+            };
+
+            var ratingCriteria = new List<IRatingCriterion>
+            {
+                CreateNumericScaleCriterion(id: "theme", name: "Theme", defaultNumericScaleSkin),
+                CreateNumericScaleCriterion(id: "concept", name: "Concept", defaultNumericScaleSkin),
+                CreateNumericScaleCriterion(id: "presentation", name: "Presentation", defaultNumericScaleSkin),
+                CreateNumericScaleCriterion(id: "story", name: "Story", defaultNumericScaleSkin),
+                CreateNumericScaleCriterion(id: "overall", name: "Overall", defaultNumericScaleSkin),
+            };
+
+            return new RatingCriteriaOverview
+            {
+                Skins = new IRatingSkin[] { defaultNumericScaleSkin },
+                Criteria = ratingCriteria,
+            };
+        }
+
+        private NumericScaleCriterion CreateNumericScaleCriterion(string id, string name, INumericScaleSkin skin)
+        {
+            return new NumericScaleCriterion
+            {
+                Id = id,
+                Name = name,
+                MaxValue = 5,
+                ValueStep = 1,
+                Skin = skin,
+            };
+        }
+
+        // -----------
+        // Loading Jam
+        // -----------
 
         public void LoadJamFromFile(FilePath jamFilePath)
         {
@@ -45,27 +95,10 @@ namespace Alphicsh.JamPlayer.Model
 
         private RankingEntry CreateRankingEntryFromJamEntry(JamEntry jamEntry)
         {
-            var defaultSkin = new NumericScaleMaskSkin
-            {
-                Id = "NumericScaleDefault",
-                BackgroundMaskKey = "StarEmptySource",
-                ForegroundMaskKey = "StarFullSource",
-                ActiveBrushKey = "HighlightText",
-                NoValueBrushKey = "ExtraDimText"
-            };
-            var defaultScaleOptions = new NumericScaleOptions { MaxValue = 5, ValueStep = 0.5, Skin = defaultSkin };
-
             return new RankingEntry
             {
                 JamEntry = jamEntry,
-                Ratings = new List<IRating>
-                {
-                    new NumericScaleRating { Id = "theme", Name = "Theme", Options = defaultScaleOptions },
-                    new NumericScaleRating { Id = "concept", Name = "Concept", Options = defaultScaleOptions },
-                    new NumericScaleRating { Id = "presentation", Name = "Presentation", Options = defaultScaleOptions },
-                    new NumericScaleRating { Id = "story", Name = "Story", Options = defaultScaleOptions },
-                    new NumericScaleRating { Id = "overall", Name = "Overall", Options = defaultScaleOptions },
-                },
+                Ratings = RatingCriteria.Criteria.Select(criterion => criterion.CreateRating()).ToList(),
             };
         }
     }
