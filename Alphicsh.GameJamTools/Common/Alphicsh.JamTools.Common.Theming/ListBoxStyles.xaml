@@ -14,7 +14,6 @@
     </Style.Resources>
 
     <Setter Property="Background" Value="Transparent"/>
-    <Setter Property="Margin" Value="2"></Setter>
     <Setter Property="BorderThickness" Value="0"/>
   </Style>
 

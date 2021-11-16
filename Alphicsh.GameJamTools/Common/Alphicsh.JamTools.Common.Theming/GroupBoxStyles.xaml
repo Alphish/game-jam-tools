@@ -4,7 +4,8 @@
 >
   <Style TargetType="GroupBox">
     <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
-    
+    <Setter Property="Padding" Value="4"></Setter>
+
     <!-- Template for the Group Box itself -->
     <Setter Property="Template">
       <Setter.Value>
@@ -29,6 +30,7 @@
               Grid.Row="1"
               CornerRadius="0,0,8,8"
               Background="{DynamicResource SectionBackgroundBrush}"
+              Padding="{TemplateBinding Padding}"
             >
               <ContentPresenter />
             </Border>
