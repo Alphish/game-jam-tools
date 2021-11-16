@@ -1,12 +1,20 @@
-﻿namespace Alphicsh.JamPlayer.Model.Ratings.NumericScale
-{
-    public sealed class NumericScaleRating : IRating<double?, NumericScaleOptions>
-    {
-        public string Id { get; init; } = default!;
-        public string Name { get; init; } = default!;
-        public NumericScaleOptions Options { get; init; } = default!;
+﻿using System.Text.Json;
 
-        public double? Value { get; set; }
-        public bool HasValue => Value.HasValue;
+namespace Alphicsh.JamPlayer.Model.Ratings.NumericScale
+{
+    public sealed class NumericScaleRating : BaseRating<double?, NumericScaleCriterion>
+    {
+        public override bool HasValue => Value.HasValue;
+
+        protected override double? FromObjectValue(object? value)
+        {
+            if (value is double doubleValue)
+                return doubleValue;
+
+            if (value is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Number)
+                return jsonElement.GetDouble();
+
+            return null;
+        }
     }
 }
