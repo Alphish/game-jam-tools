@@ -1,9 +1,7 @@
 ﻿namespace Alphicsh.JamPlayer.Model.Ratings.NumericScale
 {
-    public interface INumericScaleSkin
+    public interface INumericScaleSkin : IRatingSkin
     {
-        string Id { get; }
-
         string? BackgroundKey { get; }
         string? BackgroundImageKey { get; }
         string? BackgroundMaskKey { get; }
