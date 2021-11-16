@@ -16,7 +16,7 @@
       <RowDefinition Height="1*" MinHeight="120"></RowDefinition>
     </Grid.RowDefinitions>
 
-    <GroupBox Style="{StaticResource SimpleSection}" Padding="4">
+    <GroupBox Style="{StaticResource SimpleSection}">
       <Button Style="{StaticResource PrimaryButton}" Width="96" Margin="2" Command="{Binding GetNextEntryCommand}">
         <TextBlock>
           <Run>Next (</Run><Run Text="{Binding PendingCount, Mode=OneWay}" d:Text="34"/><Run>)</Run>
