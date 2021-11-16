@@ -39,12 +39,5 @@ namespace Alphicsh.JamPlayer.ViewModel
             Model.LoadJamFromFile(filePath);
             RecreateViewModels();
         }
-
-        // TODO: Load Jam from a data file, rather than a model instance
-        public void LoadJam(JamOverview jam)
-        {
-            Model.LoadJam(jam);
-            RecreateViewModels();
-        }
     }
 }

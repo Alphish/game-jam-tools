@@ -82,27 +82,8 @@ namespace Alphicsh.JamPlayer.Model
                 return;
 
             var mapper = new JamInfoMapper();
-            var jam = mapper.MapInfoToJam(jamInfo);
-            LoadJam(jam);
-        }
-
-        public void LoadJam(JamOverview jam)
-        {
-            Jam = jam;
-            Ranking = new RankingOverview();
-
-            Ranking.PendingEntries = jam.Entries
-                .Select(CreateRankingEntryFromJamEntry)
-                .ToList();
-        }
-
-        private RankingEntry CreateRankingEntryFromJamEntry(JamEntry jamEntry)
-        {
-            return new RankingEntry
-            {
-                JamEntry = jamEntry,
-                Ratings = RatingCriteria.Criteria.Select(criterion => criterion.CreateRating()).ToList(),
-            };
+            Jam = mapper.MapInfoToJam(jamInfo);
+            PlayerDataManager.LoadRanking();
         }
     }
 }
