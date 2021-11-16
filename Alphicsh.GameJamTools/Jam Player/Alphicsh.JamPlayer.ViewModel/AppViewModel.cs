@@ -5,7 +5,6 @@ using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 
 using Alphicsh.JamPlayer.Model;
-using Alphicsh.JamPlayer.Model.Jam;
 using Alphicsh.JamPlayer.ViewModel.Jam;
 using Alphicsh.JamPlayer.ViewModel.Ranking;
 
