@@ -4,12 +4,13 @@
     {
         string Id { get; }
         string Name { get; }
+        object? Value { get; set; }
         bool HasValue { get; }
     }
     
     public interface IRating<TValue> : IRating
     {
-        TValue Value { get; set; }
+        new TValue? Value { get; set; }
     }
 
     public interface IRating<TValue, TCriterion> : IRating<TValue>
