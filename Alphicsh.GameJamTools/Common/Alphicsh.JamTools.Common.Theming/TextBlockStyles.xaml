@@ -5,4 +5,12 @@
   <Style TargetType="TextBlock">
     <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
   </Style>
+
+  <Style TargetType="TextBlock" x:Key="RatingLabel" BasedOn="{StaticResource {x:Type TextBlock}}">
+    <Setter Property="HorizontalAlignment" Value="Right"/>
+    <Setter Property="VerticalAlignment" Value="Center"/>
+    <Setter Property="Margin" Value="0,0,8,0"/>
+    <Setter Property="FontSize" Value="16"/>
+    <Setter Property="Foreground" Value="{DynamicResource BasicText}"/>
+  </Style>
 </ResourceDictionary>

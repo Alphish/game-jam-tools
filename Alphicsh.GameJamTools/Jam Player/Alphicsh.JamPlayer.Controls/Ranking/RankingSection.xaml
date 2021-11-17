@@ -9,21 +9,31 @@
 >
   <Grid>
     <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"></RowDefinition>
+      <RowDefinition Height="8"></RowDefinition>
       <RowDefinition Height="2*" MinHeight="120"></RowDefinition>
       <RowDefinition Height="Auto"></RowDefinition>
       <RowDefinition Height="1*" MinHeight="120"></RowDefinition>
     </Grid.RowDefinitions>
+
+    <GroupBox Style="{StaticResource SimpleSection}">
+      <Button Style="{StaticResource PrimaryButton}" Width="96" Margin="2" Command="{Binding GetNextEntryCommand}">
+        <TextBlock>
+          <Run>Next (</Run><Run Text="{Binding PendingCount, Mode=OneWay}" d:Text="34"/><Run>)</Run>
+        </TextBlock>
+      </Button>
+    </GroupBox>
     
     <!-- Ranked entries list -->
     <local:RankingList
-      Grid.Row="0"
+      Grid.Row="2"
       Header="Ranked entries"
       DataContext="{Binding RankedEntries}"
     ></local:RankingList>
     
     <!-- Grid resizing splitter -->
     <GridSplitter
-      Grid.Row="1"
+      Grid.Row="3"
       HorizontalAlignment="Stretch"
       VerticalAlignment="Center"
       Height="8"
@@ -33,7 +43,7 @@
     
     <!-- Unranked entries list -->
     <local:RankingList
-      Grid.Row="2"
+      Grid.Row="4"
       Header="Unranked entries"
       DataContext="{Binding UnrankedEntries}"
     ></local:RankingList>

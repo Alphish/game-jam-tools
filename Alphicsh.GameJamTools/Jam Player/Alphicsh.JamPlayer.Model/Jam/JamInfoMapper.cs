@@ -10,6 +10,7 @@ namespace Alphicsh.JamPlayer.Model.Jam
         {
             return new JamOverview
             {
+                DirectoryPath = info.JamDirectoryPath,
                 Entries = info.Entries.Select(MapInfoToEntry).ToList(),
             };
         }
@@ -18,6 +19,7 @@ namespace Alphicsh.JamPlayer.Model.Jam
         {
             return new JamEntry
             {
+                Id = info.Id,
                 Title = info.Title,
                 Team = MapInfoToTeam(info.Team),
                 GamePath = info.GamePath,

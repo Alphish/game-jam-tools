@@ -13,20 +13,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Content\entry_placeholder.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.Theming\Alphicsh.JamTools.Common.Theming.csproj" />
     <ProjectReference Include="..\Alphicsh.JamPlayer.Controls\Alphicsh.JamPlayer.Controls.csproj" />
     <ProjectReference Include="..\Alphicsh.JamPlayer.Model\Alphicsh.JamPlayer.Model.csproj" />
     <ProjectReference Include="..\Alphicsh.JamPlayer.ViewModel\Alphicsh.JamPlayer.ViewModel.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Content\entry_placeholder.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

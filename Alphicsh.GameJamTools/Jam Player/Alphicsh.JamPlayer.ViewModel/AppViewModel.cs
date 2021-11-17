@@ -1,8 +1,10 @@
-﻿using Alphicsh.JamTools.Common.IO;
+﻿using System.Windows.Input;
+
+using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.Mvvm;
+using Alphicsh.JamTools.Common.Mvvm.Commands;
 
 using Alphicsh.JamPlayer.Model;
-using Alphicsh.JamPlayer.Model.Jam;
 using Alphicsh.JamPlayer.ViewModel.Jam;
 using Alphicsh.JamPlayer.ViewModel.Ranking;
 
@@ -14,6 +16,7 @@ namespace Alphicsh.JamPlayer.ViewModel
             : base(model)
         {
             RecreateViewModels();
+            SaveRankingCommand = new SimpleCommand(Model.PlayerDataManager.SaveRanking);
         }
 
         private void RecreateViewModels()
@@ -24,6 +27,7 @@ namespace Alphicsh.JamPlayer.ViewModel
 
         public JamOverviewViewModel Jam { get; private set; } = default!;
         public RankingOverviewViewModel Ranking { get; private set; } = default!;
+        public ICommand SaveRankingCommand { get; }
 
         // --------------------
         // Available operations
@@ -32,13 +36,6 @@ namespace Alphicsh.JamPlayer.ViewModel
         public void LoadJamFromFile(FilePath filePath)
         {
             Model.LoadJamFromFile(filePath);
-            RecreateViewModels();
-        }
-
-        // TODO: Load Jam from a data file, rather than a model instance
-        public void LoadJam(JamOverview jam)
-        {
-            Model.LoadJam(jam);
             RecreateViewModels();
         }
     }

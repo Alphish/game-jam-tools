@@ -7,7 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Jam Player\Alphicsh.JamPlayer.Controls\Alphicsh.JamPlayer.Controls.csproj" />
+    <None Remove="Content\entry_placeholder.png" />
+    <None Remove="Content\star_empty.png" />
+    <None Remove="Content\star_full.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Content\entry_placeholder.png" />
+    <EmbeddedResource Include="Content\star_empty.png" />
+    <EmbeddedResource Include="Content\star_full.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Alphicsh.JamTools.Common.Controls\Alphicsh.JamTools.Common.Controls.csproj" />
   </ItemGroup>
 
 </Project>

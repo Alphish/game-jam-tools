@@ -8,6 +8,7 @@ using Alphicsh.JamTools.Common.IO.Search;
 
 using Alphicsh.JamPlayer.Model;
 using Alphicsh.JamPlayer.ViewModel;
+using Alphicsh.JamTools.Common.Theming;
 
 namespace Alphicsh.JamPlayer.App
 {
@@ -28,25 +29,18 @@ namespace Alphicsh.JamPlayer.App
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            LoadImageSourceResource("EntryPlaceholderSource", "Alphicsh.JamPlayer.App.Content.entry_placeholder.png");
+            var themeManager = new ThemeManager(this.Resources);
 
             LoadJam(e);
 
             base.OnStartup(e);
         }
 
-        private void LoadImageSourceResource(string resourceKey, string resourceName)
+        private void LoadJam(StartupEventArgs e)
         {
-            var assembly = typeof(MainWindow).Assembly;
-            using var resourceStream = assembly.GetManifestResourceStream(resourceName);
-
-            var imageSource = new BitmapImage();
-            imageSource.BeginInit();
-            imageSource.StreamSource = resourceStream;
-            imageSource.CacheOption = BitmapCacheOption.OnLoad;
-            imageSource.EndInit();
-
-            Resources[resourceKey] = imageSource;
+            var jamFilePath = FilePath.FromNullable(e.Args.FirstOrDefault()) ?? GetJamInfoPathInAppDirectory();
+            if (jamFilePath.HasValue)
+                ViewModel.LoadJamFromFile(jamFilePath.Value);
         }
 
         private FilePath? GetJamInfoPathInAppDirectory()
@@ -64,13 +58,6 @@ namespace Alphicsh.JamPlayer.App
             // not using FirstOrDefault()
             // because jamInfoPaths is a collection of non-nullable FilePaths
             return jamInfoPaths.Any() ? jamInfoPaths.First() : null;
-        }
-
-        private void LoadJam(StartupEventArgs e)
-        {
-            var jamFilePath = FilePath.FromNullable(e.Args.FirstOrDefault()) ?? GetJamInfoPathInAppDirectory();
-            if (jamFilePath.HasValue)
-                ViewModel.LoadJamFromFile(jamFilePath.Value);
         }
     }
 }

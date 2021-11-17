@@ -61,4 +61,15 @@
     <Setter Property="local:ButtonTheming.GlowBrush" Value="{DynamicResource PrimaryButtonGlowBrush}"></Setter>
     <Setter Property="local:ButtonTheming.ShadowBrush" Value="{DynamicResource PrimaryButtonShadowBrush}"></Setter>
   </Style>
+
+  <Style TargetType="Button" x:Key="NotAvailableButton" BasedOn="{StaticResource {x:Type Button}}">
+    <Setter Property="Height" Value="24"></Setter>
+    <Setter Property="Width" Value="32"></Setter>
+    <Setter Property="FontSize" Value="12"></Setter>
+    <Setter Property="Foreground" Value="{DynamicResource DimText}"></Setter>
+    <Setter Property="Background" Value="Transparent"></Setter>
+    <Setter Property="local:ButtonTheming.HoverBrush" Value="{DynamicResource MouseOverHighlight}"></Setter>
+    <Setter Property="local:ButtonTheming.GlowBrush" Value="Transparent"></Setter>
+    <Setter Property="local:ButtonTheming.ShadowBrush" Value="Transparent"></Setter>
+  </Style>
 </ResourceDictionary>

@@ -1,7 +1,11 @@
-﻿using Alphicsh.JamPlayer.Model.Ranking;
+﻿using System.Linq;
+using System.Windows.Input;
 
 using Alphicsh.JamTools.Common.Mvvm;
+using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
+
+using Alphicsh.JamPlayer.Model.Ranking;
 
 namespace Alphicsh.JamPlayer.ViewModel.Ranking
 {
@@ -16,11 +20,32 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
             SelectedEntryProperty = MutableProperty.Create(this, nameof(SelectedEntry), initialValue: (RankingEntryViewModel?)null)
                 .WithDependingProperty(RankedEntries, nameof(RankedEntries.SelectedEntry))
                 .WithDependingProperty(UnrankedEntries, nameof(UnrankedEntries.SelectedEntry));
+
+            GetNextEntryCommand = new SimpleCommand(GetNextEntry);
         }
 
-        // ------------------
-        // Mutable properties
-        // ------------------
+        // ---------------
+        // Pending entries
+        // ---------------
+
+        public int PendingCount => Model.PendingEntries.Count;
+        public ICommand GetNextEntryCommand { get; }
+        private void GetNextEntry()
+        {
+            var modelEntry = Model.GetNextEntry();
+            if (modelEntry == null)
+                return;
+
+            RaisePropertyChanged(nameof(PendingCount));
+            UnrankedEntries.SynchronizeWithModels();
+
+            var viewModel = UnrankedEntries.First(vm => vm.Model == modelEntry);
+            SelectedEntry = viewModel;
+        }
+
+        // ---------------
+        // Ranking entries
+        // ---------------
 
         public RankedEntriesListViewModel RankedEntries { get; }
         public UnrankedEntriesListViewModel UnrankedEntries { get; }

@@ -14,7 +14,6 @@
     </Style.Resources>
 
     <Setter Property="Background" Value="Transparent"/>
-    <Setter Property="Margin" Value="2"></Setter>
     <Setter Property="BorderThickness" Value="0"/>
   </Style>
 
@@ -37,10 +36,10 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter TargetName="HighlightBorder" Property="Background" Value="{DynamicResource ListMouseOverBrush}"></Setter>
+              <Setter TargetName="HighlightBorder" Property="Background" Value="{DynamicResource MouseOverHighlight}"></Setter>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-              <Setter TargetName="HighlightBorder" Property="Background" Value="{DynamicResource ListSelectionBrush}"></Setter>
+              <Setter TargetName="HighlightBorder" Property="Background" Value="{DynamicResource SelectionHighlight}"></Setter>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
