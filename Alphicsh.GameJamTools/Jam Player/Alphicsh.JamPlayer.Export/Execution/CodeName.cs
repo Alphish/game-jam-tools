@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Alphicsh.JamPlayer.Export.Execution
 {
-    public struct CodeName : IEquatable<CodeName>
+    public readonly struct CodeName : IEquatable<CodeName>
     {
         public string Value { get; }
 
@@ -12,7 +12,7 @@ namespace Alphicsh.JamPlayer.Export.Execution
             Value = name;
         }
 
-        private static Regex CodeNamePattern = new Regex(@"^[_A-Za-z][_A-Za-z0-9]*$");
+        private static Regex CodeNamePattern { get; } = new Regex(@"^[_A-Za-z][_A-Za-z0-9]*$");
 
         public static CodeName From(string name)
         {
