@@ -29,5 +29,10 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         {
             return matchedType == this || SupertypeNames.Contains(matchedType.Name);
         }
+
+        public IInstance CreateInstance()
+        {
+            return new FunctionTestInstance(this);
+        }
     }
 }
