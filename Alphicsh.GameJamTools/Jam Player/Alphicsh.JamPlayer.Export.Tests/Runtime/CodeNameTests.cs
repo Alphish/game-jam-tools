@@ -58,6 +58,18 @@ namespace Alphicsh.JamPlayer.Export.Runtime
             creationAction.Should().ThrowExactly<ArgumentException>()
                 .Which.ParamName.Should().Be("name");
         }
+        
+        // --------
+        // ToString
+        // --------
+        
+        [Fact]
+        public void CodeNameToString_ShouldEqualItsValue()
+        {
+            var name = CodeName.From("test_name");
+            var nameString = name.ToString();
+            nameString.Should().Be(name.Value);
+        }
 
         // --------
         // Equality
