@@ -27,6 +27,11 @@ namespace Alphicsh.JamPlayer.Export.Execution
             return new CodeName(name);
         }
 
+        public override string ToString()
+        {
+            return Value;
+        }
+
         // ---------------
         // Equality checks
         // ---------------
