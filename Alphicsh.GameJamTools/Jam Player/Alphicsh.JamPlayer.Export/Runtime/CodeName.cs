@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Alphicsh.JamPlayer.Export.Execution
+namespace Alphicsh.JamPlayer.Export.Runtime
 {
     public readonly struct CodeName : IEquatable<CodeName>
     {

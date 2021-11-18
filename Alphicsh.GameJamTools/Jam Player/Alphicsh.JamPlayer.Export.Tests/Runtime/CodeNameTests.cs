@@ -3,7 +3,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace Alphicsh.JamPlayer.Export.Execution
+namespace Alphicsh.JamPlayer.Export.Runtime
 {
     public class CodeNameTests
     {
