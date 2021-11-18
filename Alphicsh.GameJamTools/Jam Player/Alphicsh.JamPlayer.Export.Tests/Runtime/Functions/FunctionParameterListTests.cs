@@ -174,7 +174,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
 
         private void WhenParameterListCreationAttempted()
         {
-            ParameterListCreationAttempt = () => ParameterList = new FunctionParameterList(Parameters);
+            ParameterListCreationAttempt = WhenParameterListCreated;
         }
 
         private void WhenArgumentTypesMatched()
