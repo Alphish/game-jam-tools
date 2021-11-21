@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Alphicsh.JamPlayer.Export.Runtime.Functions
@@ -34,5 +36,18 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         {
             return new FunctionTestInstance(this);
         }
+
+        [ExcludeFromCodeCoverage] public IPrototype GetMemberType(CodeName memberName)
+            => throw new NotSupportedException();
+        [ExcludeFromCodeCoverage] public IInstance GetMember(IInstance instance, CodeName memberName)
+            => throw new NotSupportedException();
+        [ExcludeFromCodeCoverage] public IPrototype GetItemType()
+            => throw new NotSupportedException();
+        [ExcludeFromCodeCoverage] public IInstance GetItem(IInstance instance, int index)
+            => throw new NotSupportedException();
+        [ExcludeFromCodeCoverage] public IPrototype GetCallReturnType(IEnumerable<IPrototype> argumentTypes)
+            => throw new NotSupportedException();
+        [ExcludeFromCodeCoverage] public IInstance Call(IInstance instance, IEnumerable<IInstance> arguments)
+            => throw new NotSupportedException();
     }
 }
