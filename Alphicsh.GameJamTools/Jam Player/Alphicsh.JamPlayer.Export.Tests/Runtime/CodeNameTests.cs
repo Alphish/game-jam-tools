@@ -17,6 +17,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         public void CodeNameFrom_ShouldAcceptLettersName()
         {
             var name = CodeName.From("Lorem");
+            
             name.Value.Should().Be("Lorem");
         }
 
@@ -24,6 +25,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         public void CodeNameFrom_ShouldAcceptAlphanumericName()
         {
             var name = CodeName.From("FarOutPost42");
+            
             name.Value.Should().Be("FarOutPost42");
         }
 
@@ -31,6 +33,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         public void CodeNameFrom_ShouldAcceptNameWithUnderscores()
         {
             var name = CodeName.From("snake_case");
+            
             name.Value.Should().Be("snake_case");
         }
 
@@ -38,6 +41,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         public void CodeNameFrom_ShouldAcceptSingleUnderscoreName()
         {
             var name = CodeName.From("_");
+            
             name.Value.Should().Be("_");
         }
 
@@ -47,6 +51,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         public void CodeNameFrom_ShouldDisallowSpecialSymbols()
         {
             Action creationAction = () => CodeName.From("question_mark?");
+            
             creationAction.Should().ThrowExactly<ArgumentException>()
                 .Which.ParamName.Should().Be("name");
         }
@@ -55,6 +60,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         public void CodeNameFrom_ShouldDisallowNumbersAtStart()
         {
             Action creationAction = () => CodeName.From("123audio_test");
+            
             creationAction.Should().ThrowExactly<ArgumentException>()
                 .Which.ParamName.Should().Be("name");
         }
@@ -68,6 +74,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         {
             var name = CodeName.From("test_name");
             var nameString = name.ToString();
+            
             nameString.Should().Be(name.Value);
         }
 
@@ -79,6 +86,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         public void CodeName_ShouldNotEqualItsValue()
         {
             var name = CodeName.From("test_name");
+            
             name.Should().NotBe("test_name");
         }
 
@@ -87,6 +95,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         {
             var firstName = CodeName.From("test_name");
             var secondName = CodeName.From("test_name");
+            
             firstName.Should().Be(secondName);
             firstName.GetHashCode().Should().Be(secondName.GetHashCode());
             (firstName == secondName).Should().BeTrue();
@@ -97,6 +106,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         {
             var firstName = CodeName.From("test_name");
             var secondName = CodeName.From("TEST_NAME");
+            
             firstName.Should().Be(secondName);
             firstName.GetHashCode().Should().Be(secondName.GetHashCode());
             (firstName == secondName).Should().BeTrue();
@@ -107,6 +117,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         {
             var firstName = CodeName.From("test_name");
             var secondName = CodeName.From("more_test_name");
+            
             firstName.Should().NotBe(secondName);
             (firstName != secondName).Should().BeTrue();
         }
