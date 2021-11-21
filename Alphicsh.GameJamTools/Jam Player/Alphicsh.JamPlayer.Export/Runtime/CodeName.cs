@@ -6,6 +6,10 @@ namespace Alphicsh.JamPlayer.Export.Runtime
     public readonly struct CodeName : IEquatable<CodeName>
     {
         public string Value { get; }
+        
+        // --------
+        // Creation
+        // --------
 
         private CodeName(string name)
         {
@@ -26,6 +30,10 @@ namespace Alphicsh.JamPlayer.Export.Runtime
 
             return new CodeName(name);
         }
+        
+        // ---------------------
+        // String representation
+        // ---------------------
 
         public override string ToString()
         {
