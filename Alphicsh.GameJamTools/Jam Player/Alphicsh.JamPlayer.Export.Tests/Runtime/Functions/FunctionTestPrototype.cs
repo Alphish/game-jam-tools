@@ -9,13 +9,13 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         // Creation
         // --------
         
-        public CodeName Name { get; }
-        private HashSet<CodeName> SupertypeNames { get; }
+        public TypeName Name { get; }
+        private HashSet<TypeName> SupertypeNames { get; }
 
         private FunctionTestPrototype(string prototypeName, IEnumerable<string> supertypeNames)
         {
-            Name = CodeName.From(prototypeName);
-            SupertypeNames = supertypeNames.Select(CodeName.From).ToHashSet();
+            Name = TypeName.CreateSimple(prototypeName);
+            SupertypeNames = supertypeNames.Select(TypeName.CreateSimple).ToHashSet();
         }
 
         public static FunctionTestPrototype Lorem { get; }

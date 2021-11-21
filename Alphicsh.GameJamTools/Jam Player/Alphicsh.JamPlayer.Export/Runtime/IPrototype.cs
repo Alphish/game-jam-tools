@@ -2,7 +2,7 @@
 {
     public interface IPrototype
     {
-        CodeName Name { get; }
+        TypeName Name { get; }
         
         bool IsSubtypeOf(IPrototype matchedType);
     }
