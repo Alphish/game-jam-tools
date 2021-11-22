@@ -21,11 +21,11 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         }
 
         public static FunctionTestPrototype Lorem { get; }
-            = new FunctionTestPrototype("lorem", Enumerable.Empty<string>());
+            = new FunctionTestPrototype("Lorem", Enumerable.Empty<string>());
         public static FunctionTestPrototype Ipsum { get; }
-            = new FunctionTestPrototype("ipsum", Enumerable.Empty<string>());
+            = new FunctionTestPrototype("Ipsum", Enumerable.Empty<string>());
         public static FunctionTestPrototype SubIpsum { get; }
-            = new FunctionTestPrototype("sub_ipsum", supertypeNames: new string[] { "ipsum" });
+            = new FunctionTestPrototype("SubIpsum", supertypeNames: new string[] { "Ipsum" });
         
         public bool IsSubtypeOf(IPrototype matchedType)
         {
