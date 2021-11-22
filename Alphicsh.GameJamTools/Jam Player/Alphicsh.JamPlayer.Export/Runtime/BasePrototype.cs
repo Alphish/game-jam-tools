@@ -20,15 +20,24 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         // -------
         // Members
         // -------
-        
+
+        protected IDictionary<CodeName, IUnboundMethod> Methods { get; }
+            = new Dictionary<CodeName, IUnboundMethod>();
+
         public virtual IPrototype GetMemberType(CodeName memberName)
         {
-            throw new NotImplementedException();
+            if (Methods.TryGetValue(memberName, out var unboundMethod))
+                return unboundMethod.ReturnType;
+
+            throw new ArgumentException($"The prototype '{Name}' doesn't have '{memberName}' member.", nameof(memberName));
         }
         
         public virtual IInstance GetMember(TInstance instance, CodeName memberName)
         {
-            throw new NotImplementedException();
+            if (Methods.TryGetValue(memberName, out var unboundMethod))
+                return unboundMethod.Bind(instance).ToFunctionInstance();
+            
+            throw new ArgumentException($"The prototype '{Name}' doesn't have '{memberName}' member.", nameof(memberName));
         }
 
         IInstance IPrototype.GetMember(IInstance instance, CodeName memberName)
