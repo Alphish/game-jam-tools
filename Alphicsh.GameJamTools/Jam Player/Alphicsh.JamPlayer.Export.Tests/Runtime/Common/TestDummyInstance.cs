@@ -2,11 +2,8 @@
 {
     public class TestDummyInstance : BaseInstance<TestDummyInstance>
     {
-        public int Value { get; }
-        
-        public TestDummyInstance(int value) : base(TestDummyPrototype.Prototype)
+        public TestDummyInstance() : base(TestDummyPrototype.Prototype)
         {
-            Value = value;
         }
     }
 }
