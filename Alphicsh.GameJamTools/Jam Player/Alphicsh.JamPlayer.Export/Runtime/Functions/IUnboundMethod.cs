@@ -2,6 +2,7 @@
 {
     public interface IUnboundMethod
     {
+        FunctionParameterList Parameters { get; }
         IPrototype ReturnType { get; }
         IFunction Bind(IInstance instance);
     }

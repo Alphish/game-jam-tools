@@ -6,9 +6,9 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
 {
     public class UnboundMethod : IUnboundMethod
     {
+        public FunctionParameterList Parameters { get; }
         public IPrototype ReturnType { get; }
 
-        private IReadOnlyCollection<FunctionParameter> Parameters { get; }
         private InstanceMethodCallback Callback { get; }
         
         public UnboundMethod(
@@ -17,7 +17,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
             InstanceMethodCallback callback
         )
         {
-            Parameters = parameters.ToList();
+            Parameters = new FunctionParameterList(parameters);
             ReturnType = returnType;
             Callback = callback;
         }
