@@ -19,6 +19,11 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Common
         private TestDummyPrototype() { }
         private void Init()
         {
+            DefineGetter("value")
+                .Returning(TestDummyPrototype.Prototype)
+                .Executing(TestDummyPrototype.GetValue)
+                .Complete();
+            
             DefineMethod("getSelf").WithNoParameters()
                 .Returning(TestDummyPrototype.Prototype)
                 .Executing(TestDummyPrototype.GetSelf)
@@ -39,6 +44,15 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Common
         // ---------
 
         public override TypeName Name { get; } = TypeName.CreateSimple("TestDummy");
+        
+        // -------
+        // Getters
+        // -------
+
+        private static IInstance GetValue(IInstance instance)
+        {
+            return instance;
+        }
         
         // -------
         // Methods

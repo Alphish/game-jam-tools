@@ -4,6 +4,8 @@ using System.Linq;
 using FluentAssertions;
 using Xunit;
 
+using Alphicsh.JamPlayer.Export.Runtime.Functions;
+
 namespace Alphicsh.JamPlayer.Export.Runtime.Common
 {
     public class BaseInstanceTests
@@ -49,28 +51,45 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Common
         // -------
         // Members
         // -------
-
+        
+        // Getters
+        
         [Fact]
-        public void GetMemberType_ShouldReturnMethodReturnType()
+        public void GetGetterMemberType_ShouldReturnGetterReturnType()
         {
-            var memberName = CodeName.From("getSelf");
+            var memberName = CodeName.From("value");
             var memberType = TestDummyPrototype.Prototype.GetMemberType(memberName);
 
             memberType.Should().Be(TestDummyPrototype.Prototype);
         }
         
         [Fact]
-        public void GetMemberType_ShouldThrowExceptionForUnknownName()
+        public void GetGetterMember_ShouldReturnGetterValue()
         {
-            var memberName = CodeName.From("unknownMember");
-            Action memberGetAttempt = () => TestDummyPrototype.Prototype.GetMemberType(memberName);
+            var instance = TestDummyPrototype.Prototype.CreateInstance();
+            var memberName = CodeName.From("value");
+            var methodMember = instance.GetMember(memberName);
 
-            memberGetAttempt.Should().ThrowExactly<ArgumentException>()
-                .Which.ParamName.Should().Be("memberName");
+            methodMember.Should().BeSameAs(instance); // getSelf returns bound instance
+        }
+        
+        // Methods
+
+        [Fact]
+        public void GetMethodMemberType_ShouldReturnMethodFunctionType()
+        {
+            var memberName = CodeName.From("getSelf");
+            var memberType = TestDummyPrototype.Prototype.GetMemberType(memberName);
+            var functionPrototype = FunctionPrototype.MatchingFunctionTypes(
+                Enumerable.Empty<IPrototype>(),
+                TestDummyPrototype.Prototype
+            );
+
+            memberType.Should().Be(functionPrototype);
         }
         
         [Fact]
-        public void GetMember_ShouldReturnMethodBoundToInstance()
+        public void GetMethodMember_ShouldReturnMethodBoundToInstance()
         {
             var instance = TestDummyPrototype.Prototype.CreateInstance();
             var memberName = CodeName.From("getSelf");
@@ -81,7 +100,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Common
         }
         
         [Fact]
-        public void GetMember_ShouldReturnMethodAcceptingArguments()
+        public void GetMethodMember_ShouldReturnMethodAcceptingArguments()
         {
             var instance = TestDummyPrototype.Prototype.CreateInstance();
             var memberName = CodeName.From("getArgument");
@@ -93,6 +112,18 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Common
             methodResult.Should().BeSameAs(argument); // getArgument returns the argument
         }
 
+        // Unknown
+        
+        [Fact]
+        public void GetMemberType_ShouldThrowExceptionForUnknownName()
+        {
+            var memberName = CodeName.From("unknownMember");
+            Action memberGetAttempt = () => TestDummyPrototype.Prototype.GetMemberType(memberName);
+
+            memberGetAttempt.Should().ThrowExactly<ArgumentException>()
+                .Which.ParamName.Should().Be("memberName");
+        }
+        
         [Fact]
         public void GetMember_ShouldThrowExceptionForUnknownName()
         {

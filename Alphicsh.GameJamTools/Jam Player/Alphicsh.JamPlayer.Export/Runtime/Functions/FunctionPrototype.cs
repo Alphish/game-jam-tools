@@ -40,7 +40,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
             return MatchingFunctionTypes(parameterTypes, returnType);
         }
 
-        private static FunctionPrototype MatchingFunctionTypes(
+        public static FunctionPrototype MatchingFunctionTypes(
             IEnumerable<IPrototype> parameterTypes,
             IPrototype returnType
         )
