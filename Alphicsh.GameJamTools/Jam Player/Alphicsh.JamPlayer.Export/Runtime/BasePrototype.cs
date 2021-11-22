@@ -27,7 +27,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         public virtual IPrototype GetMemberType(CodeName memberName)
         {
             if (Methods.TryGetValue(memberName, out var unboundMethod))
-                return unboundMethod.ReturnType;
+                return FunctionPrototype.MatchingMethod(unboundMethod);
 
             throw new ArgumentException($"The prototype '{Name}' doesn't have '{memberName}' member.", nameof(memberName));
         }
