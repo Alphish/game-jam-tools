@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Alphicsh.JamPlayer.Export.Runtime.Functions;
 
 namespace Alphicsh.JamPlayer.Export.Runtime
@@ -21,11 +22,17 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         // Members
         // -------
 
+        protected IDictionary<CodeName, IUnboundMethod> Getters { get; }
+            = new Dictionary<CodeName, IUnboundMethod>();
+
         protected IDictionary<CodeName, IUnboundMethod> Methods { get; }
             = new Dictionary<CodeName, IUnboundMethod>();
 
         public virtual IPrototype GetMemberType(CodeName memberName)
         {
+            if (Getters.TryGetValue(memberName, out var unboundGetter))
+                return unboundGetter.ReturnType;
+
             if (Methods.TryGetValue(memberName, out var unboundMethod))
                 return FunctionPrototype.MatchingMethod(unboundMethod);
 
@@ -34,6 +41,9 @@ namespace Alphicsh.JamPlayer.Export.Runtime
         
         public virtual IInstance GetMember(TInstance instance, CodeName memberName)
         {
+            if (Getters.TryGetValue(memberName, out var unboundGetter))
+                return unboundGetter.Bind(instance).ToFunctionInstance().Call(Enumerable.Empty<IInstance>());
+
             if (Methods.TryGetValue(memberName, out var unboundMethod))
                 return unboundMethod.Bind(instance).ToFunctionInstance();
             
