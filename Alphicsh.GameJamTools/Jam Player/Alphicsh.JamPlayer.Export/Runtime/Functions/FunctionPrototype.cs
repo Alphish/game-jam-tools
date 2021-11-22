@@ -19,10 +19,33 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
             ReturnType = returnType;
         }
 
+        // ------------------
+        // Generic resolution
+        // ------------------
+        
+        private static IDictionary<TypeName, FunctionPrototype> KnownPrototypes { get; }
+            = new Dictionary<TypeName, FunctionPrototype>();
+
         public static FunctionPrototype MatchingFunction(IFunction function)
         {
-            var parameterTypes = function.Parameters.Select(parameter => parameter.Prototype).ToList();
+            var parameterTypes = function.Parameters.Select(parameter => parameter.Prototype);
             var returnType = function.ReturnType;
+            return MatchingFunctionTypes(parameterTypes, returnType);
+        }
+
+        public static FunctionPrototype MatchingMethod(IUnboundMethod unboundMethod)
+        {
+            var parameterTypes = unboundMethod.Parameters.Select(parameter => parameter.Prototype);
+            var returnType = unboundMethod.ReturnType;
+            return MatchingFunctionTypes(parameterTypes, returnType);
+        }
+
+        private static FunctionPrototype MatchingFunctionTypes(
+            IEnumerable<IPrototype> parameterTypes,
+            IPrototype returnType
+        )
+        {
+            parameterTypes = parameterTypes.ToList();
             var typeArguments = parameterTypes.Concat(new[] { returnType })
                 .Select(prototype => prototype.Name)
                 .ToList();
@@ -33,9 +56,6 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
 
             return KnownPrototypes[typeName];
         }
-
-        private static IDictionary<TypeName, FunctionPrototype> KnownPrototypes { get; }
-            = new Dictionary<TypeName, FunctionPrototype>();
 
         // ---------
         // Overrides
