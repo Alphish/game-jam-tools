@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using FluentAssertions;
 using Xunit;
@@ -55,6 +56,31 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
 
             firstFunction.Should().NotBeSameAs(secondFunction);
             firstPrototype.Should().BeSameAs(secondPrototype);
+        }
+        
+        [Fact]
+        public void FunctionPrototypeMatchingMethod_ShouldCreatePrototypeForMethodWithoutParameters()
+        {
+            var unboundMethod = CreateTestMethod(
+                returnType: FunctionTestPrototype.Lorem,
+                argumentTypes: new IPrototype[0]
+            );
+            var prototype = FunctionPrototype.MatchingMethod(unboundMethod);
+
+            prototype.Name.ToString().Should().Be("Function<Lorem>");
+        }
+        
+        [Fact]
+        public void FunctionPrototypeMatchingMethod_ShouldCreatePrototypeForMethodWithParameters()
+        {
+            var unboundMethod = CreateTestMethod(
+                returnType: FunctionTestPrototype.Lorem,
+                FunctionTestPrototype.Ipsum,    // first argument type
+                FunctionTestPrototype.Ipsum     // second argument type
+            );
+            var prototype = FunctionPrototype.MatchingMethod(unboundMethod);
+
+            prototype.Name.ToString().Should().Be("Function<Ipsum,Ipsum,Lorem>");
         }
         
         // ----------------
@@ -193,6 +219,16 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
             var returnType = result.Prototype;
 
             return new MockFunction(parameterList, returnType, result);
+        }
+        
+        private IUnboundMethod CreateTestMethod(IPrototype returnType, params IPrototype[] argumentTypes)
+        {
+            var parameterList = argumentTypes
+                .Select((type, i) => FunctionParameter.Create("arg" + i, type))
+                .ToList();
+            InstanceMethodCallback callback = (instance, arguments) => throw new NotImplementedException();
+
+            return new UnboundMethod(parameterList, returnType, callback);
         }
     }
 }
