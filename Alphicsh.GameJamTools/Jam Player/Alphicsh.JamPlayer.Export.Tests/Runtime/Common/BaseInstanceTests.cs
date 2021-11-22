@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
+
 using FluentAssertions;
 using Xunit;
 
 namespace Alphicsh.JamPlayer.Export.Runtime.Common
 {
-    public class BasePrototypeTests
+    public class BaseInstanceTests
     {
         // ----
         // Name
@@ -48,8 +49,60 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Common
         // -------
         // Members
         // -------
+
+        [Fact]
+        public void GetMemberType_ShouldReturnMethodReturnType()
+        {
+            var memberName = CodeName.From("getSelf");
+            var memberType = TestDummyPrototype.Prototype.GetMemberType(memberName);
+
+            memberType.Should().Be(TestDummyPrototype.Prototype);
+        }
         
-        // to be implemented...
+        [Fact]
+        public void GetMemberType_ShouldThrowExceptionForUnknownName()
+        {
+            var memberName = CodeName.From("unknownMember");
+            Action memberGetAttempt = () => TestDummyPrototype.Prototype.GetMemberType(memberName);
+
+            memberGetAttempt.Should().ThrowExactly<ArgumentException>()
+                .Which.ParamName.Should().Be("memberName");
+        }
+        
+        [Fact]
+        public void GetMember_ShouldReturnMethodBoundToInstance()
+        {
+            var instance = TestDummyPrototype.Prototype.CreateInstance();
+            var memberName = CodeName.From("getSelf");
+            var methodMember = instance.GetMember(memberName);
+            var methodResult = methodMember.Call(Enumerable.Empty<IInstance>());
+
+            methodResult.Should().BeSameAs(instance); // getSelf returns bound instance
+        }
+        
+        [Fact]
+        public void GetMember_ShouldReturnMethodAcceptingArguments()
+        {
+            var instance = TestDummyPrototype.Prototype.CreateInstance();
+            var memberName = CodeName.From("getArgument");
+            var methodMember = instance.GetMember(memberName);
+
+            var argument = TestDummyPrototype.Prototype.CreateInstance();
+            var methodResult = methodMember.Call(new [] { argument });
+
+            methodResult.Should().BeSameAs(argument); // getArgument returns the argument
+        }
+
+        [Fact]
+        public void GetMember_ShouldThrowExceptionForUnknownName()
+        {
+            var instance = TestDummyPrototype.Prototype.CreateInstance();
+            var memberName = CodeName.From("unknownMember");
+            Action memberGetAttempt = () => instance.GetMember(memberName);
+
+            memberGetAttempt.Should().ThrowExactly<ArgumentException>()
+                .Which.ParamName.Should().Be("memberName");
+        }
         
         // ---------------
         // Items and calls
