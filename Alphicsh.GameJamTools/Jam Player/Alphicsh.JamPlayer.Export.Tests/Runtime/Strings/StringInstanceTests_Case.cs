@@ -8,7 +8,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Strings
     public partial class StringInstanceTests
     {
         [Fact]
-        public void StringToUpper_ShouldReturnUppercaseString()
+        public void ToUpper_ShouldReturnUppercaseString()
         {
             GivenStringInstanceFrom("Test String 123...");
             GivenMethodName("toUpper");
@@ -20,7 +20,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Strings
         }
         
         [Fact]
-        public void StringToLower_ShouldReturnLowercaseString()
+        public void ToLower_ShouldReturnLowercaseString()
         {
             GivenStringInstanceFrom("Test String 123...");
             GivenMethodName("toLower");
