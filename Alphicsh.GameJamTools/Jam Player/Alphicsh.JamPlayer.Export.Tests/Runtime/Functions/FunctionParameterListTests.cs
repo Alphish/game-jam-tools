@@ -25,8 +25,8 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void FunctionParameterList_ShouldBeCreatedWithGivenParameters()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
-            GivenParameter("bbb", FunctionTestPrototype.Ipsum);
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
+            GivenParameter("bbb", SimpleTestPrototype.Ipsum);
             WhenParameterListCreated();
             ThenExpectValidParameterList();
         }
@@ -34,9 +34,9 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void FunctionParameterList_ShouldAllowMultipleParametersOfSameType()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
-            GivenParameter("bbb", FunctionTestPrototype.Lorem);
-            GivenParameter("ccc", FunctionTestPrototype.Lorem);
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
+            GivenParameter("bbb", SimpleTestPrototype.Lorem);
+            GivenParameter("ccc", SimpleTestPrototype.Lorem);
             WhenParameterListCreated();
             ThenExpectValidParameterList();
         }
@@ -44,8 +44,8 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void FunctionParameterList_ShouldDisallowDuplicateParameterNames()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
             WhenParameterListCreationAttempted();
             ThenExpectArgumentException("parameters");
         }
@@ -67,7 +67,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void ParameterListMatch_ShouldNotMatchNoParametersWithSomeArguments()
         {
             GivenNoParameters();
-            GivenArgumentType(FunctionTestPrototype.Lorem);
+            GivenArgumentType(SimpleTestPrototype.Lorem);
             WhenArgumentTypesMatched();
             ThenExpectTypesMismatch();
         }
@@ -75,10 +75,10 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void ParameterListMatch_ShouldMatchSomeParametersWithSameTypeArguments()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
-            GivenParameter("bbb", FunctionTestPrototype.Ipsum);
-            GivenArgumentType(FunctionTestPrototype.Lorem);
-            GivenArgumentType(FunctionTestPrototype.Ipsum);
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
+            GivenParameter("bbb", SimpleTestPrototype.Ipsum);
+            GivenArgumentType(SimpleTestPrototype.Lorem);
+            GivenArgumentType(SimpleTestPrototype.Ipsum);
             WhenArgumentTypesMatched();
             ThenExpectTypesMatch();
         }
@@ -86,10 +86,10 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void ParameterListMatch_ShouldNotMatchSomeParametersWithDifferentTypeArguments()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
-            GivenParameter("bbb", FunctionTestPrototype.Ipsum);
-            GivenArgumentType(FunctionTestPrototype.Lorem);
-            GivenArgumentType(FunctionTestPrototype.Lorem);
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
+            GivenParameter("bbb", SimpleTestPrototype.Ipsum);
+            GivenArgumentType(SimpleTestPrototype.Lorem);
+            GivenArgumentType(SimpleTestPrototype.Lorem);
             WhenArgumentTypesMatched();
             ThenExpectTypesMismatch();
         }
@@ -97,9 +97,9 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void ParameterListMatch_ShouldNotMatchWithMissingArguments()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
-            GivenParameter("bbb", FunctionTestPrototype.Ipsum);
-            GivenArgumentType(FunctionTestPrototype.Lorem);
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
+            GivenParameter("bbb", SimpleTestPrototype.Ipsum);
+            GivenArgumentType(SimpleTestPrototype.Lorem);
             WhenArgumentTypesMatched();
             ThenExpectTypesMismatch();
         }
@@ -107,11 +107,11 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void ParameterListMatch_ShouldNotMatchWithExtraArguments()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
-            GivenParameter("bbb", FunctionTestPrototype.Ipsum);
-            GivenArgumentType(FunctionTestPrototype.Lorem);
-            GivenArgumentType(FunctionTestPrototype.Ipsum);
-            GivenArgumentType(FunctionTestPrototype.Ipsum);
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
+            GivenParameter("bbb", SimpleTestPrototype.Ipsum);
+            GivenArgumentType(SimpleTestPrototype.Lorem);
+            GivenArgumentType(SimpleTestPrototype.Ipsum);
+            GivenArgumentType(SimpleTestPrototype.Ipsum);
             WhenArgumentTypesMatched();
             ThenExpectTypesMismatch();
         }
@@ -119,8 +119,8 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void ParameterListMatch_ShouldMatchSubtypeArgumentWithSupertypeParameter()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Ipsum);
-            GivenArgumentType(FunctionTestPrototype.SubIpsum);
+            GivenParameter("aaa", SimpleTestPrototype.Ipsum);
+            GivenArgumentType(SimpleTestPrototype.SubIpsum);
             WhenArgumentTypesMatched();
             ThenExpectTypesMatch();
         }
@@ -128,8 +128,8 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void ParameterListMatch_ShouldNotMatchSupertypeArgumentWithSubtypeParameter()
         {
-            GivenParameter("aaa", FunctionTestPrototype.SubIpsum);
-            GivenArgumentType(FunctionTestPrototype.Ipsum);
+            GivenParameter("aaa", SimpleTestPrototype.SubIpsum);
+            GivenArgumentType(SimpleTestPrototype.Ipsum);
             WhenArgumentTypesMatched();
             ThenExpectTypesMismatch();
         }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Alphicsh.JamPlayer.Export.Runtime.Functions
+namespace Alphicsh.JamPlayer.Export.Runtime
 {
-    public class FunctionTestPrototype : IPrototype
+    public class SimpleTestPrototype : IPrototype
     {
         // --------
         // Creation
@@ -14,18 +14,18 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public TypeName Name { get; }
         private HashSet<TypeName> SupertypeNames { get; }
 
-        private FunctionTestPrototype(string prototypeName, IEnumerable<string> supertypeNames)
+        private SimpleTestPrototype(string prototypeName, IEnumerable<string> supertypeNames)
         {
             Name = TypeName.CreateSimple(prototypeName);
             SupertypeNames = supertypeNames.Select(TypeName.CreateSimple).ToHashSet();
         }
 
-        public static FunctionTestPrototype Lorem { get; }
-            = new FunctionTestPrototype("Lorem", Enumerable.Empty<string>());
-        public static FunctionTestPrototype Ipsum { get; }
-            = new FunctionTestPrototype("Ipsum", Enumerable.Empty<string>());
-        public static FunctionTestPrototype SubIpsum { get; }
-            = new FunctionTestPrototype("SubIpsum", supertypeNames: new string[] { "Ipsum" });
+        public static SimpleTestPrototype Lorem { get; }
+            = new SimpleTestPrototype("Lorem", Enumerable.Empty<string>());
+        public static SimpleTestPrototype Ipsum { get; }
+            = new SimpleTestPrototype("Ipsum", Enumerable.Empty<string>());
+        public static SimpleTestPrototype SubIpsum { get; }
+            = new SimpleTestPrototype("SubIpsum", supertypeNames: new string[] { "Ipsum" });
         
         public bool IsSubtypeOf(IPrototype matchedType)
         {
@@ -34,7 +34,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
 
         public IInstance CreateInstance()
         {
-            return new FunctionTestInstance(this);
+            return new SimpleTestInstance(this);
         }
 
         [ExcludeFromCodeCoverage] public IPrototype GetMemberType(CodeName memberName)

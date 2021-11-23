@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Alphicsh.JamPlayer.Export.Runtime.Functions
+namespace Alphicsh.JamPlayer.Export.Runtime
 {
-    public class FunctionTestInstance : IInstance
+    public class SimpleTestInstance : IInstance
     {
         public IPrototype Prototype { get; }
 
-        public FunctionTestInstance(IPrototype prototype)
+        public SimpleTestInstance(IPrototype prototype)
         {
             Prototype = prototype;
         }

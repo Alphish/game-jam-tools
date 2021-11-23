@@ -16,9 +16,9 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void FunctionCall_ShouldBeValidForParameterlessFunction()
         {
             GivenNoParameters();
-            GivenReturnType(FunctionTestPrototype.Lorem);
+            GivenReturnType(SimpleTestPrototype.Lorem);
             GivenNoArguments();
-            GivenExpectedResult(FunctionTestPrototype.Lorem.CreateInstance());
+            GivenExpectedResult(SimpleTestPrototype.Lorem.CreateInstance());
             
             WhenFunctionExecuted();
             
@@ -28,12 +28,12 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void FunctionCall_ShouldBeValidForFunctionWithParameters()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
-            GivenParameter("bbb", FunctionTestPrototype.Lorem);
-            GivenReturnType(FunctionTestPrototype.Ipsum);
-            GivenArgument(FunctionTestPrototype.Lorem.CreateInstance());
-            GivenArgument(FunctionTestPrototype.Lorem.CreateInstance());
-            GivenExpectedResult(FunctionTestPrototype.Ipsum.CreateInstance());
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
+            GivenParameter("bbb", SimpleTestPrototype.Lorem);
+            GivenReturnType(SimpleTestPrototype.Ipsum);
+            GivenArgument(SimpleTestPrototype.Lorem.CreateInstance());
+            GivenArgument(SimpleTestPrototype.Lorem.CreateInstance());
+            GivenExpectedResult(SimpleTestPrototype.Ipsum.CreateInstance());
             
             WhenFunctionExecuted();
             
@@ -43,11 +43,11 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void FunctionCall_ShouldThrowArgumentExceptionForTooFewArguments()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
-            GivenParameter("bbb", FunctionTestPrototype.Lorem);
-            GivenReturnType(FunctionTestPrototype.Ipsum);
-            GivenArgument(FunctionTestPrototype.Lorem.CreateInstance());
-            GivenExpectedResult(FunctionTestPrototype.Ipsum.CreateInstance());
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
+            GivenParameter("bbb", SimpleTestPrototype.Lorem);
+            GivenReturnType(SimpleTestPrototype.Ipsum);
+            GivenArgument(SimpleTestPrototype.Lorem.CreateInstance());
+            GivenExpectedResult(SimpleTestPrototype.Ipsum.CreateInstance());
             
             WhenFunctionExecutionAttempted();
             
@@ -57,13 +57,13 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void FunctionCall_ShouldThrowArgumentExceptionForTooManyArguments()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
-            GivenParameter("bbb", FunctionTestPrototype.Lorem);
-            GivenReturnType(FunctionTestPrototype.Ipsum);
-            GivenArgument(FunctionTestPrototype.Lorem.CreateInstance());
-            GivenArgument(FunctionTestPrototype.Lorem.CreateInstance());
-            GivenArgument(FunctionTestPrototype.Lorem.CreateInstance());
-            GivenExpectedResult(FunctionTestPrototype.Ipsum.CreateInstance());
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
+            GivenParameter("bbb", SimpleTestPrototype.Lorem);
+            GivenReturnType(SimpleTestPrototype.Ipsum);
+            GivenArgument(SimpleTestPrototype.Lorem.CreateInstance());
+            GivenArgument(SimpleTestPrototype.Lorem.CreateInstance());
+            GivenArgument(SimpleTestPrototype.Lorem.CreateInstance());
+            GivenExpectedResult(SimpleTestPrototype.Ipsum.CreateInstance());
             
             WhenFunctionExecutionAttempted();
             
@@ -73,12 +73,12 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void FunctionCall_ShouldThrowArgumentExceptionForDifferentTypeArguments()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
-            GivenParameter("bbb", FunctionTestPrototype.Lorem);
-            GivenReturnType(FunctionTestPrototype.Ipsum);
-            GivenArgument(FunctionTestPrototype.Lorem.CreateInstance());
-            GivenArgument(FunctionTestPrototype.Ipsum.CreateInstance());
-            GivenExpectedResult(FunctionTestPrototype.Ipsum.CreateInstance());
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
+            GivenParameter("bbb", SimpleTestPrototype.Lorem);
+            GivenReturnType(SimpleTestPrototype.Ipsum);
+            GivenArgument(SimpleTestPrototype.Lorem.CreateInstance());
+            GivenArgument(SimpleTestPrototype.Ipsum.CreateInstance());
+            GivenExpectedResult(SimpleTestPrototype.Ipsum.CreateInstance());
             
             WhenFunctionExecutionAttempted();
             
@@ -88,12 +88,12 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void FunctionCall_ShouldBeValidForSubtypeArgument()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
-            GivenParameter("bbb", FunctionTestPrototype.Ipsum);
-            GivenReturnType(FunctionTestPrototype.Ipsum);
-            GivenArgument(FunctionTestPrototype.Lorem.CreateInstance());
-            GivenArgument(FunctionTestPrototype.SubIpsum.CreateInstance());
-            GivenExpectedResult(FunctionTestPrototype.Ipsum.CreateInstance());
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
+            GivenParameter("bbb", SimpleTestPrototype.Ipsum);
+            GivenReturnType(SimpleTestPrototype.Ipsum);
+            GivenArgument(SimpleTestPrototype.Lorem.CreateInstance());
+            GivenArgument(SimpleTestPrototype.SubIpsum.CreateInstance());
+            GivenExpectedResult(SimpleTestPrototype.Ipsum.CreateInstance());
             
             WhenFunctionExecuted();
             
@@ -103,12 +103,12 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void FunctionCall_ShouldThrowArgumentExceptionForSupertypeArgument()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Lorem);
-            GivenParameter("bbb", FunctionTestPrototype.SubIpsum);
-            GivenReturnType(FunctionTestPrototype.Ipsum);
-            GivenArgument(FunctionTestPrototype.Lorem.CreateInstance());
-            GivenArgument(FunctionTestPrototype.Ipsum.CreateInstance());
-            GivenExpectedResult(FunctionTestPrototype.Ipsum.CreateInstance());
+            GivenParameter("aaa", SimpleTestPrototype.Lorem);
+            GivenParameter("bbb", SimpleTestPrototype.SubIpsum);
+            GivenReturnType(SimpleTestPrototype.Ipsum);
+            GivenArgument(SimpleTestPrototype.Lorem.CreateInstance());
+            GivenArgument(SimpleTestPrototype.Ipsum.CreateInstance());
+            GivenExpectedResult(SimpleTestPrototype.Ipsum.CreateInstance());
             
             WhenFunctionExecutionAttempted();
             
@@ -119,9 +119,9 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void FunctionCall_ShouldThrowInvalidCastExceptionForMismatchedReturn()
         {
             GivenNoParameters();
-            GivenReturnType(FunctionTestPrototype.Ipsum);
+            GivenReturnType(SimpleTestPrototype.Ipsum);
             GivenNoArguments();
-            GivenExpectedResult(FunctionTestPrototype.Lorem.CreateInstance());
+            GivenExpectedResult(SimpleTestPrototype.Lorem.CreateInstance());
             
             WhenFunctionExecutionAttempted();
             
@@ -132,9 +132,9 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void FunctionCall_ShouldBeValidForSubtypeReturn()
         {
             GivenNoParameters();
-            GivenReturnType(FunctionTestPrototype.Ipsum);
+            GivenReturnType(SimpleTestPrototype.Ipsum);
             GivenNoArguments();
-            GivenExpectedResult(FunctionTestPrototype.SubIpsum.CreateInstance());
+            GivenExpectedResult(SimpleTestPrototype.SubIpsum.CreateInstance());
             
             WhenFunctionExecuted();
             
@@ -145,9 +145,9 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void FunctionCall_ShouldThrowInvalidCastExceptionForSupertypeReturn()
         {
             GivenNoParameters();
-            GivenReturnType(FunctionTestPrototype.SubIpsum);
+            GivenReturnType(SimpleTestPrototype.SubIpsum);
             GivenNoArguments();
-            GivenExpectedResult(FunctionTestPrototype.Ipsum.CreateInstance());
+            GivenExpectedResult(SimpleTestPrototype.Ipsum.CreateInstance());
             
             WhenFunctionExecutionAttempted();
             

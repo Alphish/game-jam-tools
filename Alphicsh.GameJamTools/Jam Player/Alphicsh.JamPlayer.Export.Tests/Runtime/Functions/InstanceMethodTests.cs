@@ -11,33 +11,33 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void UnboundMethod_HasGivenReturnType()
         {
             GivenNoParameters();
-            GivenReturnType(FunctionTestPrototype.Lorem);
+            GivenReturnType(SimpleTestPrototype.Lorem);
             
             WhenUnboundMethodCreated();
             
-            ThenExpectUnboundMethodReturnType(FunctionTestPrototype.Lorem);
+            ThenExpectUnboundMethodReturnType(SimpleTestPrototype.Lorem);
         }
 
         [Fact]
         public void InstanceMethod_HasGivenReturnType()
         {
             GivenNoParameters();
-            GivenReturnType(FunctionTestPrototype.Ipsum);
-            GivenBoundInstance(FunctionTestPrototype.Ipsum.CreateInstance());
+            GivenReturnType(SimpleTestPrototype.Ipsum);
+            GivenBoundInstance(SimpleTestPrototype.Ipsum.CreateInstance());
             
             WhenUnboundMethodCreated();
             WhenMethodBoundToInstance();
 
-            ThenExpectInstanceMethodReturnType(FunctionTestPrototype.Ipsum);
+            ThenExpectInstanceMethodReturnType(SimpleTestPrototype.Ipsum);
         }
 
         [Fact]
         public void InstanceMethod_ShouldUseBoundInstanceInCallback()
         {
             GivenNoParameters();
-            GivenReturnType(FunctionTestPrototype.Ipsum);
+            GivenReturnType(SimpleTestPrototype.Ipsum);
             GivenCallback(InstanceMethodTests.GetSelf); // since it returns instance itself, it verifies the correct instance is passed
-            GivenBoundInstance(FunctionTestPrototype.Ipsum.CreateInstance());
+            GivenBoundInstance(SimpleTestPrototype.Ipsum.CreateInstance());
             GivenNoArguments();
 
             WhenUnboundMethodCreated();
@@ -50,11 +50,11 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         [Fact]
         public void InstanceMethod_ShouldUsePassedArgumentInCallback()
         {
-            GivenParameter("aaa", FunctionTestPrototype.Ipsum);
-            GivenReturnType(FunctionTestPrototype.Ipsum);
+            GivenParameter("aaa", SimpleTestPrototype.Ipsum);
+            GivenReturnType(SimpleTestPrototype.Ipsum);
             GivenCallback(InstanceMethodTests.GetOnlyArgument); // since it returns the argument, it verifies the correct argument is passed
-            GivenBoundInstance(FunctionTestPrototype.Lorem.CreateInstance());
-            GivenArgument(FunctionTestPrototype.Ipsum.CreateInstance());
+            GivenBoundInstance(SimpleTestPrototype.Lorem.CreateInstance());
+            GivenArgument(SimpleTestPrototype.Ipsum.CreateInstance());
             
             WhenUnboundMethodCreated();
             WhenMethodBoundToInstance();

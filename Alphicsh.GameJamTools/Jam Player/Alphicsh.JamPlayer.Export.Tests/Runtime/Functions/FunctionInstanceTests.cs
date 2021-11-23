@@ -16,7 +16,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void FunctionPrototypeMatchingFunction_ShouldCreatePrototypeForFunctionWithoutParameters()
         {
             var function = CreateTestFunction(
-                result: FunctionTestPrototype.Lorem.CreateInstance(),
+                result: SimpleTestPrototype.Lorem.CreateInstance(),
                 argumentTypes: new IPrototype[0]
             );
             var prototype = FunctionPrototype.MatchingFunction(function);
@@ -28,9 +28,9 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void FunctionPrototypeMatchingFunction_ShouldCreatePrototypeForFunctionWithParameters()
         {
             var function = CreateTestFunction(
-                result: FunctionTestPrototype.Lorem.CreateInstance(),
-                FunctionTestPrototype.Ipsum,    // first argument type
-                FunctionTestPrototype.Ipsum     // second argument type
+                result: SimpleTestPrototype.Lorem.CreateInstance(),
+                SimpleTestPrototype.Ipsum,    // first argument type
+                SimpleTestPrototype.Ipsum     // second argument type
             );
             var prototype = FunctionPrototype.MatchingFunction(function);
 
@@ -41,16 +41,16 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void FunctionPrototypeMatchingFunction_ShouldProvideSamePrototypeForSameParameterAndReturnTypes()
         {
             var firstFunction = CreateTestFunction(
-                result: FunctionTestPrototype.Lorem.CreateInstance(),
-                FunctionTestPrototype.Ipsum,    // first argument type
-                FunctionTestPrototype.Ipsum     // second argument type
+                result: SimpleTestPrototype.Lorem.CreateInstance(),
+                SimpleTestPrototype.Ipsum,    // first argument type
+                SimpleTestPrototype.Ipsum     // second argument type
             );
             var firstPrototype = FunctionPrototype.MatchingFunction(firstFunction);
 
             var secondFunction = CreateTestFunction(
-                result: FunctionTestPrototype.Lorem.CreateInstance(),
-                FunctionTestPrototype.Ipsum,    // first argument type
-                FunctionTestPrototype.Ipsum     // second argument type
+                result: SimpleTestPrototype.Lorem.CreateInstance(),
+                SimpleTestPrototype.Ipsum,    // first argument type
+                SimpleTestPrototype.Ipsum     // second argument type
             );
             var secondPrototype = FunctionPrototype.MatchingFunction(secondFunction);
 
@@ -62,7 +62,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void FunctionPrototypeMatchingMethod_ShouldCreatePrototypeForMethodWithoutParameters()
         {
             var unboundMethod = CreateTestMethod(
-                returnType: FunctionTestPrototype.Lorem,
+                returnType: SimpleTestPrototype.Lorem,
                 argumentTypes: new IPrototype[0]
             );
             var prototype = FunctionPrototype.MatchingMethod(unboundMethod);
@@ -74,9 +74,9 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void FunctionPrototypeMatchingMethod_ShouldCreatePrototypeForMethodWithParameters()
         {
             var unboundMethod = CreateTestMethod(
-                returnType: FunctionTestPrototype.Lorem,
-                FunctionTestPrototype.Ipsum,    // first argument type
-                FunctionTestPrototype.Ipsum     // second argument type
+                returnType: SimpleTestPrototype.Lorem,
+                SimpleTestPrototype.Ipsum,    // first argument type
+                SimpleTestPrototype.Ipsum     // second argument type
             );
             var prototype = FunctionPrototype.MatchingMethod(unboundMethod);
 
@@ -91,54 +91,54 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void GetCallReturnType_ShouldGiveTypeForSameArgumentTypes()
         {
             var function = CreateTestFunction(
-                result: FunctionTestPrototype.Lorem.CreateInstance(),
-                FunctionTestPrototype.Ipsum,    // first argument type
-                FunctionTestPrototype.Ipsum     // second argument type
+                result: SimpleTestPrototype.Lorem.CreateInstance(),
+                SimpleTestPrototype.Ipsum,    // first argument type
+                SimpleTestPrototype.Ipsum     // second argument type
             );
             var prototype = FunctionPrototype.MatchingFunction(function);
 
             var returnType = prototype.GetCallReturnType(new[]
             {
-                FunctionTestPrototype.Ipsum,
-                FunctionTestPrototype.Ipsum,
+                SimpleTestPrototype.Ipsum,
+                SimpleTestPrototype.Ipsum,
             });
 
-            returnType.Should().Be(FunctionTestPrototype.Lorem);
+            returnType.Should().Be(SimpleTestPrototype.Lorem);
         }
         
         [Fact]
         public void GetCallReturnType_ShouldGiveTypeForMatchingArgumentTypes()
         {
             var function = CreateTestFunction(
-                result: FunctionTestPrototype.Lorem.CreateInstance(),
-                FunctionTestPrototype.Ipsum,    // first argument type
-                FunctionTestPrototype.Ipsum     // second argument type
+                result: SimpleTestPrototype.Lorem.CreateInstance(),
+                SimpleTestPrototype.Ipsum,    // first argument type
+                SimpleTestPrototype.Ipsum     // second argument type
             );
             var prototype = FunctionPrototype.MatchingFunction(function);
 
             var returnType = prototype.GetCallReturnType(new[]
             {
-                FunctionTestPrototype.SubIpsum,
-                FunctionTestPrototype.Ipsum,
+                SimpleTestPrototype.SubIpsum,
+                SimpleTestPrototype.Ipsum,
             });
 
-            returnType.Should().Be(FunctionTestPrototype.Lorem);
+            returnType.Should().Be(SimpleTestPrototype.Lorem);
         }
         
         [Fact]
         public void GetCallReturnType_ShouldReturnNullForDifferentArgumentTypes()
         {
             var function = CreateTestFunction(
-                result: FunctionTestPrototype.Lorem.CreateInstance(),
-                FunctionTestPrototype.Ipsum,    // first argument type
-                FunctionTestPrototype.Ipsum     // second argument type
+                result: SimpleTestPrototype.Lorem.CreateInstance(),
+                SimpleTestPrototype.Ipsum,    // first argument type
+                SimpleTestPrototype.Ipsum     // second argument type
             );
             var prototype = FunctionPrototype.MatchingFunction(function);
 
             var returnType = prototype.GetCallReturnType(new[]
             {
-                FunctionTestPrototype.Lorem,
-                FunctionTestPrototype.Ipsum,
+                SimpleTestPrototype.Lorem,
+                SimpleTestPrototype.Ipsum,
             });
 
             returnType.Should().BeNull();
@@ -148,15 +148,15 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void GetCallReturnType_ShouldReturnNullForMissingArgumentTypes()
         {
             var function = CreateTestFunction(
-                result: FunctionTestPrototype.Lorem.CreateInstance(),
-                FunctionTestPrototype.Ipsum,    // first argument type
-                FunctionTestPrototype.Ipsum     // second argument type
+                result: SimpleTestPrototype.Lorem.CreateInstance(),
+                SimpleTestPrototype.Ipsum,    // first argument type
+                SimpleTestPrototype.Ipsum     // second argument type
             );
             var prototype = FunctionPrototype.MatchingFunction(function);
 
             var returnType = prototype.GetCallReturnType(new[]
             {
-                FunctionTestPrototype.Ipsum,
+                SimpleTestPrototype.Ipsum,
             });
 
             returnType.Should().BeNull();
@@ -166,17 +166,17 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void GetCallReturnType_ShouldReturnNullForExtraArgumentTypes()
         {
             var function = CreateTestFunction(
-                result: FunctionTestPrototype.Lorem.CreateInstance(),
-                FunctionTestPrototype.Ipsum,    // first argument type
-                FunctionTestPrototype.Ipsum     // second argument type
+                result: SimpleTestPrototype.Lorem.CreateInstance(),
+                SimpleTestPrototype.Ipsum,    // first argument type
+                SimpleTestPrototype.Ipsum     // second argument type
             );
             var prototype = FunctionPrototype.MatchingFunction(function);
 
             var returnType = prototype.GetCallReturnType(new[]
             {
-                FunctionTestPrototype.Ipsum,
-                FunctionTestPrototype.Ipsum,
-                FunctionTestPrototype.Ipsum,
+                SimpleTestPrototype.Ipsum,
+                SimpleTestPrototype.Ipsum,
+                SimpleTestPrototype.Ipsum,
             });
 
             returnType.Should().BeNull();
@@ -190,15 +190,15 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public void Call_ShouldReturnInnerFunctionResult()
         {
             var function = CreateTestFunction(
-                result: FunctionTestPrototype.Lorem.CreateInstance(),
-                FunctionTestPrototype.Ipsum,    // first argument type
-                FunctionTestPrototype.Ipsum     // second argument type
+                result: SimpleTestPrototype.Lorem.CreateInstance(),
+                SimpleTestPrototype.Ipsum,    // first argument type
+                SimpleTestPrototype.Ipsum     // second argument type
             );
             var instance = function.ToFunctionInstance();
             var arguments = new[]
             {
-                FunctionTestPrototype.Ipsum.CreateInstance(),
-                FunctionTestPrototype.Ipsum.CreateInstance(),
+                SimpleTestPrototype.Ipsum.CreateInstance(),
+                SimpleTestPrototype.Ipsum.CreateInstance(),
             };
 
             var functionCallResult = function.Call(arguments);
