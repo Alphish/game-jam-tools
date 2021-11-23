@@ -5,17 +5,17 @@ using System.Linq;
 
 namespace Alphicsh.JamPlayer.Export.Runtime.Functions
 {
-    public class FunctionParameterList : IReadOnlyCollection<FunctionParameter>
+    public class FunctionParameterList : IReadOnlyCollection<VariableDeclaration>
     {
-        private IReadOnlyCollection<FunctionParameter> Items { get; }
+        private IReadOnlyCollection<VariableDeclaration> Items { get; }
 
-        public FunctionParameterList(IEnumerable<FunctionParameter> parameters)
+        public FunctionParameterList(IEnumerable<VariableDeclaration> parameters)
         {
             Items = parameters.ToList();
             EnsureParametersAreValid(Items);
         }
 
-        private void EnsureParametersAreValid(IReadOnlyCollection<FunctionParameter> parameters)
+        private void EnsureParametersAreValid(IReadOnlyCollection<VariableDeclaration> parameters)
         {
             // checking for duplicate parameter names
             var parameterNames = parameters
@@ -63,7 +63,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
 
         public int Count => Items.Count;
 
-        public IEnumerator<FunctionParameter> GetEnumerator()
+        public IEnumerator<VariableDeclaration> GetEnumerator()
             => Items.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator()

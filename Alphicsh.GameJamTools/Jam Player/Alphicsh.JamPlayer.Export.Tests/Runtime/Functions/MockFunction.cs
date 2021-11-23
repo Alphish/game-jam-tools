@@ -6,7 +6,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
     {
         private IInstance Result { get; }
             
-        public MockFunction(IEnumerable<FunctionParameter> parameterList, IPrototype returnType, IInstance result)
+        public MockFunction(IEnumerable<VariableDeclaration> parameterList, IPrototype returnType, IInstance result)
             : base(parameterList, returnType)
         {
             Result = result;

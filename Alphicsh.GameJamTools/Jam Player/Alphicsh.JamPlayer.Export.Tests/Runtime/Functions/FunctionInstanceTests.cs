@@ -214,7 +214,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         private IFunction CreateTestFunction(IInstance result, params IPrototype[] argumentTypes)
         {
             var parameterList = argumentTypes
-                .Select((type, i) => FunctionParameter.Create("arg" + i, type))
+                .Select((type, i) => VariableDeclaration.Create("arg" + i, type))
                 .ToList();
             var returnType = result.Prototype;
 
@@ -224,7 +224,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         private IUnboundMethod CreateTestMethod(IPrototype returnType, params IPrototype[] argumentTypes)
         {
             var parameterList = argumentTypes
-                .Select((type, i) => FunctionParameter.Create("arg" + i, type))
+                .Select((type, i) => VariableDeclaration.Create("arg" + i, type))
                 .ToList();
             InstanceMethodCallback callback = (instance, arguments) => throw new NotImplementedException();
 

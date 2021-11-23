@@ -9,7 +9,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         public FunctionParameterList Parameters { get; }
         public IPrototype ReturnType { get; }
 
-        protected BaseFunction(IEnumerable<FunctionParameter> parameters, IPrototype returnType)
+        protected BaseFunction(IEnumerable<VariableDeclaration> parameters, IPrototype returnType)
         {
             Parameters = new FunctionParameterList(parameters);
             ReturnType = returnType;

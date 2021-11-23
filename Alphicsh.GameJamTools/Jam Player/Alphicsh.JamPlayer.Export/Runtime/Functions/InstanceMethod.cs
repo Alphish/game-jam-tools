@@ -9,7 +9,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         private InstanceMethodCallback Callback { get; }
         
         public InstanceMethod(
-            IEnumerable<FunctionParameter> parameters,
+            IEnumerable<VariableDeclaration> parameters,
             IPrototype returnType,
             IInstance instance,
             InstanceMethodCallback callback

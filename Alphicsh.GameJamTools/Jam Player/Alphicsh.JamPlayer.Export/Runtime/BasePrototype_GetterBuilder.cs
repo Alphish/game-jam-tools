@@ -39,7 +39,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
             public void Complete()
             {
                 InstanceMethodCallback methodCallback = (instance, parameters) => Callback(instance);
-                var method = new UnboundMethod(Enumerable.Empty<FunctionParameter>(), ReturnType, methodCallback);
+                var method = new UnboundMethod(Enumerable.Empty<VariableDeclaration>(), ReturnType, methodCallback);
                 Prototype.Getters.Add(MethodName, method);
             }
         }

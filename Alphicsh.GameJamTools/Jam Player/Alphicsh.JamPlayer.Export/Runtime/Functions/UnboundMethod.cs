@@ -12,7 +12,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         private InstanceMethodCallback Callback { get; }
         
         public UnboundMethod(
-            IEnumerable<FunctionParameter> parameters,
+            IEnumerable<VariableDeclaration> parameters,
             IPrototype returnType,
             InstanceMethodCallback callback
         )

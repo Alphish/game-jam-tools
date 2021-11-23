@@ -138,7 +138,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
         // Helper methods
         // --------------
 
-        private ICollection<FunctionParameter> Parameters { get; } = new List<FunctionParameter>();
+        private ICollection<VariableDeclaration> Parameters { get; } = new List<VariableDeclaration>();
         private ICollection<IPrototype> ArgumentTypes { get; } = new List<IPrototype>();
         
         private Action? ParameterListCreationAttempt { get; set; }
@@ -153,7 +153,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Functions
 
         private void GivenParameter(string name, IPrototype prototype)
         {
-            Parameters.Add(FunctionParameter.Create(name, prototype));
+            Parameters.Add(VariableDeclaration.Create(name, prototype));
         }
 
         private void GivenNoArguments()

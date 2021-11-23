@@ -17,7 +17,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
             private BasePrototype<TInstance> Prototype { get; }
             private CodeName MethodName { get; }
 
-            private ICollection<FunctionParameter> Parameters { get; } = new List<FunctionParameter>();
+            private ICollection<VariableDeclaration> Parameters { get; } = new List<VariableDeclaration>();
             private IPrototype ReturnType { get; set; } = default!;
             private InstanceMethodCallback Callback { get; set; } = default!;
         
@@ -29,7 +29,7 @@ namespace Alphicsh.JamPlayer.Export.Runtime
 
             public MethodBuilder WithParameter(string name, IPrototype prototype)
             {
-                Parameters.Add(FunctionParameter.Create(name, prototype));
+                Parameters.Add(VariableDeclaration.Create(name, prototype));
                 return this;
             }
 
