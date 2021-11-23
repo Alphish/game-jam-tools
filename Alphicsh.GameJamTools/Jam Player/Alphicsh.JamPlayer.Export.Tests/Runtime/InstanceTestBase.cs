@@ -11,6 +11,24 @@ namespace Alphicsh.JamPlayer.Export.Runtime
             => Instance = instance;
 
         // -------------
+        // Getters setup
+        // -------------
+
+        private IInstance? GetterValue { get; set; }
+        
+        // Whens
+
+        protected void WhenAccessingGetter(CodeName getterName)
+            => GetterValue = Instance!.GetMember(getterName);
+        protected void WhenAccessingGetter(string getterName)
+            => WhenAccessingGetter(CodeName.From(getterName));
+        
+        // Thens
+        
+        protected IInstance ThenGetterValue()
+            => GetterValue!;
+        
+        // -------------
         // Methods setup
         // -------------
 
