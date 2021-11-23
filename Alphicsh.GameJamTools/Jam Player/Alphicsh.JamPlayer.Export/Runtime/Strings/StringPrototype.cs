@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Alphicsh.JamPlayer.Export.Runtime.Numbers;
 
 namespace Alphicsh.JamPlayer.Export.Runtime.Strings
 {
@@ -18,6 +19,11 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Strings
         private StringPrototype() { }
         private void Init()
         {
+            DefineGetter("length")
+                .Returning(NumberPrototype.Prototype)
+                .Executing(StringPrototype.GetLength)
+                .Complete();
+            
             DefineMethod("toUpper").WithNoParameters()
                 .Returning(StringPrototype.Prototype)
                 .Executing(StringPrototype.ToUpper)
@@ -34,6 +40,16 @@ namespace Alphicsh.JamPlayer.Export.Runtime.Strings
         // ---------
 
         public override TypeName Name { get; } = TypeName.CreateSimple("String");
+        
+        // -------
+        // Getters
+        // -------
+
+        public static IInstance GetLength(IInstance instance)
+        {
+            var stringInstance = (StringInstance)instance;
+            return new NumberInstance(stringInstance.InnerString.Length);
+        }
         
         // -------
         // Methods
