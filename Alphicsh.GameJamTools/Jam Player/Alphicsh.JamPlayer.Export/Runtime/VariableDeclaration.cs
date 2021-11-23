@@ -1,4 +1,4 @@
-﻿namespace Alphicsh.JamPlayer.Export.Runtime.Functions
+﻿namespace Alphicsh.JamPlayer.Export.Runtime
 {
     public class VariableDeclaration
     {
