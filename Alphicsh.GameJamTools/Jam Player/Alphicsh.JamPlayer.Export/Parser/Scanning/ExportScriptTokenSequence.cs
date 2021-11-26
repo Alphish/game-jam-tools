@@ -105,18 +105,18 @@ namespace Alphicsh.JamPlayer.Export.Parser.Scanning
                 throw UnexpectedTokenError(expectedType: null, expectedContent: null);
         }
         
-        public ExportScriptToken? ExpectToken(ExportScriptTokenType type, string? content)
+        public ExportScriptToken ExpectToken(ExportScriptTokenType type, string? content)
         {
-            return HasToken(type, content) ? Next() : throw UnexpectedTokenError(type, content);
+            return HasToken(type, content) ? Next()! : throw UnexpectedTokenError(type, content);
         }
 
-        public ExportScriptToken? ExpectWord(string? content = null)
+        public ExportScriptToken ExpectWord(string? content = null)
             => ExpectToken(ExportScriptTokenType.Word, content);
 
-        public ExportScriptToken? ExpectSymbol(string? content = null)
+        public ExportScriptToken ExpectSymbol(string? content = null)
             => ExpectToken(ExportScriptTokenType.Symbol, content);
 
-        public ExportScriptToken? ExpectString(string? content = null)
+        public ExportScriptToken ExpectString(string? content = null)
             => ExpectToken(ExportScriptTokenType.String, content);
 
         private UnexpectedTokenException UnexpectedTokenError(
