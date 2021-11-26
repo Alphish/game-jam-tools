@@ -264,13 +264,17 @@ namespace Alphicsh.JamPlayer.Export.Parser.Scanning
         [Fact]
         public void ExportScriptTokenSequence_ShouldProperlyExpectString()
         {
-            GivenToken(ExportScriptTokenType.Word, "lorem");
+            GivenToken(ExportScriptTokenType.String, "Some text");
             
             WhenTokenSequenceCreated();
 
-            ThenAttempt(() => TokenSequence.ExpectEndOfTokens()).Should().ThrowExactly<UnexpectedTokenException>();
-            Then().SkipWord();
-            ThenAttempt(() => TokenSequence.ExpectEndOfTokens()).Should().NotThrow();
+            ThenAttempt(() => TokenSequence.ExpectString("Other text")).Should().ThrowExactly<UnexpectedTokenException>();
+            ThenAttempt(() => TokenSequence.ExpectWord()).Should().ThrowExactly<UnexpectedTokenException>();
+            ThenAttempt(() => TokenSequence.ExpectSymbol()).Should().ThrowExactly<UnexpectedTokenException>();
+
+            Then().ExpectString("Some text").Should().BeOfType<ExportScriptToken>();
+            ThenAttempt(() => TokenSequence.ExpectString("Some text")).Should().ThrowExactly<UnexpectedTokenException>()
+                .Which.ActualToken.Should().BeNull();
         }
 
         [Fact]
