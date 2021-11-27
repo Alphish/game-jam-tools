@@ -53,6 +53,10 @@
   <SolidColorBrush x:Key="ListScrollDisabledBrush" Color="#30ffffff"></SolidColorBrush>
 
   <!-- Image variables reference -->
+  <!-- ImageSource x:Key="MenuJamIconSource" -->
+  <!-- ImageSource x:Key="MenuRankingIconSource" -->
+  <!-- ImageSource x:Key="MenuBestofsIconSource" -->
+
   <!-- ImageSource x:Key="EntryPlaceholderSource" -->
   <!-- ImageSource x:Key="StarEmptySource" -->
   <!-- ImageSource x:Key="StarFullSource" -->
