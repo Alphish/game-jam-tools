@@ -6,43 +6,35 @@ namespace Alphicsh.JamTools.Common.Controls
 {
     public class ImageBox : Border
     {
-        public ImageBox()
-        {
-            this.SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.Fant);
-
-            Background = new ImageBrush { Stretch = Stretch.UniformToFill };
-        }
-
-        private ImageBrush BackgroundBrush => (ImageBrush)this.Background;
+        private static DependencyPropertyHelper<ImageBox> Deps
+            = new DependencyPropertyHelper<ImageBox>();
 
         // ---------------------
         // Dependency properties
         // ---------------------
 
-        public static readonly DependencyProperty SourceProperty = DependencyProperty.Register(
-            nameof(Source), typeof(ImageSource), typeof(ImageBox), new PropertyMetadata(null, OnSourceChange)
-            );
-
-        public ImageSource Source
+        public static readonly DependencyProperty SourceProperty = Deps.Register(control => control.Source, null, OnSourceChange);
+        public ImageSource? Source
         {
-            get => (ImageSource)GetValue(SourceProperty);
+            get => (ImageSource?)GetValue(SourceProperty);
             set => SetValue(SourceProperty, value);
         }
 
-        public static readonly DependencyProperty PlaceholderSourceProperty = DependencyProperty.Register(
-            nameof(PlaceholderSource), typeof(ImageSource), typeof(ImageBox), new PropertyMetadata(null, OnSourceChange)
-            );
-
-        public ImageSource PlaceholderSource
+        public static readonly DependencyProperty PlaceholderSourceProperty = Deps.Register(control => control.PlaceholderSource, null, OnSourceChange);
+        public ImageSource? PlaceholderSource
         {
-            get => (ImageSource)GetValue(PlaceholderSourceProperty);
+            get => (ImageSource?)GetValue(PlaceholderSourceProperty);
             set => SetValue(PlaceholderSourceProperty, value);
         }
 
-        private static void OnSourceChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static readonly DependencyPropertyKey ResolvedSourcePropertyKey = Deps.RegisterReadOnly(x => x.ResolvedSource, null);
+        public static DependencyProperty ResolvedSourceProperty => ResolvedSourcePropertyKey.DependencyProperty;
+        public ImageSource? ResolvedSource => (ImageSource?)GetValue(ResolvedSourceProperty);
+
+        private static void OnSourceChange(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
-            var imageBox = (ImageBox)d;
-            imageBox.BackgroundBrush.ImageSource = imageBox.Source ?? imageBox.PlaceholderSource;
+            var imageBox = (ImageBox)dependencyObject;
+            imageBox.SetValue(ResolvedSourcePropertyKey, imageBox.Source ?? imageBox.PlaceholderSource);
         }
     }
 }
