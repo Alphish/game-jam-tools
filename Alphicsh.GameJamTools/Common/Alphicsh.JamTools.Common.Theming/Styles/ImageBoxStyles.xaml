@@ -14,4 +14,16 @@
       </Setter.Value>
     </Setter>
   </Style>
+
+  <Style TargetType="{x:Type commonControls:ImageBox}" x:Key="MaskBased" BasedOn="{StaticResource {x:Type Border}}">
+    <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant"/>
+    <Setter Property="OpacityMask">
+      <Setter.Value>
+        <ImageBrush
+          ImageSource="{Binding ResolvedSource, RelativeSource={RelativeSource AncestorType={x:Type commonControls:ImageBox}}}"
+          Stretch="UniformToFill"
+        />
+      </Setter.Value>
+    </Setter>
+  </Style>
 </ResourceDictionary>
