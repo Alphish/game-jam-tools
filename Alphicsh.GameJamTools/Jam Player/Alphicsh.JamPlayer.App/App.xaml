@@ -1,10 +1,7 @@
 ﻿<Application x:Class="Alphicsh.JamPlayer.App.App"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  
-  xmlns:local="clr-namespace:Alphicsh.JamPlayer.App"
   xmlns:rankingControls="clr-namespace:Alphicsh.JamPlayer.Controls.Ranking;assembly=Alphicsh.JamPlayer.Controls"
-  StartupUri="MainWindow.xaml"
 >
   <Application.Resources>
     <ResourceDictionary>
