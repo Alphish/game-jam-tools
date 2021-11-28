@@ -72,7 +72,6 @@
             </Border>
 
             <Border CornerRadius="8" BorderThickness="0,2,0,0" BorderBrush="{DynamicResource SimpleSectionShadowBrush}"/>
-            <Border CornerRadius="8" BorderThickness="2,0,2,0" BorderBrush="{DynamicResource SimpleSectionSideBrush}"/>
             <Border CornerRadius="8" BorderThickness="0,0,0,2" BorderBrush="{DynamicResource SimpleSectionGlowBrush}"/>
           </Grid>
         </ControlTemplate>
