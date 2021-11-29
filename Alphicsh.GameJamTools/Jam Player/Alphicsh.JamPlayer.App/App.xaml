@@ -23,6 +23,7 @@
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/GroupBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/ScrollViewerStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/ListBoxStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ComboBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/TabStyles.xaml"/>
       </ResourceDictionary.MergedDictionaries>
 
