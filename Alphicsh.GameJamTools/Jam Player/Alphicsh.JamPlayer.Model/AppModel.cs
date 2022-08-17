@@ -25,7 +25,11 @@ namespace Alphicsh.JamPlayer.Model
 
         public AppModel()
         {
-            Jam = new JamOverview { Entries = new List<JamEntry>() };
+            Jam = new JamOverview
+            {
+                Entries = new List<JamEntry>(),
+                AwardCriteria = new List<JamAwardCriterion>()
+            };
             PlayerDataManager = new JamPlayerDataManager { AppModel = this };
 
             Ranking = new RankingOverview();

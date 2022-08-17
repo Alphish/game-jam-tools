@@ -16,6 +16,8 @@ namespace Alphicsh.JamTools.Common.IO.Jam
         [JsonPropertyName("entries")] public IReadOnlyCollection<JamEntryStub> EntriesStubs { get; init; } = default!;
         [JsonIgnore] public IReadOnlyCollection<JamEntryInfo> Entries { get; internal set; } = default!;
 
+        public IReadOnlyCollection<JamAwardInfo> AwardCriteria { get; init; } = default!;
+
         // ---------------------
         // Filesystem properties
         // ---------------------

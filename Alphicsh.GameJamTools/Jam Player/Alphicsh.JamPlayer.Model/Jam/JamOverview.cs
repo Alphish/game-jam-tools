@@ -9,5 +9,7 @@ namespace Alphicsh.JamPlayer.Model.Jam
         public FilePath DirectoryPath { get; init; } = default!;
 
         public IReadOnlyCollection<JamEntry> Entries { get; init; } = default!;
+
+        public IReadOnlyCollection<JamAwardCriterion> AwardCriteria { get; init; } = default!;
     }
 }
