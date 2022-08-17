@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Alphicsh.JamPlayer.IO.Ranking;
+using Alphicsh.JamPlayer.Model.Awards;
 using Alphicsh.JamPlayer.Model.Jam;
 using Alphicsh.JamPlayer.Model.Ratings;
 
@@ -80,12 +81,30 @@ namespace Alphicsh.JamPlayer.Model.Ranking
                 Comment = ratingsInfo?.Comment ?? string.Empty,
             };
         }
-        
+
+        public AwardsOverview MapInfoToAwards(JamRankingInfo rankingInfo, JamOverview jam)
+        {
+            return new AwardsOverview
+            {
+                Entries = MapAwards(rankingInfo, jam).ToList(),
+            };
+        }
+
+        private IEnumerable<AwardEntry> MapAwards(JamRankingInfo rankingInfo, JamOverview jam)
+        {
+            foreach (var criterion in jam.AwardCriteria)
+            {
+                var entryId = rankingInfo.GetAwardEntryId(criterion.Id);
+                var entry = jam.GetEntryById(entryId);
+                yield return new AwardEntry { Criterion = criterion, JamEntry = entry };
+            }
+        }
+
         // --------------
         // Saving to info
         // --------------
 
-        public JamRankingInfo MapRankingToInfo(RankingOverview ranking)
+        public JamRankingInfo MapRankingToInfo(RankingOverview ranking, AwardsOverview awards)
         {
             var entryRatings = ranking.GetAllEntries()
                 .Where(RankingEntryHasRatings)
@@ -94,13 +113,15 @@ namespace Alphicsh.JamPlayer.Model.Ranking
                 .ToList();
 
             var rankedEntries = ranking.RankedEntries.Select(entry => entry.JamEntry.Id).ToList();
-            var uunrankedEntries = ranking.UnrankedEntries.Select(entry => entry.JamEntry.Id).ToList();
+            var unrankedEntries = ranking.UnrankedEntries.Select(entry => entry.JamEntry.Id).ToList();
+            var awardsDictionary = awards.Entries.ToDictionary(entry => entry.Criterion.Id, entry => entry.JamEntry?.Id);
 
             return new JamRankingInfo
             {
                 EntryRatings = entryRatings,
                 RankedEntries = rankedEntries,
-                UnrankedEntries = uunrankedEntries,
+                UnrankedEntries = unrankedEntries,
+                Awards = awardsDictionary,
             };
         }
 
