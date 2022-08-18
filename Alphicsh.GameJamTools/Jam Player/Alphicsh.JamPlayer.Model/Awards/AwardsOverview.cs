@@ -4,6 +4,6 @@ namespace Alphicsh.JamPlayer.Model.Awards
 {
     public class AwardsOverview
     {
-        public IReadOnlyCollection<AwardEntry> Entries { get; init; } = default!;
+        public IReadOnlyCollection<AwardEntry> Entries { get; init; } = new List<AwardEntry>();
     }
 }
