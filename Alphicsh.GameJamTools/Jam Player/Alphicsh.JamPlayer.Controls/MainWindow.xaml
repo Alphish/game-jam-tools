@@ -7,7 +7,7 @@
   xmlns:local="clr-namespace:Alphicsh.JamPlayer.Controls"
   xmlns:controls="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
   xmlns:appRanking="clr-namespace:Alphicsh.JamPlayer.Controls.Ranking"
-  xmlns:appBestofs="clr-namespace:Alphicsh.JamPlayer.Controls.BestOfs"
+  xmlns:appAwards="clr-namespace:Alphicsh.JamPlayer.Controls.Awards"
   mc:Ignorable="d"
   MouseDown="OnMouseDown"
   Title="Jam Player" Height="640" Width="1200"
@@ -21,9 +21,9 @@
     </TabItem>
     <TabItem>
       <TabItem.Header>
-        <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuBestofsIconSource}" ToolTip="Best ofs"/>
+        <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuBestofsIconSource}" ToolTip="Awards"/>
       </TabItem.Header>
-      <appBestofs:BestOfsTab DataContext="{Binding Ranking}"></appBestofs:BestOfsTab>
+      <appAwards:AwardsTab DataContext="{Binding}"></appAwards:AwardsTab>
     </TabItem>
   </TabControl>
 </Window>
