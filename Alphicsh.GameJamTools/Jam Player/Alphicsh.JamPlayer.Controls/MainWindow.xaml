@@ -21,7 +21,7 @@
     </TabItem>
     <TabItem>
       <TabItem.Header>
-        <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuBestofsIconSource}" ToolTip="Awards"/>
+        <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuAwardsIconSource}" ToolTip="Awards"/>
       </TabItem.Header>
       <appAwards:AwardsTab DataContext="{Binding}"></appAwards:AwardsTab>
     </TabItem>

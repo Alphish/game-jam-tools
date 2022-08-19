@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <None Remove="Content\entry_placeholder.png" />
-    <None Remove="Content\menu_bestofs.png" />
+    <None Remove="Content\menu_awards.png" />
     <None Remove="Content\menu_jam.png" />
     <None Remove="Content\menu_ranking.png" />
     <None Remove="Content\star_empty.png" />
@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Content\entry_placeholder.png" />
-    <EmbeddedResource Include="Content\menu_bestofs.png" />
+    <EmbeddedResource Include="Content\menu_awards.png" />
     <EmbeddedResource Include="Content\menu_jam.png" />
     <EmbeddedResource Include="Content\menu_ranking.png" />
     <EmbeddedResource Include="Content\star_empty.png" />
