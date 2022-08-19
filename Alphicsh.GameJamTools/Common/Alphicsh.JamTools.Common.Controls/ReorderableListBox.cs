@@ -32,12 +32,18 @@ namespace Alphicsh.JamTools.Common.Controls
 
         private void OnElementClicked_TryTake(object sender, MouseButtonEventArgs e)
         {
+            if (!AllowDrop)
+                return;
+
             var mouseInListBoxPosition = e.GetPosition(this);
             SelectedElementContainer = GetElementAtPosition(mouseInListBoxPosition);
         }
 
         private void OnDrag_MoveElement(object sender, MouseEventArgs e)
         {
+            if (!AllowDrop)
+                return;
+
             if (SelectedElementContainer == null)
                 return;
 
@@ -56,11 +62,17 @@ namespace Alphicsh.JamTools.Common.Controls
 
         private void OnElementRelease_LeaveElement(object sender, MouseButtonEventArgs e)
         {
+            if (!AllowDrop)
+                return;
+
             SelectedElementContainer = null;
         }
 
         private void OnDrop_TryPlaceElement(object sender, DragEventArgs e)
         {
+            if (!AllowDrop)
+                return;
+
             var dragData = e.Data.GetData(typeof(DragData)) as DragData;
             if (dragData == null)
                 return;

@@ -12,6 +12,7 @@ namespace Alphicsh.JamPlayer.Model.Jam
             {
                 DirectoryPath = info.JamDirectoryPath,
                 Entries = info.Entries.Select(MapInfoToEntry).ToList(),
+                AwardCriteria = info.AwardCriteria.Select(MapInfoToAwardCriterion).ToList(),
             };
         }
 
@@ -42,6 +43,15 @@ namespace Alphicsh.JamPlayer.Model.Jam
             return new JamAuthor
             {
                 Name = info.Name,
+            };
+        }
+
+        private JamAwardCriterion MapInfoToAwardCriterion(JamAwardInfo info)
+        {
+            return new JamAwardCriterion
+            {
+                Id = info.Id,
+                Description = info.Description,
             };
         }
     }

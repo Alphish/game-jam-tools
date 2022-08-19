@@ -1,0 +1,29 @@
+﻿<Window
+  x:Class="Alphicsh.JamPlayer.Controls.MainWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:Alphicsh.JamPlayer.Controls"
+  xmlns:controls="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  xmlns:appRanking="clr-namespace:Alphicsh.JamPlayer.Controls.Ranking"
+  xmlns:appAwards="clr-namespace:Alphicsh.JamPlayer.Controls.Awards"
+  mc:Ignorable="d"
+  MouseDown="OnMouseDown"
+  Title="Jam Player" Height="640" Width="1200"
+>
+  <TabControl TabStripPlacement="Left" Style="{StaticResource MenuTabControl}" Background="#1c1c1c">
+    <TabItem>
+      <TabItem.Header>
+        <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuRankingIconSource}" ToolTip="Ranking"/>
+      </TabItem.Header>
+      <appRanking:RankingTab DataContext="{Binding}"></appRanking:RankingTab>
+    </TabItem>
+    <TabItem>
+      <TabItem.Header>
+        <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuBestofsIconSource}" ToolTip="Awards"/>
+      </TabItem.Header>
+      <appAwards:AwardsTab DataContext="{Binding}"></appAwards:AwardsTab>
+    </TabItem>
+  </TabControl>
+</Window>

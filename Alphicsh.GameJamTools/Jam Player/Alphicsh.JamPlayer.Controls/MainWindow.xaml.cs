@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace Alphicsh.JamPlayer.App
+namespace Alphicsh.JamPlayer.Controls
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -11,8 +11,6 @@ namespace Alphicsh.JamPlayer.App
         public MainWindow()
         {
             InitializeComponent();
-
-            DataContext = App.Current.ViewModel;
         }
 
         private void OnMouseDown(object sender, MouseButtonEventArgs e)

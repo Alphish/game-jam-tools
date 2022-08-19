@@ -9,6 +9,7 @@ using Alphicsh.JamTools.Common.IO.Search;
 using Alphicsh.JamPlayer.Model;
 using Alphicsh.JamPlayer.ViewModel;
 using Alphicsh.JamTools.Common.Theming;
+using Alphicsh.JamPlayer.Controls;
 
 namespace Alphicsh.JamPlayer.App
 {
@@ -30,10 +31,13 @@ namespace Alphicsh.JamPlayer.App
         protected override void OnStartup(StartupEventArgs e)
         {
             var themeManager = new ThemeManager(this.Resources);
-
             LoadJam(e);
 
             base.OnStartup(e);
+
+            var window = new MainWindow();
+            window.DataContext = ViewModel;
+            window.Show();
         }
 
         private void LoadJam(StartupEventArgs e)

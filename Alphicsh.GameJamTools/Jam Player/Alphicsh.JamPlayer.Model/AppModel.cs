@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.IO.Jam;
 
+using Alphicsh.JamPlayer.Model.Awards;
 using Alphicsh.JamPlayer.Model.Jam;
 using Alphicsh.JamPlayer.Model.Ranking;
 using Alphicsh.JamPlayer.Model.Ratings;
@@ -18,6 +18,7 @@ namespace Alphicsh.JamPlayer.Model
 
         public RatingCriteriaOverview RatingCriteria { get; internal set; }
         public RankingOverview Ranking { get; internal set; }
+        public AwardsOverview Awards { get; internal set; }
 
         // -----
         // Setup
@@ -25,11 +26,16 @@ namespace Alphicsh.JamPlayer.Model
 
         public AppModel()
         {
-            Jam = new JamOverview { Entries = new List<JamEntry>() };
+            Jam = new JamOverview
+            {
+                Entries = new List<JamEntry>(),
+                AwardCriteria = new List<JamAwardCriterion>()
+            };
             PlayerDataManager = new JamPlayerDataManager { AppModel = this };
 
-            Ranking = new RankingOverview();
             RatingCriteria = CreateDefaultRatingCriteria();
+            Ranking = new RankingOverview();
+            Awards = new AwardsOverview();
         }
 
         private RatingCriteriaOverview CreateDefaultRatingCriteria()

@@ -4,44 +4,41 @@ using System.Windows;
 
 namespace Alphicsh.JamTools.Common.Controls
 {
-    public static class DependencyPropertyHelper
+    public class DependencyPropertyHelper<TOwner>
+        where TOwner : DependencyObject
     {
         // -------------------
         // Simple registration
         // -------------------
 
-        public static DependencyProperty Register<TOwner, TValue>(Expression<Func<TOwner, TValue>> propertyExpression)
-            where TOwner : DependencyObject
+        public DependencyProperty Register<TValue>(Expression<Func<TOwner, TValue>> propertyExpression)
         {
             var propertyName = ExpressionNameof(propertyExpression);
             return DependencyProperty.Register(propertyName, typeof(TValue), typeof(TOwner));
         }
 
-        public static DependencyProperty Register<TOwner, TValue>(
+        public DependencyProperty Register<TValue>(
             Expression<Func<TOwner, TValue>> propertyExpression,
             PropertyMetadata metadata
             )
-            where TOwner : DependencyObject
         {
             var propertyName = ExpressionNameof(propertyExpression);
             return DependencyProperty.Register(propertyName, typeof(TValue), typeof(TOwner), metadata);
         }
 
-        public static DependencyProperty Register<TOwner, TValue>(
+        public DependencyProperty Register<TValue>(
             Expression<Func<TOwner, TValue>> propertyExpression,
             TValue defaultValue
             )
-            where TOwner : DependencyObject
         {
             return Register(propertyExpression, new PropertyMetadata(defaultValue));
         }
 
-        public static DependencyProperty Register<TOwner, TValue>(
+        public DependencyProperty Register<TValue>(
             Expression<Func<TOwner, TValue>> propertyExpression,
             TValue defaultValue,
             PropertyChangedCallback onPropertyChanged
             )
-            where TOwner : DependencyObject
         {
             return Register(propertyExpression, new PropertyMetadata(defaultValue, onPropertyChanged));
         }
@@ -50,11 +47,10 @@ namespace Alphicsh.JamTools.Common.Controls
         // Readonly registration
         // ---------------------
 
-        public static DependencyPropertyKey RegisterReadOnly<TOwner, TValue>(
+        public DependencyPropertyKey RegisterReadOnly<TValue>(
             Expression<Func<TOwner, TValue>> propertyExpression,
             TValue defaultValue
             )
-            where TOwner : DependencyObject
         {
             var propertyName = ExpressionNameof(propertyExpression);
             return DependencyProperty.RegisterReadOnly(propertyName, typeof(TValue), typeof(TOwner), new PropertyMetadata(defaultValue));
@@ -64,7 +60,7 @@ namespace Alphicsh.JamTools.Common.Controls
         // Helper methods
         // --------------
 
-        private static string ExpressionNameof<TOwner, TValue>(Expression<Func<TOwner, TValue>> propertyExpression)
+        private string ExpressionNameof<TValue>(Expression<Func<TOwner, TValue>> propertyExpression)
         {
             var memberExpression = (MemberExpression)propertyExpression.Body;
             return memberExpression.Member.Name;
