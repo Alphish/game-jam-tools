@@ -24,6 +24,7 @@
       CornerRadius="4"
       Source="{Binding Entry.ThumbnailSmall}"
       PlaceholderSource="{DynamicResource EntryPlaceholderSource}"
+      Visibility="{Binding Path=Entry, Mode=OneWay, Converter={StaticResource NullVisibilityConverter}}"
     >
     </ctrl:ImageBox>
 
