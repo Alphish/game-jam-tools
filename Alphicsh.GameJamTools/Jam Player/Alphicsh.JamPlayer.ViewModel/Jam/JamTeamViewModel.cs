@@ -13,7 +13,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
             : base(model)
         {
             Authors = CollectionViewModel.CreateImmutable(model.Authors, JamAuthorViewModel.CollectionStub);
-            ShortDescription = Model.Name ?? string.Join(", ", Authors.Select(author => author.Name));
+            ShortDescription = Model.Description;
 
             DescriptionItems = BuildDescriptionItems();
         }
