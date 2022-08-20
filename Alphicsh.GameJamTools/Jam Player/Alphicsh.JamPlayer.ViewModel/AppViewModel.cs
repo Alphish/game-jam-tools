@@ -8,6 +8,7 @@ using Alphicsh.JamPlayer.Model;
 using Alphicsh.JamPlayer.ViewModel.Jam;
 using Alphicsh.JamPlayer.ViewModel.Ranking;
 using Alphicsh.JamPlayer.ViewModel.Awards;
+using Alphicsh.JamPlayer.ViewModel.Export;
 
 namespace Alphicsh.JamPlayer.ViewModel
 {
@@ -25,11 +26,13 @@ namespace Alphicsh.JamPlayer.ViewModel
             Jam = new JamOverviewViewModel(Model.Jam);
             Ranking = new RankingOverviewViewModel(Model.Ranking);
             Awards = new AwardsOverviewViewModel(Model.Awards, Jam);
+            Exporter = new ExporterViewModel(Model.Exporter);
         }
 
         public JamOverviewViewModel Jam { get; private set; } = default!;
         public RankingOverviewViewModel Ranking { get; private set; } = default!;
         public AwardsOverviewViewModel Awards { get; private set; } = default!;
+        public ExporterViewModel Exporter { get; private set; } = default!;
         public ICommand SaveRankingCommand { get; }
 
         // --------------------
