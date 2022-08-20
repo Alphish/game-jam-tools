@@ -20,7 +20,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
         {
             JamEntry = new JamEntryViewModel(model.JamEntry);
 
-            RankProperty = MutableProperty.Create(this, nameof(Rank), (int?)null)
+            RankProperty = WrapperProperty.Create(this, nameof(Rank), vm => vm.Model.Rank, (vm, value) => vm.Model.Rank = value)
                 .WithDependingProperty(nameof(IsRanked));
 
             Ratings = model.Ratings.Select(RatingViewModel.Create).ToList();
@@ -38,7 +38,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
         // Mutable properties
         // ------------------
 
-        private MutableProperty<int?> RankProperty { get; }
+        private WrapperProperty<RankingEntryViewModel, int?> RankProperty { get; }
         public int? Rank { get => RankProperty.Value; set => RankProperty.Value = value; }
         public bool IsRanked => Rank.HasValue;
 
