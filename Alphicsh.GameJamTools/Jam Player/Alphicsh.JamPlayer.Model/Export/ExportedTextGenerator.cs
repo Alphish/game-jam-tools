@@ -56,7 +56,7 @@ namespace Alphicsh.JamPlayer.Model.Export
             {
                 var jamEntry = awardEntry.JamEntry!;
                 sb.Append("\n");
-                sb.Append($"[b]{ awardEntry.Criterion.Description }:[/b] { jamEntry.Title } by { jamEntry.Team.Description }\n");
+                sb.Append($"[b]{ awardEntry.Criterion.Description }:[/b] { jamEntry.Title } by { jamEntry.Team.Description }");
             }
         }
 
