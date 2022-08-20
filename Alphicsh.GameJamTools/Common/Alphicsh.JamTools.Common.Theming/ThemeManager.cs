@@ -81,6 +81,7 @@ namespace Alphicsh.JamTools.Common.Theming
             MenuJamIconSourceVariable = ImageVariableFor(x => x.MenuJamIconSource, "menu_jam.png");
             MenuRankingIconSourceVariable = ImageVariableFor(x => x.MenuRankingIconSource, "menu_ranking.png");
             MenuAwardsIconSourceVariable = ImageVariableFor(x => x.MenuAwardsIconSource, "menu_awards.png");
+            MenuExportIconSourceVariable = ImageVariableFor(x => x.MenuExportIconSource, "menu_export.png");
 
             EntryPlaceholderSourceVariable = ImageVariableFor(x => x.EntryPlaceholderSource, "entry_placeholder.png");
             StarEmptySourceVariable = ImageVariableFor(x => x.StarEmptySource, "star_empty.png");
@@ -248,6 +249,9 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public ImageSource MenuAwardsIconSource { get => MenuAwardsIconSourceVariable.Value; set => MenuAwardsIconSourceVariable.Value = value; }
         private ThemeVariable<ImageSource> MenuAwardsIconSourceVariable { get; }
+
+        public ImageSource MenuExportIconSource { get => MenuExportIconSourceVariable.Value; set => MenuExportIconSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> MenuExportIconSourceVariable { get; }
 
         public ImageSource EntryPlaceholderSource { get => EntryPlaceholderSourceVariable.Value; set => EntryPlaceholderSourceVariable.Value = value; }
         private ThemeVariable<ImageSource> EntryPlaceholderSourceVariable { get; }
