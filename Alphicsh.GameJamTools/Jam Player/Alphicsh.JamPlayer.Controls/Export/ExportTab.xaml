@@ -9,6 +9,23 @@
   d:DesignHeight="450" d:DesignWidth="800"
 >
   <Grid>
-    <local:ExportGeneratorSection Grid.Row="0" DataContext="{Binding Exporter}"></local:ExportGeneratorSection>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="1*" MinHeight="240"></RowDefinition>
+      <RowDefinition Height="Auto"></RowDefinition>
+      <RowDefinition Height="3*"></RowDefinition>
+    </Grid.RowDefinitions>
+    
+    <local:ExportOptionsSection Grid.Row="0" DataContext="{Binding Exporter.Options}"></local:ExportOptionsSection>
+    
+    <GridSplitter
+      Grid.Row="1"
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Center"
+      Height="8"
+      Background="Transparent"
+      ShowsPreview="True"
+    />
+    
+    <local:ExportGeneratorSection Grid.Row="2" DataContext="{Binding Exporter}"></local:ExportGeneratorSection>
   </Grid>
 </UserControl>
