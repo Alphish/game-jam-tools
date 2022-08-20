@@ -10,12 +10,16 @@ namespace Alphicsh.JamPlayer.ViewModel.Export
     {
         public ExporterViewModel(Exporter model) : base(model)
         {
+            Options = new ExportOptionsViewModel(model.Options);
+
             ExportedTextProperty = WrapperProperty.Create(
                 this, nameof(ExportedText), vm => vm.Model.ExportedText, (vm, value) => vm.Model.ExportedText = value
                 );
 
             GenerateTextCommand = SimpleCommand.From(GenerateText);
         }
+
+        public ExportOptionsViewModel Options { get; }
 
         public WrapperProperty<ExporterViewModel, string> ExportedTextProperty { get; }
         public string ExportedText { get => ExportedTextProperty.Value; set => ExportedTextProperty.Value = value; }
