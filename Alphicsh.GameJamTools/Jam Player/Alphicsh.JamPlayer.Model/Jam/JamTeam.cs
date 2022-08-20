@@ -8,6 +8,7 @@ namespace Alphicsh.JamPlayer.Model.Jam
         public string? Name { get; init; } = default!;
         public IReadOnlyCollection<JamAuthor> Authors { get; init; } = default!;
 
-        public string Description => Name ?? string.Join(", ", Authors.Select(author => author.Name));
+        public string Description => Name ?? AuthorNames;
+        public string AuthorNames => string.Join(", ", Authors.Select(author => author.Name));
     }
 }

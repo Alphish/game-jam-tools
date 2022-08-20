@@ -7,20 +7,26 @@ namespace Alphicsh.JamPlayer.Model.Export
 {
     internal class ExportedTextGenerator
     {
-        public string GenerateExportedText(AppModel appModel)
+        public string GenerateExportedText(AppModel appModel, ExportOptions options)
         {
             var sb = new StringBuilder();
-            GenerateTitle(sb);
-            GenerateTop3(sb, appModel.Ranking);
-            GenerateAwards(sb, appModel.Awards);
-            GenerateRanking(sb, appModel.Ranking);
-            GenerateComments(sb, appModel.Ranking);
+            GenerateTitle(sb, options.ReviewsTitle);
+
+            var areCompleteRankings = !appModel.Ranking.PendingEntries.Any();
+            if (areCompleteRankings || options.ExportIncompleteRankings)
+            {
+                GenerateTop3(sb, appModel.Ranking);
+                GenerateAwards(sb, appModel.Awards);
+                GenerateRanking(sb, appModel.Ranking);
+            }
+
+            GenerateComments(sb, appModel.Ranking, options.EntryCommentTemplate);
             return sb.ToString();
         }
 
-        private void GenerateTitle(StringBuilder sb)
+        private void GenerateTitle(StringBuilder sb, string reviewsTitle)
         {
-            sb.Append("[center][b][size=7]Reviews[/size][/b][/center]");
+            sb.Append($"[center][b][size=7]{ reviewsTitle }[/size][/b][/center]");
         }
 
         private void GenerateTop3(StringBuilder sb, RankingOverview ranking)
@@ -65,15 +71,11 @@ namespace Alphicsh.JamPlayer.Model.Export
             if (!ranking.RankedEntries.Any())
                 return;
 
-            var isIncompleteRanking = ranking.PendingEntries.Any();
-
-            var heading = isIncompleteRanking ? "Ranking so far" : "Full ranking";
             sb.Append("\n\n");
-            sb.Append($"[size=6]{ heading }:[/size]");
+            sb.Append($"[size=6]Ranking:[/size]");
 
-            var listTag = isIncompleteRanking ? "[list]" : "[list=1]";
             sb.Append("\n\n");
-            sb.Append($"[spoiler]{ listTag }");
+            sb.Append($"[spoiler][list=1]");
 
             foreach (var rankingEntry in ranking.RankedEntries)
             {
@@ -86,10 +88,12 @@ namespace Alphicsh.JamPlayer.Model.Export
             sb.Append("[/list][/spoiler]");
         }
 
-        private void GenerateComments(StringBuilder sb, RankingOverview ranking)
+        private void GenerateComments(StringBuilder sb, RankingOverview ranking, string commentTemplateString)
         {
             var entriesWithComments = ranking.RankedEntries.Concat(ranking.UnrankedEntries)
                 .Where(rankingEntry => !string.IsNullOrWhiteSpace(rankingEntry.Comment))
+                .OrderBy(rankingEntry => rankingEntry.JamEntry.Title)
+                .ThenBy(rankingEntry => rankingEntry.JamEntry.Team.Description)
                 .ToList();
 
             if (!entriesWithComments.Any())
@@ -101,22 +105,14 @@ namespace Alphicsh.JamPlayer.Model.Export
             sb.Append("\n\n");
             sb.Append("[spoiler]");
 
+            var entryTemplate = EntryTemplateParser.Parse(commentTemplateString);
             foreach (var rankingEntry in entriesWithComments)
             {
                 sb.Append("\n");
-                GenerateSingleComment(sb, rankingEntry);
-                sb.Append("\n");
+                sb.Append(entryTemplate.FormatEntry(rankingEntry));
             }
 
             sb.Append("[/spoiler]");
-        }
-
-        private void GenerateSingleComment(StringBuilder sb, RankingEntry rankingEntry)
-        {
-            var jamEntry = rankingEntry.JamEntry;
-            sb.Append($"[b]{ jamEntry.Title }[/b] by { jamEntry.Team.Description }");
-            sb.Append($"\n\n");
-            sb.Append(rankingEntry.Comment.Replace("\r\n", "\n"));
         }
     }
 }
