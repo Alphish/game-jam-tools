@@ -25,6 +25,7 @@
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/ListBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/CheckBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ComboBoxStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/SeparatorStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/TabStyles.xaml"/>
       </ResourceDictionary.MergedDictionaries>
 

@@ -77,6 +77,9 @@ namespace Alphicsh.JamTools.Common.Theming
             ListScrollPressedBrushVariable = VariableFor(x => x.ListScrollPressedBrush);
             ListScrollDisabledBrushVariable = VariableFor(x => x.ListScrollDisabledBrush);
 
+            // Separator theming
+            SeparatorBrushVariable = VariableFor(x => x.SeparatorBrush);
+
             // Images
             MenuJamIconSourceVariable = ImageVariableFor(x => x.MenuJamIconSource, "menu_jam.png");
             MenuRankingIconSourceVariable = ImageVariableFor(x => x.MenuRankingIconSource, "menu_ranking.png");
@@ -236,6 +239,13 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public Brush ListScrollDisabledBrush { get => ListScrollDisabledBrushVariable.Value; set => ListScrollDisabledBrushVariable.Value = value; }
         private ThemeVariable<Brush> ListScrollDisabledBrushVariable { get; }
+
+        // ------------
+        // Separator theming
+        // ------------
+
+        public Brush SeparatorBrush { get => SeparatorBrushVariable.Value; set => SeparatorBrushVariable.Value = value; }
+        private ThemeVariable<Brush> SeparatorBrushVariable { get; }
 
         // ------
         // Images

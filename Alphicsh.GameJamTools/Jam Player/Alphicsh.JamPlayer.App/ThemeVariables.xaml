@@ -53,6 +53,9 @@
   <SolidColorBrush x:Key="ListScrollPressedBrush" Color="#beffffff"></SolidColorBrush>
   <SolidColorBrush x:Key="ListScrollDisabledBrush" Color="#30ffffff"></SolidColorBrush>
 
+  <!-- Separator theming -->
+  <SolidColorBrush x:Key="SeparatorBrush" Color="#ff5b5b5b"></SolidColorBrush>
+  
   <!-- Image variables reference -->
   <!-- ImageSource x:Key="MenuJamIconSource" -->
   <!-- ImageSource x:Key="MenuRankingIconSource" -->
