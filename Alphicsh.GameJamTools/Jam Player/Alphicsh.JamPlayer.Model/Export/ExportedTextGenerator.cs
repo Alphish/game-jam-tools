@@ -42,7 +42,7 @@ namespace Alphicsh.JamPlayer.Model.Export
             {
                 var jamEntry = rankingEntry.JamEntry;
                 sb.Append("\n\n");
-                sb.Append($"[size=5][b]{ jamEntry.Title }[/b] by { jamEntry.Team.Description }\n");
+                sb.Append($"[size=5][b]{ jamEntry.Title }[/b] by { jamEntry.Team.Description }[/size]\n");
                 sb.Append("\n");
                 sb.Append(rankingEntry.Comment);
             }
@@ -81,7 +81,7 @@ namespace Alphicsh.JamPlayer.Model.Export
             {
                 var jamEntry = rankingEntry.JamEntry;
                 sb.Append("\n");
-                sb.Append($"[*][b]{ jamEntry.Title } by { jamEntry.Team.Description }");
+                sb.Append($"[*][b]{ jamEntry.Title }[/b] by { jamEntry.Team.Description }");
             }
 
             sb.Append("\n");
