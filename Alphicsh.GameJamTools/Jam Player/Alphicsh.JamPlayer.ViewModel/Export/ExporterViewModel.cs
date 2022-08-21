@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
 using Alphicsh.JamPlayer.Model.Export;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
@@ -17,6 +18,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Export
                 );
 
             GenerateTextCommand = SimpleCommand.From(GenerateText);
+            CopyTextCommand = SimpleCommand.From(CopyText);
         }
 
         public ExportOptionsViewModel Options { get; }
@@ -29,6 +31,12 @@ namespace Alphicsh.JamPlayer.ViewModel.Export
         {
             Model.GenerateText();
             ExportedTextProperty.RaisePropertyChanged();
+        }
+
+        public ICommand CopyTextCommand { get; }
+        private void CopyText()
+        {
+            Clipboard.SetText(Model.ExportedText);
         }
     }
 }
