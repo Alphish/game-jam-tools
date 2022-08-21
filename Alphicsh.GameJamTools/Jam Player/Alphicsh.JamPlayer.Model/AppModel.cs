@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
-
-using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.IO.Jam;
-
 using Alphicsh.JamPlayer.Model.Awards;
 using Alphicsh.JamPlayer.Model.Export;
 using Alphicsh.JamPlayer.Model.Jam;
 using Alphicsh.JamPlayer.Model.Ranking;
 using Alphicsh.JamPlayer.Model.Ratings;
 using Alphicsh.JamPlayer.Model.Ratings.NumericScale;
+using Alphicsh.JamTools.Common.IO;
+using Alphicsh.JamTools.Common.IO.Jam;
 
 namespace Alphicsh.JamPlayer.Model
 {
@@ -21,7 +19,7 @@ namespace Alphicsh.JamPlayer.Model
         public RankingOverview Ranking { get; internal set; }
         public AwardsOverview Awards { get; internal set; }
 
-        public Exporter Exporter { get; }
+        public Exporter Exporter { get; internal set; }
 
         // -----
         // Setup
@@ -95,6 +93,7 @@ namespace Alphicsh.JamPlayer.Model
             var mapper = new JamInfoMapper();
             Jam = mapper.MapInfoToJam(jamInfo);
             PlayerDataManager.LoadRanking();
+            PlayerDataManager.LoadExporter();
         }
     }
 }
