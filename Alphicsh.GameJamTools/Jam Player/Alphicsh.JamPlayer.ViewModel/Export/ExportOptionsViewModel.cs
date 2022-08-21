@@ -32,6 +32,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Export
         public WrapperProperty<ExportOptionsViewModel, string> EntryCommentTemplateProperty { get; }
         public string EntryCommentTemplate { get => EntryCommentTemplateProperty.Value; set => EntryCommentTemplateProperty.Value = value; }
 
+        public ICommand SaveExporterCommand => AppViewModel.Current.SaveExporterCommand;
         public ICommand RestoreDefaultsCommand { get; }
         private void RestoreDefaults()
         {

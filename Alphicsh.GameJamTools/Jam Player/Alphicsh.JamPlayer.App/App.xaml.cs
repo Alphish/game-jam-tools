@@ -1,15 +1,12 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media.Imaging;
-
-using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.IO.Search;
-
+using Alphicsh.JamPlayer.Controls;
 using Alphicsh.JamPlayer.Model;
 using Alphicsh.JamPlayer.ViewModel;
+using Alphicsh.JamTools.Common.IO;
+using Alphicsh.JamTools.Common.IO.Search;
 using Alphicsh.JamTools.Common.Theming;
-using Alphicsh.JamPlayer.Controls;
 
 namespace Alphicsh.JamPlayer.App
 {
@@ -25,7 +22,7 @@ namespace Alphicsh.JamPlayer.App
         public App()
         {
             var model = new AppModel();
-            ViewModel = new AppViewModel(model);
+            ViewModel = AppViewModel.Create(model);
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -35,8 +32,10 @@ namespace Alphicsh.JamPlayer.App
 
             base.OnStartup(e);
 
-            var window = new MainWindow();
-            window.DataContext = ViewModel;
+            var window = new MainWindow
+            {
+                DataContext = ViewModel
+            };
             window.Show();
         }
 
