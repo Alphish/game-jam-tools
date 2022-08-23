@@ -25,6 +25,11 @@
   <SolidColorBrush x:Key="PrimaryButtonShadowBrush" Color="#ff4e842e"></SolidColorBrush>
   <SolidColorBrush x:Key="PrimaryButtonGlowBrush" Color="#ff64aa4c"></SolidColorBrush>
   
+  <SolidColorBrush x:Key="HelpButtonBackgroundBrush" Color="#ff355197"></SolidColorBrush>
+  <SolidColorBrush x:Key="HelpButtonHoverBrush" Color="#ff2d5eb4"></SolidColorBrush>
+  <SolidColorBrush x:Key="HelpButtonShadowBrush" Color="#ff2e4e84"></SolidColorBrush>
+  <SolidColorBrush x:Key="HelpButtonGlowBrush" Color="#ff4c64aa"></SolidColorBrush>
+  
   <!-- Text box theming -->
   <SolidColorBrush x:Key="TextBoxBackgroundBrush" Color="#ff2e2e2e"></SolidColorBrush>
   <SolidColorBrush x:Key="TextBoxFocusBrush" Color="#ff232323"></SolidColorBrush>

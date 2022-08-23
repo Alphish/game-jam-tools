@@ -51,6 +51,11 @@ namespace Alphicsh.JamTools.Common.Theming
             PrimaryButtonShadowBrushVariable = VariableFor(x => x.PrimaryButtonShadowBrush);
             PrimaryButtonGlowBrushVariable = VariableFor(x => x.PrimaryButtonGlowBrush);
 
+            HelpButtonBackgroundBrushVariable = VariableFor(x => x.HelpButtonBackgroundBrush);
+            HelpButtonHoverBrushVariable = VariableFor(x => x.HelpButtonHoverBrush);
+            HelpButtonShadowBrushVariable = VariableFor(x => x.HelpButtonShadowBrush);
+            HelpButtonGlowBrushVariable = VariableFor(x => x.HelpButtonGlowBrush);
+
             // Text box theming
 
             TextBoxBackgroundBrushVariable = VariableFor(x => x.TextBoxBackgroundBrush);
@@ -176,6 +181,18 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public Brush PrimaryButtonGlowBrush { get => PrimaryButtonGlowBrushVariable.Value; set => PrimaryButtonGlowBrushVariable.Value = value; }
         private ThemeVariable<Brush> PrimaryButtonGlowBrushVariable { get; }
+
+        public Brush HelpButtonBackgroundBrush { get => HelpButtonBackgroundBrushVariable.Value; set => HelpButtonBackgroundBrushVariable.Value = value; }
+        private ThemeVariable<Brush> HelpButtonBackgroundBrushVariable { get; }
+
+        public Brush HelpButtonHoverBrush { get => HelpButtonHoverBrushVariable.Value; set => HelpButtonHoverBrushVariable.Value = value; }
+        private ThemeVariable<Brush> HelpButtonHoverBrushVariable { get; }
+
+        public Brush HelpButtonShadowBrush { get => HelpButtonShadowBrushVariable.Value; set => HelpButtonShadowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> HelpButtonShadowBrushVariable { get; }
+
+        public Brush HelpButtonGlowBrush { get => HelpButtonGlowBrushVariable.Value; set => HelpButtonGlowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> HelpButtonGlowBrushVariable { get; }
 
         // ----------------
         // Text box theming
