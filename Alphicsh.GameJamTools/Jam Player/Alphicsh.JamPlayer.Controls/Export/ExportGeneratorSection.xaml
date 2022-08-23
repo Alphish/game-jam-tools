@@ -12,19 +12,18 @@
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="1*"></RowDefinition>
-        <RowDefinition Height="4"></RowDefinition>
+        <RowDefinition Height="Auto"></RowDefinition>
         <RowDefinition Height="Auto"></RowDefinition>
       </Grid.RowDefinitions>
 
       <TextBox Grid.Row="0" Style="{StaticResource TextArea}" Text="{Binding ExportedText}"></TextBox>
 
-      <Button
-        Grid.Row="2"
-        Style="{StaticResource PrimaryButton}"
-        Command="{Binding GenerateTextCommand}"
-        Width="128"
-        Margin="2"
-      >Generate</Button>
+      <Separator Grid.Row="1"></Separator>
+      
+      <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+        <Button Style="{StaticResource PrimaryButton}" Command="{Binding GenerateTextCommand}" Width="144" Margin="2">Generate</Button>
+        <Button Command="{Binding CopyTextCommand}" Width="144" Margin="2">Copy to clipboard</Button>
+      </StackPanel>
     </Grid>
   </GroupBox>
 </UserControl>

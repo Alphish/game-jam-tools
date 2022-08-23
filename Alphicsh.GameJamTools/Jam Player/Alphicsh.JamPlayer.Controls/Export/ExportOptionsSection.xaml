@@ -8,7 +8,7 @@
   mc:Ignorable="d" 
   d:DesignHeight="200" d:DesignWidth="800"
 >
-  <GroupBox Header="Options">
+  <GroupBox Header="Settings">
     <Grid Margin="2">
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto"></RowDefinition>
@@ -35,7 +35,8 @@
       <!-- Commands -->
       <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"></Separator>
       <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-        <Button Width="160" Margin="2" Command="{Binding RestoreDefaultsCommand}">Restore defaults</Button>
+        <Button Width="144" Margin="2" Command="{Binding SaveExporterCommand}">Save settings</Button>
+        <Button Width="144" Margin="2" Command="{Binding RestoreDefaultsCommand}">Restore defaults</Button>
       </StackPanel>
       
     </Grid>
