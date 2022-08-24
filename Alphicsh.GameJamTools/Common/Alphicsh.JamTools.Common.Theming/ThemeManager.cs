@@ -85,6 +85,13 @@ namespace Alphicsh.JamTools.Common.Theming
             // Separator theming
             SeparatorBrushVariable = VariableFor(x => x.SeparatorBrush);
 
+            // Modal theming
+            ModalHeaderBrushVariable = VariableFor(x => x.ModalHeaderBrush);
+            ModalCaptionBrushVariable = VariableFor(x => x.ModalCaptionBrush);
+            ModalBodyBrushVariable = VariableFor(x => x.ModalBodyBrush);
+            ModalToolbarBrushVariable = VariableFor(x => x.ModalToolbarBrush);
+            ModalBorderBrushVariable = VariableFor(x => x.ModalBorderBrush);
+
             // Images
             MenuJamIconSourceVariable = ImageVariableFor(x => x.MenuJamIconSource, "menu_jam.png");
             MenuRankingIconSourceVariable = ImageVariableFor(x => x.MenuRankingIconSource, "menu_ranking.png");
@@ -263,6 +270,25 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public Brush SeparatorBrush { get => SeparatorBrushVariable.Value; set => SeparatorBrushVariable.Value = value; }
         private ThemeVariable<Brush> SeparatorBrushVariable { get; }
+
+        // -------------
+        // Modal theming
+        // -------------
+
+        public Brush ModalHeaderBrush { get => ModalHeaderBrushVariable.Value; set => ModalHeaderBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ModalHeaderBrushVariable { get; }
+
+        public Brush ModalCaptionBrush { get => ModalCaptionBrushVariable.Value; set => ModalCaptionBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ModalCaptionBrushVariable { get; }
+
+        public Brush ModalBodyBrush { get => ModalBodyBrushVariable.Value; set => ModalBodyBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ModalBodyBrushVariable { get; }
+
+        public Brush ModalToolbarBrush { get => ModalToolbarBrushVariable.Value; set => ModalToolbarBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ModalToolbarBrushVariable { get; }
+
+        public Brush ModalBorderBrush { get => ModalBorderBrushVariable.Value; set => ModalBorderBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ModalBorderBrushVariable { get; }
 
         // ------
         // Images
