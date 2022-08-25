@@ -61,10 +61,21 @@
   <!-- Separator theming -->
   <SolidColorBrush x:Key="SeparatorBrush" Color="#ff5b5b5b"></SolidColorBrush>
   
+  <!-- Modal window theming -->
+  <LinearGradientBrush x:Key="ModalHeaderBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+    <GradientStop Color="#ff494949" Offset="0.0"></GradientStop>
+    <GradientStop Color="#ff5c5c5c" Offset="1.0"></GradientStop>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="ModalCaptionBrush" Color="#ffe3e3e3"></SolidColorBrush>
+  <SolidColorBrush x:Key="ModalBodyBrush" Color="#ff363636"></SolidColorBrush>
+  <SolidColorBrush x:Key="ModalToolbarBrush" Color="#ff5c5c5c"></SolidColorBrush>
+  <SolidColorBrush x:Key="ModalBorderBrush" Color="#ff1c1c1c"></SolidColorBrush>
+  
   <!-- Image variables reference -->
   <!-- ImageSource x:Key="MenuJamIconSource" -->
   <!-- ImageSource x:Key="MenuRankingIconSource" -->
-  <!-- ImageSource x:Key="MenuBestofsIconSource" -->
+  <!-- ImageSource x:Key="MenuAwardsIconSource" -->
+  <!-- ImageSource x:Key="MenuExportIconSource" -->
 
   <!-- ImageSource x:Key="EntryPlaceholderSource" -->
   <!-- ImageSource x:Key="StarEmptySource" -->
