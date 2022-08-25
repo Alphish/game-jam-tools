@@ -28,6 +28,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam
             get => EntryInfoPath.GetParentDirectoryPath()!.Value;
             set => EntryInfoPath = value.Append(EntryInfoFileName);
         }
+
         [JsonIgnore] public string EntryInfoFileName
         {
             get => EntryInfoPath.GetLastSegmentName();
