@@ -7,7 +7,7 @@ namespace Alphicsh.JamPlayer.Controls.Export.Modals
     {
         public static void Register()
         {
-            ExportModals.ShowHelpCommand = new SimpleCommand(ExportHelpModal.ShowHelp);
+            ExportModals.ShowHelpCommand = SimpleCommand.From(ExportHelpModal.ShowModal);
         }
     }
 }

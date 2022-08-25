@@ -13,7 +13,7 @@ namespace Alphicsh.JamPlayer.Controls.Export.Modals
             InitializeComponent();
         }
 
-        public static void ShowHelp()
+        public static void ShowModal()
         {
             var modal = new ExportHelpModal();
             var viewModel = new ExportHelpViewModel(modal);
