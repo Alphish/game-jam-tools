@@ -13,29 +13,34 @@
   MouseDown="OnMouseDown"
   Title="Jam Player" Height="640" Width="1200"
 >
-  <TabControl TabStripPlacement="Left" Style="{StaticResource MenuTabControl}" Background="#1c1c1c">
-    <!-- Ranking tab -->
-    <TabItem>
-      <TabItem.Header>
-        <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuRankingIconSource}" ToolTip="Ranking"/>
-      </TabItem.Header>
-      <appRanking:RankingTab DataContext="{Binding}"></appRanking:RankingTab>
-    </TabItem>
+  <Grid>
+    <TabControl TabStripPlacement="Left" Style="{StaticResource MenuTabControl}" Background="#1c1c1c">
+      <!-- Ranking tab -->
+      <TabItem>
+        <TabItem.Header>
+          <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuRankingIconSource}" ToolTip="Ranking"/>
+        </TabItem.Header>
+        <appRanking:RankingTab DataContext="{Binding}"></appRanking:RankingTab>
+      </TabItem>
+      
+      <!-- Awards tab -->
+      <TabItem>
+        <TabItem.Header>
+          <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuAwardsIconSource}" ToolTip="Awards"/>
+        </TabItem.Header>
+        <appAwards:AwardsTab DataContext="{Binding}"></appAwards:AwardsTab>
+      </TabItem>
+      
+      <!-- Export tab -->
+      <TabItem>
+        <TabItem.Header>
+          <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuExportIconSource}" ToolTip="Export"/>
+        </TabItem.Header>
+        <appExport:ExportTab DataContext="{Binding}"></appExport:ExportTab>
+      </TabItem>
+    </TabControl>
     
-    <!-- Awards tab -->
-    <TabItem>
-      <TabItem.Header>
-        <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuAwardsIconSource}" ToolTip="Awards"/>
-      </TabItem.Header>
-      <appAwards:AwardsTab DataContext="{Binding}"></appAwards:AwardsTab>
-    </TabItem>
-    
-    <!-- Export tab -->
-    <TabItem>
-      <TabItem.Header>
-        <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuExportIconSource}" ToolTip="Export"/>
-      </TabItem.Header>
-      <appExport:ExportTab DataContext="{Binding}"></appExport:ExportTab>
-    </TabItem>
-  </TabControl>
+    <!-- Modal overlay -->
+    <Border Background="#80000000" Visibility="{Binding HasOverlay, Converter={StaticResource ShowTrueVisibilityConverter}}"></Border>
+  </Grid>
 </Window>

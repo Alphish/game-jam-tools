@@ -1,15 +1,14 @@
-﻿using System.Windows.Input;
-
+﻿using System;
+using System.Windows.Input;
+using Alphicsh.JamPlayer.Model;
+using Alphicsh.JamPlayer.ViewModel.Awards;
+using Alphicsh.JamPlayer.ViewModel.Export;
+using Alphicsh.JamPlayer.ViewModel.Jam;
+using Alphicsh.JamPlayer.ViewModel.Ranking;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
-
-using Alphicsh.JamPlayer.Model;
-using Alphicsh.JamPlayer.ViewModel.Jam;
-using Alphicsh.JamPlayer.ViewModel.Ranking;
-using Alphicsh.JamPlayer.ViewModel.Awards;
-using Alphicsh.JamPlayer.ViewModel.Export;
-using System;
+using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 namespace Alphicsh.JamPlayer.ViewModel
 {
@@ -31,6 +30,7 @@ namespace Alphicsh.JamPlayer.ViewModel
             RecreateViewModels();
             SaveRankingCommand = new SimpleCommand(Model.PlayerDataManager.SaveRanking);
             SaveExporterCommand = new SimpleCommand(Model.PlayerDataManager.SaveExporter);
+            HasOverlayProperty = MutableProperty.Create(this, nameof(HasOverlay), false);
         }
 
         private void RecreateViewModels()
@@ -48,6 +48,9 @@ namespace Alphicsh.JamPlayer.ViewModel
 
         public ICommand SaveRankingCommand { get; }
         public ICommand SaveExporterCommand { get; }
+
+        public MutableProperty<bool> HasOverlayProperty { get; }
+        public bool HasOverlay { get => HasOverlayProperty.Value; set => HasOverlayProperty.Value = value; }
 
         // --------------------
         // Available operations
