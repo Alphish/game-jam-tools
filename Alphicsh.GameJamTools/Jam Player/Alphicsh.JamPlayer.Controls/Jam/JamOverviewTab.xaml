@@ -1,0 +1,63 @@
+﻿<UserControl
+  x:Class="Alphicsh.JamPlayer.Controls.Jam.JamSummaryTab"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.JamPlayer.Controls.Jam"
+  xmlns:ctrl="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  mc:Ignorable="d" 
+  d:DesignHeight="450" d:DesignWidth="800"
+>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="1*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    
+    <!-- Jam summary -->
+    <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+      <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock
+          HorizontalAlignment="Center"
+          FontSize="32"
+          FontWeight="Bold"
+          Foreground="{DynamicResource BasicText}"
+          Text="{Binding Title}"
+          d:Text="The Game Jam"
+        />
+        <ctrl:ImageBox
+          HorizontalAlignment="Center"
+          Margin="0,16,0,0"
+          Source="{Binding Logo}"
+          Width="{Binding Logo.PixelWidth}"
+          Height="{Binding Logo.PixelHeight}"
+          Visibility="{Binding Path=Logo, Mode=OneWay, Converter={StaticResource NullVisibilityConverter}}"
+        ></ctrl:ImageBox>
+        <TextBlock
+          HorizontalAlignment="Center"
+          Margin="0,16,0,0"
+          FontSize="24"
+          Foreground="{DynamicResource BasicText}"
+          Visibility="{Binding Path=Theme, Mode=OneWay, Converter={StaticResource NullVisibilityConverter}}"
+        >
+          Theme:
+          <Run Foreground="{DynamicResource HighlightText}" FontWeight="Bold" Text="{Binding Path=Theme, Mode=OneWay}" d:Text="PANCAKES"/>
+        </TextBlock>
+      </StackPanel>
+    </ScrollViewer>
+    
+    <!-- Reset user data -->
+    <Separator Grid.Row="1"></Separator>
+    <Button
+      Grid.Row="2"
+      Margin="2"
+      Width="160"
+      Style="{StaticResource DangerButton}"
+      Command="{Binding ConfirmResetDataCommand}"
+    >
+      Reset user data
+    </Button>
+  </Grid>
+</UserControl>

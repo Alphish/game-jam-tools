@@ -7,12 +7,19 @@ namespace Alphicsh.JamTools.Common.IO.Jam
 {
     public class JamInfo
     {
+        // -------------------
+        // General information
+        // -------------------
+
+        public string? Title { get; init; } = default!;
+        public FilePath? LogoFileName { get; set; } = default!;
+        public string? Theme { get; init; } = default!;
+
         // -------
         // Entries
         // -------
 
         public FilePath EntriesSubpath { get; init; } = default!;
-
         [JsonPropertyName("entries")] public IReadOnlyCollection<JamEntryStub> EntriesStubs { get; init; } = default!;
         [JsonIgnore] public IReadOnlyCollection<JamEntryInfo> Entries { get; internal set; } = default!;
 
@@ -23,18 +30,21 @@ namespace Alphicsh.JamTools.Common.IO.Jam
         // ---------------------
 
         [JsonIgnore] public FilePath JamInfoPath { get; set; }
-        [JsonIgnore]
-        public FilePath JamDirectoryPath
+
+        [JsonIgnore] public FilePath JamDirectoryPath
         {
             get => JamInfoPath.GetParentDirectoryPath()!.Value;
             set => JamInfoPath = value.Append(JamInfoFileName);
         }
-        [JsonIgnore]
-        public string JamInfoFileName
+
+        [JsonIgnore] public string JamInfoFileName
         {
             get => JamInfoPath.GetLastSegmentName();
             set => JamInfoPath = JamDirectoryPath.Append(value);
         }
+
+        [JsonIgnore] public FilePath? LogoPath
+            => JamDirectoryPath.AppendNullable(LogoFileName);
 
         // -------
         // Loading

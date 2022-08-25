@@ -26,7 +26,6 @@ namespace Alphicsh.JamTools.Common.IO
                 // ignoring properties
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
                 IncludeFields = false,
-                IgnoreReadOnlyProperties = true,
 
                 // property names
                 PropertyNameCaseInsensitive = true,
@@ -34,12 +33,10 @@ namespace Alphicsh.JamTools.Common.IO
 
                 // indentation
                 WriteIndented = true,
-
             };
 
             // converters
             SerializerOptions.Converters.Add(new FilePathJsonConverter());
-            SerializerOptions.Converters.Add(new NullableFilePathJsonConverter());
         }
 
         // -------

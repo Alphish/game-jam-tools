@@ -1,4 +1,5 @@
 ﻿using Alphicsh.JamPlayer.Controls.Export.Modals;
+using Alphicsh.JamPlayer.Controls.Jam.Modals;
 
 namespace Alphicsh.JamPlayer.Controls
 {
@@ -7,6 +8,7 @@ namespace Alphicsh.JamPlayer.Controls
         public static void Register()
         {
             ExportModalsRegistration.Register();
+            JamModalsRegistration.Register();
         }
     }
 }

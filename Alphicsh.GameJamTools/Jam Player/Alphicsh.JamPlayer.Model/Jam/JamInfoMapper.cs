@@ -11,6 +11,9 @@ namespace Alphicsh.JamPlayer.Model.Jam
             return new JamOverview
             {
                 DirectoryPath = info.JamDirectoryPath,
+                Title = info.Title,
+                LogoPath = info.LogoPath,
+                Theme = info.Theme,
                 Entries = info.Entries.Select(MapInfoToEntry).ToList(),
                 AwardCriteria = info.AwardCriteria.Select(MapInfoToAwardCriterion).ToList(),
             };

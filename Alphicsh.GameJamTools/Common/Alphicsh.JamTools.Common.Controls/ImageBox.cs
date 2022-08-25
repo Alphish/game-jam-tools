@@ -6,28 +6,28 @@ namespace Alphicsh.JamTools.Common.Controls
 {
     public class ImageBox : Border
     {
-        private static DependencyPropertyHelper<ImageBox> Deps
-            = new DependencyPropertyHelper<ImageBox>();
+        private static DependencyPropertyHelper<ImageBox> Deps { get; } = new DependencyPropertyHelper<ImageBox>();
 
         // ---------------------
         // Dependency properties
         // ---------------------
 
-        public static readonly DependencyProperty SourceProperty = Deps.Register(control => control.Source, null, OnSourceChange);
+        public static DependencyProperty SourceProperty { get; } = Deps.Register(control => control.Source, null, OnSourceChange);
         public ImageSource? Source
         {
             get => (ImageSource?)GetValue(SourceProperty);
             set => SetValue(SourceProperty, value);
         }
 
-        public static readonly DependencyProperty PlaceholderSourceProperty = Deps.Register(control => control.PlaceholderSource, null, OnSourceChange);
+        public static DependencyProperty PlaceholderSourceProperty { get; }
+            = Deps.Register(control => control.PlaceholderSource, null, OnSourceChange);
         public ImageSource? PlaceholderSource
         {
             get => (ImageSource?)GetValue(PlaceholderSourceProperty);
             set => SetValue(PlaceholderSourceProperty, value);
         }
 
-        private static readonly DependencyPropertyKey ResolvedSourcePropertyKey = Deps.RegisterReadOnly(x => x.ResolvedSource, null);
+        private static DependencyPropertyKey ResolvedSourcePropertyKey { get; } = Deps.RegisterReadOnly(x => x.ResolvedSource, null);
         public static DependencyProperty ResolvedSourceProperty => ResolvedSourcePropertyKey.DependencyProperty;
         public ImageSource? ResolvedSource => (ImageSource?)GetValue(ResolvedSourceProperty);
 

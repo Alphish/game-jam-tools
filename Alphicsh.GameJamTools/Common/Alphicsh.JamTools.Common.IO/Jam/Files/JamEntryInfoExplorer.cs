@@ -64,17 +64,17 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
 
         private JamEntryInfo StubEntryInfoFromDirectory(string id, FilePath entryDirectoryPath)
         {
-            var titleAndAuthors = ExtractTitleAndAuthors(entryDirectoryPath);
+            var (title, authors) = ExtractTitleAndAuthors(entryDirectoryPath);
 
             return new JamEntryInfo()
             {
                 Id = id,
                 EntryInfoPath = entryDirectoryPath.Append("entry.jamentry"),
-                Title = titleAndAuthors.Title,
+                Title = title,
                 Team = new JamTeamInfo
                 {
                     Name = null,
-                    Authors = titleAndAuthors.Authors.Select(name => new JamAuthorInfo { Name = name }).ToList()
+                    Authors = authors.Select(name => new JamAuthorInfo { Name = name }).ToList()
                 }
             };
         }

@@ -43,8 +43,9 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
 
         public JamInfo RediscoverJamInfo(FilePath jamDirectoryPath)
         {
-            var jamInfo = StubJamInfoFromFile(jamDirectoryPath)
-                ?? StubJamInfoFromDirectory(jamDirectoryPath);
+            var jamInfo = StubJamInfoFromFile(jamDirectoryPath) ?? StubJamInfoFromDirectory(jamDirectoryPath);
+
+            jamInfo.LogoFileName ??= FindLogoPath(jamDirectoryPath)?.AsRelativeTo(jamDirectoryPath);
 
             var entriesPath = jamDirectoryPath.Append(jamInfo.EntriesSubpath);
             jamInfo.Entries = RediscoverEntriesFromStubs(entriesPath, jamInfo.EntriesStubs).ToList();
@@ -75,7 +76,9 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
 
         private JamInfo StubJamInfoFromDirectory(FilePath jamDirectoryPath)
         {
-            var entriesPath = FindEntriesPath(jamDirectoryPath);
+            var logoPath = FindLogoPath(jamDirectoryPath);
+
+            var entriesPath = FindEntriesSubpath(jamDirectoryPath);
             if (entriesPath == null)
                 throw new DirectoryNotFoundException("Could not find the entries subdirectory in the jam directory.");
 
@@ -84,12 +87,24 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
             return new JamInfo()
             {
                 JamInfoPath = jamDirectoryPath.Append("jam.jaminfo"),
+                LogoFileName = logoPath?.AsRelativeTo(jamDirectoryPath),
                 EntriesSubpath = entriesPath.Value.AsRelativeTo(jamDirectoryPath),
                 EntriesStubs = entriesStubs,
             };
         }
 
-        private FilePath? FindEntriesPath(FilePath jamDirectoryPath)
+        private FilePath? FindLogoPath(FilePath jamDirectoryPath)
+        {
+            return FilesystemSearch.ForFilesIn(jamDirectoryPath)
+                .IncludingTopDirectoryOnly()
+                .WithExtensions(".png", ".jpg", ".jpeg")
+                .FindMatches("logo")
+                .ElseFindMatches("logo*")
+                .ElseFindMatches("*logo*")
+                .FirstOrDefault();
+        }
+
+        private FilePath? FindEntriesSubpath(FilePath jamDirectoryPath)
         {
             return FilesystemSearch.ForDirectoriesIn(jamDirectoryPath)
                 .FindMatches("Entries")
