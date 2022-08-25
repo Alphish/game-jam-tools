@@ -21,6 +21,8 @@ namespace Alphicsh.JamPlayer.App
 
         public App()
         {
+            ModalsRegistration.Register();
+
             var model = new AppModel();
             ViewModel = AppViewModel.Create(model);
         }
