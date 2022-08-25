@@ -1,0 +1,58 @@
+﻿<Window
+  x:Class="Alphicsh.JamPlayer.Controls.Export.Modals.ExportHelpModal"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:Alphicsh.JamPlayer.Controls.Export.Modals"
+  mc:Ignorable="d"
+  Style="{StaticResource ModalWindow}"
+  Height="450" Width="800"
+>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="1*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    
+    <Border Grid.Row="0" Style="{StaticResource ModalHeader}">
+      <DockPanel>
+        <Button DockPanel.Dock="Right" Style="{StaticResource CloseModalButton}"/>
+        <TextBlock Style="{StaticResource ModalCaption}" d:Text="Export options reference"/>
+      </DockPanel>
+    </Border>
+    
+    <Border Grid.Row="1" Style="{StaticResource ModalBody}">
+      <ScrollViewer>
+        <TextBlock Margin="4,0,4,0" TextWrapping="WrapWithOverflow" Foreground="{DynamicResource BasicText}" FontSize="16">
+          <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">Reviews title</Run><LineBreak/>
+          This setting affects the title appearing at the start of your reviews.<LineBreak/>
+          <LineBreak/>
+          <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">Export incomplete rankings</Run><LineBreak/>
+          If this setting is disabled and there are still some entries pending, the exporter will export only the comments
+            (top 3, best of awards and full ranking list won't be exported).<LineBreak/>
+          If it's enabled, the exporter will export all sections even if there are still some entries pending.<LineBreak/>
+          If you played through all entries (no entry remains pending), the top 3, best of awards and full ranking will be exported
+            regardless of this setting.<LineBreak/>
+          <LineBreak/>
+          <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">Comment template</Run><LineBreak/>
+          This setting affects how a single comment in the comment section is formatted.<LineBreak/>
+          The template consists of literal text that will be exported as-is, and variable insertions that will be replaced
+            by entry-specific values. You insert a variable by wrapping its name in curly braces (e.g. {TITLE}).<LineBreak/><LineBreak/>
+          The available values are:<LineBreak/>
+          <Bold>TITLE</Bold> - the title of the entry<LineBreak/>
+          <Bold>TEAM</Bold> - the name of the team if given, otherwise a comma-separated list of authors<LineBreak/>
+          <Bold>AUTHORS</Bold> - a comma-separated list of authors<LineBreak/>
+          <Bold>COMMENT</Bold> - the comment written for the entry<LineBreak/>
+          <Bold>RANK</Bold> - the position of the entry in ranking as ordered by the user<LineBreak/>
+          <Bold>THEME, CONCEPT, PRESENTATION, STORY, OVERALL</Bold> - the entry ratings given by the user
+        </TextBlock>
+      </ScrollViewer>
+    </Border>
+    
+    <Border Grid.Row="2" Style="{StaticResource ModalToolbar}">
+      <Button Style="{StaticResource PrimaryButton}" Margin="2" Width="64" Command="{Binding CloseWindowCommand}">Ok</Button>
+    </Border>
+  </Grid>
+</Window>
