@@ -1,4 +1,5 @@
-﻿using Alphicsh.JamPlayer.IO.Export;
+﻿using System.IO;
+using Alphicsh.JamPlayer.IO.Export;
 using Alphicsh.JamPlayer.IO.Ranking;
 using Alphicsh.JamPlayer.Model.Export;
 using Alphicsh.JamPlayer.Model.Ranking;
@@ -48,6 +49,17 @@ namespace Alphicsh.JamPlayer.Model
         {
             var exporterInfo = ExporterInfo.LoadOrGetDefault(ExporterInfoPath);
             AppModel.Exporter = ExporterInfoMapper.MapInfoToExporter(AppModel, exporterInfo);
+        }
+
+        // ---------
+        // Resetting
+        // ---------
+
+        public void ResetUserData()
+        {
+            Directory.Delete(DirectoryPath.Value, recursive: true);
+            LoadRanking();
+            LoadExporter();
         }
     }
 }
