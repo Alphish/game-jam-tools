@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Alphicsh.JamPlayer.Controls
@@ -8,8 +9,14 @@ namespace Alphicsh.JamPlayer.Controls
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow Current { get; private set; } = null!;
+
         public MainWindow()
         {
+            if (Current != null)
+                throw new InvalidOperationException("MainWindow should be created only once.");
+
+            Current = this;
             InitializeComponent();
         }
 

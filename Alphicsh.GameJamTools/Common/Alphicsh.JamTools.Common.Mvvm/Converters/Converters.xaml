@@ -4,5 +4,6 @@
   xmlns:commonConverters="clr-namespace:Alphicsh.JamTools.Common.Mvvm.Converters"
 >
   <commonConverters:NullVisibilityConverter x:Key="NullVisibilityConverter"></commonConverters:NullVisibilityConverter>
+  <commonConverters:BoolVisibilityConverter x:Key="ShowTrueVisibilityConverter"></commonConverters:BoolVisibilityConverter>
   <commonConverters:DoubleStarsConverter x:Key="DoubleStarsConverter"></commonConverters:DoubleStarsConverter>
 </ResourceDictionary>

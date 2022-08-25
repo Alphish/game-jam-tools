@@ -8,6 +8,9 @@
   <Style TargetType="ScrollViewer">
     <Setter Property="HorizontalContentAlignment" Value="Left"/>
     <Setter Property="VerticalContentAlignment" Value="Top"/>
+    <Setter Property="local:ScrollTheming.ScrollBrush" Value="{DynamicResource ListScrollBrush}"></Setter>
+    <Setter Property="local:ScrollTheming.ScrollPressedBrush" Value="{DynamicResource ListScrollPressedBrush}"></Setter>
+    <Setter Property="local:ScrollTheming.ScrollDisabledBrush" Value="{DynamicResource ListScrollDisabledBrush}"></Setter>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ScrollViewer">

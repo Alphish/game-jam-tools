@@ -12,7 +12,7 @@
         <!-- Applying styles-->
         <ResourceDictionary Source="/Alphicsh.JamPlayer.App;component/ThemeVariables.xaml"></ResourceDictionary>
 
-        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/BorderStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/BorderStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ImageBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/TextBlockStyles.xaml"/>
         
@@ -23,8 +23,11 @@
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/GroupBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/ScrollViewerStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/ListBoxStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/CheckBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ComboBoxStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/SeparatorStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/TabStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/WindowStyles.xaml"/>
       </ResourceDictionary.MergedDictionaries>
 
       <Style TargetType="rankingControls:RankingListBox" BasedOn="{StaticResource {x:Type ListBox}}"/>

@@ -51,6 +51,11 @@ namespace Alphicsh.JamTools.Common.Theming
             PrimaryButtonShadowBrushVariable = VariableFor(x => x.PrimaryButtonShadowBrush);
             PrimaryButtonGlowBrushVariable = VariableFor(x => x.PrimaryButtonGlowBrush);
 
+            HelpButtonBackgroundBrushVariable = VariableFor(x => x.HelpButtonBackgroundBrush);
+            HelpButtonHoverBrushVariable = VariableFor(x => x.HelpButtonHoverBrush);
+            HelpButtonShadowBrushVariable = VariableFor(x => x.HelpButtonShadowBrush);
+            HelpButtonGlowBrushVariable = VariableFor(x => x.HelpButtonGlowBrush);
+
             // Text box theming
 
             TextBoxBackgroundBrushVariable = VariableFor(x => x.TextBoxBackgroundBrush);
@@ -77,10 +82,21 @@ namespace Alphicsh.JamTools.Common.Theming
             ListScrollPressedBrushVariable = VariableFor(x => x.ListScrollPressedBrush);
             ListScrollDisabledBrushVariable = VariableFor(x => x.ListScrollDisabledBrush);
 
+            // Separator theming
+            SeparatorBrushVariable = VariableFor(x => x.SeparatorBrush);
+
+            // Modal theming
+            ModalHeaderBrushVariable = VariableFor(x => x.ModalHeaderBrush);
+            ModalCaptionBrushVariable = VariableFor(x => x.ModalCaptionBrush);
+            ModalBodyBrushVariable = VariableFor(x => x.ModalBodyBrush);
+            ModalToolbarBrushVariable = VariableFor(x => x.ModalToolbarBrush);
+            ModalBorderBrushVariable = VariableFor(x => x.ModalBorderBrush);
+
             // Images
             MenuJamIconSourceVariable = ImageVariableFor(x => x.MenuJamIconSource, "menu_jam.png");
             MenuRankingIconSourceVariable = ImageVariableFor(x => x.MenuRankingIconSource, "menu_ranking.png");
-            MenuBestofsIconSourceVariable = ImageVariableFor(x => x.MenuBestofsIconSource, "menu_bestofs.png");
+            MenuAwardsIconSourceVariable = ImageVariableFor(x => x.MenuAwardsIconSource, "menu_awards.png");
+            MenuExportIconSourceVariable = ImageVariableFor(x => x.MenuExportIconSource, "menu_export.png");
 
             EntryPlaceholderSourceVariable = ImageVariableFor(x => x.EntryPlaceholderSource, "entry_placeholder.png");
             StarEmptySourceVariable = ImageVariableFor(x => x.StarEmptySource, "star_empty.png");
@@ -173,6 +189,18 @@ namespace Alphicsh.JamTools.Common.Theming
         public Brush PrimaryButtonGlowBrush { get => PrimaryButtonGlowBrushVariable.Value; set => PrimaryButtonGlowBrushVariable.Value = value; }
         private ThemeVariable<Brush> PrimaryButtonGlowBrushVariable { get; }
 
+        public Brush HelpButtonBackgroundBrush { get => HelpButtonBackgroundBrushVariable.Value; set => HelpButtonBackgroundBrushVariable.Value = value; }
+        private ThemeVariable<Brush> HelpButtonBackgroundBrushVariable { get; }
+
+        public Brush HelpButtonHoverBrush { get => HelpButtonHoverBrushVariable.Value; set => HelpButtonHoverBrushVariable.Value = value; }
+        private ThemeVariable<Brush> HelpButtonHoverBrushVariable { get; }
+
+        public Brush HelpButtonShadowBrush { get => HelpButtonShadowBrushVariable.Value; set => HelpButtonShadowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> HelpButtonShadowBrushVariable { get; }
+
+        public Brush HelpButtonGlowBrush { get => HelpButtonGlowBrushVariable.Value; set => HelpButtonGlowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> HelpButtonGlowBrushVariable { get; }
+
         // ----------------
         // Text box theming
         // ----------------
@@ -236,6 +264,32 @@ namespace Alphicsh.JamTools.Common.Theming
         public Brush ListScrollDisabledBrush { get => ListScrollDisabledBrushVariable.Value; set => ListScrollDisabledBrushVariable.Value = value; }
         private ThemeVariable<Brush> ListScrollDisabledBrushVariable { get; }
 
+        // ------------
+        // Separator theming
+        // ------------
+
+        public Brush SeparatorBrush { get => SeparatorBrushVariable.Value; set => SeparatorBrushVariable.Value = value; }
+        private ThemeVariable<Brush> SeparatorBrushVariable { get; }
+
+        // -------------
+        // Modal theming
+        // -------------
+
+        public Brush ModalHeaderBrush { get => ModalHeaderBrushVariable.Value; set => ModalHeaderBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ModalHeaderBrushVariable { get; }
+
+        public Brush ModalCaptionBrush { get => ModalCaptionBrushVariable.Value; set => ModalCaptionBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ModalCaptionBrushVariable { get; }
+
+        public Brush ModalBodyBrush { get => ModalBodyBrushVariable.Value; set => ModalBodyBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ModalBodyBrushVariable { get; }
+
+        public Brush ModalToolbarBrush { get => ModalToolbarBrushVariable.Value; set => ModalToolbarBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ModalToolbarBrushVariable { get; }
+
+        public Brush ModalBorderBrush { get => ModalBorderBrushVariable.Value; set => ModalBorderBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ModalBorderBrushVariable { get; }
+
         // ------
         // Images
         // ------
@@ -246,8 +300,11 @@ namespace Alphicsh.JamTools.Common.Theming
         public ImageSource MenuRankingIconSource { get => MenuRankingIconSourceVariable.Value; set => MenuRankingIconSourceVariable.Value = value; }
         private ThemeVariable<ImageSource> MenuRankingIconSourceVariable { get; }
 
-        public ImageSource MenuBestofsIconSource { get => MenuBestofsIconSourceVariable.Value; set => MenuBestofsIconSourceVariable.Value = value; }
-        private ThemeVariable<ImageSource> MenuBestofsIconSourceVariable { get; }
+        public ImageSource MenuAwardsIconSource { get => MenuAwardsIconSourceVariable.Value; set => MenuAwardsIconSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> MenuAwardsIconSourceVariable { get; }
+
+        public ImageSource MenuExportIconSource { get => MenuExportIconSourceVariable.Value; set => MenuExportIconSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> MenuExportIconSourceVariable { get; }
 
         public ImageSource EntryPlaceholderSource { get => EntryPlaceholderSourceVariable.Value; set => EntryPlaceholderSourceVariable.Value = value; }
         private ThemeVariable<ImageSource> EntryPlaceholderSourceVariable { get; }

@@ -17,14 +17,7 @@
     </Grid.ColumnDefinitions>
     
     <!-- Award description -->
-    <TextBlock
-      Grid.Column="0"
-      HorizontalAlignment="Right"
-      VerticalAlignment="Center"
-      Foreground="{DynamicResource DimText}"
-      Text="{Binding Description}"
-      d:Text="Best at Consolation Awards"
-    ></TextBlock>
+    <TextBlock Grid.Column="0" Style="{StaticResource FormLabel}" Text="{Binding Description}" d:Text="Best at Consolation Awards"></TextBlock>
     
     <!-- Award selection -->
     <ComboBox Grid.Column="2" HorizontalAlignment="Stretch" SelectedItem="{Binding Entry}" ItemsSource="{Binding Candidates}" IsEditable="False">

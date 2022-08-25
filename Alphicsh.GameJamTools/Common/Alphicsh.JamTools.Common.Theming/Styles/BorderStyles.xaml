@@ -1,0 +1,27 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  x:Class="Alphicsh.JamTools.Common.Theming.Styles.BorderStyles"
+  x:ClassModifier="public"
+>
+  <Style TargetType="Border">
+    <Setter Property="SnapsToDevicePixels" Value="True"/>
+  </Style>
+  
+  <Style TargetType="Border" x:Key="ModalHeader" BasedOn="{StaticResource {x:Type Border}}">
+    <Setter Property="Background" Value="{DynamicResource ModalHeaderBrush}"/>
+    <Setter Property="BorderThickness" Value="0,0,0,2"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource ModalBorderBrush}"/>
+    <EventSetter Event="MouseDown" Handler="ModalHeader_MouseDown"/>
+  </Style>
+  
+  <Style TargetType="Border" x:Key="ModalBody" BasedOn="{StaticResource {x:Type Border}}">
+    <Setter Property="Background" Value="{DynamicResource ModalBodyBrush}"/>
+  </Style>
+  
+  <Style TargetType="Border" x:Key="ModalToolbar" BasedOn="{StaticResource {x:Type Border}}">
+    <Setter Property="Background" Value="{DynamicResource ModalToolbarBrush}"/>
+    <Setter Property="BorderThickness" Value="0,2,0,0"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource ModalBorderBrush}"/>
+  </Style>
+</ResourceDictionary>

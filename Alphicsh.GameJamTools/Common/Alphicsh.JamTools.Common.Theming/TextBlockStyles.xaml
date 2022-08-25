@@ -4,13 +4,23 @@
 >
   <Style TargetType="TextBlock">
     <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
+    <Setter Property="FontFamily" Value="Calibri"></Setter>
   </Style>
 
-  <Style TargetType="TextBlock" x:Key="RatingLabel" BasedOn="{StaticResource {x:Type TextBlock}}">
+  <Style TargetType="TextBlock" x:Key="FormLabel" BasedOn="{StaticResource {x:Type TextBlock}}">
     <Setter Property="HorizontalAlignment" Value="Right"/>
     <Setter Property="VerticalAlignment" Value="Center"/>
     <Setter Property="Margin" Value="0,0,8,0"/>
     <Setter Property="FontSize" Value="16"/>
-    <Setter Property="Foreground" Value="{DynamicResource BasicText}"/>
+    <Setter Property="Foreground" Value="{DynamicResource DimText}"/>
+  </Style>
+  
+  <Style TargetType="TextBlock" x:Key="ModalCaption" BasedOn="{StaticResource {x:Type TextBlock}}">
+    <Setter Property="HorizontalAlignment" Value="Left"/>
+    <Setter Property="VerticalAlignment" Value="Center"/>
+    <Setter Property="Margin" Value="8,4,0,4"/>
+    <Setter Property="FontSize" Value="24"/>
+    <Setter Property="Foreground" Value="{DynamicResource ModalCaptionBrush}"/>
+    <Setter Property="Text" Value="{Binding Caption}"/>
   </Style>
 </ResourceDictionary>

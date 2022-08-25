@@ -1,7 +1,8 @@
-﻿using Alphicsh.JamTools.Common.IO;
-
+﻿using Alphicsh.JamPlayer.IO.Export;
 using Alphicsh.JamPlayer.IO.Ranking;
+using Alphicsh.JamPlayer.Model.Export;
 using Alphicsh.JamPlayer.Model.Ranking;
+using Alphicsh.JamTools.Common.IO;
 
 namespace Alphicsh.JamPlayer.Model
 {
@@ -14,7 +15,7 @@ namespace Alphicsh.JamPlayer.Model
         // Rankings
         // --------
 
-        public FilePath RankingPath => DirectoryPath.Append("ranking.jamranking");
+        private FilePath RankingPath => DirectoryPath.Append("ranking.jamranking");
         private RankingInfoMapper RankingInfoMapper { get; } = new RankingInfoMapper();
 
         public void SaveRanking()
@@ -28,6 +29,25 @@ namespace Alphicsh.JamPlayer.Model
             var rankingInfo = JamRankingInfo.LoadOrGetDefault(RankingPath);
             AppModel.Ranking = RankingInfoMapper.MapInfoToRanking(rankingInfo, AppModel.Jam, AppModel.RatingCriteria);
             AppModel.Awards = RankingInfoMapper.MapInfoToAwards(rankingInfo, AppModel.Jam);
+        }
+
+        // --------------
+        // Export options
+        // --------------
+
+        private FilePath ExporterInfoPath => DirectoryPath.Append("exporter.jamsettings");
+        private ExporterInfoMapper ExporterInfoMapper { get; } = new ExporterInfoMapper();
+
+        public void SaveExporter()
+        {
+            var exporterInfo = ExporterInfoMapper.MapExporterToInfo(AppModel.Exporter);
+            exporterInfo.SaveTo(ExporterInfoPath);
+        }
+
+        public void LoadExporter()
+        {
+            var exporterInfo = ExporterInfo.LoadOrGetDefault(ExporterInfoPath);
+            AppModel.Exporter = ExporterInfoMapper.MapInfoToExporter(AppModel, exporterInfo);
         }
     }
 }
