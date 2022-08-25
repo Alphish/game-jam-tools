@@ -8,6 +8,7 @@
   xmlns:controls="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
   xmlns:appAwards="clr-namespace:Alphicsh.JamPlayer.Controls.Awards"
   xmlns:appExport="clr-namespace:Alphicsh.JamPlayer.Controls.Export"
+  xmlns:appJam="clr-namespace:Alphicsh.JamPlayer.Controls.Jam"
   xmlns:appRanking="clr-namespace:Alphicsh.JamPlayer.Controls.Ranking"
   mc:Ignorable="d"
   MouseDown="OnMouseDown"
@@ -15,6 +16,15 @@
 >
   <Grid>
     <TabControl TabStripPlacement="Left" Style="{StaticResource MenuTabControl}" Background="#1c1c1c">
+      
+      <!-- Jam overview tab -->
+      <TabItem>
+        <TabItem.Header>
+          <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuJamIconSource}" ToolTip="Overview"/>
+        </TabItem.Header>
+        
+        <appJam:JamSummaryTab DataContext="{Binding Jam}"></appJam:JamSummaryTab>
+      </TabItem>
       <!-- Ranking tab -->
       <TabItem>
         <TabItem.Header>
