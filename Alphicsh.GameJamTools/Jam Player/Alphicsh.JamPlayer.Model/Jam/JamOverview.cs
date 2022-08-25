@@ -10,6 +10,10 @@ namespace Alphicsh.JamPlayer.Model.Jam
     {
         public FilePath DirectoryPath { get; init; } = default!;
 
+        public string? Title { get; init; } = default!;
+        public FilePath? LogoPath { get; init; } = default!;
+        public string? Theme { get; init; } = default!;
+
         private readonly IReadOnlyCollection<JamEntry> _entries = default!;
         private readonly IReadOnlyDictionary<string, JamEntry> _entriesById = default!;
         public IReadOnlyCollection<JamEntry> Entries
