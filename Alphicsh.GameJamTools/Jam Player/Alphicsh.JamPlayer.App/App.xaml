@@ -27,6 +27,7 @@
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ComboBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/SeparatorStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/TabStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/WindowStyles.xaml"/>
       </ResourceDictionary.MergedDictionaries>
 
       <Style TargetType="rankingControls:RankingListBox" BasedOn="{StaticResource {x:Type ListBox}}"/>
