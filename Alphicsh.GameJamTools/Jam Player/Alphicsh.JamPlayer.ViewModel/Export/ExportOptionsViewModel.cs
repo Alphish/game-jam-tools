@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using Alphicsh.JamPlayer.Model.Export;
+using Alphicsh.JamPlayer.ViewModel.Export.Modals;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
@@ -33,7 +34,9 @@ namespace Alphicsh.JamPlayer.ViewModel.Export
         public string EntryCommentTemplate { get => EntryCommentTemplateProperty.Value; set => EntryCommentTemplateProperty.Value = value; }
 
         public ICommand SaveExporterCommand => AppViewModel.Current.SaveExporterCommand;
+        public ICommand ShowHelpCommand => ExportModals.ShowHelpCommand;
         public ICommand RestoreDefaultsCommand { get; }
+
         private void RestoreDefaults()
         {
             Model.RestoreDefaults();
