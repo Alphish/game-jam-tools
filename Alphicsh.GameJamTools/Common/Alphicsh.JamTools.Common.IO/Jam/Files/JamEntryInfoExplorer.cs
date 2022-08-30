@@ -25,7 +25,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
             if (fileBasedInfo != null)
                 return fileBasedInfo;
 
-            var directoryBasedInfo = FindJamEntryInfo(id, entryDirectoryPath);
+            var directoryBasedInfo = StubEntryInfoFromDirectory(id, entryDirectoryPath);
             RediscoverJamEntryFiles(directoryBasedInfo);
             return directoryBasedInfo;
         }
@@ -104,21 +104,26 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
             var entryDirectoryPath = jamEntryInfo.EntryDirectoryPath;
 
             var gamePath = FindGamePath(entryDirectoryPath);
+            jamEntryInfo.GameFileName ??= gamePath?.GetLastSegmentName();
 
             var bigThumbnailPath = FindBigThumbnailPath(entryDirectoryPath);
             var smallThumbnailPath = FindSmallThumbnailPath(entryDirectoryPath);
-            bigThumbnailPath = bigThumbnailPath ?? smallThumbnailPath;
-            smallThumbnailPath = smallThumbnailPath ?? bigThumbnailPath;
-
-            jamEntryInfo.GameFileName ??= gamePath?.GetLastSegmentName();
+            bigThumbnailPath ??= smallThumbnailPath;
+            smallThumbnailPath ??= bigThumbnailPath;
             jamEntryInfo.ThumbnailFileName ??= bigThumbnailPath?.GetLastSegmentName();
             jamEntryInfo.ThumbnailSmallFileName ??= smallThumbnailPath?.GetLastSegmentName();
+
+            var readmePath = FindReadmePath(entryDirectoryPath);
+            var afterwordPath = FindAfterwordPath(entryDirectoryPath);
+            jamEntryInfo.ReadmeFileName ??= readmePath?.GetLastSegmentName();
+            jamEntryInfo.IsReadmePlease = IsReadmePleaseFileName(jamEntryInfo.ReadmeFileName);
+            jamEntryInfo.AfterwordFileName ??= afterwordPath?.GetLastSegmentName();
         }
 
         private FilePath? FindGamePath(FilePath entryDirectoryPath)
         {
             return FilesystemSearch.ForFilesIn(entryDirectoryPath)
-                .WithExtensions(".exe")
+                .WithExtensions(".exe", ".gxgame")
                 .FindAll()
                 .FirstOrDefault();
         }
@@ -144,6 +149,37 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
                 .ElseFindMatches("thumb*")
                 .ElseFindMatches("*thumbnail*")
                 .ElseFindMatches("*thumb*")
+                .FirstOrDefault();
+        }
+
+        private FilePath? FindReadmePath(FilePath entryDirectoryPath)
+        {
+            return FilesystemSearch.ForFilesIn(entryDirectoryPath)
+                .IncludingTopDirectoryOnly()
+                .FindMatches("*readme*please*")
+                .ElseFindMatches("*readme*important*")
+                .ElseFindMatches("*readme*")
+                .ElseFindMatches("*read*please*")
+                .ElseFindMatches("*read*important*")
+                .ElseFindMatches("*read*")
+                .ElseFindMatches("*credits*")
+                .FirstOrDefault();
+        }
+
+        private bool IsReadmePleaseFileName(string? filename)
+        {
+            if (filename == null)
+                return false;
+
+            return filename.Contains("please", StringComparison.OrdinalIgnoreCase)
+                || filename.Contains("important", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private FilePath? FindAfterwordPath(FilePath entryDirectoryPath)
+        {
+            return FilesystemSearch.ForFilesIn(entryDirectoryPath)
+                .IncludingTopDirectoryOnly()
+                .FindMatches("*afterword*")
                 .FirstOrDefault();
         }
     }

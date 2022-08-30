@@ -17,11 +17,20 @@
     </Grid.RowDefinitions>
 
     <GroupBox Style="{StaticResource SimpleSection}">
-      <Button Style="{StaticResource PrimaryButton}" Width="96" Margin="2" Command="{Binding GetNextEntryCommand}">
-        <TextBlock>
-          <Run>Next (</Run><Run Text="{Binding PendingCount, Mode=OneWay}" d:Text="34"/><Run>)</Run>
-        </TextBlock>
-      </Button>
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <Button
+          Style="{StaticResource PrimaryButton}"
+          Width="96"
+          Margin="2"
+          Command="{Binding GetNextEntryCommand}"
+          Visibility="{Binding HasPendingEntries, Converter={StaticResource ShowTrueVisibilityConverter}}"
+        >
+          <TextBlock>
+            <Run>Next (</Run><Run Text="{Binding PendingCount, Mode=OneWay}" d:Text="34"/><Run>)</Run>
+          </TextBlock>
+        </Button>
+        <Button Style="{StaticResource PrimaryButton}" Command="{Binding SaveRankingCommand}" Width="96" Margin="2">Save</Button>
+      </StackPanel>
     </GroupBox>
     
     <!-- Ranked entries list -->

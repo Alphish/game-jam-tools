@@ -40,14 +40,51 @@
       <!-- Team and authors -->
       <local:JamTeamDescription DataContext="{Binding JamEntry.Team}"></local:JamTeamDescription>
       
-      <!-- Game launching -->
-      <Button
-        Style="{DynamicResource PrimaryButton}"
-        Margin="0,4,0,4"
-        Width="80"
-        HorizontalAlignment="Left"
-        Command="{Binding JamEntry.LaunchGameCommand}"
-      >Play</Button>
+      <WrapPanel>
+        <!-- Readme Please -->
+        <Button
+          Style="{StaticResource PrimaryButton}"
+          Margin="0,4,8,4"
+          Width="96"
+          Command="{Binding JamEntry.OpenReadmePleaseCommand}"
+          Visibility="{Binding JamEntry.OpenReadmePleaseCommand, Converter={StaticResource NullVisibilityConverter}}"
+        >Readme</Button>
+        
+        <!-- Game launching -->
+        <Button
+          Style="{DynamicResource PrimaryButton}"
+          Margin="0,4,8,4"
+          Width="96"
+          Command="{Binding JamEntry.LaunchGameCommand}"
+        >
+          <TextBlock Text="{Binding JamEntry.PlayDescription}" d:Text="Play"/>
+        </Button>
+        
+        <!-- Readme -->
+        <Button
+          Style="{StaticResource HelpButton}"
+          Margin="0,4,8,4"
+          Width="96"
+          Command="{Binding JamEntry.OpenReadmeCommand}"
+          Visibility="{Binding JamEntry.OpenReadmeCommand, Converter={StaticResource NullVisibilityConverter}}"
+        >Readme</Button>
+        
+        <!-- Afterword -->
+        <Button
+          Style="{StaticResource HelpButton}"
+          Margin="0,4,8,4"
+          Width="96"
+          Command="{Binding JamEntry.OpenAfterwordCommand}"
+          Visibility="{Binding JamEntry.OpenAfterwordCommand, Converter={StaticResource NullVisibilityConverter}}"
+        >Afterword</Button>
+        
+        <!-- Directory -->
+        <Button
+          Margin="0,4,8,4"
+          Width="96"
+          Command="{Binding JamEntry.OpenDirectoryCommand}"
+        >Directory</Button>
+      </WrapPanel>
     </StackPanel>
   </Grid>
 </UserControl>

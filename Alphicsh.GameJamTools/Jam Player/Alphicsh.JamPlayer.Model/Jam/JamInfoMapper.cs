@@ -26,9 +26,13 @@ namespace Alphicsh.JamPlayer.Model.Jam
                 Id = info.Id,
                 Title = info.Title,
                 Team = MapInfoToTeam(info.Team),
+                DirectoryPath = info.EntryDirectoryPath,
                 GamePath = info.GamePath,
                 ThumbnailPath = info.ThumbnailPath,
                 ThumbnailSmallPath = info.ThumbnailSmallPath,
+                ReadmePath = info.ReadmePath,
+                IsReadmePlease = info.IsReadmePlease,
+                AfterwordPath = info.AfterwordPath,
             };
         }
 
