@@ -20,8 +20,11 @@ namespace Alphicsh.JamTools.Common.IO.Execution
             if (!CanOpenFile(filePath))
                 return;
 
-            var processStartInfo = new ProcessStartInfo(filePath.Value);
-            processStartInfo.WorkingDirectory = filePath.GetParentDirectoryPath()!.Value.Value;
+            var processStartInfo = new ProcessStartInfo(filePath.Value)
+            {
+                WorkingDirectory = filePath.GetParentDirectoryPath()!.Value.Value,
+                UseShellExecute = true
+            };
             Process.Start(processStartInfo);
         }
 
@@ -39,7 +42,7 @@ namespace Alphicsh.JamTools.Common.IO.Execution
             if (!CanOpenDirectory(filePath))
                 return;
 
-            var processStartInfo = new ProcessStartInfo(filePath.Value);
+            var processStartInfo = new ProcessStartInfo(filePath.Value) { UseShellExecute = true };
             Process.Start(processStartInfo);
         }
 
@@ -60,7 +63,7 @@ namespace Alphicsh.JamTools.Common.IO.Execution
             if (!CanOpenWebsite(websiteUri))
                 return;
 
-            var processStartInfo = new ProcessStartInfo(websiteUri.ToString());
+            var processStartInfo = new ProcessStartInfo(websiteUri.ToString()) { UseShellExecute = true };
             Process.Start(processStartInfo);
         }
     }
