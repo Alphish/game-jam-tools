@@ -29,6 +29,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
         // ---------------
 
         public int PendingCount => Model.PendingEntries.Count;
+        public bool HasPendingEntries => Model.PendingEntries.Any();
         public ICommand GetNextEntryCommand { get; }
         private void GetNextEntry()
         {
@@ -37,11 +38,14 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
                 return;
 
             RaisePropertyChanged(nameof(PendingCount));
+            RaisePropertyChanged(nameof(HasPendingEntries));
             UnrankedEntries.SynchronizeWithModels();
 
             var viewModel = UnrankedEntries.First(vm => vm.Model == modelEntry);
             SelectedEntry = viewModel;
         }
+
+        public ICommand SaveRankingCommand => AppViewModel.Current.SaveRankingCommand;
 
         // ---------------
         // Ranking entries

@@ -64,9 +64,6 @@
 
       <!-- Comment section -->
       <ratings:CommentSection Grid.Row="4" DataContext="{Binding Ranking.SelectedEntry}"/>
-
-      <!-- Tools -->
-      <local:RankingToolbox Grid.Row="6" DataContext="{Binding}"/>
     </Grid>
   </Grid>
 </UserControl>
