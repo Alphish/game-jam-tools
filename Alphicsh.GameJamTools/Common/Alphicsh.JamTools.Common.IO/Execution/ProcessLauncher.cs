@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 
 namespace Alphicsh.JamTools.Common.IO.Execution
 {
@@ -64,6 +65,32 @@ namespace Alphicsh.JamTools.Common.IO.Execution
                 return;
 
             var processStartInfo = new ProcessStartInfo(websiteUri.ToString()) { UseShellExecute = true };
+            Process.Start(processStartInfo);
+        }
+
+        // --------
+        // GX Games
+        // --------
+
+        // TODO: Add more general-purpose system for handling non-standard game execution
+
+        public void OpenGxGame(string operaGxPath, FilePath filePath)
+        {
+            var operaGxFullPath = new FilePath(Environment.ExpandEnvironmentVariables(operaGxPath));
+            if (!operaGxFullPath.HasFile())
+                return;
+
+            if (!filePath.HasFile())
+                return;
+
+            var gxGameLink = File.ReadAllText(filePath.Value);
+            if (!Uri.TryCreate(gxGameLink, UriKind.Absolute, out var gxGameUri))
+                return;
+
+            if (gxGameUri.Scheme != "https")
+                return;
+
+            var processStartInfo = new ProcessStartInfo(operaGxFullPath.Value, '"' + gxGameLink.ToString() + '"');
             Process.Start(processStartInfo);
         }
     }

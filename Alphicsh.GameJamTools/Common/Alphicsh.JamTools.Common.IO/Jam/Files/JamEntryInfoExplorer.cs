@@ -25,7 +25,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
             if (fileBasedInfo != null)
                 return fileBasedInfo;
 
-            var directoryBasedInfo = FindJamEntryInfo(id, entryDirectoryPath);
+            var directoryBasedInfo = StubEntryInfoFromDirectory(id, entryDirectoryPath);
             RediscoverJamEntryFiles(directoryBasedInfo);
             return directoryBasedInfo;
         }
@@ -123,7 +123,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
         private FilePath? FindGamePath(FilePath entryDirectoryPath)
         {
             return FilesystemSearch.ForFilesIn(entryDirectoryPath)
-                .WithExtensions(".exe")
+                .WithExtensions(".exe", ".gxgame")
                 .FindAll()
                 .FirstOrDefault();
         }

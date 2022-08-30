@@ -52,13 +52,18 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
         private ProcessLauncher Launcher { get; }
 
         public FilePath? GamePath => Model.GamePath;
+        public bool IsGxGame => Model.GamePath?.GetExtension().ToLowerInvariant() == ".gxgame";
+        public string PlayDescription => Model.GamePath == null ? "" : IsGxGame ? "Play (GX)" : "Play";
         public ICommand LaunchGameCommand { get; }
         private void LaunchGame()
         {
             if (GamePath == null)
                 return;
 
-            Launcher.OpenFile(GamePath.Value);
+            if (GamePath.Value.GetExtension().ToLowerInvariant() == ".gxgame")
+                Launcher.OpenGxGame(@"%LOCALAPPDATA%\Programs\Opera GX\opera.exe", GamePath.Value);
+            else
+                Launcher.OpenFile(GamePath.Value);
         }
 
         public FilePath? ReadmePath => Model.ReadmePath;

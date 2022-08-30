@@ -56,7 +56,9 @@
           Margin="0,4,8,4"
           Width="96"
           Command="{Binding JamEntry.LaunchGameCommand}"
-        >Play</Button>
+        >
+          <TextBlock Text="{Binding JamEntry.PlayDescription}" d:Text="Play"/>
+        </Button>
         
         <!-- Readme -->
         <Button
