@@ -17,6 +17,10 @@ namespace Alphicsh.JamTools.Common.IO.Jam
         public string? ThumbnailFileName { get; set; }
         public string? ThumbnailSmallFileName { get; set; }
 
+        public string? ReadmeFileName { get; set; }
+        public bool IsReadmePlease { get; set; }
+        public string? AfterwordFileName { get; set; }
+
         // ---------------------
         // Filesystem properties
         // ---------------------
@@ -41,5 +45,10 @@ namespace Alphicsh.JamTools.Common.IO.Jam
             => EntryDirectoryPath.AppendNullable(ThumbnailFileName);
         [JsonIgnore] public FilePath? ThumbnailSmallPath
             => EntryDirectoryPath.AppendNullable(ThumbnailSmallFileName);
+
+        [JsonIgnore] public FilePath? ReadmePath
+            => EntryDirectoryPath.AppendNullable(ReadmeFileName);
+        [JsonIgnore] public FilePath? AfterwordPath
+            => EntryDirectoryPath.AppendNullable(AfterwordFileName);
     }
 }

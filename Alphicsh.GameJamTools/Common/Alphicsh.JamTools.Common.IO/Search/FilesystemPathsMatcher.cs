@@ -50,7 +50,7 @@ namespace Alphicsh.JamTools.Common.IO.Search
             regexPattern = regexPattern.Replace(asteriskPattern, ".*");
             regexPattern = regexPattern.Replace(questionmarkPattern, ".");
 
-            return new Regex(regexPattern);
+            return new Regex(regexPattern, RegexOptions.IgnoreCase);
         }
     }
 }
