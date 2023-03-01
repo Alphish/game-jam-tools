@@ -62,6 +62,7 @@ namespace Alphicsh.JamPlayer.App
 
             // not using FirstOrDefault()
             // because jamInfoPaths is a collection of non-nullable FilePaths
+            // so it would return a default FilePath instead
             return jamInfoPaths.Any() ? jamInfoPaths.First() : null;
         }
     }
