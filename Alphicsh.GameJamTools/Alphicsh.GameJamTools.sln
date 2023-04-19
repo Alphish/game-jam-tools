@@ -33,7 +33,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entry Packager", "Entry Pac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.EntryPackager.App", "Entry Packager\Alphicsh.EntryPackager.App\Alphicsh.EntryPackager.App.csproj", "{B610AE19-CB57-4AD9-AD4F-AC61DFF967DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.EntryPackager.Controls", "Entry Packager\Alphicsh.EntryPackager.Controls\Alphicsh.EntryPackager.Controls.csproj", "{BC504CEC-78AB-4939-AF53-61CD1BC79E62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.EntryPackager.Controls", "Entry Packager\Alphicsh.EntryPackager.Controls\Alphicsh.EntryPackager.Controls.csproj", "{BC504CEC-78AB-4939-AF53-61CD1BC79E62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.EntryPackager.ViewModel", "Entry Packager\Alphicsh.EntryPackager.ViewModel\Alphicsh.EntryPackager.ViewModel.csproj", "{12439473-5924-420F-9D72-6F3BA4930BC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.EntryPackager.Model", "Entry Packager\Alphicsh.EntryPackager.Model\Alphicsh.EntryPackager.Model.csproj", "{935CA6F3-67A0-4E96-B4A8-1C8740F84AA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +93,14 @@ Global
 		{BC504CEC-78AB-4939-AF53-61CD1BC79E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC504CEC-78AB-4939-AF53-61CD1BC79E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC504CEC-78AB-4939-AF53-61CD1BC79E62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12439473-5924-420F-9D72-6F3BA4930BC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12439473-5924-420F-9D72-6F3BA4930BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12439473-5924-420F-9D72-6F3BA4930BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12439473-5924-420F-9D72-6F3BA4930BC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{935CA6F3-67A0-4E96-B4A8-1C8740F84AA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{935CA6F3-67A0-4E96-B4A8-1C8740F84AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{935CA6F3-67A0-4E96-B4A8-1C8740F84AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{935CA6F3-67A0-4E96-B4A8-1C8740F84AA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +118,8 @@ Global
 		{0C816DCC-4D2F-4CA0-96B3-875F24F135AD} = {3BDDDEC1-D999-4D4B-A46E-0807C01F5B14}
 		{B610AE19-CB57-4AD9-AD4F-AC61DFF967DD} = {43B25523-1396-459C-8599-8C1655B616FA}
 		{BC504CEC-78AB-4939-AF53-61CD1BC79E62} = {43B25523-1396-459C-8599-8C1655B616FA}
+		{12439473-5924-420F-9D72-6F3BA4930BC6} = {43B25523-1396-459C-8599-8C1655B616FA}
+		{935CA6F3-67A0-4E96-B4A8-1C8740F84AA0} = {43B25523-1396-459C-8599-8C1655B616FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DF6235F-0198-4921-B6F6-CC96A4448F90}
