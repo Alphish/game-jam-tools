@@ -1,9 +1,14 @@
 ﻿<ResourceDictionary
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
 >
   <Style TargetType="Window" x:Key="{x:Type Window}">
     <Setter Property="SnapsToDevicePixels" Value="True"/>
+  </Style>
+
+  <Style TargetType="Window" x:Key="MainWindow" BasedOn="{StaticResource {x:Type Window}}">
+    <Setter Property="Background" Value="{DynamicResource MainBackgroundBrush}"/>
   </Style>
   
   <Style TargetType="Window" x:Key="ModalWindow" BasedOn="{StaticResource {x:Type Window}}">

@@ -64,7 +64,7 @@ namespace Alphicsh.JamTools.Common.Controls
             }
 
             if (isSpecialEsc)
-                Keyboard.ClearFocus();
+                AppWindow.Current.ClearFocus();
         }
     }
 }

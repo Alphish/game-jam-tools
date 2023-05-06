@@ -1,28 +1,28 @@
-﻿<Window
+﻿<cc:AppWindow
   x:Class="Alphicsh.JamPlayer.Controls.MainWindow"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:local="clr-namespace:Alphicsh.JamPlayer.Controls"
-  xmlns:controls="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
   xmlns:appAwards="clr-namespace:Alphicsh.JamPlayer.Controls.Awards"
   xmlns:appExport="clr-namespace:Alphicsh.JamPlayer.Controls.Export"
   xmlns:appJam="clr-namespace:Alphicsh.JamPlayer.Controls.Jam"
   xmlns:appRanking="clr-namespace:Alphicsh.JamPlayer.Controls.Ranking"
   mc:Ignorable="d"
+  Style="{StaticResource MainWindow}"
   MinWidth="960"
   MinHeight="540"
-  MouseDown="OnMouseDown"
   Title="Jam Player" Height="640" Width="1200"
 >
   <Grid>
-    <TabControl TabStripPlacement="Left" Style="{StaticResource MenuTabControl}" Background="#1c1c1c">
+    <TabControl TabStripPlacement="Left" Style="{StaticResource MenuTabControl}">
       
       <!-- Jam overview tab -->
       <TabItem>
         <TabItem.Header>
-          <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuJamIconSource}" ToolTip="Overview"/>
+          <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuJamIconSource}" ToolTip="Overview"/>
         </TabItem.Header>
         
         <appJam:JamSummaryTab DataContext="{Binding Jam}"></appJam:JamSummaryTab>
@@ -30,7 +30,7 @@
       <!-- Ranking tab -->
       <TabItem>
         <TabItem.Header>
-          <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuRankingIconSource}" ToolTip="Ranking"/>
+          <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuRankingIconSource}" ToolTip="Ranking"/>
         </TabItem.Header>
         <appRanking:RankingTab DataContext="{Binding}"></appRanking:RankingTab>
       </TabItem>
@@ -38,7 +38,7 @@
       <!-- Awards tab -->
       <TabItem>
         <TabItem.Header>
-          <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuAwardsIconSource}" ToolTip="Awards"/>
+          <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuAwardsIconSource}" ToolTip="Awards"/>
         </TabItem.Header>
         <appAwards:AwardsTab DataContext="{Binding}"></appAwards:AwardsTab>
       </TabItem>
@@ -46,7 +46,7 @@
       <!-- Export tab -->
       <TabItem>
         <TabItem.Header>
-          <controls:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuExportIconSource}" ToolTip="Export"/>
+          <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuExportIconSource}" ToolTip="Export"/>
         </TabItem.Header>
         <appExport:ExportTab DataContext="{Binding}"></appExport:ExportTab>
       </TabItem>
@@ -55,4 +55,4 @@
     <!-- Modal overlay -->
     <Border Background="#80000000" Visibility="{Binding HasOverlay, Converter={StaticResource ShowTrueVisibilityConverter}}"></Border>
   </Grid>
-</Window>
+</cc:AppWindow>
