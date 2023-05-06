@@ -7,4 +7,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.Mvvm\Alphicsh.JamTools.Common.Mvvm.csproj" />
+    <ProjectReference Include="..\Alphicsh.EntryPackager.Controls\Alphicsh.EntryPackager.Controls.csproj" />
+    <ProjectReference Include="..\Alphicsh.EntryPackager.ViewModel\Alphicsh.EntryPackager.ViewModel.csproj" />
+  </ItemGroup>
+
 </Project>

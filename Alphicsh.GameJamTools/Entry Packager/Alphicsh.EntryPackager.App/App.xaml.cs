@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using Alphicsh.EntryPackager.Controls;
+using Alphicsh.EntryPackager.Model;
+using Alphicsh.EntryPackager.ViewModel;
 
 namespace Alphicsh.EntryPackager.App
 {
@@ -13,5 +10,20 @@ namespace Alphicsh.EntryPackager.App
     /// </summary>
     public partial class App : Application
     {
+        public AppViewModel ViewModel { get; }
+
+        public App()
+        {
+            var model = new AppModel();
+            ViewModel = new AppViewModel(model);
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            var window = new MainWindow() { DataContext = ViewModel };
+            window.Show();
+        }
     }
 }
