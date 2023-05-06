@@ -5,13 +5,13 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
   xmlns:local="clr-namespace:Alphicsh.JamPlayer.Controls.Ratings"
-  xmlns:commonControls="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
   mc:Ignorable="d" 
   d:DesignHeight="450" d:DesignWidth="800"
 >
   <StackPanel Orientation="Horizontal" Height="32">
     <Button Style="{StaticResource NotAvailableButton}" Command="{Binding ClearValueCommand}">N/A</Button>
-    <commonControls:RatingSlider x:Name="RatingSliderElement"
+    <cc:RatingSlider x:Name="RatingSliderElement"
       Minimum="0"
       Maximum="{Binding MaxValue}"
       TickFrequency="{Binding ValueStep}"
