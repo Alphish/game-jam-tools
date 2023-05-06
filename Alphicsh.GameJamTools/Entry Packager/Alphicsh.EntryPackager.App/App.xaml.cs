@@ -2,6 +2,7 @@
 using Alphicsh.EntryPackager.Controls;
 using Alphicsh.EntryPackager.Model;
 using Alphicsh.EntryPackager.ViewModel;
+using Alphicsh.JamTools.Common.Theming;
 
 namespace Alphicsh.EntryPackager.App
 {
@@ -20,6 +21,8 @@ namespace Alphicsh.EntryPackager.App
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            ThemeManager.Create(Resources);
+
             base.OnStartup(e);
 
             var window = new MainWindow() { DataContext = ViewModel };

@@ -9,8 +9,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.Mvvm\Alphicsh.JamTools.Common.Mvvm.csproj" />
+    <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.Theming\Alphicsh.JamTools.Common.Theming.csproj" />
     <ProjectReference Include="..\Alphicsh.EntryPackager.Controls\Alphicsh.EntryPackager.Controls.csproj" />
     <ProjectReference Include="..\Alphicsh.EntryPackager.ViewModel\Alphicsh.EntryPackager.ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ThemeVariables.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

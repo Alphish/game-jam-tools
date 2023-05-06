@@ -26,6 +26,11 @@ namespace Alphicsh.JamTools.Common.Theming
         // Creation
         // --------
 
+        public static ThemeManager Create(ResourceDictionary innerDictionary)
+        {
+            return new ThemeManager(innerDictionary);
+        }
+
         public ThemeManager(ResourceDictionary innerDictionary)
         {
             InnerDictionary = innerDictionary;

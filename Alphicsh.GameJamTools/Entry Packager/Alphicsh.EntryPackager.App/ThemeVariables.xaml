@@ -1,0 +1,88 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+>
+  <!-- General theming -->
+  <SolidColorBrush x:Key="BasicText" Color="#ffe3e3e3"></SolidColorBrush>
+  <SolidColorBrush x:Key="HighlightText" Color="#ff88d658"></SolidColorBrush>
+  <SolidColorBrush x:Key="DimText" Color="#ffa7a7a7"></SolidColorBrush>
+  <SolidColorBrush x:Key="ExtraDimText" Color="#ff727272"></SolidColorBrush>
+
+  <SolidColorBrush x:Key="MainBackgroundBrush" Color="#ff292929"></SolidColorBrush>
+  <SolidColorBrush x:Key="MenuBackgroundBrush" Color="#ff1c1c1c"></SolidColorBrush>
+
+  <SolidColorBrush x:Key="MouseOverHighlight" Color="#0dffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="SelectionHighlight" Color="#26ffffff"></SolidColorBrush>
+
+  <!-- Buttons theming -->
+  <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="#ff545554"></SolidColorBrush>
+  <SolidColorBrush x:Key="ButtonHoverBrush" Color="#ff536b53"></SolidColorBrush>
+  <SolidColorBrush x:Key="ButtonShadowBrush" Color="#ff474847"></SolidColorBrush>
+  <SolidColorBrush x:Key="ButtonGlowBrush" Color="#ff616261"></SolidColorBrush>
+
+  <SolidColorBrush x:Key="PrimaryButtonBackgroundBrush" Color="#ff519735"></SolidColorBrush>
+  <SolidColorBrush x:Key="PrimaryButtonHoverBrush" Color="#ff5eb42d"></SolidColorBrush>
+  <SolidColorBrush x:Key="PrimaryButtonShadowBrush" Color="#ff4e842e"></SolidColorBrush>
+  <SolidColorBrush x:Key="PrimaryButtonGlowBrush" Color="#ff64aa4c"></SolidColorBrush>
+
+  <SolidColorBrush x:Key="HelpButtonBackgroundBrush" Color="#ff355197"></SolidColorBrush>
+  <SolidColorBrush x:Key="HelpButtonHoverBrush" Color="#ff2d5eb4"></SolidColorBrush>
+  <SolidColorBrush x:Key="HelpButtonShadowBrush" Color="#ff2e4e84"></SolidColorBrush>
+  <SolidColorBrush x:Key="HelpButtonGlowBrush" Color="#ff4c64aa"></SolidColorBrush>
+
+  <SolidColorBrush x:Key="DangerButtonBackgroundBrush" Color="#ff973535"></SolidColorBrush>
+  <SolidColorBrush x:Key="DangerButtonHoverBrush" Color="#ffb42d2d"></SolidColorBrush>
+  <SolidColorBrush x:Key="DangerButtonShadowBrush" Color="#ff842e2e"></SolidColorBrush>
+  <SolidColorBrush x:Key="DangerButtonGlowBrush" Color="#ffaa4c4c"></SolidColorBrush>
+
+  <!-- Text box theming -->
+  <SolidColorBrush x:Key="TextBoxBackgroundBrush" Color="#ff2e2e2e"></SolidColorBrush>
+  <SolidColorBrush x:Key="TextBoxFocusBrush" Color="#ff232323"></SolidColorBrush>
+  <SolidColorBrush x:Key="TextBoxShadowBrush" Color="#ff1c1c1c"></SolidColorBrush>
+  <SolidColorBrush x:Key="TextBoxGlowBrush" Color="#ff353535"></SolidColorBrush>
+
+  <SolidColorBrush x:Key="TextBoxScrollBrush" Color="#80ffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="TextBoxScrollPressedBrush" Color="#beffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="TextBoxScrollDisabledBrush" Color="#30ffffff"></SolidColorBrush>
+
+  <!-- Section theming -->
+  <LinearGradientBrush x:Key="SectionHeaderBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+    <GradientStop Color="#6d9c3f" Offset="0.0"></GradientStop>
+    <GradientStop Color="#314227" Offset="1.0"></GradientStop>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="SectionHeaderTitleBrush" Color="#ffe3e3e3"></SolidColorBrush>
+  <SolidColorBrush x:Key="SectionBorderBrush" Color="#ff242424"></SolidColorBrush>
+  <SolidColorBrush x:Key="SectionBackgroundBrush" Color="#ff363636"></SolidColorBrush>
+
+  <SolidColorBrush x:Key="SimpleSectionShadowBrush" Color="#ff1c1c1c"></SolidColorBrush>
+  <SolidColorBrush x:Key="SimpleSectionSideBrush" Color="#ff292929"></SolidColorBrush>
+  <SolidColorBrush x:Key="SimpleSectionGlowBrush" Color="#ff3d3d3d"></SolidColorBrush>
+
+  <!-- List theming -->
+  <SolidColorBrush x:Key="ListScrollBrush" Color="#80ffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="ListScrollPressedBrush" Color="#beffffff"></SolidColorBrush>
+  <SolidColorBrush x:Key="ListScrollDisabledBrush" Color="#30ffffff"></SolidColorBrush>
+
+  <!-- Separator theming -->
+  <SolidColorBrush x:Key="SeparatorBrush" Color="#ff5b5b5b"></SolidColorBrush>
+
+  <!-- Modal window theming -->
+  <LinearGradientBrush x:Key="ModalHeaderBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+    <GradientStop Color="#ff494949" Offset="0.0"></GradientStop>
+    <GradientStop Color="#ff5c5c5c" Offset="1.0"></GradientStop>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="ModalCaptionBrush" Color="#ffe3e3e3"></SolidColorBrush>
+  <SolidColorBrush x:Key="ModalBodyBrush" Color="#ff363636"></SolidColorBrush>
+  <SolidColorBrush x:Key="ModalToolbarBrush" Color="#ff5c5c5c"></SolidColorBrush>
+  <SolidColorBrush x:Key="ModalBorderBrush" Color="#ff1c1c1c"></SolidColorBrush>
+
+  <!-- Image variables reference -->
+  <!-- ImageSource x:Key="MenuJamIconSource" -->
+  <!-- ImageSource x:Key="MenuRankingIconSource" -->
+  <!-- ImageSource x:Key="MenuAwardsIconSource" -->
+  <!-- ImageSource x:Key="MenuExportIconSource" -->
+
+  <!-- ImageSource x:Key="EntryPlaceholderSource" -->
+  <!-- ImageSource x:Key="StarEmptySource" -->
+  <!-- ImageSource x:Key="StarFullSource" -->
+</ResourceDictionary>

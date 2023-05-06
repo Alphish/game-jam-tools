@@ -29,7 +29,7 @@ namespace Alphicsh.JamPlayer.App
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            var themeManager = new ThemeManager(this.Resources);
+            ThemeManager.Create(Resources);
             LoadJam(e);
 
             base.OnStartup(e);
