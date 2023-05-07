@@ -65,7 +65,18 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
             return new WrapperProperty<TViewModel, TValue>(viewModel, propertyName, valueGetter, valueSetter: null);
         }
 
-        public static WrapperProperty<TViewModel, TValue> Create<TViewModel, TValue>(
+        public static WrapperProperty<TViewModel, TValue> ForMember<TViewModel, TValue>(
+            TViewModel viewModel, Expression<Func<TViewModel, TValue>> propertyExpression
+            )
+            where TViewModel : IViewModel
+        {
+            var propertyName = (propertyExpression.Body as MemberExpression)!.Member.Name;
+            var valueGetter = propertyExpression.Compile();
+            var valueSetter = CreateSetterFromGetter(propertyExpression);
+            return new WrapperProperty<TViewModel, TValue>(viewModel, propertyName, valueGetter, valueSetter);
+        }
+
+        public static WrapperProperty<TViewModel, TValue> ForMember<TViewModel, TValue>(
             TViewModel viewModel, string propertyName, Expression<Func<TViewModel, TValue>> propertyExpression
             )
             where TViewModel : IViewModel
