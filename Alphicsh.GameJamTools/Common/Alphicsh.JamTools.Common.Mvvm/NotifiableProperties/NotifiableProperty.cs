@@ -7,12 +7,14 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
         protected IViewModel ViewModel { get; }
         protected string PropertyName { get; }
         protected ICollection<INotifiableProperty> DependingProperties { get; }
+        protected ICollection<ICollectionViewModel> DependingCollections { get; }
 
         public NotifiableProperty(IViewModel viewModel, string propertyName)
         {
             ViewModel = viewModel;
             PropertyName = propertyName;
             DependingProperties = new List<INotifiableProperty>();
+            DependingCollections = new List<ICollectionViewModel>();
         }
 
         public static NotifiableProperty Create(IViewModel viewModel, string propertyName)
@@ -26,6 +28,10 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
             foreach (var dependingProperty in DependingProperties)
             {
                 dependingProperty.RaisePropertyChanged();
+            }
+            foreach (var dependingCollection in DependingCollections)
+            {
+                dependingCollection.SynchronizeWithModels();
             }
         }
 
@@ -43,5 +49,10 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
 
         public void AddDependingProperty(IViewModel viewModel, string propertyName)
             => AddDependingProperty(NotifiableProperty.Create(viewModel, propertyName));
+
+        public void AddDependingCollection(ICollectionViewModel collection)
+        {
+            DependingCollections.Add(collection);
+        }
     }
 }

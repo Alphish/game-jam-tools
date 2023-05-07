@@ -22,5 +22,12 @@
             property.AddDependingProperty(propertyName);
             return property;
         }
+
+        public static TProperty WithDependingCollection<TProperty>(this TProperty property, ICollectionViewModel collection)
+            where TProperty : NotifiableProperty
+        {
+            property.AddDependingCollection(collection);
+            return property;
+        }
     }
 }
