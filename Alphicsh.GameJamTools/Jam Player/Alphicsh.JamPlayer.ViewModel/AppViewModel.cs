@@ -33,8 +33,8 @@ namespace Alphicsh.JamPlayer.ViewModel
             ExporterProperty = MutableProperty.Create<ExporterViewModel>(this, nameof(Exporter), default!);
 
             RecreateViewModels();
-            SaveRankingCommand = new SimpleCommand(Model.PlayerDataManager.SaveRanking);
-            SaveExporterCommand = new SimpleCommand(Model.PlayerDataManager.SaveExporter);
+            SaveRankingCommand = SimpleCommand.From(Model.PlayerDataManager.SaveRanking);
+            SaveExporterCommand = SimpleCommand.From(Model.PlayerDataManager.SaveExporter);
             HasOverlayProperty = MutableProperty.Create(this, nameof(HasOverlay), false);
         }
 

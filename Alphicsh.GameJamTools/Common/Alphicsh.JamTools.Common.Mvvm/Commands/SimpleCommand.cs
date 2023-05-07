@@ -5,20 +5,32 @@ namespace Alphicsh.JamTools.Common.Mvvm.Commands
 {
     public class SimpleCommand : ICommand
     {
-        private Action ExecutionAction { get; }
+        private Action<object?> ExecutionAction { get; }
 
         // --------
         // Creation
         // --------
 
-        public SimpleCommand(Action executionAction)
+        private SimpleCommand(Action<object?> executionAction)
         {
             ExecutionAction = executionAction;
         }
 
         public static SimpleCommand From(Action executionAction)
         {
-            return new SimpleCommand(executionAction);
+            return new SimpleCommand((parameter) => executionAction());
+        }
+
+        public static SimpleCommand WithParameter<TParam>(Action<TParam> executionAction)
+        {
+            return new SimpleCommand((object? parameter) =>
+            {
+                if (parameter == null)
+                    throw new ArgumentNullException(nameof(parameter));
+
+                var typedParameter = (TParam)parameter;
+                executionAction(typedParameter);
+            });
         }
 
         // -----------------------
@@ -34,7 +46,7 @@ namespace Alphicsh.JamTools.Common.Mvvm.Commands
 
         public void Execute(object? parameter)
         {
-            ExecutionAction();
+            ExecutionAction(parameter);
         }
     }
 }

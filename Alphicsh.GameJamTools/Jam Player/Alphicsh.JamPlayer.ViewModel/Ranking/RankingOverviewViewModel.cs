@@ -21,7 +21,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
                 .WithDependingProperty(RankedEntries, nameof(RankedEntries.SelectedEntry))
                 .WithDependingProperty(UnrankedEntries, nameof(UnrankedEntries.SelectedEntry));
 
-            GetNextEntryCommand = new SimpleCommand(GetNextEntry);
+            GetNextEntryCommand = SimpleCommand.From(GetNextEntry);
         }
 
         // ---------------

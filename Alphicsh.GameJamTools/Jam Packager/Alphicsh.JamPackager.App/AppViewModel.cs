@@ -15,7 +15,7 @@ namespace Alphicsh.JamPackager.App
         {
             DirectoryPathProperty = new MutableProperty<string>(this, nameof(DirectoryPath), string.Empty);
 
-            GenerateJamFilesCommand = new SimpleCommand(GenerateJamFiles);
+            GenerateJamFilesCommand = SimpleCommand.From(GenerateJamFiles);
         }
 
         public MutableProperty<string> DirectoryPathProperty { get; }

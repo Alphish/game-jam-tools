@@ -19,7 +19,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ratings
                 .WithDependingProperty(nameof(DisplayValue))
                 .WithDependingProperty(nameof(HasValue));
 
-            ClearValueCommand = new SimpleCommand(() => ValueProperty.Value = null);
+            ClearValueCommand = SimpleCommand.From(() => ValueProperty.Value = null);
         }
 
         public double MaxValue => Model.Criterion.MaxValue;
