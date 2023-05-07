@@ -17,11 +17,22 @@
       </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
 
-      <Label Grid.Row="0" Grid.Column="0">Title:</Label>
-      <cc:ImpTextBox Grid.Row="0" Grid.Column="1" Margin="2" Text="{Binding Title}" Placeholder="&lt;enter title here&gt;"/>
+      <Label Grid.Row="1" Grid.Column="0">Title:</Label>
+      <cc:ImpTextBox Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Title}" Placeholder="&lt;enter title here&gt;"/>
+
+      <Label Grid.Row="2" Grid.Column="0">Team name:</Label>
+      <cc:ImpTextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding Team.Name}" Placeholder="&lt;same as authors&gt;"/>
+
+      <Label Grid.Row="3" Grid.Column="0">Authors:</Label>
+      <cc:ImpTextBox Grid.Row="3" Grid.Column="1" Margin="2" Text="{Binding Team.AuthorsString}" Placeholder="&lt;enter authors here&gt;"/>
+
+      <local:EntryAuthorsList Grid.Row="4" Grid.Column="1" DataContext="{Binding Team}"/>
     </Grid>
   </GroupBox>
 </UserControl>
