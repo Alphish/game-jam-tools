@@ -9,9 +9,12 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
         public JamEntryEditableViewModel(JamEntryEditable model) : base(model)
         {
             TitleProperty = WrapperProperty.ForMember(this, vm => vm.Model.Title);
+            Team = new JamTeamEditableViewModel(model.Team);
         }
 
         public WrapperProperty<JamEntryEditableViewModel, string> TitleProperty { get; }
         public string Title { get => TitleProperty.Value; set => TitleProperty.Value = value; }
+
+        public JamTeamEditableViewModel Team { get; }
     }
 }
