@@ -14,6 +14,8 @@ namespace Alphicsh.EntryPackager.Model.Entry
             Authors = new List<JamAuthorEditable>();
         }
 
+        public string DisplayName => !string.IsNullOrEmpty(Name) ? Name : string.Join(", ", Authors.Select(author => author.Name));
+
         public string GetAuthorsString()
         {
             return string.Join(", ", Authors.Select(author => author.Name));

@@ -86,6 +86,25 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
             return new WrapperProperty<TViewModel, TValue>(viewModel, propertyName, valueGetter, valueSetter);
         }
 
+        public static WrapperProperty<TViewModel, TValue> ForReadonlyMember<TViewModel, TValue>(
+            TViewModel viewModel, Expression<Func<TViewModel, TValue>> propertyExpression
+            )
+            where TViewModel : IViewModel
+        {
+            var propertyName = (propertyExpression.Body as MemberExpression)!.Member.Name;
+            var valueGetter = propertyExpression.Compile();
+            return new WrapperProperty<TViewModel, TValue>(viewModel, propertyName, valueGetter, valueSetter: null);
+        }
+
+        public static WrapperProperty<TViewModel, TValue> ForReadonlyMember<TViewModel, TValue>(
+            TViewModel viewModel, string propertyName, Expression<Func<TViewModel, TValue>> propertyExpression
+            )
+            where TViewModel : IViewModel
+        {
+            var valueGetter = propertyExpression.Compile();
+            return new WrapperProperty<TViewModel, TValue>(viewModel, propertyName, valueGetter, valueSetter: null);
+        }
+
         private static Action<TViewModel, TValue> CreateSetterFromGetter<TViewModel, TValue>(
             Expression<Func<TViewModel, TValue>> getterExpression
             )
