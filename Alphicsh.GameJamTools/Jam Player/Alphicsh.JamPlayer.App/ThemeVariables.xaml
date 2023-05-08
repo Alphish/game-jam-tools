@@ -45,6 +45,8 @@
   <SolidColorBrush x:Key="TextBoxScrollPressedBrush" Color="#beffffff"></SolidColorBrush>
   <SolidColorBrush x:Key="TextBoxScrollDisabledBrush" Color="#30ffffff"></SolidColorBrush>
 
+  <SolidColorBrush x:Key="TextBoxErrorOverlayBrush" Color="#20ff0000"></SolidColorBrush>
+
   <!-- Section theming -->
   <LinearGradientBrush x:Key="SectionHeaderBrush" StartPoint="0.5,0" EndPoint="0.5,1">
     <GradientStop Color="#6d9c3f" Offset="0.0"></GradientStop>

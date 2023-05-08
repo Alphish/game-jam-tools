@@ -4,6 +4,9 @@
   xmlns:local="clr-namespace:Alphicsh.JamTools.Common.Theming"
   xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
 >
+  <!-- ============ -->
+  <!-- Common style -->
+  <!-- ============ -->
   <Style TargetType="{x:Type cc:ImpTextBox}">
     <Style.Resources>
       <Style TargetType="ScrollViewer" BasedOn="{StaticResource {x:Type ScrollViewer}}">
@@ -15,6 +18,7 @@
 
     <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="OverridesDefaultStyle" Value="True"/>
+    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
     <Setter Property="Padding" Value="2"/>
 
     <Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}"/>
@@ -27,6 +31,7 @@
 
     <Setter Property="PlaceholderForeground" Value="{DynamicResource ExtraDimText}"/>
 
+    <!-- Control template -->
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type TextBoxBase}">
@@ -72,8 +77,36 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>
+
+    <!-- Validation error template -->
+    <Setter Property="Validation.ErrorTemplate">
+      <Setter.Value>
+        <ControlTemplate>
+          <Grid>
+            <AdornedElementPlaceholder/>
+            <Border
+              IsHitTestVisible="False"
+              CornerRadius="8"
+              BorderThickness="2"
+              BorderBrush="{DynamicResource TextBoxErrorOverlayBrush}"
+              Background="{DynamicResource TextBoxErrorOverlayBrush}"
+            />
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+
+    <!-- Validation error triggers -->
+    <Style.Triggers>
+      <Trigger Property="Validation.HasError" Value="true">
+        <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}"/>
+      </Trigger>
+    </Style.Triggers>
   </Style>
 
+  <!-- =============== -->
+  <!-- Text area style -->
+  <!-- =============== -->
   <Style TargetType="{x:Type cc:ImpTextBox}" x:Key="TextArea" BasedOn="{StaticResource {x:Type cc:ImpTextBox}}">
     <Setter Property="TextWrapping" Value="Wrap"/>
     <Setter Property="VerticalScrollBarVisibility" Value="Visible"/>

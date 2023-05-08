@@ -77,6 +77,8 @@ namespace Alphicsh.JamTools.Common.Theming
             TextBoxScrollPressedBrushVariable = VariableFor(x => x.TextBoxScrollPressedBrush);
             TextBoxScrollDisabledBrushVariable = VariableFor(x => x.TextBoxScrollDisabledBrush);
 
+            TextBoxErrorOverlayBrushVariable = VariableFor(x => x.TextBoxErrorOverlayBrush);
+
             // Section theming
             SectionHeaderBrushVariable = VariableFor(x => x.SectionHeaderBrush);
             SectionHeaderTitleBrushVariable = VariableFor(x => x.SectionHeaderTitleBrush);
@@ -247,6 +249,9 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public Brush TextBoxScrollDisabledBrush { get => TextBoxScrollDisabledBrushVariable.Value; set => TextBoxScrollDisabledBrushVariable.Value = value; }
         private ThemeVariable<Brush> TextBoxScrollDisabledBrushVariable { get; }
+
+        public Brush TextBoxErrorOverlayBrush { get => TextBoxErrorOverlayBrushVariable.Value; set => TextBoxErrorOverlayBrushVariable.Value = value; }
+        private ThemeVariable<Brush> TextBoxErrorOverlayBrushVariable { get; }
 
         // ---------------
         // Section theming
