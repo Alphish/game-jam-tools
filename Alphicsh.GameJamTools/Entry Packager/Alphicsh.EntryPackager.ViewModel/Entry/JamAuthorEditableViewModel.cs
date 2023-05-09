@@ -18,7 +18,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
             TeamViewModel = teamVm;
 
             NameProperty = WrapperProperty.ForMember(this, vm => vm.Model.Name)
-                .WithDependingProperty(TeamViewModel, nameof(TeamViewModel.AuthorsString));
+                .WithDependingProperty(TeamViewModel.AuthorsStringProperty);
             CommunityIdProperty = WrapperProperty.ForMember(this, vm => vm.Model.CommunityId);
             RoleProperty = WrapperProperty.ForMember(this, vm => vm.Model.Role);
         }

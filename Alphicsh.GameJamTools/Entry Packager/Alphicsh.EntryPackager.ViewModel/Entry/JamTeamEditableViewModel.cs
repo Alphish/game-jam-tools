@@ -36,7 +36,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
             var authorVm = new JamAuthorEditableViewModel(author, this);
             Authors.Add(authorVm);
             Authors.CompleteChanges();
-            RaisePropertyChanged(nameof(AuthorsString));
+            AuthorsStringProperty.RaisePropertyChanged();
         }
 
         public ICommand RemoveAuthorCommand { get; }
@@ -44,7 +44,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
         {
             Authors.Remove(authorVm);
             Authors.CompleteChanges();
-            RaisePropertyChanged(nameof(AuthorsString));
+            AuthorsStringProperty.RaisePropertyChanged();
         }
     }
 }

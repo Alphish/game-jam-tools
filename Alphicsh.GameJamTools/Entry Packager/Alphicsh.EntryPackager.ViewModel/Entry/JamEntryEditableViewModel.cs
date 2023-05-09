@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Alphicsh.EntryPackager.Model.Entry;
+﻿using Alphicsh.EntryPackager.Model.Entry;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
@@ -13,10 +12,11 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
             DefaultDirectoryNameProperty = WrapperProperty
                 .ForReadonlyMember(this, nameof(DefaultDirectoryName), vm => vm.Model.GetDefaultDirectoryName());
             TitleProperty = WrapperProperty.ForMember(this, vm => vm.Model.Title)
-                .WithDependingProperty(nameof(DefaultDirectoryName));
+                .WithDependingProperty(DefaultDirectoryNameProperty);
 
             Team = new JamTeamEditableViewModel(model.Team);
-            Team.PropertyChanged += Team_PropertyChanged;
+            Team.NameProperty.AddDependingProperty(DefaultDirectoryNameProperty);
+            Team.AuthorsStringProperty.AddDependingProperty(DefaultDirectoryNameProperty);
         }
 
         public WrapperProperty<JamEntryEditableViewModel, string?> DirectoryNameProperty { get; }
@@ -29,13 +29,5 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
         public string Title { get => TitleProperty.Value; set => TitleProperty.Value = value; }
 
         public JamTeamEditableViewModel Team { get; }
-
-        private void Team_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName != nameof(Team.Name) && e.PropertyName != nameof(Team.AuthorsString))
-                return;
-
-            RaisePropertyChanged(nameof(DefaultDirectoryName));
-        }
     }
 }
