@@ -1,4 +1,6 @@
-﻿namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
+﻿using Alphicsh.JamTools.Common.Mvvm.Commands;
+
+namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
 {
     public static class NotifiablePropertyExtensions
     {
@@ -27,6 +29,13 @@
             where TProperty : NotifiableProperty
         {
             property.AddDependingCollection(collection);
+            return property;
+        }
+
+        public static TProperty WithDependingCommand<TProperty>(this TProperty property, IConditionalCommand command)
+            where TProperty : NotifiableProperty
+        {
+            property.AddDependingCommand(command);
             return property;
         }
     }

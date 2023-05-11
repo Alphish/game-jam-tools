@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Alphicsh.JamTools.Common.Mvvm.Commands;
 
 namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
 {
@@ -8,6 +9,7 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
         protected string PropertyName { get; }
         protected ICollection<INotifiableProperty> DependingProperties { get; }
         protected ICollection<ICollectionViewModel> DependingCollections { get; }
+        protected ICollection<IConditionalCommand> DependingCommands { get; }
 
         public NotifiableProperty(IViewModel viewModel, string propertyName)
         {
@@ -15,6 +17,7 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
             PropertyName = propertyName;
             DependingProperties = new List<INotifiableProperty>();
             DependingCollections = new List<ICollectionViewModel>();
+            DependingCommands = new List<IConditionalCommand>();
         }
 
         public static NotifiableProperty Create(IViewModel viewModel, string propertyName)
@@ -25,6 +28,7 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
         public void RaisePropertyChanged()
         {
             ViewModel.RaisePropertyChanged(PropertyName);
+
             foreach (var dependingProperty in DependingProperties)
             {
                 dependingProperty.RaisePropertyChanged();
@@ -32,6 +36,10 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
             foreach (var dependingCollection in DependingCollections)
             {
                 dependingCollection.SynchronizeWithModels();
+            }
+            foreach (var dependingCommand in DependingCommands)
+            {
+                dependingCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -53,6 +61,11 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
         public void AddDependingCollection(ICollectionViewModel collection)
         {
             DependingCollections.Add(collection);
+        }
+
+        public void AddDependingCommand(IConditionalCommand command)
+        {
+            DependingCommands.Add(command);
         }
     }
 }
