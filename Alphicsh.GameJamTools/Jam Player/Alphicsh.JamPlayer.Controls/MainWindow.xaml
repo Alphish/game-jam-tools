@@ -27,6 +27,7 @@
         
         <appJam:JamSummaryTab DataContext="{Binding Jam}"></appJam:JamSummaryTab>
       </TabItem>
+      
       <!-- Ranking tab -->
       <TabItem>
         <TabItem.Header>
