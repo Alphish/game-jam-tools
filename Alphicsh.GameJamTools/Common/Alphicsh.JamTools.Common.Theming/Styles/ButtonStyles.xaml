@@ -11,8 +11,13 @@
     <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
     <Setter Property="Background" Value="{DynamicResource ButtonBackgroundBrush}"></Setter>
     <Setter Property="local:ButtonTheming.HoverBrush" Value="{DynamicResource ButtonHoverBrush}"></Setter>
-    <Setter Property="local:ButtonTheming.GlowBrush" Value="{DynamicResource ButtonGlowBrush}"></Setter>
     <Setter Property="local:ButtonTheming.ShadowBrush" Value="{DynamicResource ButtonShadowBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.GlowBrush" Value="{DynamicResource ButtonGlowBrush}"></Setter>
+
+    <Setter Property="local:ButtonTheming.DisabledForegroundBrush" Value="{DynamicResource ButtonDisabledForegroundBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.DisabledBackgroundBrush" Value="{DynamicResource ButtonDisabledBackgroundBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.DisabledShadowBrush" Value="{DynamicResource ButtonDisabledShadowBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.DisabledGlowBrush" Value="{DynamicResource ButtonDisabledGlowBrush}"></Setter>
 
     <Setter Property="FontSize" Value="16"></Setter>
     <Setter Property="Foreground" Value="{DynamicResource BasicText}"></Setter>
@@ -43,6 +48,24 @@
             />
           </Grid>
           <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter
+                Property="Foreground"
+                Value="{Binding Path=(local:ButtonTheming.DisabledForegroundBrush), RelativeSource={RelativeSource Self}}"
+              />
+              <Setter
+                Property="Background"
+                Value="{Binding Path=(local:ButtonTheming.DisabledBackgroundBrush), RelativeSource={RelativeSource Self}}"
+              />
+              <Setter
+                Property="local:ButtonTheming.ShadowBrush"
+                Value="{Binding Path=(local:ButtonTheming.DisabledShadowBrush), RelativeSource={RelativeSource Self}}"
+              />
+              <Setter
+                Property="local:ButtonTheming.GlowBrush"
+                Value="{Binding Path=(local:ButtonTheming.DisabledGlowBrush), RelativeSource={RelativeSource Self}}"
+              />
+            </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
               <Setter
                 Property="Background"
@@ -58,22 +81,31 @@
   <Style TargetType="Button" x:Key="PrimaryButton" BasedOn="{StaticResource {x:Type Button}}">
     <Setter Property="Background" Value="{DynamicResource PrimaryButtonBackgroundBrush}"></Setter>
     <Setter Property="local:ButtonTheming.HoverBrush" Value="{DynamicResource PrimaryButtonHoverBrush}"></Setter>
-    <Setter Property="local:ButtonTheming.GlowBrush" Value="{DynamicResource PrimaryButtonGlowBrush}"></Setter>
     <Setter Property="local:ButtonTheming.ShadowBrush" Value="{DynamicResource PrimaryButtonShadowBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.GlowBrush" Value="{DynamicResource PrimaryButtonGlowBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.DisabledBackgroundBrush" Value="{StaticResource PrimaryButtonDisabledBackgroundBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.DisabledShadowBrush" Value="{StaticResource PrimaryButtonDisabledShadowBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.DisabledGlowBrush" Value="{StaticResource PrimaryButtonDisabledGlowBrush}"></Setter>
   </Style>
 
   <Style TargetType="Button" x:Key="HelpButton" BasedOn="{StaticResource {x:Type Button}}">
     <Setter Property="Background" Value="{DynamicResource HelpButtonBackgroundBrush}"></Setter>
     <Setter Property="local:ButtonTheming.HoverBrush" Value="{DynamicResource HelpButtonHoverBrush}"></Setter>
-    <Setter Property="local:ButtonTheming.GlowBrush" Value="{DynamicResource HelpButtonGlowBrush}"></Setter>
     <Setter Property="local:ButtonTheming.ShadowBrush" Value="{DynamicResource HelpButtonShadowBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.GlowBrush" Value="{DynamicResource HelpButtonGlowBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.DisabledBackgroundBrush" Value="{StaticResource HelpButtonDisabledBackgroundBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.DisabledShadowBrush" Value="{StaticResource HelpButtonDisabledShadowBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.DisabledGlowBrush" Value="{StaticResource HelpButtonDisabledGlowBrush}"></Setter>
   </Style>
 
   <Style TargetType="Button" x:Key="DangerButton" BasedOn="{StaticResource {x:Type Button}}">
     <Setter Property="Background" Value="{DynamicResource DangerButtonBackgroundBrush}"></Setter>
     <Setter Property="local:ButtonTheming.HoverBrush" Value="{DynamicResource DangerButtonHoverBrush}"></Setter>
-    <Setter Property="local:ButtonTheming.GlowBrush" Value="{DynamicResource DangerButtonGlowBrush}"></Setter>
     <Setter Property="local:ButtonTheming.ShadowBrush" Value="{DynamicResource DangerButtonShadowBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.GlowBrush" Value="{DynamicResource DangerButtonGlowBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.DisabledBackgroundBrush" Value="{DynamicResource DangerButtonDisabledBackgroundBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.DisabledShadowBrush" Value="{DynamicResource DangerButtonDisabledShadowBrush}"></Setter>
+    <Setter Property="local:ButtonTheming.DisabledGlowBrush" Value="{DynamicResource DangerButtonDisabledGlowBrush}"></Setter>
   </Style>
 
   <Style TargetType="Button" x:Key="NotAvailableButton" BasedOn="{StaticResource {x:Type Button}}">
@@ -83,8 +115,8 @@
     <Setter Property="Foreground" Value="{DynamicResource DimText}"></Setter>
     <Setter Property="Background" Value="Transparent"></Setter>
     <Setter Property="local:ButtonTheming.HoverBrush" Value="{DynamicResource MouseOverHighlight}"></Setter>
-    <Setter Property="local:ButtonTheming.GlowBrush" Value="Transparent"></Setter>
     <Setter Property="local:ButtonTheming.ShadowBrush" Value="Transparent"></Setter>
+    <Setter Property="local:ButtonTheming.GlowBrush" Value="Transparent"></Setter>
   </Style>
   
   <Style TargetType="Button" x:Key="CloseModalButton" BasedOn="{StaticResource {x:Type Button}}">

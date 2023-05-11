@@ -50,24 +50,36 @@ namespace Alphicsh.JamTools.Common.Theming
             ButtonHoverBrushVariable = VariableFor(x => x.ButtonHoverBrush);
             ButtonShadowBrushVariable = VariableFor(x => x.ButtonShadowBrush);
             ButtonGlowBrushVariable = VariableFor(x => x.ButtonGlowBrush);
+            ButtonDisabledForegroundBrushVariable = VariableFor(x => x.ButtonDisabledForegroundBrush);
+            ButtonDisabledBackgroundBrushVariable = VariableFor(x => x.ButtonDisabledBackgroundBrush);
+            ButtonDisabledShadowBrushVariable = VariableFor(x => x.ButtonDisabledShadowBrush);
+            ButtonDisabledGlowBrushVariable = VariableFor(x => x.ButtonDisabledGlowBrush);
 
             PrimaryButtonBackgroundBrushVariable = VariableFor(x => x.PrimaryButtonBackgroundBrush);
             PrimaryButtonHoverBrushVariable = VariableFor(x => x.PrimaryButtonHoverBrush);
             PrimaryButtonShadowBrushVariable = VariableFor(x => x.PrimaryButtonShadowBrush);
             PrimaryButtonGlowBrushVariable = VariableFor(x => x.PrimaryButtonGlowBrush);
+            PrimaryButtonDisabledBackgroundBrushVariable = VariableFor(x => x.PrimaryButtonDisabledBackgroundBrush);
+            PrimaryButtonDisabledShadowBrushVariable = VariableFor(x => x.PrimaryButtonDisabledShadowBrush);
+            PrimaryButtonDisabledGlowBrushVariable = VariableFor(x => x.PrimaryButtonDisabledGlowBrush);
 
             HelpButtonBackgroundBrushVariable = VariableFor(x => x.HelpButtonBackgroundBrush);
             HelpButtonHoverBrushVariable = VariableFor(x => x.HelpButtonHoverBrush);
             HelpButtonShadowBrushVariable = VariableFor(x => x.HelpButtonShadowBrush);
             HelpButtonGlowBrushVariable = VariableFor(x => x.HelpButtonGlowBrush);
+            HelpButtonDisabledBackgroundBrushVariable = VariableFor(x => x.HelpButtonDisabledBackgroundBrush);
+            HelpButtonDisabledShadowBrushVariable = VariableFor(x => x.HelpButtonDisabledShadowBrush);
+            HelpButtonDisabledGlowBrushVariable = VariableFor(x => x.HelpButtonDisabledGlowBrush);
 
             DangerButtonBackgroundBrushVariable = VariableFor(x => x.DangerButtonBackgroundBrush);
             DangerButtonHoverBrushVariable = VariableFor(x => x.DangerButtonHoverBrush);
             DangerButtonShadowBrushVariable = VariableFor(x => x.DangerButtonShadowBrush);
             DangerButtonGlowBrushVariable = VariableFor(x => x.DangerButtonGlowBrush);
+            DangerButtonDisabledBackgroundBrushVariable = VariableFor(x => x.DangerButtonDisabledBackgroundBrush);
+            DangerButtonDisabledShadowBrushVariable = VariableFor(x => x.DangerButtonDisabledShadowBrush);
+            DangerButtonDisabledGlowBrushVariable = VariableFor(x => x.DangerButtonDisabledGlowBrush);
 
             // Text box theming
-
             TextBoxBackgroundBrushVariable = VariableFor(x => x.TextBoxBackgroundBrush);
             TextBoxFocusBrushVariable = VariableFor(x => x.TextBoxFocusBrush);
             TextBoxShadowBrushVariable = VariableFor(x => x.TextBoxShadowBrush);
@@ -189,6 +201,18 @@ namespace Alphicsh.JamTools.Common.Theming
         public Brush ButtonGlowBrush { get => ButtonGlowBrushVariable.Value; set => ButtonGlowBrushVariable.Value = value; }
         private ThemeVariable<Brush> ButtonGlowBrushVariable { get; }
 
+        public Brush ButtonDisabledForegroundBrush { get => ButtonDisabledForegroundBrushVariable.Value; set => ButtonDisabledForegroundBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ButtonDisabledForegroundBrushVariable { get; }
+
+        public Brush ButtonDisabledBackgroundBrush { get => ButtonDisabledBackgroundBrushVariable.Value; set => ButtonDisabledBackgroundBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ButtonDisabledBackgroundBrushVariable { get; }
+
+        public Brush ButtonDisabledShadowBrush { get => ButtonDisabledShadowBrushVariable.Value; set => ButtonDisabledShadowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ButtonDisabledShadowBrushVariable { get; }
+
+        public Brush ButtonDisabledGlowBrush { get => ButtonDisabledGlowBrushVariable.Value; set => ButtonDisabledGlowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> ButtonDisabledGlowBrushVariable { get; }
+
         public Brush PrimaryButtonBackgroundBrush { get => PrimaryButtonBackgroundBrushVariable.Value; set => PrimaryButtonBackgroundBrushVariable.Value = value; }
         private ThemeVariable<Brush> PrimaryButtonBackgroundBrushVariable { get; }
 
@@ -200,6 +224,15 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public Brush PrimaryButtonGlowBrush { get => PrimaryButtonGlowBrushVariable.Value; set => PrimaryButtonGlowBrushVariable.Value = value; }
         private ThemeVariable<Brush> PrimaryButtonGlowBrushVariable { get; }
+
+        public Brush PrimaryButtonDisabledBackgroundBrush { get => PrimaryButtonDisabledBackgroundBrushVariable.Value; set => PrimaryButtonDisabledBackgroundBrushVariable.Value = value; }
+        private ThemeVariable<Brush> PrimaryButtonDisabledBackgroundBrushVariable { get; }
+
+        public Brush PrimaryButtonDisabledShadowBrush { get => PrimaryButtonDisabledShadowBrushVariable.Value; set => PrimaryButtonDisabledShadowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> PrimaryButtonDisabledShadowBrushVariable { get; }
+
+        public Brush PrimaryButtonDisabledGlowBrush { get => PrimaryButtonDisabledGlowBrushVariable.Value; set => PrimaryButtonDisabledGlowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> PrimaryButtonDisabledGlowBrushVariable { get; }
 
         public Brush HelpButtonBackgroundBrush { get => HelpButtonBackgroundBrushVariable.Value; set => HelpButtonBackgroundBrushVariable.Value = value; }
         private ThemeVariable<Brush> HelpButtonBackgroundBrushVariable { get; }
@@ -213,6 +246,15 @@ namespace Alphicsh.JamTools.Common.Theming
         public Brush HelpButtonGlowBrush { get => HelpButtonGlowBrushVariable.Value; set => HelpButtonGlowBrushVariable.Value = value; }
         private ThemeVariable<Brush> HelpButtonGlowBrushVariable { get; }
 
+        public Brush HelpButtonDisabledBackgroundBrush { get => HelpButtonDisabledBackgroundBrushVariable.Value; set => HelpButtonDisabledBackgroundBrushVariable.Value = value; }
+        private ThemeVariable<Brush> HelpButtonDisabledBackgroundBrushVariable { get; }
+
+        public Brush HelpButtonDisabledShadowBrush { get => HelpButtonDisabledShadowBrushVariable.Value; set => HelpButtonDisabledShadowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> HelpButtonDisabledShadowBrushVariable { get; }
+
+        public Brush HelpButtonDisabledGlowBrush { get => HelpButtonDisabledGlowBrushVariable.Value; set => HelpButtonDisabledGlowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> HelpButtonDisabledGlowBrushVariable { get; }
+
         public Brush DangerButtonBackgroundBrush { get => DangerButtonBackgroundBrushVariable.Value; set => DangerButtonBackgroundBrushVariable.Value = value; }
         private ThemeVariable<Brush> DangerButtonBackgroundBrushVariable { get; }
 
@@ -224,6 +266,15 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public Brush DangerButtonGlowBrush { get => DangerButtonGlowBrushVariable.Value; set => DangerButtonGlowBrushVariable.Value = value; }
         private ThemeVariable<Brush> DangerButtonGlowBrushVariable { get; }
+
+        public Brush DangerButtonDisabledBackgroundBrush { get => DangerButtonDisabledBackgroundBrushVariable.Value; set => DangerButtonDisabledBackgroundBrushVariable.Value = value; }
+        private ThemeVariable<Brush> DangerButtonDisabledBackgroundBrushVariable { get; }
+
+        public Brush DangerButtonDisabledShadowBrush { get => DangerButtonDisabledShadowBrushVariable.Value; set => DangerButtonDisabledShadowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> DangerButtonDisabledShadowBrushVariable { get; }
+
+        public Brush DangerButtonDisabledGlowBrush { get => DangerButtonDisabledGlowBrushVariable.Value; set => DangerButtonDisabledGlowBrushVariable.Value = value; }
+        private ThemeVariable<Brush> DangerButtonDisabledGlowBrushVariable { get; }
 
         // ----------------
         // Text box theming

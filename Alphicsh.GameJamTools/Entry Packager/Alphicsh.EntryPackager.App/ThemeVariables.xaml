@@ -19,21 +19,34 @@
   <SolidColorBrush x:Key="ButtonHoverBrush" Color="#ff536b53"></SolidColorBrush>
   <SolidColorBrush x:Key="ButtonShadowBrush" Color="#ff474847"></SolidColorBrush>
   <SolidColorBrush x:Key="ButtonGlowBrush" Color="#ff616261"></SolidColorBrush>
+  <SolidColorBrush x:Key="ButtonDisabledForegroundBrush" Color="#80e3e3e3"></SolidColorBrush>
+  <SolidColorBrush x:Key="ButtonDisabledBackgroundBrush" Color="#ff474847"></SolidColorBrush>
+  <SolidColorBrush x:Key="ButtonDisabledShadowBrush" Color="#ff3a3b3a"></SolidColorBrush>
+  <SolidColorBrush x:Key="ButtonDisabledGlowBrush" Color="#ff545554"></SolidColorBrush>
 
   <SolidColorBrush x:Key="PrimaryButtonBackgroundBrush" Color="#ff519735"></SolidColorBrush>
   <SolidColorBrush x:Key="PrimaryButtonHoverBrush" Color="#ff5eb42d"></SolidColorBrush>
   <SolidColorBrush x:Key="PrimaryButtonShadowBrush" Color="#ff4e842e"></SolidColorBrush>
-  <SolidColorBrush x:Key="PrimaryButtonGlowBrush" Color="#ff64aa4c"></SolidColorBrush>
+  <SolidColorBrush x:Key="PrimaryButtonGlowBrush" Color="#ff5f8b50"></SolidColorBrush>
+  <SolidColorBrush x:Key="PrimaryButtonDisabledBackgroundBrush" Color="#ff507043"></SolidColorBrush>
+  <SolidColorBrush x:Key="PrimaryButtonDisabledShadowBrush" Color="#ff476039"></SolidColorBrush>
+  <SolidColorBrush x:Key="PrimaryButtonDisabledGlowBrush" Color="#ff59804d"></SolidColorBrush>
 
   <SolidColorBrush x:Key="HelpButtonBackgroundBrush" Color="#ff355197"></SolidColorBrush>
   <SolidColorBrush x:Key="HelpButtonHoverBrush" Color="#ff2d5eb4"></SolidColorBrush>
   <SolidColorBrush x:Key="HelpButtonShadowBrush" Color="#ff2e4e84"></SolidColorBrush>
   <SolidColorBrush x:Key="HelpButtonGlowBrush" Color="#ff4c64aa"></SolidColorBrush>
+  <SolidColorBrush x:Key="HelpButtonDisabledBackgroundBrush" Color="#ff435070"></SolidColorBrush>
+  <SolidColorBrush x:Key="HelpButtonDisabledShadowBrush" Color="#ff394760"></SolidColorBrush>
+  <SolidColorBrush x:Key="HelpButtonDisabledGlowBrush" Color="#ff4d5980"></SolidColorBrush>
 
   <SolidColorBrush x:Key="DangerButtonBackgroundBrush" Color="#ff973535"></SolidColorBrush>
   <SolidColorBrush x:Key="DangerButtonHoverBrush" Color="#ffb42d2d"></SolidColorBrush>
   <SolidColorBrush x:Key="DangerButtonShadowBrush" Color="#ff842e2e"></SolidColorBrush>
   <SolidColorBrush x:Key="DangerButtonGlowBrush" Color="#ffaa4c4c"></SolidColorBrush>
+  <SolidColorBrush x:Key="DangerButtonDisabledBackgroundBrush" Color="#ff704343"></SolidColorBrush>
+  <SolidColorBrush x:Key="DangerButtonDisabledShadowBrush" Color="#ff603939"></SolidColorBrush>
+  <SolidColorBrush x:Key="DangerButtonDisabledGlowBrush" Color="#ff804d4d"></SolidColorBrush>
 
   <!-- Text box theming -->
   <SolidColorBrush x:Key="TextBoxBackgroundBrush" Color="#ff2e2e2e"></SolidColorBrush>
