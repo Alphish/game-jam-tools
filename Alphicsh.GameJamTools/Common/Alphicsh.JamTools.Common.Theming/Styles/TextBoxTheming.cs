@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 
-namespace Alphicsh.JamTools.Common.Theming
+namespace Alphicsh.JamTools.Common.Theming.Styles
 {
     public static class TextBoxTheming
     {

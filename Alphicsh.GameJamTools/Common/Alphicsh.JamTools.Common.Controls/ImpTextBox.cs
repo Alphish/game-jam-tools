@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using Alphicsh.JamTools.Common.Mvvm;
 
 namespace Alphicsh.JamTools.Common.Controls
 {
@@ -22,6 +23,8 @@ namespace Alphicsh.JamTools.Common.Controls
         // ----------
         // Properties
         // ----------
+
+        // Placeholders
 
         public static readonly DependencyProperty PlaceholderProperty
             = Deps.Register(x => x.Placeholder, "", RecalculatePlaceholderVisibility);
@@ -49,6 +52,54 @@ namespace Alphicsh.JamTools.Common.Controls
             var shouldShowPlaceholder = !string.IsNullOrWhiteSpace(textBox.Placeholder) && string.IsNullOrEmpty(textBox.Text);
             textBox.SetValue(PlaceholderVisibilityPropertyKey, shouldShowPlaceholder ? Visibility.Visible : Visibility.Collapsed);
         }
+
+        // Bar position
+
+        public static readonly DependencyProperty BarPositionProperty
+            = Deps.Register(x => x.BarPosition, BarPosition.Middle, RecalculateCornerRadius);
+        public BarPosition BarPosition
+        {
+            get => (BarPosition)GetValue(BarPositionProperty);
+            set => SetValue(BarPositionProperty, value);
+        }
+
+        public static readonly DependencyProperty CornerRadiusProperty
+            = Deps.Register(x => x.CornerRadius, 0d, RecalculateCornerRadius);
+        public double CornerRadius
+        {
+            get => (double)GetValue(CornerRadiusProperty);
+            set => SetValue(CornerRadiusProperty, value);
+        }
+
+        public static readonly DependencyPropertyKey ActualCornerRadiusPropertyKey
+            = Deps.RegisterReadOnly(x => x.ActualCornerRadius, new CornerRadius());
+        public static DependencyProperty ActualCornerRadiusProperty => ActualCornerRadiusPropertyKey.DependencyProperty;
+        public CornerRadius ActualCornerRadius => (CornerRadius)GetValue(ActualCornerRadiusProperty);
+
+        private static void RecalculateCornerRadius(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var textBox = (ImpTextBox)dependencyObject;
+            textBox.SetValue(ActualCornerRadiusPropertyKey, textBox.ResolveCornerRadius());
+        }
+
+        private CornerRadius ResolveCornerRadius()
+        {
+            switch (BarPosition)
+            {
+                case BarPosition.Start:
+                    return new CornerRadius(this.CornerRadius, 0d, 0d, this.CornerRadius);
+                case BarPosition.Middle:
+                    return new CornerRadius(0d, 0d, 0d, 0d);
+                case BarPosition.End:
+                    return new CornerRadius(0d, this.CornerRadius, this.CornerRadius, 0d);
+                default:
+                    return new CornerRadius(this.CornerRadius);
+            }
+        }
+
+        // ---------
+        // Overrides
+        // ---------
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
