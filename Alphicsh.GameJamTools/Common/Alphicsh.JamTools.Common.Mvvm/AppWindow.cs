@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace Alphicsh.JamTools.Common.Controls
+namespace Alphicsh.JamTools.Common.Mvvm
 {
     public class AppWindow : Window
     {
