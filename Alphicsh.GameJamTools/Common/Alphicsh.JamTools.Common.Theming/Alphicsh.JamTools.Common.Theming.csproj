@@ -10,8 +10,10 @@
     <None Remove="Content\entry_placeholder.png" />
     <None Remove="Content\menu_awards.png" />
     <None Remove="Content\menu_export.png" />
+    <None Remove="Content\menu_files.png" />
     <None Remove="Content\menu_jam.png" />
     <None Remove="Content\menu_ranking.png" />
+    <None Remove="Content\menu_summary.png" />
     <None Remove="Content\star_empty.png" />
     <None Remove="Content\star_full.png" />
   </ItemGroup>
@@ -20,8 +22,10 @@
     <EmbeddedResource Include="Content\entry_placeholder.png" />
     <EmbeddedResource Include="Content\menu_awards.png" />
     <EmbeddedResource Include="Content\menu_export.png" />
+    <EmbeddedResource Include="Content\menu_files.png" />
     <EmbeddedResource Include="Content\menu_jam.png" />
     <EmbeddedResource Include="Content\menu_ranking.png" />
+    <EmbeddedResource Include="Content\menu_summary.png" />
     <EmbeddedResource Include="Content\star_empty.png" />
     <EmbeddedResource Include="Content\star_full.png" />
   </ItemGroup>

@@ -24,16 +24,16 @@
      inkscape:document-units="px"
      showgrid="false"
      units="px"
-     inkscape:zoom="1"
-     inkscape:cx="282"
-     inkscape:cy="104.5"
+     inkscape:zoom="8"
+     inkscape:cx="234.625"
+     inkscape:cy="159.0625"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="311"
      inkscape:window-y="1432"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer2"
-     inkscape:snap-global="true" />
+     inkscape:snap-global="false" />
   <defs
      id="defs2">
     <rect
@@ -148,6 +148,26 @@
        x="256"
        y="64"
        inkscape:export-filename="C:\Omnipocket\Development\NET\game-jam-tools\Graphics\UI\menu_export.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.999998;stroke-linejoin:round;stroke-dashoffset:3.6;stroke-opacity:0.5"
+       id="rect852"
+       width="48"
+       height="48"
+       x="128"
+       y="128"
+       inkscape:export-filename="C:\Omnipocket\Development\NET\game-jam-tools\Graphics\UI\menu_summary.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.999998;stroke-linejoin:round;stroke-dashoffset:3.6;stroke-opacity:0.5"
+       id="rect1174"
+       width="48"
+       height="48"
+       x="192"
+       y="128"
+       inkscape:export-filename="C:\Omnipocket\Development\NET\game-jam-tools\Graphics\UI\menu_files.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
   </g>
@@ -267,5 +287,79 @@
        id="rect2057"
        style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:4.76676;stroke-opacity:0.7"
        d="m 295,88 v 4 h -10 v 6 h 10 v 4 l 8,-7 z" />
+    <rect
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:square;stroke-dashoffset:3.6"
+       id="rect854"
+       width="24"
+       height="4"
+       x="146"
+       y="150" />
+    <path
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:square;stroke-dashoffset:3.6"
+       d="m 138,136 a 4,4 0 0 0 -4,4 4,4 0 0 0 4,4 4,4 0 0 0 4,-4 4,4 0 0 0 -4,-4 z"
+       id="path858" />
+    <rect
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:square;stroke-dashoffset:3.6"
+       id="rect862"
+       width="24"
+       height="4"
+       x="146"
+       y="138" />
+    <rect
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:square;stroke-dashoffset:3.6"
+       id="rect864"
+       width="24"
+       height="4"
+       x="146"
+       y="162" />
+    <path
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:square;stroke-dashoffset:3.6"
+       d="m 138,148 a 4,4 0 0 0 -4,4 4,4 0 0 0 4,4 4,4 0 0 0 4,-4 4,4 0 0 0 -4,-4 z"
+       id="path1128" />
+    <path
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:square;stroke-dashoffset:3.6"
+       d="m 138,160 a 4,4 0 0 0 -4,4 4,4 0 0 0 4,4 4,4 0 0 0 4,-4 4,4 0 0 0 -4,-4 z"
+       id="path1130" />
+    <path
+       id="path1448"
+       style="display:inline;fill:#ffffff;stroke-width:3.55932;stroke-opacity:0.7"
+       d="M 206 133 L 206 140 L 208 140 L 208 135 L 222 135 L 222 143 L 224 143 L 230 143 L 230 151 L 232 151 L 232 147 L 232 143 L 232 141 L 232 140 L 225 133 L 224 133 L 222 133 L 206 133 z M 224 135 L 230 141 L 224 141 L 224 135 z " />
+    <path
+       id="rect2212"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:9;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:3.6"
+       d="M 223 149 L 223 151 L 234 151 L 234 167 L 223 167 L 223 169 L 236 169 L 236 149 L 223 149 z " />
+    <path
+       sodipodi:type="star"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:12.7473;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:3.6"
+       id="path2426"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="211.5"
+       sodipodi:cy="155.625"
+       sodipodi:r1="9.6258116"
+       sodipodi:r2="4.8129058"
+       sodipodi:arg1="0"
+       sodipodi:arg2="1.0471976"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       inkscape:transform-center-x="-1.666669"
+       transform="matrix(0.69258229,0,0,0.71975263,62.852159,43.988497)"
+       d="m 221.12581,155.625 -14.43872,8.3362 v -16.6724 z" />
+    <path
+       id="path1176"
+       style="display:inline;fill:#ffffff;stroke-width:3.55932;stroke-opacity:0.7"
+       d="m 198,139 v 32 h 26 v -18 h -2 v 16 h -22 v -28 h 14 v 8 h 2 6 v 10 h 2 v -10 -2 -1 l -7,-7 h -1 -2 z m 18,2 6,6 h -6 z"
+       sodipodi:nodetypes="ccccccccccccccccccccccccc" />
+    <path
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 223.625,159.625 2.375,-2.375 4.8125,4.8125 3.8125,-3.8125 v 9.625 H 223.5 Z"
+       id="path2937"
+       sodipodi:nodetypes="ccccccc" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.99997;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:3.6"
+       id="path3027"
+       cx="230"
+       cy="155"
+       r="2" />
   </g>
 </svg>
