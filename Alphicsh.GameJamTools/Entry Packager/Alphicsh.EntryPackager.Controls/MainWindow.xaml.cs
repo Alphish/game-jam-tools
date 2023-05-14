@@ -1,4 +1,4 @@
-﻿using Alphicsh.JamTools.Common.Controls;
+﻿using Alphicsh.JamTools.Common.Mvvm;
 
 namespace Alphicsh.EntryPackager.Controls
 {
