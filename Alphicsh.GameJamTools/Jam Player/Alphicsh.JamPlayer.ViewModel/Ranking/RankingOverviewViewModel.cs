@@ -45,7 +45,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
             SelectedEntry = viewModel;
         }
 
-        public ICommand SaveRankingCommand => AppViewModel.Current.SaveRankingCommand;
+        public ICommand SaveRankingCommand => JamPlayerViewModel.Current.SaveRankingCommand;
 
         // ---------------
         // Ranking entries

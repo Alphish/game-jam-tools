@@ -3,6 +3,7 @@ using System.Windows.Media;
 using Alphicsh.JamPlayer.Model.Jam;
 using Alphicsh.JamPlayer.ViewModel.Jam.Modals;
 using Alphicsh.JamTools.Common.Mvvm;
+using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 namespace Alphicsh.JamPlayer.ViewModel.Jam
@@ -14,6 +15,8 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
         {
             LogoPathProperty = ImageSourceProperty.CreateReadonly(this, nameof(Logo), vm => vm.Model.LogoPath);
             Entries = CollectionViewModel.CreateImmutable(model.Entries, JamEntryViewModel.CollectionStub);
+
+            ConfirmResetDataCommand = SimpleCommand.From(ConfirmResetDataViewModel.ShowModal);
         }
 
         public string? Title => Model.Title ?? "The Game Jam";
@@ -24,6 +27,6 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
 
         public CollectionViewModel<JamEntry, JamEntryViewModel> Entries { get; }
 
-        public ICommand ConfirmResetDataCommand => JamModals.ConfirmResetDataCommand;
+        public ICommand ConfirmResetDataCommand { get; }
     }
 }

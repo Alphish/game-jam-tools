@@ -17,14 +17,14 @@ namespace Alphicsh.JamPlayer.App
     {
         public static new App Current => (App)Application.Current;
 
-        public AppViewModel ViewModel { get; }
+        public JamPlayerViewModel ViewModel { get; }
 
         public App()
         {
             ModalsRegistration.Register();
 
             var model = new AppModel();
-            ViewModel = AppViewModel.Create(model);
+            ViewModel = JamPlayerViewModel.Create(model);
         }
 
         protected override void OnStartup(StartupEventArgs e)

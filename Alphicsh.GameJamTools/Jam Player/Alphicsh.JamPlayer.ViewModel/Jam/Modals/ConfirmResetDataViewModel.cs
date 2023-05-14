@@ -7,16 +7,22 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam.Modals
 {
     public class ConfirmResetDataViewModel : ModalViewModel
     {
-        public ConfirmResetDataViewModel(Window window)
-            : base(window, "Reset user data")
+        public ConfirmResetDataViewModel()
+            : base("Reset user data")
         {
             ResetUserDataCommand = SimpleCommand.From(ResetUserData);
+        }
+
+        public static void ShowModal()
+        {
+            var viewModel = new ConfirmResetDataViewModel();
+            viewModel.ShowOwnModal();
         }
 
         public ICommand ResetUserDataCommand { get; }
         private void ResetUserData()
         {
-            AppViewModel.Current.ResetUserData();
+            JamPlayerViewModel.Current.ResetUserData();
             Window.Close();
         }
     }

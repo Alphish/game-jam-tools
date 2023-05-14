@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Alphicsh.JamPlayer.ViewModel.Export.Modals;
 
 namespace Alphicsh.JamPlayer.Controls.Export.Modals
 {
@@ -11,13 +10,6 @@ namespace Alphicsh.JamPlayer.Controls.Export.Modals
         public ExportHelpModal()
         {
             InitializeComponent();
-        }
-
-        public static void ShowModal()
-        {
-            var modal = new ExportHelpModal();
-            var viewModel = new ExportHelpViewModel(modal);
-            Modal.Show(modal, viewModel);
         }
     }
 }

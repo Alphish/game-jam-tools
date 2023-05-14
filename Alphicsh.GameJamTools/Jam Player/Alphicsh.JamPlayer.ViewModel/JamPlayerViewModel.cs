@@ -12,20 +12,20 @@ using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 namespace Alphicsh.JamPlayer.ViewModel
 {
-    public class AppViewModel : WrapperViewModel<AppModel>
+    public class JamPlayerViewModel : AppViewModel<AppModel>
     {
-        public static AppViewModel Current { get; private set; } = null!;
+        public static JamPlayerViewModel Current { get; private set; } = null!;
 
-        public static AppViewModel Create(AppModel model)
+        public static JamPlayerViewModel Create(AppModel model)
         {
             if (Current != null)
                 throw new InvalidOperationException("AppViewModel should be created only once.");
 
-            Current = new AppViewModel(model);
+            Current = new JamPlayerViewModel(model);
             return Current;
         }
 
-        private AppViewModel(AppModel model) : base(model)
+        private JamPlayerViewModel(AppModel model) : base(model)
         {
             JamProperty = MutableProperty.Create<JamOverviewViewModel>(this, nameof(Jam), default!);
             RankingProperty = MutableProperty.Create<RankingOverviewViewModel>(this, nameof(Ranking), default!);
@@ -35,7 +35,6 @@ namespace Alphicsh.JamPlayer.ViewModel
             RecreateViewModels();
             SaveRankingCommand = SimpleCommand.From(Model.PlayerDataManager.SaveRanking);
             SaveExporterCommand = SimpleCommand.From(Model.PlayerDataManager.SaveExporter);
-            HasOverlayProperty = MutableProperty.Create(this, nameof(HasOverlay), false);
         }
 
         private void RecreateViewModels()
@@ -60,9 +59,6 @@ namespace Alphicsh.JamPlayer.ViewModel
 
         public ICommand SaveRankingCommand { get; }
         public ICommand SaveExporterCommand { get; }
-
-        public MutableProperty<bool> HasOverlayProperty { get; }
-        public bool HasOverlay { get => HasOverlayProperty.Value; set => HasOverlayProperty.Value = value; }
 
         // --------------------
         // Available operations

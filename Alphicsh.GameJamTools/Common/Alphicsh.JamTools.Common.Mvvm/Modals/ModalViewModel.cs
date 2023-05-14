@@ -8,15 +8,26 @@ namespace Alphicsh.JamTools.Common.Mvvm.Modals
     {
         public string Caption { get; }
 
-        public Window Window { get; }
-        public ICommand CloseWindowCommand { get; }
+        public Window Window { get; private set; } = default!;
+        public ICommand CloseWindowCommand { get; private set; } = default!;
 
-        protected ModalViewModel(Window window, string caption)
+        protected ModalViewModel(string caption)
         {
             Caption = caption;
+        }
 
-            Window = window;
+        protected void ShowOwnModal()
+        {
+            Window = ModalWindowMapping.CreateWindowFor(this.GetType());
+            Window.DataContext = this;
             CloseWindowCommand = SimpleCommand.From(Window.Close);
+
+            AppViewModel.Current.HasOverlay = true;
+            Window.Owner = AppWindow.Current;
+            Window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            Window.ShowDialog();
+
+            AppViewModel.Current.HasOverlay = false;
         }
     }
 }

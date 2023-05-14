@@ -23,6 +23,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Export
                 this, nameof(EntryCommentTemplate), vm => vm.Model.EntryCommentTemplate, (vm, value) => vm.Model.EntryCommentTemplate = value
                 );
 
+            ShowHelpCommand = SimpleCommand.From(ExportHelpViewModel.ShowModal);
             RestoreDefaultsCommand = SimpleCommand.From(RestoreDefaults);
         }
 
@@ -33,8 +34,8 @@ namespace Alphicsh.JamPlayer.ViewModel.Export
         public WrapperProperty<ExportOptionsViewModel, string> EntryCommentTemplateProperty { get; }
         public string EntryCommentTemplate { get => EntryCommentTemplateProperty.Value; set => EntryCommentTemplateProperty.Value = value; }
 
-        public ICommand SaveExporterCommand => AppViewModel.Current.SaveExporterCommand;
-        public ICommand ShowHelpCommand => ExportModals.ShowHelpCommand;
+        public ICommand SaveExporterCommand => JamPlayerViewModel.Current.SaveExporterCommand;
+        public ICommand ShowHelpCommand { get; }
         public ICommand RestoreDefaultsCommand { get; }
 
         private void RestoreDefaults()
