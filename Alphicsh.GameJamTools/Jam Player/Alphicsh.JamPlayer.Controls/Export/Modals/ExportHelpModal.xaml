@@ -5,25 +5,19 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:local="clr-namespace:Alphicsh.JamPlayer.Controls.Export.Modals"
+  xmlns:modals="clr-namespace:Alphicsh.JamTools.Common.Controls.Modals;assembly=Alphicsh.JamTools.Common.Controls"
   mc:Ignorable="d"
   Style="{StaticResource ModalWindow}"
   Height="450" Width="800"
 >
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="1*"/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-    
-    <Border Grid.Row="0" Style="{StaticResource ModalHeader}">
-      <DockPanel>
-        <Button DockPanel.Dock="Right" Style="{StaticResource CloseModalButton}"/>
-        <TextBlock Style="{StaticResource ModalCaption}" d:Text="Export options reference"/>
-      </DockPanel>
+  <DockPanel>
+    <modals:ModalHeader DockPanel.Dock="Top"/>
+
+    <Border DockPanel.Dock="Bottom" Style="{StaticResource ModalToolbar}">
+      <Button Style="{StaticResource PrimaryButton}" Margin="2" Width="64" Command="{Binding CloseWindowCommand}">Ok</Button>
     </Border>
-    
-    <Border Grid.Row="1" Style="{StaticResource ModalBody}">
+
+    <Border Style="{StaticResource ModalBody}">
       <ScrollViewer>
         <TextBlock Margin="4,0,4,0" TextWrapping="WrapWithOverflow" Foreground="{DynamicResource BasicText}" FontSize="16">
           <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">Reviews title</Run><LineBreak/>
@@ -50,9 +44,5 @@
         </TextBlock>
       </ScrollViewer>
     </Border>
-    
-    <Border Grid.Row="2" Style="{StaticResource ModalToolbar}">
-      <Button Style="{StaticResource PrimaryButton}" Margin="2" Width="64" Command="{Binding CloseWindowCommand}">Ok</Button>
-    </Border>
-  </Grid>
+  </DockPanel>
 </Window>
