@@ -11,13 +11,29 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
             DirectoryNameProperty = WrapperProperty.ForMember(this, vm => vm.Model.DirectoryName);
             DefaultDirectoryNameProperty = WrapperProperty
                 .ForReadonlyMember(this, nameof(DefaultDirectoryName), vm => vm.Model.GetDefaultDirectoryName());
+
             TitleProperty = WrapperProperty.ForMember(this, vm => vm.Model.Title)
                 .WithDependingProperty(DefaultDirectoryNameProperty);
 
             Team = new JamTeamEditableViewModel(model.Team);
             Team.NameProperty.AddDependingProperty(DefaultDirectoryNameProperty);
             Team.AuthorsStringProperty.AddDependingProperty(DefaultDirectoryNameProperty);
+
+            Files = new JamFilesEditableViewModel(model.Files);
         }
+
+        // -------
+        // Summary
+        // -------
+
+        public WrapperProperty<JamEntryEditableViewModel, string> TitleProperty { get; }
+        public string Title { get => TitleProperty.Value; set => TitleProperty.Value = value; }
+
+        public JamTeamEditableViewModel Team { get; }
+
+        // -----
+        // Files
+        // -----
 
         public WrapperProperty<JamEntryEditableViewModel, string?> DirectoryNameProperty { get; }
         public string? DirectoryName { get => DirectoryNameProperty.Value; set => DirectoryNameProperty.Value = value; }
@@ -25,9 +41,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
         public WrapperProperty<JamEntryEditableViewModel, string> DefaultDirectoryNameProperty { get; }
         public string DefaultDirectoryName { get => DefaultDirectoryNameProperty.Value; }
 
-        public WrapperProperty<JamEntryEditableViewModel, string> TitleProperty { get; }
-        public string Title { get => TitleProperty.Value; set => TitleProperty.Value = value; }
+        public JamFilesEditableViewModel Files { get; }
 
-        public JamTeamEditableViewModel Team { get; }
     }
 }
