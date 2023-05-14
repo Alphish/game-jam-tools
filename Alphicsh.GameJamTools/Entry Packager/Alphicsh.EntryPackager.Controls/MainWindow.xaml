@@ -6,14 +6,31 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls"
   xmlns:mvvm="clr-namespace:Alphicsh.JamTools.Common.Mvvm;assembly=Alphicsh.JamTools.Common.Mvvm"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
   xmlns:appSummary="clr-namespace:Alphicsh.EntryPackager.Controls.Summary"
   mc:Ignorable="d"
   Style="{StaticResource MainWindow}"
   Title="MainWindow" Height="450" Width="800"
 >
   <Grid>
-    <Border Padding="8">
-      <appSummary:EntrySummaryTab DataContext="{Binding Entry}"></appSummary:EntrySummaryTab>
-    </Border>
+    <TabControl
+      TabStripPlacement="Left"
+      Style="{StaticResource MenuTabControl}"
+      Visibility="{Binding HasEntry, Converter={StaticResource ShowTrueVisibilityConverter}}"
+    >
+
+      <!-- Entry summary tab -->
+      <TabItem>
+        <TabItem.Header>
+          <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuSummaryIconSource}" ToolTip="Summary"/>
+        </TabItem.Header>
+
+        <appSummary:EntrySummaryTab DataContext="{Binding Entry}"></appSummary:EntrySummaryTab>
+      </TabItem>
+
+    </TabControl>
+
+    <!-- Modal overlay -->
+    <Border Background="#80000000" Visibility="{Binding HasOverlay, Converter={StaticResource ShowTrueVisibilityConverter}}"></Border>
   </Grid>
 </mvvm:AppWindow>
