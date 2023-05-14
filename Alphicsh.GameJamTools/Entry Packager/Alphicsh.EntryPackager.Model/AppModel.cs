@@ -1,9 +1,24 @@
 ﻿using Alphicsh.EntryPackager.Model.Entry;
+using Alphicsh.EntryPackager.Model.Entry.Exploration;
+using Alphicsh.JamTools.Common.IO;
 
 namespace Alphicsh.EntryPackager.Model
 {
     public class AppModel
     {
-        public JamEntryEditable Entry { get; } = new JamEntryEditable();
+        private JamEntryExplorer EntryExplorer { get; } = new JamEntryExplorer();
+
+        public JamEntryEditable? Entry { get; private set; }
+        public bool HasEntry => Entry != null;
+
+        public AppModel()
+        {
+        }
+
+        public void LoadDirectory(FilePath directoryPath)
+        {
+            Entry = new JamEntryEditable();
+            EntryExplorer.InitFromDirectory(directoryPath, Entry);
+        }
     }
 }
