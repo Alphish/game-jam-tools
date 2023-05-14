@@ -13,6 +13,8 @@
   Title="MainWindow" Height="450" Width="800"
 >
   <Grid>
+    <local:EntrySelectionPanel Visibility="{Binding HasEntry, Converter={StaticResource ShowFalseVisibilityConverter}}"/>
+
     <TabControl
       TabStripPlacement="Left"
       Style="{StaticResource MenuTabControl}"
