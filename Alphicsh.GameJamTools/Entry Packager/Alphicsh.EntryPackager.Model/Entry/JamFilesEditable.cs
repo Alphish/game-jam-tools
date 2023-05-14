@@ -18,9 +18,11 @@ namespace Alphicsh.EntryPackager.Model.Entry
             }
         }
 
-        public void AddLauncher()
+        public JamLauncherEditable AddLauncher()
         {
-            Launchers.Add(new JamLauncherEditable(this));
+            var launcher = new JamLauncherEditable(this);
+            Launchers.Add(launcher);
+            return launcher;
         }
     }
 }
