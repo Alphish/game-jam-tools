@@ -5,12 +5,22 @@ namespace Alphicsh.EntryPackager.Model.Entry
 {
     public class JamEntryEditable
     {
-        public string? DirectoryName { get; set; }
+        // ----------
+        // Basic data
+        // ----------
 
         public JamEntryEditableData Data { get; set; } = new JamEntryEditableData();
 
         public string Title { get => Data.Title; set => Data.Title = value; }
         public JamTeamEditable Team { get => Data.Team; }
+
+        // -----
+        // Files
+        // -----
+
+        public JamFilesEditable Files { get; } = new JamFilesEditable();
+
+        public string? DirectoryName { get; set; }
 
         public string GetDefaultDirectoryName()
         {

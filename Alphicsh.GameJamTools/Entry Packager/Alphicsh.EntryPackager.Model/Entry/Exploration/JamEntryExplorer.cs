@@ -7,6 +7,8 @@ namespace Alphicsh.EntryPackager.Model.Entry.Exploration
     {
         public void InitFromDirectory(FilePath directoryPath, JamEntryEditable jamEntry)
         {
+            jamEntry.Files.SetDirectoryPath(directoryPath);
+
             FindTitleAndTeam(directoryPath, jamEntry);
         }
 
