@@ -2,6 +2,7 @@
 using Alphicsh.EntryPackager.Model;
 using Alphicsh.EntryPackager.ViewModel.Entry;
 using Alphicsh.JamTools.Common.Controls.Files;
+using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
@@ -30,7 +31,12 @@ namespace Alphicsh.EntryPackager.ViewModel
             if (directoryPath == null)
                 return;
 
-            Model.LoadDirectory(directoryPath.Value);
+            LoadEntryDirectory(directoryPath.Value);
+        }
+
+        public void LoadEntryDirectory(FilePath directoryPath)
+        {
+            Model.LoadDirectory(directoryPath);
             Entry = new JamEntryEditableViewModel(Model.Entry!);
             RaisePropertyChanged(nameof(Entry), nameof(HasEntry));
         }
