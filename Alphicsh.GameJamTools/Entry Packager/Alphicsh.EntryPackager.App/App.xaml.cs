@@ -11,12 +11,14 @@ namespace Alphicsh.EntryPackager.App
     /// </summary>
     public partial class App : Application
     {
-        public AppViewModel ViewModel { get; }
+        public EntryPackagerViewModel ViewModel { get; }
 
         public App()
         {
+            ModalsRegistration.Register();
+
             var model = new AppModel();
-            ViewModel = new AppViewModel(model);
+            ViewModel = new EntryPackagerViewModel(model);
         }
 
         protected override void OnStartup(StartupEventArgs e)
