@@ -10,14 +10,7 @@
   mc:Ignorable="d" 
   d:DesignHeight="450" d:DesignWidth="800"
 >
-  <ScrollViewer
-    VerticalScrollBarVisibility="Visible"
-    theming:ScrollTheming.ScrollBrush="{DynamicResource ListScrollBrush}"
-    theming:ScrollTheming.ScrollPressedBrush="{DynamicResource ListScrollPressedBrush}"
-    theming:ScrollTheming.ScrollDisabledBrush="{DynamicResource ListScrollDisabledBrush}"
-    Grid.Row="4"
-    Grid.Column="1"
-  >
+  <ScrollViewer VerticalScrollBarVisibility="Visible">
     <StackPanel>
       <local:EntryAuthorsHeader></local:EntryAuthorsHeader>
 
