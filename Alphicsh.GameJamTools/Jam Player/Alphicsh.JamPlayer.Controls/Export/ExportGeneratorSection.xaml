@@ -22,8 +22,8 @@
       <Separator Grid.Row="1"></Separator>
       
       <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-        <Button Style="{StaticResource PrimaryButton}" Command="{Binding GenerateTextCommand}" Width="144" Margin="2">Generate</Button>
-        <Button Command="{Binding CopyTextCommand}" Width="144" Margin="2">Copy to clipboard</Button>
+        <cc:ImpButton Style="{StaticResource PrimaryButton}" Command="{Binding GenerateTextCommand}" Width="144" Margin="2">Generate</cc:ImpButton>
+        <cc:ImpButton Command="{Binding CopyTextCommand}" Width="144" Margin="2">Copy to clipboard</cc:ImpButton>
       </StackPanel>
     </Grid>
   </GroupBox>

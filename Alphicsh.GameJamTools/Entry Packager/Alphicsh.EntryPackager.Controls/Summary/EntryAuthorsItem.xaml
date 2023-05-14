@@ -15,14 +15,14 @@
       <ColumnDefinition Width="1*" MinWidth="120"/>
       <ColumnDefinition Width="2*" MinWidth="120"/>
     </Grid.ColumnDefinitions>
-    <Button
+    <cc:ImpButton
       Grid.Column="0"
       Style="{StaticResource DangerButton}"
       Margin="2"
       Width="40"
       Command="{Binding DataContext.RemoveAuthorCommand, RelativeSource={RelativeSource AncestorType=local:EntryAuthorsList}}"
       CommandParameter="{Binding}"
-    >x</Button>
+    >x</cc:ImpButton>
 
     <cc:ImpTextBox Grid.Column="1" Margin="2" Text="{Binding Name}" Placeholder="&lt;enter name&gt;"/>
     <cc:ImpTextBox Grid.Column="2" Margin="2" Text="{Binding CommunityId}" Placeholder="&lt;no ID&gt;"/>

@@ -38,12 +38,12 @@ namespace Alphicsh.JamTools.Common.Theming
             => obj.SetValue(DisabledForegroundBrushProperty, value);
 
         // DisabledBackgroundBrush
-        public static readonly DependencyProperty DisabledBackgrounBrushProperty
+        public static readonly DependencyProperty DisabledBackgroundBrushProperty
             = DependencyProperty.RegisterAttached("DisabledBackgroundBrush", typeof(Brush), typeof(ButtonTheming));
         public static Brush GetDisabledBackgroundBrush(DependencyObject obj)
-            => (Brush)obj.GetValue(DisabledBackgrounBrushProperty);
+            => (Brush)obj.GetValue(DisabledBackgroundBrushProperty);
         public static void SetDisabledBackgroundBrush(DependencyObject obj, Brush value)
-            => obj.SetValue(DisabledBackgrounBrushProperty, value);
+            => obj.SetValue(DisabledBackgroundBrushProperty, value);
 
         // DisabledGlowBrush
         public static readonly DependencyProperty DisabledGlowBrushProperty

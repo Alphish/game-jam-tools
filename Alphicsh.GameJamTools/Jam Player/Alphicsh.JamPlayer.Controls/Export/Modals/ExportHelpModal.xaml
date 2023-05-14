@@ -5,6 +5,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:local="clr-namespace:Alphicsh.JamPlayer.Controls.Export.Modals"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
   xmlns:modals="clr-namespace:Alphicsh.JamTools.Common.Controls.Modals;assembly=Alphicsh.JamTools.Common.Controls"
   mc:Ignorable="d"
   Style="{StaticResource ModalWindow}"
@@ -14,7 +15,7 @@
     <modals:ModalHeader DockPanel.Dock="Top"/>
 
     <Border DockPanel.Dock="Bottom" Style="{StaticResource ModalToolbar}">
-      <Button Style="{StaticResource PrimaryButton}" Margin="2" Width="64" Command="{Binding CloseWindowCommand}">Ok</Button>
+      <cc:ImpButton Style="{StaticResource PrimaryButton}" Margin="2" Width="64" Command="{Binding CloseWindowCommand}">Ok</cc:ImpButton>
     </Border>
 
     <Border Style="{StaticResource ModalBody}">

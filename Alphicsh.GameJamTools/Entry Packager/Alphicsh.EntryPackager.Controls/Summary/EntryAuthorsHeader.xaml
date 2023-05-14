@@ -5,6 +5,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
   xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.Summary"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
   mc:Ignorable="d"
 >
   <Grid HorizontalAlignment="Stretch">
@@ -15,16 +16,16 @@
       <ColumnDefinition Width="2*" MinWidth="120"/>
     </Grid.ColumnDefinitions>
 
-    <Button
+    <cc:ImpButton
       Grid.Column="0"
       Style="{StaticResource PrimaryButton}"
       Margin="2"
       Width="40"
       Command="{Binding AddAuthorCommand}"
-    >+</Button>
+    >+</cc:ImpButton>
     
-    <Label Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource TableLabel}">Name</Label>
-    <Label Grid.Column="2" HorizontalAlignment="Center" Style="{StaticResource TableLabel}">Community ID</Label>
-    <Label Grid.Column="3" HorizontalAlignment="Center" Style="{StaticResource TableLabel}">Role</Label>
+    <Label Grid.Column="1" Style="{StaticResource TableLabel}">Name</Label>
+    <Label Grid.Column="2" Style="{StaticResource TableLabel}">Community ID</Label>
+    <Label Grid.Column="3" Style="{StaticResource TableLabel}">Role</Label>
   </Grid>
 </UserControl>

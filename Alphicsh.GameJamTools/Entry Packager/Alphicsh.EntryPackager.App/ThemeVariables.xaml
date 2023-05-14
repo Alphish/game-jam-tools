@@ -27,7 +27,7 @@
   <SolidColorBrush x:Key="PrimaryButtonBackgroundBrush" Color="#ff519735"></SolidColorBrush>
   <SolidColorBrush x:Key="PrimaryButtonHoverBrush" Color="#ff5eb42d"></SolidColorBrush>
   <SolidColorBrush x:Key="PrimaryButtonShadowBrush" Color="#ff4e842e"></SolidColorBrush>
-  <SolidColorBrush x:Key="PrimaryButtonGlowBrush" Color="#ff5f8b50"></SolidColorBrush>
+  <SolidColorBrush x:Key="PrimaryButtonGlowBrush" Color="#ff5cb63e"></SolidColorBrush>
   <SolidColorBrush x:Key="PrimaryButtonDisabledBackgroundBrush" Color="#ff507043"></SolidColorBrush>
   <SolidColorBrush x:Key="PrimaryButtonDisabledShadowBrush" Color="#ff476039"></SolidColorBrush>
   <SolidColorBrush x:Key="PrimaryButtonDisabledGlowBrush" Color="#ff59804d"></SolidColorBrush>
