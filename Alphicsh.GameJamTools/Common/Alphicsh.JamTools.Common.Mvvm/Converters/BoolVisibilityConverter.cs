@@ -7,8 +7,8 @@ namespace Alphicsh.JamTools.Common.Mvvm.Converters
 {
     public class BoolVisibilityConverter : IValueConverter
     {
-        public Visibility TrueVisibility { get; } = Visibility.Visible;
-        public Visibility FalseVisibility { get; } = Visibility.Collapsed;
+        public Visibility TrueVisibility { get; set; } = Visibility.Visible;
+        public Visibility FalseVisibility { get; set; } = Visibility.Collapsed;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
