@@ -23,6 +23,12 @@ namespace Alphicsh.EntryPackager.Model.Entry
 
         public void SetAuthorsString(string authorsString)
         {
+            if (string.IsNullOrWhiteSpace(authorsString))
+            {
+                Authors.Clear();
+                return;
+            }
+
             var newNames = authorsString.Split(',').Select(name => name.Trim());
             var currentAuthorsByName = Authors.ToLookup(author => author.Name, StringComparer.OrdinalIgnoreCase);
             Authors.Clear();
