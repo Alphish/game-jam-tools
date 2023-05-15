@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Alphicsh.EntryPackager.Model.Entry.Files;
 
 namespace Alphicsh.EntryPackager.Model.Entry
 {

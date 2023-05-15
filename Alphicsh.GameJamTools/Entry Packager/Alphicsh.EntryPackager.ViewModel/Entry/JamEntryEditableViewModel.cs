@@ -1,4 +1,5 @@
 ﻿using Alphicsh.EntryPackager.Model.Entry;
+using Alphicsh.EntryPackager.ViewModel.Entry.Files;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 

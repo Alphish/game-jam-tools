@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using Alphicsh.EntryPackager.Model.Entry;
+using Alphicsh.EntryPackager.Model.Entry.Files;
 using Alphicsh.JamTools.Common.Controls;
 using Alphicsh.JamTools.Common.Controls.Files;
 using Alphicsh.JamTools.Common.IO.Execution;
@@ -9,7 +9,7 @@ using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.Modals;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
-namespace Alphicsh.EntryPackager.ViewModel.Entry
+namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
 {
     public class JamLauncherEditableViewModel : WrapperViewModel<JamLauncherEditable>
     {

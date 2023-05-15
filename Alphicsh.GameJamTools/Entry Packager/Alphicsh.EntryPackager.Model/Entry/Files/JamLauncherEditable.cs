@@ -1,6 +1,6 @@
 ﻿using Alphicsh.JamTools.Common.IO.Execution;
 
-namespace Alphicsh.EntryPackager.Model.Entry
+namespace Alphicsh.EntryPackager.Model.Entry.Files
 {
     public class JamLauncherEditable
     {

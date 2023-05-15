@@ -1,28 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
-using Alphicsh.EntryPackager.Model.Entry;
+using Alphicsh.EntryPackager.Model.Entry.Files;
 using Alphicsh.JamTools.Common.IO.Execution;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 
-namespace Alphicsh.EntryPackager.ViewModel.Entry
+namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
 {
     public class JamFilesEditableViewModel : WrapperViewModel<JamFilesEditable>
     {
-        private EntryLauncher EntryLauncher { get; } = new EntryLauncher();
-
         public JamFilesEditableViewModel(JamFilesEditable model) : base(model)
         {
             Launchers = CollectionViewModel.CreateMutable(model.Launchers, JamLauncherEditableViewModel.CollectionStub);
+            Readme = new JamReadmeEditableViewModel(model.Readme);
+            Afterword = new JamAfterwordEditableViewModel(model.Afterword);
+
             AddLauncherCommand = SimpleCommand.From(AddLauncher);
             RemoveLauncherCommand = SimpleCommand.WithParameter<JamLauncherEditableViewModel>(RemoveLauncher);
         }
 
+        public CollectionViewModel<JamLauncherEditable, JamLauncherEditableViewModel> Launchers { get; }
+        public JamReadmeEditableViewModel Readme { get; }
+        public JamAfterwordEditableViewModel Afterword { get; }
+
         // ---------------
         // List management
         // ---------------
-
-        public CollectionViewModel<JamLauncherEditable, JamLauncherEditableViewModel> Launchers { get; }
 
         public ICommand AddLauncherCommand { get; }
         private void AddLauncher()
