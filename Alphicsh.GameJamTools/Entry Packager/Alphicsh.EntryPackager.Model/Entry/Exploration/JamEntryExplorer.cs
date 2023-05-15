@@ -51,6 +51,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Exploration
         {
             FindLaunchers(directoryPath, jamFiles);
             FindReadfiles(directoryPath, jamFiles);
+            FindThumbnails(directoryPath, jamFiles);
         }
 
         // Launchers
@@ -129,5 +130,41 @@ namespace Alphicsh.EntryPackager.Model.Entry.Exploration
                 .FindMatches("*afterword*")
                 .FirstOrDefault();
         }
+
+        // Thumbnails
+
+        private void FindThumbnails(FilePath directoryPath, JamFilesEditable jamFiles)
+        {
+            var thumbnailPath = FindThumbnailPath(directoryPath);
+            jamFiles.Thumbnails.ThumbnailLocation = thumbnailPath?.AsRelativeTo(directoryPath).Value;
+
+            var thumbnailSmallPath = FindThumbnailSmallPath(directoryPath);
+            jamFiles.Thumbnails.ThumbnailSmallLocation = thumbnailSmallPath?.AsRelativeTo(directoryPath).Value;
+        }
+
+        private FilePath? FindThumbnailPath(FilePath directoryPath)
+        {
+            return FilesystemSearch.ForFilesIn(directoryPath)
+                .WithExtensions(".png", ".jpg", ".jpeg")
+                .ExcludingPatterns("*small*", "*little*", "*tiny*")
+                .FindMatches("thumbnail*")
+                .ElseFindMatches("thumb*")
+                .ElseFindMatches("*thumbnail*")
+                .ElseFindMatches("*thumb*")
+                .FirstOrDefault();
+        }
+
+        private FilePath? FindThumbnailSmallPath(FilePath directoryPath)
+        {
+            return FilesystemSearch.ForFilesIn(directoryPath)
+                .WithExtensions(".png", ".jpg", ".jpeg")
+                .RequiringPatterns("*small*", "*little*", "*tiny*")
+                .FindMatches("thumbnail*")
+                .ElseFindMatches("thumb*")
+                .ElseFindMatches("*thumbnail*")
+                .ElseFindMatches("*thumb*")
+                .FirstOrDefault();
+        }
+
     }
 }
