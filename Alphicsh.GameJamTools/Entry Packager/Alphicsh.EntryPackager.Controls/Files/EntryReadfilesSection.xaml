@@ -1,0 +1,85 @@
+﻿<UserControl
+  x:Class="Alphicsh.EntryPackager.Controls.Files.EntryReadfilesSection"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.Files"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  mc:Ignorable="d" 
+  d:DesignHeight="450" d:DesignWidth="400"
+>
+  <GroupBox Header="Information files" Grid.IsSharedSizeScope="True">
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="1*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="1*"/>
+      </Grid.RowDefinitions>
+
+      <!-- README -->
+      <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold">Readme</Label>
+
+      <Label Grid.Row="1" Grid.Column="0">Location:</Label>
+      
+      <DockPanel Grid.Row="1" Grid.Column="1" Margin="2">
+        <cc:ImpButton
+          DockPanel.Dock="Right"
+          Style="{StaticResource HelpButton}"
+          Width="56"
+          BarPosition="End"
+          Command="{Binding Readme.SearchCommand}"
+        >Search</cc:ImpButton>
+        <cc:ImpTextBox Text="{Binding Readme.Location}" BarPosition="Start"/>
+      </DockPanel>
+      
+      <cc:ImpButton
+        Grid.Row="1" Grid.Column="2"
+        Style="{StaticResource PrimaryButton}"
+        Margin="2"
+        Width="56"
+        Command="{Binding Readme.OpenReadmeCommand}"
+      >Open</cc:ImpButton>
+      
+      <Label Grid.Row="2" Grid.Column="0">Is required:</Label>
+      <CheckBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" IsChecked="{Binding Readme.IsRequired}"/>
+
+      <Separator Grid.Row="3" Grid.ColumnSpan="3"/>
+      
+      <!-- AFTERWORD -->
+
+      <Label Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold">Afterword</Label>
+
+      <Label Grid.Row="5" Grid.Column="0">Location:</Label>
+      
+      <DockPanel Grid.Row="5" Grid.Column="1" Margin="2">
+        <cc:ImpButton
+          DockPanel.Dock="Right"
+          Style="{StaticResource HelpButton}"
+          Width="56"
+          BarPosition="End"
+          Command="{Binding Afterword.SearchCommand}"
+        >Search</cc:ImpButton>
+        <cc:ImpTextBox Text="{Binding Afterword.Location}" BarPosition="Start"/>
+      </DockPanel>
+      
+      <cc:ImpButton
+        Grid.Row="5" Grid.Column="2"
+        Style="{StaticResource PrimaryButton}"
+        Margin="2"
+        Width="56"
+        Command="{Binding Afterword.OpenAfterwordCommand}"
+      >Open</cc:ImpButton>
+    </Grid>
+  </GroupBox>
+</UserControl>
