@@ -54,6 +54,17 @@ namespace Alphicsh.JamTools.Common.IO
             return FilePath.From(relativePathValue);
         }
 
+        public bool IsSubpathOf(FilePath ancestorPath)
+        {
+            if (IsRelative() || ancestorPath.IsRelative())
+                return false;
+
+            var ownFullPath = Path.GetFullPath(Value);
+            var ancestorFullPath = Path.GetFullPath(ancestorPath.Value);
+
+            return ownFullPath.StartsWith(ancestorFullPath);
+        }
+
         public FilePath Append(string relativePath)
         {
             if (IsRelative())

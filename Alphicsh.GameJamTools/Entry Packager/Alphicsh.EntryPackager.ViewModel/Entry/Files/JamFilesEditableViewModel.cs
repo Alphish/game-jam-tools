@@ -14,6 +14,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
             Launchers = CollectionViewModel.CreateMutable(model.Launchers, JamLauncherEditableViewModel.CollectionStub);
             Readme = new JamReadmeEditableViewModel(model.Readme);
             Afterword = new JamAfterwordEditableViewModel(model.Afterword);
+            Thumbnails = new JamThumbnailsEditableViewModel(model.Thumbnails);
 
             AddLauncherCommand = SimpleCommand.From(AddLauncher);
             RemoveLauncherCommand = SimpleCommand.WithParameter<JamLauncherEditableViewModel>(RemoveLauncher);
@@ -22,6 +23,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
         public CollectionViewModel<JamLauncherEditable, JamLauncherEditableViewModel> Launchers { get; }
         public JamReadmeEditableViewModel Readme { get; }
         public JamAfterwordEditableViewModel Afterword { get; }
+        public JamThumbnailsEditableViewModel Thumbnails { get; }
 
         // ---------------
         // List management

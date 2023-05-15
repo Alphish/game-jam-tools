@@ -10,12 +10,14 @@ namespace Alphicsh.EntryPackager.Model.Entry.Files
         public IList<JamLauncherEditable> Launchers { get; }
         public JamReadmeEditable Readme { get; }
         public JamAfterwordEditable Afterword { get; }
+        public JamThumbnailsEditable Thumbnails { get; }
 
         public JamFilesEditable()
         {
             Launchers = new List<JamLauncherEditable>();
             Readme = new JamReadmeEditable(this);
             Afterword = new JamAfterwordEditable(this);
+            Thumbnails = new JamThumbnailsEditable(this);
         }
 
         public void SetDirectoryPath(FilePath directoryPath)
