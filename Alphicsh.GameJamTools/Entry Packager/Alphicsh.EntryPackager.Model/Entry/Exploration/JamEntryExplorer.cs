@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
+using Alphicsh.EntryPackager.Model.Entry.Files;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.IO.Execution;
 using Alphicsh.JamTools.Common.IO.Search;
@@ -48,7 +50,10 @@ namespace Alphicsh.EntryPackager.Model.Entry.Exploration
         private void FindFiles(FilePath directoryPath, JamFilesEditable jamFiles)
         {
             FindLaunchers(directoryPath, jamFiles);
+            FindReadfiles(directoryPath, jamFiles);
         }
+
+        // Launchers
 
         private void FindLaunchers(FilePath directoryPath, JamFilesEditable jamFiles)
         {
@@ -79,6 +84,50 @@ namespace Alphicsh.EntryPackager.Model.Entry.Exploration
                 var uri = File.ReadAllText(gxGamePath.Value.Value);
                 launcher.SetLocation(uri);
             }
+        }
+
+        // Readfiles
+
+        private void FindReadfiles(FilePath directoryPath, JamFilesEditable jamFiles)
+        {
+            var readmePath = FindReadmePath(directoryPath);
+            jamFiles.Readme.Location = readmePath?.AsRelativeTo(directoryPath).Value;
+            jamFiles.Readme.IsRequired = IsReadmeRequired(readmePath);
+
+            var afterwordPath = FindAfterwordPath(directoryPath);
+            jamFiles.Afterword.Location = afterwordPath?.AsRelativeTo(directoryPath).Value;
+        }
+
+        private FilePath? FindReadmePath(FilePath directoryPath)
+        {
+            return FilesystemSearch.ForFilesIn(directoryPath)
+                .IncludingTopDirectoryOnly()
+                .FindMatches("*readme*please*")
+                .ElseFindMatches("*readme*important*")
+                .ElseFindMatches("*readme*")
+                .ElseFindMatches("*read*please*")
+                .ElseFindMatches("*read*important*")
+                .ElseFindMatches("*read*")
+                .ElseFindMatches("*credits*")
+                .FirstOrDefault();
+        }
+
+        private bool IsReadmeRequired(FilePath? readmePath)
+        {
+            if (readmePath == null)
+                return false;
+
+            var filename = readmePath.Value.Value;
+            return filename.Contains("please", StringComparison.OrdinalIgnoreCase)
+                || filename.Contains("important", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private FilePath? FindAfterwordPath(FilePath directoryPath)
+        {
+            return FilesystemSearch.ForFilesIn(directoryPath)
+                .IncludingTopDirectoryOnly()
+                .FindMatches("*afterword*")
+                .FirstOrDefault();
         }
     }
 }
