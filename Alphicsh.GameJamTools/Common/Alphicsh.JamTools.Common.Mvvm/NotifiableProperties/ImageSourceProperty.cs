@@ -42,9 +42,13 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
                     return;
 
                 PathSetter.Invoke(ViewModel, value);
-                RefreshSource();
                 RaisePropertyChanged();
             }
+        }
+
+        public override void OnPropertyChange()
+        {
+            RefreshSource();
         }
 
         // --------------

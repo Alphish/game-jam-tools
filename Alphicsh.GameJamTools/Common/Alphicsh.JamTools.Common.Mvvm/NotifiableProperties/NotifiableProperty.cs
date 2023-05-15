@@ -25,8 +25,14 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
             return new NotifiableProperty(viewModel, propertyName);
         }
 
+        public virtual void OnPropertyChange()
+        {
+            // nothing by default
+        }
+
         public void RaisePropertyChanged()
         {
+            OnPropertyChange();
             ViewModel.RaisePropertyChanged(PropertyName);
 
             foreach (var dependingProperty in DependingProperties)
