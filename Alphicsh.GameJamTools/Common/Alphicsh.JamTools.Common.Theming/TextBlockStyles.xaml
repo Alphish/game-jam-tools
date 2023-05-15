@@ -7,6 +7,12 @@
     <Setter Property="FontFamily" Value="Calibri"></Setter>
   </Style>
 
+  <Style TargetType="TextBlock" x:Key="FormComment" BasedOn="{StaticResource {x:Type TextBlock}}">
+    <Setter Property="FontSize" Value="11"/>
+    <Setter Property="Margin" Value="8,2,8,2"/>
+    <Setter Property="Foreground" Value="{DynamicResource DimText}"/>
+  </Style>
+
   <Style TargetType="TextBlock" x:Key="FormLabel" BasedOn="{StaticResource {x:Type TextBlock}}">
     <Setter Property="HorizontalAlignment" Value="Right"/>
     <Setter Property="VerticalAlignment" Value="Center"/>

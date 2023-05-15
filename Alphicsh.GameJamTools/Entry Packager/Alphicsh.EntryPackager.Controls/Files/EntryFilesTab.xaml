@@ -6,7 +6,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
   xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.Files"
   mc:Ignorable="d" 
-  d:DesignHeight="450" d:DesignWidth="800"
+  d:DesignHeight="540" d:DesignWidth="900"
 >
   <Grid>
     <Grid.RowDefinitions>
@@ -24,5 +24,7 @@
     <local:EntryLaunchersSection Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
 
     <local:EntryReadfilesSection Grid.Row="2" Grid.Column="0"/>
+    
+    <local:EntryThumbnailsSection Grid.Row="2" Grid.Column="2" DataContext="{Binding Thumbnails}"/>
   </Grid>
 </UserControl>
