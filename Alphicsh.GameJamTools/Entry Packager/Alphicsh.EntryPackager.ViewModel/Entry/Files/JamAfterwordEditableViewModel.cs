@@ -63,6 +63,6 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
 
         public IConditionalCommand OpenAfterwordCommand { get; }
         private bool CanOpenAfterword() => Model.CanOpen;
-        private void OpenAfterword() => ProcessLauncher.OpenFile(Model.FullLocation);
+        private void OpenAfterword() => ProcessLauncher.OpenFile(Model.FullLocation!.Value);
     }
 }

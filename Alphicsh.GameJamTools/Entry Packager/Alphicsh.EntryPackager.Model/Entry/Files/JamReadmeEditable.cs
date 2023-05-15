@@ -8,8 +8,8 @@ namespace Alphicsh.EntryPackager.Model.Entry.Files
         public string? Location { get; set; }
         public bool IsRequired { get; set; }
 
-        public FilePath FullLocation => Files.DirectoryPath.Append(Location ?? string.Empty);
-        public bool CanOpen => FullLocation.HasFile();
+        public FilePath? FullLocation => Location != null ? Files.DirectoryPath.Append(Location) : null;
+        public bool CanOpen => FullLocation.HasValue && FullLocation.Value.HasFile();
 
         public JamReadmeEditable(JamFilesEditable files)
         {

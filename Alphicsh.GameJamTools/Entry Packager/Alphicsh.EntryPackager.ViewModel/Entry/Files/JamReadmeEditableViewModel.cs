@@ -67,6 +67,6 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
 
         public IConditionalCommand OpenReadmeCommand { get; }
         private bool CanOpenReadme() => Model.CanOpen;
-        private void OpenReadme() => ProcessLauncher.OpenFile(Model.FullLocation);
+        private void OpenReadme() => ProcessLauncher.OpenFile(Model.FullLocation!.Value);
     }
 }
