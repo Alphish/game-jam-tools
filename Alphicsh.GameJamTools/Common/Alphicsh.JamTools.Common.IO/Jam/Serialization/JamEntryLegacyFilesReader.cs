@@ -1,18 +1,18 @@
 ﻿using System;
 using System.IO;
 
-namespace Alphicsh.JamTools.Common.IO.Jam.Files
+namespace Alphicsh.JamTools.Common.IO.Jam.Serialization
 {
-    public class JamEntryFilesReader
+    public class JamEntryLegacyFilesReader
     {
-        private JsonContentSerializer<JamEntryInfo> JamEntryInfoSerializer { get; }
+        private JsonContentSerializer<JamEntryLegacyInfo> JamEntryInfoSerializer { get; }
 
-        public JamEntryFilesReader()
+        public JamEntryLegacyFilesReader()
         {
-            JamEntryInfoSerializer = new JsonContentSerializer<JamEntryInfo>();
+            JamEntryInfoSerializer = new JsonContentSerializer<JamEntryLegacyInfo>();
         }
 
-        public JamEntryInfo? TryLoadJamEntryInfo(string entryId, FilePath filePath)
+        public JamEntryLegacyInfo? TryLoadJamEntryInfo(string entryId, FilePath filePath)
         {
             if (filePath.IsRelative())
                 throw new ArgumentException("The jam entry info can only be read from the absolute file path.", nameof(filePath));

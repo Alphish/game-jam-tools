@@ -3,23 +3,23 @@ using System.Linq;
 
 using Alphicsh.JamTools.Common.IO.Search;
 
-namespace Alphicsh.JamTools.Common.IO.Jam.Files
+namespace Alphicsh.JamTools.Common.IO.Jam.Serialization
 {
     public class JamEntryInfoExplorer
     {
-        private JamEntryFilesReader EntryFilesReader { get; }
+        private JamEntryLegacyFilesReader EntryFilesReader { get; }
 
         public JamEntryInfoExplorer()
         {
-            EntryFilesReader = new JamEntryFilesReader();
+            EntryFilesReader = new JamEntryLegacyFilesReader();
         }
 
-        public JamEntryInfo? TryLoadJamEntryInfo(string id, FilePath entryDirectoryPath)
+        public JamEntryLegacyInfo? TryLoadJamEntryInfo(string id, FilePath entryDirectoryPath)
         {
             return GetEntryInfoFromFile(id, entryDirectoryPath);
         }
 
-        public JamEntryInfo FindJamEntryInfo(string id, FilePath entryDirectoryPath)
+        public JamEntryLegacyInfo FindJamEntryInfo(string id, FilePath entryDirectoryPath)
         {
             var fileBasedInfo = GetEntryInfoFromFile(id, entryDirectoryPath);
             if (fileBasedInfo != null)
@@ -30,7 +30,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
             return directoryBasedInfo;
         }
 
-        public JamEntryInfo RediscoverJamEntryInfo(string id, FilePath entryDirectoryPath)
+        public JamEntryLegacyInfo RediscoverJamEntryInfo(string id, FilePath entryDirectoryPath)
         {
             var jamEntryInfo = GetEntryInfoFromFile(id, entryDirectoryPath)
                 ?? FindJamEntryInfo(id, entryDirectoryPath);
@@ -43,7 +43,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
         // Loading from file
         // -----------------
 
-        private JamEntryInfo? GetEntryInfoFromFile(string id, FilePath entryDirectoryPath)
+        private JamEntryLegacyInfo? GetEntryInfoFromFile(string id, FilePath entryDirectoryPath)
         {
             var jamEntryPaths = FilesystemSearch.ForFilesIn(entryDirectoryPath)
                 .IncludingTopDirectoryOnly()
@@ -62,11 +62,11 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
         // Stubbing from directory
         // -----------------------
 
-        private JamEntryInfo StubEntryInfoFromDirectory(string id, FilePath entryDirectoryPath)
+        private JamEntryLegacyInfo StubEntryInfoFromDirectory(string id, FilePath entryDirectoryPath)
         {
             var (title, authors) = ExtractTitleAndAuthors(entryDirectoryPath);
 
-            return new JamEntryInfo()
+            return new JamEntryLegacyInfo()
             {
                 Id = id,
                 EntryInfoPath = entryDirectoryPath.Append("entry.jamentry"),
@@ -99,7 +99,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
             }
         }
 
-        private void RediscoverJamEntryFiles(JamEntryInfo jamEntryInfo)
+        private void RediscoverJamEntryFiles(JamEntryLegacyInfo jamEntryInfo)
         {
             var entryDirectoryPath = jamEntryInfo.EntryDirectoryPath;
 

@@ -1,16 +1,16 @@
 ﻿using System.IO;
 
-namespace Alphicsh.JamTools.Common.IO.Jam.Files
+namespace Alphicsh.JamTools.Common.IO.Jam.Serialization
 {
     public class JamFilesWriter
     {
         private JsonContentSerializer<JamInfo> JamInfoSerializer { get; }
-        private JamEntryFilesWriter EntryFilesWriter { get; }
+        private JamEntryLegacyFilesWriter EntryFilesWriter { get; }
 
         public JamFilesWriter()
         {
             JamInfoSerializer = new JsonContentSerializer<JamInfo>();
-            EntryFilesWriter = new JamEntryFilesWriter();
+            EntryFilesWriter = new JamEntryLegacyFilesWriter();
         }
 
         public void SaveJamInfo(JamInfo jamInfo)

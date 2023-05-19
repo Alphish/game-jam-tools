@@ -4,7 +4,7 @@ using System.Linq;
 
 using Alphicsh.JamTools.Common.IO.Search;
 
-namespace Alphicsh.JamTools.Common.IO.Jam.Files
+namespace Alphicsh.JamTools.Common.IO.Jam.Serialization
 {
     public class JamInfoExplorer
     {
@@ -133,7 +133,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
         // Loading entries
         // ---------------
 
-        private IEnumerable<JamEntryInfo> LoadEntriesFromStubs(FilePath entriesPath, IReadOnlyCollection<JamEntryStub> stubs)
+        private IEnumerable<JamEntryLegacyInfo> LoadEntriesFromStubs(FilePath entriesPath, IReadOnlyCollection<JamEntryStub> stubs)
         {
             foreach (var stub in stubs)
             {
@@ -145,7 +145,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
             }
         }
 
-        private IEnumerable<JamEntryInfo> FindEntriesFromStubs(FilePath entriesPath, IReadOnlyCollection<JamEntryStub> stubs)
+        private IEnumerable<JamEntryLegacyInfo> FindEntriesFromStubs(FilePath entriesPath, IReadOnlyCollection<JamEntryStub> stubs)
         {
             foreach (var stub in stubs)
             {
@@ -155,7 +155,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Files
             }
         }
 
-        private IEnumerable<JamEntryInfo> RediscoverEntriesFromStubs(FilePath entriesPath, IReadOnlyCollection<JamEntryStub> stubs)
+        private IEnumerable<JamEntryLegacyInfo> RediscoverEntriesFromStubs(FilePath entriesPath, IReadOnlyCollection<JamEntryStub> stubs)
         {
             foreach (var stub in stubs)
             {

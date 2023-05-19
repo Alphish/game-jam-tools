@@ -2,7 +2,7 @@
 
 namespace Alphicsh.JamTools.Common.IO.Jam
 {
-    public class JamEntryInfo
+    public class JamEntryLegacyInfo
     {
         [JsonIgnore] public string Id { get; internal set; } = default!;
 

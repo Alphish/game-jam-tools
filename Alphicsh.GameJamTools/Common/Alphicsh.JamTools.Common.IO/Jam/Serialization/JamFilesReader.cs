@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Alphicsh.JamTools.Common.IO.Jam.Files
+namespace Alphicsh.JamTools.Common.IO.Jam.Serialization
 {
     public class JamFilesReader
     {

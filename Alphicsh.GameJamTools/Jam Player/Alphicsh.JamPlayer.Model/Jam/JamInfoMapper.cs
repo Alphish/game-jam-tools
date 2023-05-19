@@ -19,7 +19,7 @@ namespace Alphicsh.JamPlayer.Model.Jam
             };
         }
 
-        private JamEntry MapInfoToEntry(JamEntryInfo info)
+        private JamEntry MapInfoToEntry(JamEntryLegacyInfo info)
         {
             return new JamEntry
             {
