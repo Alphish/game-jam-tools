@@ -17,7 +17,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Files
         public JamLauncherEditable(JamFilesEditable files)
         {
             Files = files;
-            Name = "Exe file";
+            Name = "Windows Executable";
             Description = null;
             Type = LaunchType.WindowsExe;
             Location = "";

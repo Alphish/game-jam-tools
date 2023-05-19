@@ -22,5 +22,25 @@ namespace Alphicsh.EntryPackager.Model.Entry.Files
         {
             Files = files;
         }
+
+        internal void ClearInvalid()
+        {
+            if (!IsValidThumbnail(ThumbnailFullLocation))
+                ThumbnailLocation = null;
+
+            if (!IsValidThumbnail(ThumbnailSmallFullLocation))
+                ThumbnailSmallLocation = null;
+        }
+
+        private bool IsValidThumbnail(FilePath? location)
+        {
+            if (location == null)
+                return false;
+
+            if (!location.Value.HasFile())
+                return false;
+
+            return true;
+        }
     }
 }

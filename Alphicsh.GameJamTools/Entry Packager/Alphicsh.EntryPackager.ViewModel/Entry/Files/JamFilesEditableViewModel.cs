@@ -18,6 +18,9 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
 
             AddLauncherCommand = SimpleCommand.From(AddLauncher);
             RemoveLauncherCommand = SimpleCommand.WithParameter<JamLauncherEditableViewModel>(RemoveLauncher);
+
+            ClearInvalidCommand = SimpleCommand.From(ClearInvalid);
+            RediscoverFilesCommand = SimpleCommand.From(RediscoverFiles);
         }
 
         public CollectionViewModel<JamLauncherEditable, JamLauncherEditableViewModel> Launchers { get; }
@@ -25,9 +28,9 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
         public JamAfterwordEditableViewModel Afterword { get; }
         public JamThumbnailsEditableViewModel Thumbnails { get; }
 
-        // ---------------
-        // List management
-        // ---------------
+        // ---------
+        // Launchers
+        // ---------
 
         public ICommand AddLauncherCommand { get; }
         private void AddLauncher()
@@ -45,15 +48,39 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
             Launchers.CompleteChanges();
         }
 
-        // -------------------
-        // Launcher management
-        // -------------------
-
         public IReadOnlyCollection<LaunchTypeEntry> AvailableLaunchTypes { get; } = new List<LaunchTypeEntry>()
         {
             new LaunchTypeEntry("Executable file", LaunchType.WindowsExe),
             new LaunchTypeEntry("Web page", LaunchType.WebLink),
             new LaunchTypeEntry("GX.games page", LaunchType.GxGamesLink),
         };
+
+        // -------
+        // Actions
+        // -------
+
+        public ICommand ClearInvalidCommand { get; }
+        private void ClearInvalid()
+        {
+            Model.ClearInvalid();
+            NotifyCoreProperties();
+        }
+
+        public ICommand RediscoverFilesCommand { get; }
+        private void RediscoverFiles()
+        {
+            Model.Rediscover();
+            NotifyCoreProperties();
+        }
+
+        private void NotifyCoreProperties()
+        {
+            Launchers.SynchronizeWithModels();
+            Readme.LocationProperty.RaisePropertyChanged();
+            Readme.IsRequiredProperty.RaisePropertyChanged();
+            Afterword.LocationProperty.RaisePropertyChanged();
+            Thumbnails.ThumbnailLocationProperty.RaisePropertyChanged();
+            Thumbnails.ThumbnailSmallLocationProperty.RaisePropertyChanged();
+        }
     }
 }

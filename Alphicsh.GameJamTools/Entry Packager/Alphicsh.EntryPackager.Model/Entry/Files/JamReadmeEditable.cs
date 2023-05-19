@@ -15,5 +15,14 @@ namespace Alphicsh.EntryPackager.Model.Entry.Files
         {
             Files = files;
         }
+
+        public void ClearInvalid()
+        {
+            if (!CanOpen)
+            {
+                Location = null;
+                IsRequired = false;
+            }
+        }
     }
 }

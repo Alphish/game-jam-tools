@@ -13,6 +13,8 @@
       <RowDefinition Height="1*"/>
       <RowDefinition Height="8"/>
       <RowDefinition Height="Auto"/>
+      <RowDefinition Height="8"/>
+      <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
     <Grid.ColumnDefinitions>
@@ -26,5 +28,7 @@
     <local:EntryReadfilesSection Grid.Row="2" Grid.Column="0"/>
     
     <local:EntryThumbnailsSection Grid.Row="2" Grid.Column="2" DataContext="{Binding Thumbnails}"/>
+
+    <local:EntryFilesActionBar Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
   </Grid>
 </UserControl>
