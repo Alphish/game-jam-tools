@@ -103,6 +103,8 @@ namespace Alphicsh.JamTools.Common.IO
             => FilePath.FromNullable(Path.GetDirectoryName(Value));
         public string GetLastSegmentName()
             => Path.GetFileName(this.Value);
+        public string GetNameWithoutExtension()
+            => Path.GetFileNameWithoutExtension(this.Value);
         public string GetExtension()
             => Path.GetExtension(this.Value);
     }

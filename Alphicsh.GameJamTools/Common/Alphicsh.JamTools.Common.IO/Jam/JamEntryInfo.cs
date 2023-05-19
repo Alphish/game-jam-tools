@@ -38,7 +38,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam
             {
                 var launcher = new JamLauncherInfo()
                 {
-                    Name = "Exe File",
+                    Name = "Windows Executable",
                     Description = null,
                     Type = (int)LaunchType.WindowsExe,
                     Location = GameFileName

@@ -17,8 +17,7 @@ namespace Alphicsh.EntryPackager.Model
 
         public void LoadDirectory(FilePath directoryPath)
         {
-            Entry = new JamEntryEditable();
-            EntryExplorer.InitFromDirectory(directoryPath, Entry);
+            Entry = EntryExplorer.ReadFromDirectory(directoryPath);
         }
     }
 }
