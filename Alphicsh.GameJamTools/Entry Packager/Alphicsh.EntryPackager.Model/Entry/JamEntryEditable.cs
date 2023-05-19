@@ -10,20 +10,12 @@ namespace Alphicsh.EntryPackager.Model.Entry
         // Basic data
         // ----------
 
-        public JamEntryEditableData Data { get; set; } = new JamEntryEditableData();
-
-        public string Title { get => Data.Title; set => Data.Title = value; }
-        public JamTeamEditable Team { get => Data.Team; }
-
-        // -----
-        // Files
-        // -----
+        public string Title { get; set; } = default!;
+        public JamTeamEditable Team { get; } = new JamTeamEditable();
 
         public JamFilesEditable Files { get; } = new JamFilesEditable();
 
-        public string? DirectoryName { get; set; }
-
-        public string GetDefaultDirectoryName()
+        public string GetDefaultPackageName()
         {
             var title = !string.IsNullOrEmpty(Title) ? Title : "Title";
             var authors = !string.IsNullOrEmpty(Team.DisplayName) ? Team.DisplayName : "Authors";
