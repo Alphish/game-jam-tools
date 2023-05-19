@@ -19,5 +19,10 @@ namespace Alphicsh.EntryPackager.Model
         {
             Entry = EntryExplorer.ReadFromDirectory(directoryPath);
         }
+
+        public void LoadEntryInfo(FilePath entryInfoPath)
+        {
+            Entry = EntryExplorer.ReadFromFile(entryInfoPath);
+        }
     }
 }

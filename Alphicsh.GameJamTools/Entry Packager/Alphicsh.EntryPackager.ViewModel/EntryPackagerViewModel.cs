@@ -17,6 +17,7 @@ namespace Alphicsh.EntryPackager.ViewModel
             HasEntryProperty = WrapperProperty.ForReadonlyMember(this, vm => vm.Model.HasEntry);
 
             OpenEntryDirectoryCommand = SimpleCommand.From(OpenEntryDirectory);
+            OpenEntryInfoCommand = SimpleCommand.From(OpenEntryInfo);
         }
 
         public JamEntryEditableViewModel? Entry { get; private set; }
@@ -34,9 +35,33 @@ namespace Alphicsh.EntryPackager.ViewModel
             LoadEntryDirectory(directoryPath.Value);
         }
 
+        public ICommand OpenEntryInfoCommand { get; }
+        private void OpenEntryInfo()
+        {
+            var entryInfoPath = FileQuery.OpenFile()
+                .WithFileType("entry.jamentry", "Jam entry data")
+                .GetPath();
+
+            if (entryInfoPath == null)
+                return;
+
+            LoadEntryInfo(entryInfoPath.Value);
+        }
+
         public void LoadEntryDirectory(FilePath directoryPath)
         {
             Model.LoadDirectory(directoryPath);
+            UpdateEntryViewModel();
+        }
+
+        public void LoadEntryInfo(FilePath entryInfoPath)
+        {
+            Model.LoadEntryInfo(entryInfoPath);
+            UpdateEntryViewModel();
+        }
+
+        private void UpdateEntryViewModel()
+        {
             Entry = new JamEntryEditableViewModel(Model.Entry!);
             RaisePropertyChanged(nameof(Entry), nameof(HasEntry));
         }

@@ -12,10 +12,18 @@
   <Grid>
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
       <cc:ImpButton
+        Margin="2"
         Style="{StaticResource PrimaryButton}"
-        Width="160"
+        Width="240"
         Command="{Binding OpenEntryDirectoryCommand}"
       >Open entry directory</cc:ImpButton>
+      
+      <cc:ImpButton
+        Margin="2"
+        Style="{StaticResource PrimaryButton}"
+        Width="240"
+        Command="{Binding OpenEntryInfoCommand}"
+      >Open entry information file</cc:ImpButton>
     </StackPanel>
   </Grid>
 </UserControl>
