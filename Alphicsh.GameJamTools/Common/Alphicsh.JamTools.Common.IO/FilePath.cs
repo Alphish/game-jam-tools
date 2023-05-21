@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Alphicsh.JamTools.Common.IO
 {
-    public struct FilePath
+    public struct FilePath : IEquatable<FilePath>
     {
         public string Value { get; }
 
@@ -107,5 +107,15 @@ namespace Alphicsh.JamTools.Common.IO
             => Path.GetFileNameWithoutExtension(this.Value);
         public string GetExtension()
             => Path.GetExtension(this.Value);
+
+        // --------
+        // Equality
+        // --------
+
+        public override bool Equals(object? obj) => obj is FilePath path && Equals(path);
+        public bool Equals(FilePath other) => Value == other.Value;
+        public override int GetHashCode() => HashCode.Combine(Value);
+        public static bool operator ==(FilePath left, FilePath right) => left.Equals(right);
+        public static bool operator !=(FilePath left, FilePath right) => !(left == right);
     }
 }

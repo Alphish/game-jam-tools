@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Alphicsh.JamTools.Common.IO.Execution;
 using Alphicsh.JamTools.Common.IO.Jam.Files;
 
@@ -59,6 +60,39 @@ namespace Alphicsh.JamTools.Common.IO.Jam
                 Afterword = afterword,
                 Thumbnails = thumbnails,
             };
+        }
+
+        // --------
+        // Equality
+        // --------
+
+        public override bool Equals(object? obj)
+        {
+            return obj is JamEntryInfo info &&
+                   Title == info.Title &&
+                   EqualityComparer<JamTeamInfo>.Default.Equals(Team, info.Team) &&
+                   EqualityComparer<JamFilesInfo>.Default.Equals(Files, info.Files) &&
+                   GameFileName == info.GameFileName &&
+                   ThumbnailFileName == info.ThumbnailFileName &&
+                   ThumbnailSmallFileName == info.ThumbnailSmallFileName &&
+                   ReadmeFileName == info.ReadmeFileName &&
+                   IsReadmePlease == info.IsReadmePlease &&
+                   AfterwordFileName == info.AfterwordFileName;
+        }
+
+        public override int GetHashCode()
+        {
+            HashCode hash = new HashCode();
+            hash.Add(Title);
+            hash.Add(Team);
+            hash.Add(Files);
+            hash.Add(GameFileName);
+            hash.Add(ThumbnailFileName);
+            hash.Add(ThumbnailSmallFileName);
+            hash.Add(ReadmeFileName);
+            hash.Add(IsReadmePlease);
+            hash.Add(AfterwordFileName);
+            return hash.ToHashCode();
         }
     }
 }
