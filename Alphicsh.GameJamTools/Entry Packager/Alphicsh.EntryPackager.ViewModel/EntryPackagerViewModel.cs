@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using Alphicsh.EntryPackager.Model;
 using Alphicsh.EntryPackager.ViewModel.Entry;
+using Alphicsh.EntryPackager.ViewModel.Entry.Saving;
 using Alphicsh.JamTools.Common.Controls.Files;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.Mvvm;
@@ -18,12 +19,20 @@ namespace Alphicsh.EntryPackager.ViewModel
 
             OpenEntryDirectoryCommand = SimpleCommand.From(OpenEntryDirectory);
             OpenEntryInfoCommand = SimpleCommand.From(OpenEntryInfo);
+
+            SaveSystem = new JamEntrySaveViewModel();
         }
 
         public JamEntryEditableViewModel? Entry { get; private set; }
 
         public WrapperProperty<EntryPackagerViewModel, bool> HasEntryProperty { get; }
         public bool HasEntry { get => HasEntryProperty.Value; }
+
+        public JamEntrySaveViewModel SaveSystem { get; }
+
+        // -------
+        // Loading
+        // -------
 
         public ICommand OpenEntryDirectoryCommand { get; }
         private void OpenEntryDirectory()
@@ -64,6 +73,7 @@ namespace Alphicsh.EntryPackager.ViewModel
         {
             Entry = new JamEntryEditableViewModel(Model.Entry!);
             RaisePropertyChanged(nameof(Entry), nameof(HasEntry));
+            SaveSystem.TrackViewModel(Entry);
         }
     }
 }

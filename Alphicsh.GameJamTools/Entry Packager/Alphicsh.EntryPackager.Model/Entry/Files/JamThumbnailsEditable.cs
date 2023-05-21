@@ -18,6 +18,8 @@ namespace Alphicsh.EntryPackager.Model.Entry.Files
         public FilePath? ThumbnailSmallFullLocation
             => HasThumbnailSmallLocation ? Files.DirectoryPath.Append(ThumbnailSmallLocation!) : null;
 
+        public bool IsEmpty => string.IsNullOrWhiteSpace(ThumbnailLocation) && string.IsNullOrWhiteSpace(ThumbnailSmallLocation);
+
         public JamThumbnailsEditable(JamFilesEditable files)
         {
             Files = files;

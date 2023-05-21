@@ -10,6 +10,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Files
 
         public FilePath? FullLocation => Location != null ? Files.DirectoryPath.Append(Location) : null;
         public bool CanOpen => FullLocation.HasValue && FullLocation.Value.HasFile();
+        public bool IsEmpty => string.IsNullOrWhiteSpace(Location);
 
         public JamReadmeEditable(JamFilesEditable files)
         {
