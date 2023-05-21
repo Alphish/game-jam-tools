@@ -16,7 +16,7 @@
             DataSaver = dataSaver;
         }
 
-        public bool HasChanges => !object.Equals(LastSavedData, CurrentData);
+        public bool IsModified => !object.Equals(LastSavedData, CurrentData);
 
         public void AcceptModel(TModel model)
         {

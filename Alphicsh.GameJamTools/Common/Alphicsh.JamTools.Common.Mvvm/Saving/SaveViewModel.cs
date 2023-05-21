@@ -18,19 +18,19 @@ namespace Alphicsh.JamTools.Common.Mvvm.Saving
             DataObserver.SetViewModel(this);
             ViewModel = null;
 
-            HasChangesProperty = NotifiableProperty.Create(this, nameof(HasChanges));
+            IsModifiedProperty = NotifiableProperty.Create(this, nameof(IsModified));
             SaveCommand = ConditionalCommand.From(CanSave, Save);
         }
 
-        public NotifiableProperty HasChangesProperty { get; }
-        public bool HasChanges => SaveModel.HasChanges;
+        public NotifiableProperty IsModifiedProperty { get; }
+        public bool IsModified => SaveModel.IsModified;
 
         public IConditionalCommand SaveCommand { get; }
         private bool CanSave() => ViewModel != null;
         private void Save()
         {
             SaveModel.Save(ViewModel!.Model);
-            HasChangesProperty.RaisePropertyChanged();
+            IsModifiedProperty.RaisePropertyChanged();
         }
 
         // ----------------
@@ -43,7 +43,7 @@ namespace Alphicsh.JamTools.Common.Mvvm.Saving
             DataObserver.ObserveViewModel(viewModel);
             SaveModel.AcceptModel(viewModel.Model);
 
-            HasChangesProperty.RaisePropertyChanged();
+            IsModifiedProperty.RaisePropertyChanged();
             SaveCommand.RaiseCanExecuteChanged();
         }
 
@@ -52,17 +52,17 @@ namespace Alphicsh.JamTools.Common.Mvvm.Saving
             ViewModel = null;
             SaveModel.DropModel();
 
-            HasChangesProperty.RaisePropertyChanged();
+            IsModifiedProperty.RaisePropertyChanged();
             SaveCommand.RaiseCanExecuteChanged();
         }
 
         public void UpdateCurrentData()
         {
-            var hadChanges = SaveModel.HasChanges;
+            var wasModified = SaveModel.IsModified;
             SaveModel.ChangeModel(ViewModel!.Model);
 
-            if (hadChanges != HasChanges)
-                HasChangesProperty.RaisePropertyChanged();
+            if (wasModified != IsModified)
+                IsModifiedProperty.RaisePropertyChanged();
         }
     }
 }
