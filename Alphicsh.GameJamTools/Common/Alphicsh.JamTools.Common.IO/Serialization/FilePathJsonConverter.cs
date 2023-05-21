@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Alphicsh.JamTools.Common.IO
+namespace Alphicsh.JamTools.Common.IO.Serialization
 {
     public class FilePathJsonConverter : JsonConverter<FilePath>
     {

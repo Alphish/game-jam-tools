@@ -1,4 +1,4 @@
-﻿namespace Alphicsh.JamTools.Common.IO
+﻿namespace Alphicsh.JamTools.Common.IO.Serialization
 {
     public interface IContentSerializer<TEntity>
     {

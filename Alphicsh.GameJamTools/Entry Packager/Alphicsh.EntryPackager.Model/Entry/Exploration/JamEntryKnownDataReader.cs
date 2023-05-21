@@ -4,14 +4,14 @@ using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.IO.Execution;
 using Alphicsh.JamTools.Common.IO.Jam;
 using Alphicsh.JamTools.Common.IO.Jam.Files;
-using Alphicsh.JamTools.Common.IO.Jam.Serialization;
 using Alphicsh.JamTools.Common.IO.Search;
+using Alphicsh.JamTools.Common.IO.Serialization;
 
 namespace Alphicsh.EntryPackager.Model.Entry.Exploration
 {
     internal class JamEntryKnownDataReader
     {
-        private JamEntryInfoLoader Loader { get; } = new JamEntryInfoLoader();
+        private JsonFileLoader<JamEntryInfo> Loader { get; } = new JsonFileLoader<JamEntryInfo>();
 
         public JamEntryEditable? TryReadFromDirectory(FilePath directoryPath)
         {
@@ -45,7 +45,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Exploration
 
         private JamEntryInfo? ReadEntryInfo(FilePath entryInfoPath)
         {
-            return Loader.TryLoadJamEntryInfo(entryInfoPath);
+            return Loader.TryLoad(entryInfoPath);
         }
 
         // ----------------

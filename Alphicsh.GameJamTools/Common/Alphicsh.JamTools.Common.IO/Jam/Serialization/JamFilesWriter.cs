@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Alphicsh.JamTools.Common.IO.Serialization;
 
 namespace Alphicsh.JamTools.Common.IO.Jam.Serialization
 {

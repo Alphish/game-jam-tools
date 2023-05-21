@@ -1,6 +1,7 @@
 ﻿using System.IO;
 
 using Alphicsh.JamTools.Common.IO;
+using Alphicsh.JamTools.Common.IO.Serialization;
 
 namespace Alphicsh.JamPlayer.IO.Ranking
 {
