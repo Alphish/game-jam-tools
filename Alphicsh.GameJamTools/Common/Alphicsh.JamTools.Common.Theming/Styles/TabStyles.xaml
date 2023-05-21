@@ -8,6 +8,7 @@
   
   <Style TargetType="TabControl" x:Key="MenuTabControl" BasedOn="{StaticResource {x:Type TabControl}}">
     <Setter Property="OverridesDefaultStyle" Value="True"/>
+    <Setter Property="TabStripPlacement" Value="Left"/>
     <Setter Property="Background" Value="{DynamicResource MenuBackgroundBrush}"/>
     <Setter Property="Template">
       <Setter.Value>

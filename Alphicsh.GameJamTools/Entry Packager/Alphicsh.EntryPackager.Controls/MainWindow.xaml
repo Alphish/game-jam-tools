@@ -18,32 +18,31 @@
   <Grid>
     <local:EntrySelectionPanel Visibility="{Binding HasEntry, Converter={StaticResource ShowFalseVisibilityConverter}}"/>
 
-    <TabControl
-      TabStripPlacement="Left"
-      Style="{StaticResource MenuTabControl}"
-      Visibility="{Binding HasEntry, Converter={StaticResource ShowTrueVisibilityConverter}}"
-    >
+    <Grid Visibility="{Binding HasEntry, Converter={StaticResource ShowTrueVisibilityConverter}}">
+      <TabControl Style="{StaticResource MenuTabControl}">
+        <!-- Entry summary tab -->
+        <TabItem>
+          <TabItem.Header>
+            <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuSummaryIconSource}" ToolTip="Summary"/>
+          </TabItem.Header>
 
-      <!-- Entry summary tab -->
-      <TabItem>
-        <TabItem.Header>
-          <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuSummaryIconSource}" ToolTip="Summary"/>
-        </TabItem.Header>
+          <appSummary:EntrySummaryTab DataContext="{Binding Entry}"></appSummary:EntrySummaryTab>
+        </TabItem>
 
-        <appSummary:EntrySummaryTab DataContext="{Binding Entry}"></appSummary:EntrySummaryTab>
-      </TabItem>
+        <!-- Entry files tab -->
+        <TabItem>
+          <TabItem.Header>
+            <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuFilesIconSource}" ToolTip="Files"/>
+          </TabItem.Header>
 
-      <!-- Entry files tab -->
-      <TabItem>
-        <TabItem.Header>
-          <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuFilesIconSource}" ToolTip="Files"/>
-        </TabItem.Header>
+          <appFiles:EntryFilesTab DataContext="{Binding Entry.Files}"></appFiles:EntryFilesTab>
+        </TabItem>
+      </TabControl>
 
-        <appFiles:EntryFilesTab DataContext="{Binding Entry.Files}"></appFiles:EntryFilesTab>
-      </TabItem>
-
-    </TabControl>
-
+      <Grid Margin="4" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+        <cc:SaveButton DataContext="{Binding SaveSystem}"/>
+      </Grid>
+    </Grid>
     <!-- Modal overlay -->
     <Border Background="#80000000" Visibility="{Binding HasOverlay, Converter={StaticResource ShowTrueVisibilityConverter}}"></Border>
   </Grid>

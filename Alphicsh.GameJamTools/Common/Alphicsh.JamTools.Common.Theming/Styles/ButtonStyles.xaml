@@ -32,7 +32,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Button}">
-          <Grid VerticalAlignment="{TemplateBinding VerticalAlignment}">
+          <Grid>
             <Border
               CornerRadius="{Binding ActualCornerRadius, RelativeSource={RelativeSource TemplatedParent}}"
               Background="{TemplateBinding Background}"
