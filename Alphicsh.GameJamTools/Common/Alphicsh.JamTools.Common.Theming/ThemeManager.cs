@@ -124,6 +124,9 @@ namespace Alphicsh.JamTools.Common.Theming
             MenuSummaryIconSourceVariable = ImageVariableFor(x => x.MenuSummaryIconSource, "menu_summary.png");
             MenuFilesIconSourceVariable = ImageVariableFor(x => x.MenuFilesIconSource, "menu_files.png");
 
+            MenuSaveIconSourceVariable = ImageVariableFor(x => x.MenuSaveIconSource, "menu_save.png");
+            MenuSaveModifiedIconSourceVariable = ImageVariableFor(x => x.MenuSaveModifiedIconSource, "menu_save_modified.png");
+
             EntryPlaceholderSourceVariable = ImageVariableFor(x => x.EntryPlaceholderSource, "entry_placeholder.png");
             StarEmptySourceVariable = ImageVariableFor(x => x.StarEmptySource, "star_empty.png");
             StarFullSourceVariable = ImageVariableFor(x => x.StarFullSource, "star_full.png");
@@ -391,6 +394,12 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public ImageSource MenuFilesIconSource { get => MenuFilesIconSourceVariable.Value; set => MenuFilesIconSourceVariable.Value = value; }
         private ThemeVariable<ImageSource> MenuFilesIconSourceVariable { get; }
+
+        public ImageSource MenuSaveIconSource { get => MenuSaveIconSourceVariable.Value; set => MenuSaveIconSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> MenuSaveIconSourceVariable { get; }
+
+        public ImageSource MenuSaveModifiedIconSource { get => MenuSaveModifiedIconSourceVariable.Value; set => MenuSaveModifiedIconSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> MenuSaveModifiedIconSourceVariable { get; }
 
         public ImageSource EntryPlaceholderSource { get => EntryPlaceholderSourceVariable.Value; set => EntryPlaceholderSourceVariable.Value = value; }
         private ThemeVariable<ImageSource> EntryPlaceholderSourceVariable { get; }

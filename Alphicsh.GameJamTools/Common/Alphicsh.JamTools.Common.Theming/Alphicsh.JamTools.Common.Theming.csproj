@@ -13,6 +13,8 @@
     <None Remove="Content\menu_files.png" />
     <None Remove="Content\menu_jam.png" />
     <None Remove="Content\menu_ranking.png" />
+    <None Remove="Content\menu_save.png" />
+    <None Remove="Content\menu_save_modified.png" />
     <None Remove="Content\menu_summary.png" />
     <None Remove="Content\star_empty.png" />
     <None Remove="Content\star_full.png" />
@@ -25,6 +27,8 @@
     <EmbeddedResource Include="Content\menu_files.png" />
     <EmbeddedResource Include="Content\menu_jam.png" />
     <EmbeddedResource Include="Content\menu_ranking.png" />
+    <EmbeddedResource Include="Content\menu_save.png" />
+    <EmbeddedResource Include="Content\menu_save_modified.png" />
     <EmbeddedResource Include="Content\menu_summary.png" />
     <EmbeddedResource Include="Content\star_empty.png" />
     <EmbeddedResource Include="Content\star_full.png" />

@@ -99,6 +99,9 @@
   <!-- ImageSource x:Key="MenuSummaryIconSource" -->
   <!-- ImageSource x:Key="MenuFilesIconSource" -->
 
+  <!-- ImageSource x:Key="MenuSaveIconSource" -->
+  <!-- ImageSource x:Key="MenuSaveModifiedIconSource" -->
+
   <!-- ImageSource x:Key="EntryPlaceholderSource" -->
   <!-- ImageSource x:Key="StarEmptySource" -->
   <!-- ImageSource x:Key="StarFullSource" -->
