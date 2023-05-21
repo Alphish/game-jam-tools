@@ -40,7 +40,6 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
                 RaisePropertyChanged();
             }
         }
-
     }
 
     // ---------------

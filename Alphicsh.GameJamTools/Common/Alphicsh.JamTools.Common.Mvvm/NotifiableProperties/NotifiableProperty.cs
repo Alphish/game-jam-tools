@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 
 namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
@@ -25,6 +26,8 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
             return new NotifiableProperty(viewModel, propertyName);
         }
 
+        public event EventHandler? PropertyChanged;
+
         public virtual void OnPropertyChange()
         {
             // nothing by default
@@ -47,6 +50,7 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
             {
                 dependingCommand.RaiseCanExecuteChanged();
             }
+            PropertyChanged?.Invoke(this, EventArgs.Empty);
         }
 
         // -------------------------------
