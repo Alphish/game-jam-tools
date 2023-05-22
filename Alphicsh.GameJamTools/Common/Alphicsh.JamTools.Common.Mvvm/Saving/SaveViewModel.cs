@@ -41,7 +41,8 @@ namespace Alphicsh.JamTools.Common.Mvvm.Saving
         {
             ViewModel = viewModel;
             DataObserver.ObserveViewModel(viewModel);
-            SaveModel.AcceptModel(viewModel.Model);
+            SaveModel.LoadSavedModel(viewModel.Model);
+            SaveModel.UpdateCurrentModel(viewModel.Model);
 
             IsModifiedProperty.RaisePropertyChanged();
             SaveCommand.RaiseCanExecuteChanged();
@@ -59,7 +60,7 @@ namespace Alphicsh.JamTools.Common.Mvvm.Saving
         public void UpdateCurrentData()
         {
             var wasModified = SaveModel.IsModified;
-            SaveModel.ChangeModel(ViewModel!.Model);
+            SaveModel.UpdateCurrentModel(ViewModel!.Model);
 
             if (wasModified != IsModified)
                 IsModifiedProperty.RaisePropertyChanged();

@@ -4,8 +4,8 @@
     {
         bool IsModified { get; }
         void DropModel();
-        void AcceptModel(TModel model);
-        void ChangeModel(TModel model);
+        void LoadSavedModel(TModel model);
+        void UpdateCurrentModel(TModel model);
         void Save(TModel model);
     }
 }

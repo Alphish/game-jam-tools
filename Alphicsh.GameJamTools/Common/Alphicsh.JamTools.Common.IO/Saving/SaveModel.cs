@@ -4,41 +4,47 @@
         where TModel : class
         where TData : class
     {
-        private ISaveDataExtractor<TModel, TData> DataExtractor { get; } = default!;
-        private IDataSaver<TData> DataSaver { get; } = default!;
+        private ISaveDataLoader<TModel, TData> DataLoader { get; }
+        private ISaveDataExtractor<TModel, TData> DataExtractor { get; }
+        private IDataSaver<TData> DataSaver { get; }
 
-        private TData? LastSavedData { get; set; }
+        private TData? SavedData { get; set; }
         private TData? CurrentData { get; set; }
 
-        protected SaveModel(ISaveDataExtractor<TModel, TData> dataExtractor, IDataSaver<TData> dataSaver)
+        protected SaveModel(
+            ISaveDataLoader<TModel, TData> dataLoader,
+            ISaveDataExtractor<TModel, TData> dataExtractor,
+            IDataSaver<TData> dataSaver
+            )
         {
+            DataLoader = dataLoader;
             DataExtractor = dataExtractor;
             DataSaver = dataSaver;
         }
 
-        public bool IsModified => !object.Equals(LastSavedData, CurrentData);
+        public bool IsModified => !object.Equals(SavedData, CurrentData);
 
-        public void AcceptModel(TModel model)
+        public void LoadSavedModel(TModel model)
         {
-            LastSavedData = DataExtractor.ExtractData(model);
-            CurrentData = LastSavedData;
+            SavedData = DataLoader.Load(model);
         }
 
-        public void ChangeModel(TModel model)
+        public void UpdateCurrentModel(TModel model)
         {
             CurrentData = DataExtractor.ExtractData(model);
         }
 
         public void DropModel()
         {
-            LastSavedData = null;
+            SavedData = null;
             CurrentData = null;
         }
 
         public void Save(TModel model)
         {
-            AcceptModel(model);
+            UpdateCurrentModel(model);
             DataSaver.Save(CurrentData!);
+            SavedData = CurrentData!;
         }
     }
 }
