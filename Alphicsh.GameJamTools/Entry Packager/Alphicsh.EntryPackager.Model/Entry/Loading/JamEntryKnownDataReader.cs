@@ -7,7 +7,7 @@ using Alphicsh.JamTools.Common.IO.Jam.Files;
 using Alphicsh.JamTools.Common.IO.Search;
 using Alphicsh.JamTools.Common.IO.Serialization;
 
-namespace Alphicsh.EntryPackager.Model.Entry.Exploration
+namespace Alphicsh.EntryPackager.Model.Entry.Loading
 {
     internal class JamEntryKnownDataReader
     {

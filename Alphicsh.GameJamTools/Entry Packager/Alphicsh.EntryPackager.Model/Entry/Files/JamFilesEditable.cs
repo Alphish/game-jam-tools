@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Alphicsh.EntryPackager.Model.Entry.Exploration;
+using Alphicsh.EntryPackager.Model.Entry.Loading;
 using Alphicsh.JamTools.Common.IO;
 
 namespace Alphicsh.EntryPackager.Model.Entry.Files

@@ -24,6 +24,13 @@
         Width="240"
         Command="{Binding OpenEntryInfoCommand}"
       >Open entry information file</cc:ImpButton>
+
+      <cc:ImpButton
+        Margin="2"
+        Style="{StaticResource PrimaryButton}"
+        Width="240"
+        Command="{Binding OpenEntryZipCommand}"
+      >Open ZIP archive</cc:ImpButton>
     </StackPanel>
   </Grid>
 </UserControl>

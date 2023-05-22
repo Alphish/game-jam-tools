@@ -19,6 +19,7 @@ namespace Alphicsh.EntryPackager.ViewModel
 
             OpenEntryDirectoryCommand = SimpleCommand.From(OpenEntryDirectory);
             OpenEntryInfoCommand = SimpleCommand.From(OpenEntryInfo);
+            OpenEntryZipCommand = SimpleCommand.From(OpenEntryZip);
 
             SaveSystem = new JamEntrySaveViewModel();
         }
@@ -57,6 +58,19 @@ namespace Alphicsh.EntryPackager.ViewModel
             LoadEntryInfo(entryInfoPath.Value);
         }
 
+        public ICommand OpenEntryZipCommand { get; }
+        private void OpenEntryZip()
+        {
+            var zipPath = FileQuery.OpenFile()
+                .WithFileType("*.zip", "ZIP archive")
+                .GetPath();
+
+            if (zipPath == null)
+                return;
+
+            LoadEntryZip(zipPath.Value);
+        }
+
         public void LoadEntryDirectory(FilePath directoryPath)
         {
             Model.LoadDirectory(directoryPath);
@@ -66,6 +80,12 @@ namespace Alphicsh.EntryPackager.ViewModel
         public void LoadEntryInfo(FilePath entryInfoPath)
         {
             Model.LoadEntryInfo(entryInfoPath);
+            UpdateEntryViewModel();
+        }
+
+        public void LoadEntryZip(FilePath zipPath)
+        {
+            Model.LoadEntryZip(zipPath);
             UpdateEntryViewModel();
         }
 

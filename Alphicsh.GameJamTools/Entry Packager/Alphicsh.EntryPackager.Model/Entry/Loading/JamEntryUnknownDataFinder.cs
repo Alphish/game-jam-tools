@@ -6,16 +6,17 @@ using Alphicsh.JamTools.Common.IO.Search;
 using Alphicsh.JamTools.Common.IO;
 using System.IO;
 
-namespace Alphicsh.EntryPackager.Model.Entry.Exploration
+namespace Alphicsh.EntryPackager.Model.Entry.Loading
 {
     public class JamEntryUnknownDataFinder
     {
-        public JamEntryEditable FindEntryData(FilePath directoryPath)
+        public JamEntryEditable FindEntryData(FilePath directoryPath, string? directoryName = null)
         {
             var jamEntry = new JamEntryEditable();
+            directoryName ??= directoryPath.GetLastSegmentName();
 
             jamEntry.Files.SetDirectoryPath(directoryPath);
-            FindTitleAndTeam(directoryPath, jamEntry);
+            FindTitleAndTeam(directoryName, jamEntry);
             FindFilesFor(jamEntry.Files);
             
             return jamEntry;
@@ -30,10 +31,8 @@ namespace Alphicsh.EntryPackager.Model.Entry.Exploration
         // Title and team
         // --------------
 
-        private void FindTitleAndTeam(FilePath directoryPath, JamEntryEditable jamEntry)
+        private void FindTitleAndTeam(string directoryName, JamEntryEditable jamEntry)
         {
-            var directoryName = directoryPath.GetLastSegmentName();
-            
             if (string.IsNullOrWhiteSpace(jamEntry.Title))
                 jamEntry.Title = ExtractTitle(directoryName);
 
