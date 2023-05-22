@@ -7,7 +7,7 @@
   xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls"
   xmlns:mvvm="clr-namespace:Alphicsh.JamTools.Common.Mvvm;assembly=Alphicsh.JamTools.Common.Mvvm"
   xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
-  xmlns:appSummary="clr-namespace:Alphicsh.EntryPackager.Controls.Summary"
+  xmlns:appBasicInfo="clr-namespace:Alphicsh.EntryPackager.Controls.BasicInfo"
   xmlns:appFiles="clr-namespace:Alphicsh.EntryPackager.Controls.Files"
   mc:Ignorable="d"
   Style="{StaticResource MainWindow}"
@@ -23,10 +23,10 @@
         <!-- Entry summary tab -->
         <TabItem>
           <TabItem.Header>
-            <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuSummaryIconSource}" ToolTip="Summary"/>
+            <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuSummaryIconSource}" ToolTip="Basic information"/>
           </TabItem.Header>
 
-          <appSummary:EntrySummaryTab DataContext="{Binding Entry}"></appSummary:EntrySummaryTab>
+          <appBasicInfo:EntryBasicInfoTab DataContext="{Binding Entry}"></appBasicInfo:EntryBasicInfoTab>
         </TabItem>
 
         <!-- Entry files tab -->

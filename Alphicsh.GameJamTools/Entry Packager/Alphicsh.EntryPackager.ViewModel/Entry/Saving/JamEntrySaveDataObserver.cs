@@ -8,6 +8,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Saving
         public override void ObserveViewModel(JamEntryEditableViewModel viewModel)
         {
             ObserveProperty(viewModel.TitleProperty);
+            ObserveProperty(viewModel.ShortTitleProperty);
             ObserveTeam(viewModel.Team);
             ObserveFiles(viewModel.Files);
         }

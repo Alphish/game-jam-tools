@@ -1,31 +1,31 @@
 ﻿<UserControl
-  x:Class="Alphicsh.EntryPackager.Controls.Summary.EntryAuthorsHeader"
+  x:Class="Alphicsh.EntryPackager.Controls.BasicInfo.EntryAuthorsItem"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-  xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.Summary"
+  xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.BasicInfo"
   xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
   mc:Ignorable="d"
 >
-  <Grid HorizontalAlignment="Stretch">
+  <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="Auto"/>
       <ColumnDefinition Width="2*" MinWidth="120"/>
       <ColumnDefinition Width="1*" MinWidth="120"/>
       <ColumnDefinition Width="2*" MinWidth="120"/>
     </Grid.ColumnDefinitions>
-
     <cc:ImpButton
       Grid.Column="0"
-      Style="{StaticResource PrimaryButton}"
+      Style="{StaticResource DangerButton}"
       Margin="2"
       Width="40"
-      Command="{Binding AddAuthorCommand}"
-    >+</cc:ImpButton>
-    
-    <Label Grid.Column="1" Style="{StaticResource TableLabel}">Name</Label>
-    <Label Grid.Column="2" Style="{StaticResource TableLabel}">Community ID</Label>
-    <Label Grid.Column="3" Style="{StaticResource TableLabel}">Role</Label>
+      Command="{Binding DataContext.RemoveAuthorCommand, RelativeSource={RelativeSource AncestorType=local:EntryAuthorsList}}"
+      CommandParameter="{Binding}"
+    >x</cc:ImpButton>
+
+    <cc:ImpTextBox Grid.Column="1" Margin="2" Text="{Binding Name}" Placeholder="&lt;enter name&gt;"/>
+    <cc:ImpTextBox Grid.Column="2" Margin="2" Text="{Binding CommunityId}" Placeholder="&lt;no ID&gt;"/>
+    <cc:ImpTextBox Grid.Column="3" Margin="2" Text="{Binding Role}" Placeholder="&lt;no specific role&gt;"/>
   </Grid>
 </UserControl>

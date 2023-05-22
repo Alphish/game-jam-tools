@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Alphicsh.EntryPackager.Controls.Summary
+namespace Alphicsh.EntryPackager.Controls.BasicInfo
 {
     /// <summary>
     /// Interaction logic for EntryAuthorsHeader.xaml

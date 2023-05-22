@@ -22,6 +22,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
             return new JamEntryInfo
             {
                 Title = ToNullIfEmpty(entryEditable.Title) ?? string.Empty,
+                ShortTitle = ToNullIfEmpty(entryEditable.ShortTitle),
                 Team = MapTeam(entryEditable.Team),
                 Files = MapFiles(entryEditable.Files),
             };

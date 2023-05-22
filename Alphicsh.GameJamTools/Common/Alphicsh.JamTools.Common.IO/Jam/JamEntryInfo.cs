@@ -8,6 +8,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam
     public class JamEntryInfo
     {
         public string Title { get; init; } = default!;
+        public string? ShortTitle { get; init; } = default!;
         public JamTeamInfo Team { get; init; } = default!;
         public JamFilesInfo Files { get; init; } = default!;
 
@@ -20,7 +21,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam
         public string? ThumbnailSmallFileName { get; init; }
 
         public string? ReadmeFileName { get; init; }
-        public bool IsReadmePlease { get; init; }
+        public bool? IsReadmePlease { get; init; }
         public string? AfterwordFileName { get; init; }
 
         public JamEntryInfo FromLegacyFormat()
@@ -29,7 +30,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam
                 return this;
 
             var files = GetFilesFromLegacyFormat();
-            return new JamEntryInfo { Title = Title, Team = Team, Files = files };
+            return new JamEntryInfo { Title = Title, ShortTitle = ShortTitle, Team = Team, Files = files };
         }
 
         private JamFilesInfo GetFilesFromLegacyFormat()
@@ -47,7 +48,12 @@ namespace Alphicsh.JamTools.Common.IO.Jam
                 launchers.Add(launcher);
             }
 
-            var readme = ReadmeFileName != null ? new JamReadmeInfo { Location = ReadmeFileName, IsRequired = IsReadmePlease } : null;
+            var readme = ReadmeFileName != null ? new JamReadmeInfo
+            {
+                Location = ReadmeFileName,
+                IsRequired = IsReadmePlease ?? false,
+            } : null;
+            
             var afterword = AfterwordFileName != null ? new JamAfterwordInfo { Location = AfterwordFileName } : null;
             var thumbnails = ThumbnailFileName != null || ThumbnailSmallFileName != null
                 ? new JamThumbnailsInfo { ThumbnailLocation = ThumbnailFileName, ThumbnailSmallLocation = ThumbnailSmallFileName }
@@ -70,6 +76,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam
         {
             return obj is JamEntryInfo info &&
                    Title == info.Title &&
+                   ShortTitle == info.ShortTitle &&
                    EqualityComparer<JamTeamInfo>.Default.Equals(Team, info.Team) &&
                    EqualityComparer<JamFilesInfo>.Default.Equals(Files, info.Files) &&
                    GameFileName == info.GameFileName &&
@@ -84,6 +91,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam
         {
             HashCode hash = new HashCode();
             hash.Add(Title);
+            hash.Add(ShortTitle);
             hash.Add(Team);
             hash.Add(Files);
             hash.Add(GameFileName);

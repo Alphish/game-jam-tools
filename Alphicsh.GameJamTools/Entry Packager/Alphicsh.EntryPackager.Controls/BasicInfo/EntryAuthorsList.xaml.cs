@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Alphicsh.EntryPackager.Controls.Summary
+namespace Alphicsh.EntryPackager.Controls.BasicInfo
 {
     /// <summary>
-    /// Interaction logic for EntryAuthorsItem.xaml
+    /// Interaction logic for EntryAuthorsList.xaml
     /// </summary>
-    public partial class EntryAuthorsItem : UserControl
+    public partial class EntryAuthorsList : UserControl
     {
-        public EntryAuthorsItem()
+        public EntryAuthorsList()
         {
             InitializeComponent();
         }
