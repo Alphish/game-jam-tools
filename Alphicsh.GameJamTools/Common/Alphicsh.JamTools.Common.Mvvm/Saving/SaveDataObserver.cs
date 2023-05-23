@@ -1,9 +1,8 @@
-﻿using System;
-using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
+﻿using Alphicsh.JamTools.Common.Mvvm.Observation;
 
 namespace Alphicsh.JamTools.Common.Mvvm.Saving
 {
-    public abstract class SaveDataObserver<TViewModel>
+    public abstract class SaveDataObserver<TViewModel> : TreeObserver
     {
         private ISaveViewModel SaveViewModel { get; set; } = default!;
 
@@ -12,34 +11,21 @@ namespace Alphicsh.JamTools.Common.Mvvm.Saving
             SaveViewModel = saveViewModel;
         }
 
-        public abstract void ObserveViewModel(TViewModel viewModel);
-
-        protected void ObserveCollection<TItemModel, TItemViewModel>(
-            CollectionViewModel<TItemModel, TItemViewModel> collection,
-            Action<TItemViewModel> subscriptionFunction
-            )
-            where TItemViewModel : WrapperViewModel<TItemModel>
+        public void ObserveViewModel(TViewModel viewModel)
         {
-            // subscribe current collection elements
-            foreach (var viewModel in collection)
-            {
-                subscriptionFunction(viewModel);
-            }
+            Unobserve();
+            ClearObservers();
 
-            // ensure subscription of future collection elements
-            collection.CollectionChanged += (sender, e) =>
-            {
-                SaveViewModel.UpdateCurrentData();
-                foreach (var viewModel in collection)
-                {
-                    subscriptionFunction(viewModel);
-                }
-            };
+            var newObserver = CreateInnerObserver(viewModel);
+            AddObserver(newObserver);
+            Observe();
         }
 
-        protected void ObserveProperty(INotifiableProperty notifiableProperty)
+        protected abstract IObserverNode CreateInnerObserver(TViewModel viewModel);
+
+        protected override void OnObservation()
         {
-            notifiableProperty.PropertyChanged += (sender, e) => SaveViewModel.UpdateCurrentData();
+            SaveViewModel.UpdateCurrentData();
         }
     }
 }

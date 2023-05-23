@@ -1,70 +1,79 @@
 ﻿using Alphicsh.EntryPackager.ViewModel.Entry.Files;
+using Alphicsh.JamTools.Common.Mvvm.Observation;
 using Alphicsh.JamTools.Common.Mvvm.Saving;
 
 namespace Alphicsh.EntryPackager.ViewModel.Entry.Saving
 {
     internal class JamEntrySaveDataObserver : SaveDataObserver<JamEntryEditableViewModel>
     {
-        public override void ObserveViewModel(JamEntryEditableViewModel viewModel)
+        protected override IObserverNode CreateInnerObserver(JamEntryEditableViewModel viewModel)
         {
-            ObserveProperty(viewModel.TitleProperty);
-            ObserveProperty(viewModel.ShortTitleProperty);
-            ObserveTeam(viewModel.Team);
-            ObserveFiles(viewModel.Files);
+            return CreateViewModelObserver()
+                .ObservingProperty(viewModel.TitleProperty)
+                .ObservingProperty(viewModel.ShortTitleProperty)
+                .ObservingViewModel(ObserveTeam(viewModel.Team))
+                .ObservingViewModel(ObserveFiles(viewModel.Files));
         }
 
         // ----
         // Team
         // ----
 
-        private void ObserveTeam(JamTeamEditableViewModel team)
+        private IObserverNode ObserveTeam(JamTeamEditableViewModel team)
         {
-            ObserveProperty(team.NameProperty);
-            ObserveCollection(team.Authors, ObserveAuthor);
+            return CreateViewModelObserver()
+                .ObservingProperty(team.NameProperty)
+                .ObservingCollection(team.Authors, ObserveAuthor);
         }
 
-        private void ObserveAuthor(JamAuthorEditableViewModel author)
+        private IObserverNode ObserveAuthor(JamAuthorEditableViewModel author)
         {
-            ObserveProperty(author.NameProperty);
-            ObserveProperty(author.CommunityIdProperty);
-            ObserveProperty(author.RoleProperty);
+            return CreateViewModelObserver()
+                .ObservingProperty(author.NameProperty)
+                .ObservingProperty(author.CommunityIdProperty)
+                .ObservingProperty(author.RoleProperty);
         }
 
         // -----
         // Files
         // -----
 
-        private void ObserveFiles(JamFilesEditableViewModel files)
+        private IObserverNode ObserveFiles(JamFilesEditableViewModel files)
         {
-            ObserveCollection(files.Launchers, ObserveLauncher);
-            ObserveReadme(files.Readme);
-            ObserveAfterword(files.Afterword);
-            ObserveThumbnails(files.Thumbnails);
+            return CreateViewModelObserver()
+                .ObservingCollection(files.Launchers, ObserveLauncher)
+                .ObservingViewModel(ObserveReadme(files.Readme))
+                .ObservingViewModel(ObserveAfterword(files.Afterword))
+                .ObservingViewModel(ObserveThumbnails(files.Thumbnails));
         }
 
-        private void ObserveLauncher(JamLauncherEditableViewModel launcher)
+        private IObserverNode ObserveLauncher(JamLauncherEditableViewModel launcher)
         {
-            ObserveProperty(launcher.NameProperty);
-            ObserveProperty(launcher.DescriptionProperty);
-            ObserveProperty(launcher.TypeProperty);
-            ObserveProperty(launcher.LocationProperty);
+            return CreateViewModelObserver()
+                .ObservingProperty(launcher.NameProperty)
+                .ObservingProperty(launcher.DescriptionProperty)
+                .ObservingProperty(launcher.TypeProperty)
+                .ObservingProperty(launcher.LocationProperty);
         }
 
-        private void ObserveReadme(JamReadmeEditableViewModel readme)
+        private IObserverNode ObserveReadme(JamReadmeEditableViewModel readme)
         {
-            ObserveProperty(readme.LocationProperty);
-            ObserveProperty(readme.IsRequiredProperty);
+            return CreateViewModelObserver()
+                .ObservingProperty(readme.LocationProperty)
+                .ObservingProperty(readme.IsRequiredProperty);
         }
 
-        private void ObserveAfterword(JamAfterwordEditableViewModel afterword)
+        private IObserverNode ObserveAfterword(JamAfterwordEditableViewModel afterword)
         {
-            ObserveProperty(afterword.LocationProperty);
+            return CreateViewModelObserver()
+                .ObservingProperty(afterword.LocationProperty);
         }
 
-        private void ObserveThumbnails(JamThumbnailsEditableViewModel thumbnails)
+        private IObserverNode ObserveThumbnails(JamThumbnailsEditableViewModel thumbnails)
         {
-            ObserveProperty(thumbnails.ThumbnailLocationProperty);
-            ObserveProperty(thumbnails.ThumbnailSmallLocationProperty);
+            return CreateViewModelObserver()
+                .ObservingProperty(thumbnails.ThumbnailLocationProperty)
+                .ObservingProperty(thumbnails.ThumbnailSmallLocationProperty);
         }
     }
 }

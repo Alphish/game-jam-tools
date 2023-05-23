@@ -7,7 +7,8 @@ namespace Alphicsh.JamTools.Common.Mvvm.Saving
     public class SaveViewModel<TModel, TViewModel> : BaseViewModel, ISaveViewModel
         where TViewModel : WrapperViewModel<TModel>
     {
-        private ISaveModel<TModel> SaveModel { get; }
+        public ISaveModel<TModel> SaveModel { get; }
+        
         private SaveDataObserver<TViewModel> DataObserver { get; }
         private TViewModel? ViewModel { get; set; }
 
