@@ -105,4 +105,7 @@
   <!-- ImageSource x:Key="EntryPlaceholderSource" -->
   <!-- ImageSource x:Key="StarEmptySource" -->
   <!-- ImageSource x:Key="StarFullSource" -->
+  <!-- ImageSource x:Key="IconCheckSource" -->
+  <!-- ImageSource x:Key="IconCrossSource" -->
+  <!-- ImageSource x:Key="IconNilSource" -->
 </ResourceDictionary>

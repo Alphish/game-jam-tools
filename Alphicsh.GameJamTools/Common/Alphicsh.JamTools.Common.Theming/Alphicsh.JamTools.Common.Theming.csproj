@@ -8,6 +8,9 @@
 
   <ItemGroup>
     <None Remove="Content\entry_placeholder.png" />
+    <None Remove="Content\icon_check.png" />
+    <None Remove="Content\icon_cross.png" />
+    <None Remove="Content\icon_nil.png" />
     <None Remove="Content\menu_awards.png" />
     <None Remove="Content\menu_export.png" />
     <None Remove="Content\menu_files.png" />
@@ -22,6 +25,9 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Content\entry_placeholder.png" />
+    <EmbeddedResource Include="Content\icon_check.png" />
+    <EmbeddedResource Include="Content\icon_cross.png" />
+    <EmbeddedResource Include="Content\icon_nil.png" />
     <EmbeddedResource Include="Content\menu_awards.png" />
     <EmbeddedResource Include="Content\menu_export.png" />
     <EmbeddedResource Include="Content\menu_files.png" />
