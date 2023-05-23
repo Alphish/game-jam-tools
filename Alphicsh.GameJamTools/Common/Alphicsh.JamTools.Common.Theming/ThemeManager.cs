@@ -26,9 +26,16 @@ namespace Alphicsh.JamTools.Common.Theming
         // Creation
         // --------
 
+        public static ThemeManager Current { get; private set; } = default!;
+
         public static ThemeManager Create(ResourceDictionary innerDictionary)
         {
-            return new ThemeManager(innerDictionary);
+            if (Current != null)
+                throw new InvalidOperationException("There can be only one ThemeManager instance at a time.");
+
+            var manager = new ThemeManager(innerDictionary);
+            Current = manager;
+            return manager;
         }
 
         public ThemeManager(ResourceDictionary innerDictionary)
@@ -40,6 +47,8 @@ namespace Alphicsh.JamTools.Common.Theming
             HighlightTextVariable = VariableFor(x => x.HighlightText);
             DimTextVariable = VariableFor(x => x.DimText);
             ExtraDimTextVariable = VariableFor(x => x.ExtraDimText);
+            ErrorTextVariable = VariableFor(x => x.ErrorText);
+
             MainBackgroundBrushVariable = VariableFor(x => x.MainBackgroundBrush);
             MenuBackgroundBrushVariable = VariableFor(x => x.MenuBackgroundBrush);
             MouseOverHighlightVariable = VariableFor(x => x.MouseOverHighlight);
@@ -180,6 +189,9 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public Brush ExtraDimText { get => ExtraDimTextVariable.Value; set => ExtraDimTextVariable.Value = value; }
         private ThemeVariable<Brush> ExtraDimTextVariable { get; }
+
+        public Brush ErrorText { get => ErrorTextVariable.Value; set => ErrorTextVariable.Value = value; }
+        private ThemeVariable<Brush> ErrorTextVariable { get; }
 
         public Brush MainBackgroundBrush { get => MainBackgroundBrushVariable.Value; set => MainBackgroundBrushVariable.Value = value; }
         private ThemeVariable<Brush> MainBackgroundBrushVariable { get; }

@@ -1,6 +1,8 @@
 ﻿using System.Windows.Input;
 using Alphicsh.EntryPackager.Model;
+using Alphicsh.EntryPackager.Model.Entry.Export;
 using Alphicsh.EntryPackager.ViewModel.Entry;
+using Alphicsh.EntryPackager.ViewModel.Entry.Export;
 using Alphicsh.EntryPackager.ViewModel.Entry.Saving;
 using Alphicsh.JamTools.Common.Controls.Files;
 using Alphicsh.JamTools.Common.IO;
@@ -12,6 +14,8 @@ namespace Alphicsh.EntryPackager.ViewModel
 {
     public class EntryPackagerViewModel : AppViewModel<AppModel>
     {
+        public static EntryPackagerViewModel Current => (EntryPackagerViewModel)AppViewModel.Current;
+
         public EntryPackagerViewModel(AppModel model) : base(model)
         {
             Entry = null;
@@ -30,6 +34,8 @@ namespace Alphicsh.EntryPackager.ViewModel
         public bool HasEntry { get => HasEntryProperty.Value; }
 
         public JamEntrySaveViewModel SaveSystem { get; }
+
+        public JamEntryExporterViewModel? ExportSystem { get; private set; }
 
         // -------
         // Loading
@@ -94,6 +100,10 @@ namespace Alphicsh.EntryPackager.ViewModel
             Entry = new JamEntryEditableViewModel(Model.Entry!);
             RaisePropertyChanged(nameof(Entry), nameof(HasEntry));
             SaveSystem.TrackViewModel(Entry);
+
+            var exporterModel = new JamEntryExporter(Entry.Model, SaveSystem.SaveModel);
+            ExportSystem = new JamEntryExporterViewModel(exporterModel);
+            RaisePropertyChanged(nameof(ExportSystem));
         }
     }
 }

@@ -7,6 +7,7 @@
   <SolidColorBrush x:Key="HighlightText" Color="#ff88d658"></SolidColorBrush>
   <SolidColorBrush x:Key="DimText" Color="#ffa7a7a7"></SolidColorBrush>
   <SolidColorBrush x:Key="ExtraDimText" Color="#ff727272"></SolidColorBrush>
+  <SolidColorBrush x:Key="ErrorText" Color="#ffb42d2d"/>
 
   <SolidColorBrush x:Key="MainBackgroundBrush" Color="#ff292929"></SolidColorBrush>
   <SolidColorBrush x:Key="MenuBackgroundBrush" Color="#ff1c1c1c"></SolidColorBrush>
