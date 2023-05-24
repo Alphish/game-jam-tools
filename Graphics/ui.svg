@@ -24,9 +24,9 @@
      inkscape:document-units="px"
      showgrid="false"
      units="px"
-     inkscape:zoom="5.6568542"
-     inkscape:cx="217.87728"
-     inkscape:cy="44.547727"
+     inkscape:zoom="1"
+     inkscape:cx="247.5"
+     inkscape:cy="129"
      inkscape:window-width="3840"
      inkscape:window-height="2081"
      inkscape:window-x="-9"
@@ -218,6 +218,26 @@
        x="320"
        y="0"
        inkscape:export-filename="C:\Omnipocket\Development\NET\game-jam-tools\Graphics\UI\icon_nil.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="display:inline;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke-width:0.197531"
+       id="rect882"
+       width="48"
+       height="48"
+       x="64"
+       y="128"
+       inkscape:export-filename="C:\Omnipocket\Development\NET\game-jam-tools\Graphics\UI\menu_preview.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="display:inline;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke-width:0.197531"
+       id="rect890"
+       width="48"
+       height="48"
+       x="256"
+       y="128"
+       inkscape:export-filename="C:\Omnipocket\Development\NET\game-jam-tools\Graphics\UI\menu_jampack.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
   </g>
@@ -475,5 +495,48 @@
        id="path4106"
        style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.99937;stroke-linecap:square"
        d="M 344 14 A 10 10 0 0 0 334 24 A 10 10 0 0 0 344 34 A 10 10 0 0 0 354 24 A 10 10 0 0 0 344 14 z M 344 19 A 5 5 0 0 1 349 24 A 5 5 0 0 1 344 29 A 5 5 0 0 1 339 24 A 5 5 0 0 1 344 19 z " />
+    <rect
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0.144257"
+       id="rect892"
+       width="19.200001"
+       height="4.8000002"
+       x="270.39999"
+       y="132.8"
+       rx="1.2571433"
+       ry="1.2571433" />
+    <rect
+       style="display:inline;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3.2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect894"
+       width="22.4"
+       height="29.6"
+       x="268.79999"
+       y="140"
+       rx="3.7300003"
+       ry="3.8336117" />
+    <path
+       id="path978"
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:4.76676;stroke-opacity:0.7"
+       d="m 284.99999,151.7 h -3.00001 V 145 h -4 v 6.7 h -2.99999 l 5,6.8 z"
+       sodipodi:nodetypes="cccccccc" />
+    <path
+       id="path1082"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:1.99937;stroke-linecap:square"
+       d="M 87.988281 141.51562 C 80.988245 141.53553 74.436061 145.44859 70.433594 152 C 74.436437 158.55067 80.988558 162.46489 87.988281 162.48438 C 95.003119 162.46527 101.56611 158.53464 105.56641 151.96094 C 101.55133 145.41613 94.990813 141.51738 87.988281 141.51562 z M 87.894531 143.51562 C 94.116839 143.51934 98.92599 146.60349 103 151.96875 C 98.93618 157.35726 94.219336 160.4806 87.988281 160.5 C 81.769792 160.48069 77.063566 157.36984 73 152 C 77.063566 146.63016 81.676041 143.53493 87.894531 143.51562 z " />
+    <path
+       id="path1536"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:1.99937;stroke-linecap:square"
+       d="M 88 145.00781 A 7 7 0 0 0 81 152.00781 A 7 7 0 0 0 88 159.00781 A 7 7 0 0 0 95 152.00781 A 7 7 0 0 0 88 145.00781 z M 87.642578 147.02148 A 5 5 0 0 1 91.535156 148.47266 A 5 5 0 0 1 91.535156 155.54297 A 5 5 0 0 1 84.464844 155.54297 A 5 5 0 0 1 84.464844 148.47266 A 5 5 0 0 1 87.642578 147.02148 z " />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:1.99937;stroke-linecap:square"
+       id="circle2524"
+       cy="41.854099"
+       cx="169.71117"
+       r="1.46875"
+       transform="rotate(45)" />
+    <path
+       id="path4913"
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke-width:3.2"
+       d="m 288.8,161 h -17.6 c 0.005,4.77659 -0.01,0.12907 0.007,4.90535 0.0592,0.87331 0.95219,1.41217 1.76938,1.29466 4.84278,-0.005 9.68605,0.01 14.52852,-0.007 0.87332,-0.0592 1.41219,-0.95219 1.29468,-1.76938 z"
+       sodipodi:nodetypes="ccccccc" />
   </g>
 </svg>

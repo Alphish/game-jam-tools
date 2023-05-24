@@ -97,8 +97,10 @@
   <!-- ImageSource x:Key="MenuRankingIconSource" -->
   <!-- ImageSource x:Key="MenuAwardsIconSource" -->
   <!-- ImageSource x:Key="MenuExportIconSource" -->
+  <!-- ImageSource x:Key="MenuPreviewIconSource" -->
   <!-- ImageSource x:Key="MenuSummaryIconSource" -->
   <!-- ImageSource x:Key="MenuFilesIconSource" -->
+  <!-- ImageSource x:Key="MenuJampackIconSource" -->
 
   <!-- ImageSource x:Key="MenuSaveIconSource" -->
   <!-- ImageSource x:Key="MenuSaveModifiedIconSource" -->

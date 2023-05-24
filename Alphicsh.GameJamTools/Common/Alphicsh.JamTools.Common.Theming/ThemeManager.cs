@@ -130,8 +130,10 @@ namespace Alphicsh.JamTools.Common.Theming
             MenuRankingIconSourceVariable = ImageVariableFor(x => x.MenuRankingIconSource, "menu_ranking.png");
             MenuAwardsIconSourceVariable = ImageVariableFor(x => x.MenuAwardsIconSource, "menu_awards.png");
             MenuExportIconSourceVariable = ImageVariableFor(x => x.MenuExportIconSource, "menu_export.png");
+            MenuPreviewIconSourceVariable = ImageVariableFor(x => x.MenuPreviewIconSource, "menu_preview.png");
             MenuSummaryIconSourceVariable = ImageVariableFor(x => x.MenuSummaryIconSource, "menu_summary.png");
             MenuFilesIconSourceVariable = ImageVariableFor(x => x.MenuFilesIconSource, "menu_files.png");
+            MenuJampackIconSourceVariable = ImageVariableFor(x => x.MenuJampackIconSource, "menu_jampack.png");
 
             MenuSaveIconSourceVariable = ImageVariableFor(x => x.MenuSaveIconSource, "menu_save.png");
             MenuSaveModifiedIconSourceVariable = ImageVariableFor(x => x.MenuSaveModifiedIconSource, "menu_save_modified.png");
@@ -404,11 +406,17 @@ namespace Alphicsh.JamTools.Common.Theming
         public ImageSource MenuExportIconSource { get => MenuExportIconSourceVariable.Value; set => MenuExportIconSourceVariable.Value = value; }
         private ThemeVariable<ImageSource> MenuExportIconSourceVariable { get; }
 
+        public ImageSource MenuPreviewIconSource { get => MenuPreviewIconSourceVariable.Value; set => MenuPreviewIconSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> MenuPreviewIconSourceVariable { get; }
+
         public ImageSource MenuSummaryIconSource { get => MenuSummaryIconSourceVariable.Value; set => MenuSummaryIconSourceVariable.Value = value; }
         private ThemeVariable<ImageSource> MenuSummaryIconSourceVariable { get; }
 
         public ImageSource MenuFilesIconSource { get => MenuFilesIconSourceVariable.Value; set => MenuFilesIconSourceVariable.Value = value; }
         private ThemeVariable<ImageSource> MenuFilesIconSourceVariable { get; }
+
+        public ImageSource MenuJampackIconSource { get => MenuJampackIconSourceVariable.Value; set => MenuJampackIconSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> MenuJampackIconSourceVariable { get; }
 
         public ImageSource MenuSaveIconSource { get => MenuSaveIconSourceVariable.Value; set => MenuSaveIconSourceVariable.Value = value; }
         private ThemeVariable<ImageSource> MenuSaveIconSourceVariable { get; }
