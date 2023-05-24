@@ -1,0 +1,55 @@
+﻿<UserControl
+  x:Class="Alphicsh.EntryPackager.Controls.Preview.EntryPreviewOverview"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.Preview"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  mc:Ignorable="d" 
+>
+  <GroupBox Header="Overview">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="1*"/>
+      </Grid.RowDefinitions>
+
+      <WrapPanel Grid.Row="0" HorizontalAlignment="Center">
+        <TextBlock FontSize="24">
+          <Run Text="{Binding Entry.DisplayShortTitle, Mode=OneWay}"/>
+          <Run Text=" by "/>
+          <Run Text="{Binding Entry.Team.DisplayName, Mode=OneWay}"/>
+        </TextBlock>
+      </WrapPanel>
+      
+      <Separator Grid.Row="1"/>
+
+      <DockPanel Grid.Row="2">
+        <Label DockPanel.Dock="Left">Directory: </Label>
+        <DockPanel Margin="2">
+          <cc:ImpButton
+            DockPanel.Dock="Right"
+            Style="{StaticResource HelpButton}"
+            Width="64"
+            Command="{Binding Entry.OpenDirectoryCommand}"
+            BarPosition="End"
+          >Open</cc:ImpButton>
+
+          <cc:ImpTextBox IsReadOnly="True" Text="{Binding Entry.Files.DirectoryPath, Mode=OneWay}" BarPosition="Start"/>
+        </DockPanel>
+      </DockPanel>
+
+      <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <cc:ImpButton
+          Style="{StaticResource DangerButton}"
+          Width="128"
+          Command="{Binding CloseEntryCommand}"
+          ToolTip="Close current entry and choose another one"
+        >Close entry</cc:ImpButton>
+      </StackPanel>
+    </Grid>
+  </GroupBox>
+</UserControl>

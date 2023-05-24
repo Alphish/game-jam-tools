@@ -23,5 +23,8 @@ namespace Alphicsh.EntryPackager.Model
 
         public void LoadEntryZip(FilePath zipPath)
             => Entry = EntryExplorer.LoadFromZip(zipPath);
+
+        public void CloseEntry()
+            => Entry = null;
     }
 }

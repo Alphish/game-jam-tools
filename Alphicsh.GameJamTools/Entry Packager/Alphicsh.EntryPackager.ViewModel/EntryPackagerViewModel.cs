@@ -26,6 +26,8 @@ namespace Alphicsh.EntryPackager.ViewModel
             OpenEntryZipCommand = SimpleCommand.From(OpenEntryZip);
 
             SaveSystem = new JamEntrySaveViewModel();
+
+            CloseEntryCommand = SimpleCommand.From(CloseEntry);
         }
 
         public JamEntryEditableViewModel? Entry { get; private set; }
@@ -104,6 +106,24 @@ namespace Alphicsh.EntryPackager.ViewModel
             var exporterModel = new JamEntryExporter(Entry.Model, SaveSystem.SaveModel);
             ExportSystem = new JamEntryExporterViewModel(exporterModel);
             RaisePropertyChanged(nameof(ExportSystem));
+        }
+
+        // -------
+        // Closing
+        // -------
+
+        public ICommand CloseEntryCommand { get; }
+        private void CloseEntry()
+        {
+            if (!SaveSystem.TrySaveOnClose())
+                return;
+
+            Model.CloseEntry();
+            Entry = null;
+            SaveSystem.DropViewModel();
+            ExportSystem = null;
+
+            RaisePropertyChanged(nameof(Entry), nameof(HasEntry), nameof(ExportSystem));
         }
     }
 }
