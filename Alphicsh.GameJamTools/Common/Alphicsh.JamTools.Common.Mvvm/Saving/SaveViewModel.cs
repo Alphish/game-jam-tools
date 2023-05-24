@@ -1,5 +1,6 @@
 ﻿using Alphicsh.JamTools.Common.IO.Saving;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
+using Alphicsh.JamTools.Common.Mvvm.Modals;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 namespace Alphicsh.JamTools.Common.Mvvm.Saving
@@ -28,10 +29,18 @@ namespace Alphicsh.JamTools.Common.Mvvm.Saving
 
         public IConditionalCommand SaveCommand { get; }
         private bool CanSave() => ViewModel != null;
-        private void Save()
+        public void Save()
         {
             SaveModel.Save(ViewModel!.Model);
             IsModifiedProperty.RaisePropertyChanged();
+        }
+
+        public bool TrySaveOnClose()
+        {
+            if (!CanSave() || !IsModified)
+                return true;
+
+            return SaveOnCloseViewModel.ShowModal(this);
         }
 
         // ----------------

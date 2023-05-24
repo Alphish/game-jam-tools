@@ -8,6 +8,7 @@ namespace Alphicsh.EntryPackager.Controls
         public static void Register()
         {
             ModalWindowMapping.Add<SimpleMessageViewModel, SimpleMessageModal>();
+            ModalWindowMapping.Add<SaveOnCloseViewModel, SaveOnCloseModal>();
         }
     }
 }

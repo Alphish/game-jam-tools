@@ -3,5 +3,6 @@
     public interface ISaveViewModel
     {
         void UpdateCurrentData();
+        void Save();
     }
 }

@@ -16,7 +16,7 @@ namespace Alphicsh.JamTools.Common.Mvvm.Modals
             Caption = caption;
         }
 
-        protected void ShowOwnModal()
+        protected bool ShowOwnModal()
         {
             Window = ModalWindowMapping.CreateWindowFor(this.GetType());
             Window.DataContext = this;
@@ -25,9 +25,11 @@ namespace Alphicsh.JamTools.Common.Mvvm.Modals
             AppViewModel.Current.HasOverlay = true;
             Window.Owner = AppWindow.Current;
             Window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            Window.ShowDialog();
+            var result = Window.ShowDialog();
 
             AppViewModel.Current.HasOverlay = false;
+
+            return result ?? false;
         }
     }
 }
