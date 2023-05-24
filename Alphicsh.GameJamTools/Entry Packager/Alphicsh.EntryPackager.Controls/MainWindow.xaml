@@ -7,6 +7,7 @@
   xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls"
   xmlns:mvvm="clr-namespace:Alphicsh.JamTools.Common.Mvvm;assembly=Alphicsh.JamTools.Common.Mvvm"
   xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  xmlns:appPreview="clr-namespace:Alphicsh.EntryPackager.Controls.Preview"
   xmlns:appBasicInfo="clr-namespace:Alphicsh.EntryPackager.Controls.BasicInfo"
   xmlns:appFiles="clr-namespace:Alphicsh.EntryPackager.Controls.Files"
   xmlns:appExport="clr-namespace:Alphicsh.EntryPackager.Controls.Export"
@@ -21,6 +22,15 @@
 
     <Grid Visibility="{Binding HasEntry, Converter={StaticResource ShowTrueVisibilityConverter}}">
       <TabControl Style="{StaticResource MenuTabControl}">
+        <!-- Preview tab -->
+        <TabItem>
+          <TabItem.Header>
+            <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuPreviewIconSource}" ToolTip="Preview"/>
+          </TabItem.Header>
+
+          <appPreview:EntryPreviewTab/>
+        </TabItem>
+
         <!-- Basic information tab -->
         <TabItem>
           <TabItem.Header>
