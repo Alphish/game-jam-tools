@@ -6,7 +6,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
   xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.Files"
   xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
-  mc:Ignorable="d" 
+  mc:Ignorable="d"
 >
   <GroupBox Style="{StaticResource SimpleSection}">
     <WrapPanel HorizontalAlignment="Center">

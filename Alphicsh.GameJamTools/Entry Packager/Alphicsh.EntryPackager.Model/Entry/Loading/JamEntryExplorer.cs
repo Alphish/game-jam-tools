@@ -5,6 +5,8 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
 {
     public class JamEntryExplorer
     {
+        private ZipExtractor Extractor { get; } = new ZipExtractor();
+
         private JamEntryKnownDataReader KnownDataReader { get; } = new JamEntryKnownDataReader();
         private JamEntryUnknownDataFinder UnknownDataFinder { get; } = new JamEntryUnknownDataFinder();
 
@@ -22,8 +24,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
 
         public JamEntryEditable LoadFromZip(FilePath zipPath)
         {
-            var extractor = new ZipExtractor();
-            var directoryPath = extractor.ExtractNewDirectoryFrom(zipPath)!.Value;
+            var directoryPath = Extractor.ExtractNewDirectoryFrom(zipPath)!.Value;
             var directoryName = zipPath.GetNameWithoutExtension();
 
             return KnownDataReader.TryReadFromDirectory(directoryPath)

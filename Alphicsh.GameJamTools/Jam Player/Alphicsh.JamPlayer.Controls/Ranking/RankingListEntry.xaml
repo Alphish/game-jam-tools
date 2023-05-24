@@ -5,7 +5,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:local="clr-namespace:Alphicsh.JamPlayer.Controls.JamEntry"
-  xmlns:ctrl="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
   mc:Ignorable="d" 
   d:DesignHeight="52" d:DesignWidth="400"
 >
@@ -30,7 +30,7 @@
     </TextBlock>
 
     <!-- Thumbnail -->
-    <ctrl:ImageBox
+    <cc:ImageBox
       Grid.Column="2"
       Width="48"
       Height="48"
@@ -38,7 +38,7 @@
       Source="{Binding JamEntry.ThumbnailSmall}"
       PlaceholderSource="{DynamicResource EntryPlaceholderSource}"
     >
-    </ctrl:ImageBox>
+    </cc:ImageBox>
 
     <StackPanel Grid.Column="4" VerticalAlignment="Center">
       <!-- Game title -->
