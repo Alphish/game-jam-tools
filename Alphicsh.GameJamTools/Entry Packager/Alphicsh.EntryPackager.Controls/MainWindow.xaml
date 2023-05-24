@@ -9,6 +9,7 @@
   xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
   xmlns:appBasicInfo="clr-namespace:Alphicsh.EntryPackager.Controls.BasicInfo"
   xmlns:appFiles="clr-namespace:Alphicsh.EntryPackager.Controls.Files"
+  xmlns:appExport="clr-namespace:Alphicsh.EntryPackager.Controls.Export"
   mc:Ignorable="d"
   Style="{StaticResource MainWindow}"
   MinWidth="960"
@@ -20,29 +21,40 @@
 
     <Grid Visibility="{Binding HasEntry, Converter={StaticResource ShowTrueVisibilityConverter}}">
       <TabControl Style="{StaticResource MenuTabControl}">
-        <!-- Entry summary tab -->
+        <!-- Basic information tab -->
         <TabItem>
           <TabItem.Header>
             <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuSummaryIconSource}" ToolTip="Basic information"/>
           </TabItem.Header>
 
-          <appBasicInfo:EntryBasicInfoTab DataContext="{Binding Entry}"></appBasicInfo:EntryBasicInfoTab>
+          <appBasicInfo:EntryBasicInfoTab DataContext="{Binding Entry}"/>
         </TabItem>
 
-        <!-- Entry files tab -->
+        <!-- Files tab -->
         <TabItem>
           <TabItem.Header>
             <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuFilesIconSource}" ToolTip="Files"/>
           </TabItem.Header>
 
-          <appFiles:EntryFilesTab DataContext="{Binding Entry.Files}"></appFiles:EntryFilesTab>
+          <appFiles:EntryFilesTab DataContext="{Binding Entry.Files}"/>
+        </TabItem>
+      
+        <!-- Package export tab -->
+        <TabItem>
+          <TabItem.Header>
+            <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuJampackIconSource}" ToolTip="Packaging"/>
+          </TabItem.Header>
+
+          <appExport:EntryExportTab DataContext="{Binding ExportSystem}"/>
         </TabItem>
       </TabControl>
 
+      <!-- Save button-->
       <Grid Margin="4" HorizontalAlignment="Left" VerticalAlignment="Bottom">
         <cc:SaveButton DataContext="{Binding SaveSystem}"/>
       </Grid>
     </Grid>
+    
     <!-- Modal overlay -->
     <Border Background="#80000000" Visibility="{Binding HasOverlay, Converter={StaticResource ShowTrueVisibilityConverter}}"></Border>
   </Grid>
