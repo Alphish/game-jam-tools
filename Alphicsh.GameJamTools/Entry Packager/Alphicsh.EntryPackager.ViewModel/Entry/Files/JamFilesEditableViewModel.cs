@@ -11,7 +11,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
     {
         public JamFilesEditableViewModel(JamFilesEditable model) : base(model)
         {
-            Launchers = CollectionViewModel.CreateMutable(model.Launchers, JamLauncherEditableViewModel.CollectionStub);
+            Launchers = new JamLaunchersCollectionViewModel(model.Launchers);
             Readme = new JamReadmeEditableViewModel(model.Readme);
             Afterword = new JamAfterwordEditableViewModel(model.Afterword);
             Thumbnails = new JamThumbnailsEditableViewModel(model.Thumbnails);
@@ -23,7 +23,9 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
             RediscoverFilesCommand = SimpleCommand.From(RediscoverFiles);
         }
 
-        public CollectionViewModel<JamLauncherEditable, JamLauncherEditableViewModel> Launchers { get; }
+        public string DirectoryPath => Model.DirectoryPath.Value;
+
+        public JamLaunchersCollectionViewModel Launchers { get; }
         public JamReadmeEditableViewModel Readme { get; }
         public JamAfterwordEditableViewModel Afterword { get; }
         public JamThumbnailsEditableViewModel Thumbnails { get; }

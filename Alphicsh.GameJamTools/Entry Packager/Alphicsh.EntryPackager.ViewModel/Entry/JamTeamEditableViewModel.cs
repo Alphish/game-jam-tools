@@ -17,6 +17,11 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
                 .Create(this, nameof(AuthorsString), vm => vm.Model.GetAuthorsString(), (vm, value) => vm.Model.SetAuthorsString(value))
                 .WithDependingCollection(Authors);
 
+            HasTeamNameProperty = NotifiableProperty.Create(this, nameof(HasTeamName))
+                .DependingOn(NameProperty);
+            DisplayNameProperty = NotifiableProperty.Create(this, nameof(DisplayName))
+                .DependingOn(NameProperty, AuthorsStringProperty);
+
             AddAuthorCommand = SimpleCommand.From(AddAuthor);
             RemoveAuthorCommand = SimpleCommand.WithParameter<JamAuthorEditableViewModel>(RemoveAuthor);
         }
@@ -28,6 +33,12 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
 
         public WrapperProperty<JamTeamEditableViewModel, string> AuthorsStringProperty { get; }
         public string AuthorsString { get => AuthorsStringProperty.Value; set => AuthorsStringProperty.Value = value; }
+
+        public NotifiableProperty HasTeamNameProperty { get; }
+        public bool HasTeamName => !string.IsNullOrWhiteSpace(Model.Name);
+
+        public NotifiableProperty DisplayNameProperty { get; }
+        public string DisplayName => Model.DisplayName;
 
         public ICommand AddAuthorCommand { get; }
         public void AddAuthor()
