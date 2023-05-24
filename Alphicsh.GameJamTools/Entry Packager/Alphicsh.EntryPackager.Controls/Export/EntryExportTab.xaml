@@ -1,0 +1,30 @@
+﻿<UserControl
+  x:Class="Alphicsh.EntryPackager.Controls.Export.EntryExportTab"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.Export"
+  mc:Ignorable="d"
+  d:DesignHeight="540" d:DesignWidth="900"
+>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="1*"/>
+      <RowDefinition Height="8"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="1*"/>
+      <ColumnDefinition Width="8"/>
+      <ColumnDefinition Width="1*"/>
+    </Grid.ColumnDefinitions>
+
+    <local:EntryExportChecklistSection Grid.Row="0" Grid.Column="0" DataContext="{Binding Checklist}"/>
+
+    <local:EntryExportRemindersSection Grid.Row="0" Grid.Column="2" DataContext="{Binding Checklist}"/>
+
+    <local:EntryExportActionBar Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
+  </Grid>
+</UserControl>
