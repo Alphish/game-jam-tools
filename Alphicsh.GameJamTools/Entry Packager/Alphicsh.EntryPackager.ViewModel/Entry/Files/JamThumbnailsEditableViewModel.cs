@@ -17,14 +17,14 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
             ThumbnailSmallLocationProperty = WrapperProperty.ForMember(this, vm => vm.Model.ThumbnailSmallLocation);
 
             ThumbnailLocationPlaceholderProperty = NotifiableProperty.Create(this, nameof(ThumbnailLocationPlaceholder))
-                .DepeningOn(ThumbnailLocationProperty, ThumbnailSmallLocationProperty);
+                .DependingOn(ThumbnailLocationProperty, ThumbnailSmallLocationProperty);
 
             ThumbnailProperty = ImageSourceProperty
                 .CreateReadonly(this, nameof(Thumbnail), vm => vm.Model.ThumbnailFullLocation ?? vm.Model.ThumbnailSmallFullLocation)
-                .DepeningOn(ThumbnailLocationProperty, ThumbnailSmallLocationProperty);
+                .DependingOn(ThumbnailLocationProperty, ThumbnailSmallLocationProperty);
             ThumbnailSmallProperty = ImageSourceProperty
                 .CreateReadonly(this, nameof(ThumbnailSmall), vm => vm.Model.ThumbnailSmallFullLocation ?? vm.Model.ThumbnailFullLocation)
-                .DepeningOn(ThumbnailLocationProperty, ThumbnailSmallLocationProperty);
+                .DependingOn(ThumbnailLocationProperty, ThumbnailSmallLocationProperty);
 
             SearchThumbnailCommand = SimpleCommand.From(SearchThumbnail);
             SearchThumbnailSmallCommand = SimpleCommand.From(SearchThumbnailSmall);

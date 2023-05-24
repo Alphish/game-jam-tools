@@ -47,14 +47,14 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
         // Adding dependencies
         // -------------------
 
-        public static TProperty DepeningOn<TProperty>(this TProperty property, NotifiableProperty dependencyProperty)
+        public static TProperty DependingOn<TProperty>(this TProperty property, NotifiableProperty dependencyProperty)
             where TProperty : INotifiableProperty
         {
             dependencyProperty.AddDependingProperty(property);
             return property;
         }
 
-        public static TProperty DepeningOn<TProperty>(this TProperty property, params NotifiableProperty[] dependencyProperties)
+        public static TProperty DependingOn<TProperty>(this TProperty property, params NotifiableProperty[] dependencyProperties)
             where TProperty : INotifiableProperty
         {
             foreach (var dependencyProperty in dependencyProperties)
