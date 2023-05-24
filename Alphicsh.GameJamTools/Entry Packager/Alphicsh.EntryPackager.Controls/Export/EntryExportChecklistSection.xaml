@@ -11,7 +11,7 @@
 >
   <GroupBox Header="Entry status">
     <ScrollViewer VerticalScrollBarVisibility="Visible">
-      <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{Binding Items}">
+      <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{Binding Statuses}">
         <ItemsControl.Resources>
           <DataTemplate DataType="{x:Type exportVm:ChecklistItemViewModel}">
             <Grid>
@@ -30,11 +30,9 @@
                 Background="{Binding StatusBrush}"
               />
 
-              <Label
-                Style="{StaticResource ItemLabel}"
-                Grid.Column="1"
-                Content="{Binding Description}"
-                />
+              <Label Grid.Column="1" Style="{StaticResource ItemLabel}">
+                <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Description}"/>
+              </Label>
             </Grid>
           </DataTemplate>
         </ItemsControl.Resources>

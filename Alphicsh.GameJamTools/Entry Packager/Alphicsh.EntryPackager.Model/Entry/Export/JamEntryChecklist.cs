@@ -45,6 +45,11 @@ namespace Alphicsh.EntryPackager.Model.Entry.Export
         public ChecklistStatus ThumbnailsStatus
             => !HasThumbnail ? ChecklistStatus.Absent : ChecklistStatus.Present;
 
+        public bool IsCopyrightConfirmed { get; set; } = false;
+        public bool AreCreditsConfirmed { get; set; } = false;
+        public bool AreInstructionsConfirmed { get; set; } = false;
+        public bool IsCompressedAudioConfirmed { get; set; } = false;
+
         public bool IsEntryReady()
         {
             return TitleStatus != ChecklistStatus.Invalid
@@ -52,7 +57,11 @@ namespace Alphicsh.EntryPackager.Model.Entry.Export
                 && LaunchersStatus != ChecklistStatus.Invalid
                 && ReadmeStatus != ChecklistStatus.Invalid
                 && AfterwordStatus != ChecklistStatus.Invalid
-                && ThumbnailsStatus != ChecklistStatus.Invalid;
+                && ThumbnailsStatus != ChecklistStatus.Invalid
+                && IsCopyrightConfirmed
+                && AreInstructionsConfirmed
+                && AreCreditsConfirmed
+                && IsCompressedAudioConfirmed;
         }
     }
 }

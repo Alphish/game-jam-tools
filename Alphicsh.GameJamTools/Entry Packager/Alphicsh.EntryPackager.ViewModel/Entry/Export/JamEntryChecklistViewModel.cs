@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Alphicsh.EntryPackager.Model.Entry.Export;
 using Alphicsh.EntryPackager.ViewModel.Entry.Files;
 using Alphicsh.JamTools.Common.Mvvm;
@@ -11,32 +12,55 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Export
     {
         public JamEntryChecklistViewModel(JamEntryChecklist model) : base(model)
         {
-            InnerItems = new List<ChecklistItemViewModel>();
-            CreateChecklistItem(GetTitleDescription, () => Model.TitleStatus, ObserveTitle);
-            CreateChecklistItem(GetAuthorsDescription, () => Model.AuthorsStatus, ObserveAuthors);
-            CreateChecklistItem(GetLaunchersDescription, () => Model.LaunchersStatus, ObserveLaunchers);
-            CreateChecklistItem(GetReadmeDescription, () => Model.ReadmeStatus, ObserveReadme);
-            CreateChecklistItem(GetAfterwordDescription, () => Model.AfterwordStatus, ObserveAfterword);
-            CreateChecklistItem(GetThumbnailsDescription, () => Model.ThumbnailsStatus, ObserveThumbnails);
+            // Statuses setup
+
+            InnerStatuses = new List<ChecklistItemViewModel>();
+            CreateStatusItem(GetTitleDescription, () => Model.TitleStatus, ObserveTitle);
+            CreateStatusItem(GetAuthorsDescription, () => Model.AuthorsStatus, ObserveAuthors);
+            CreateStatusItem(GetLaunchersDescription, () => Model.LaunchersStatus, ObserveLaunchers);
+            CreateStatusItem(GetReadmeDescription, () => Model.ReadmeStatus, ObserveReadme);
+            CreateStatusItem(GetAfterwordDescription, () => Model.AfterwordStatus, ObserveAfterword);
+            CreateStatusItem(GetThumbnailsDescription, () => Model.ThumbnailsStatus, ObserveThumbnails);
+
+            // Reminders setup
+
+            InnerReminders = new List<ReminderItemViewModel>();
+            CreateReminder(
+                vm => vm.Checklist.IsCopyrightConfirmed,
+                "All code and assets in the game were either made by the team, used with permission or according to the license"
+                );
+            CreateReminder(
+                vm => vm.Checklist.AreCreditsConfirmed,
+                "Any code or assets made before the Jam and/or not made by the team was properly credited in the Readme file or the game itself"
+                );
+            CreateReminder(
+                vm => vm.Checklist.AreInstructionsConfirmed,
+                "All necessary controls and instructions are in the game itself or a Readme file (mark Readme as required, if no in-game instructions are available)"
+                );
+            CreateReminder(
+                vm => vm.Checklist.IsCompressedAudioConfirmed,
+                "No music assets was accidentally left on \"Uncompressed - Not Streamed\" setting, making the game files unnecessarily large (short sound effects are fine uncompressed)"
+                );
         }
 
-        private List<ChecklistItemViewModel> InnerItems { get; }
-        public IReadOnlyCollection<ChecklistItemViewModel> Items => InnerItems;
+        // --------
+        // Statuses
+        // --------
 
-        private ChecklistItemViewModel CreateChecklistItem(
+        private List<ChecklistItemViewModel> InnerStatuses { get; }
+        public IReadOnlyCollection<ChecklistItemViewModel> Statuses => InnerStatuses;
+
+        private void CreateStatusItem(
             Func<string> descriptionSelector,
             Func<ChecklistStatus> statusSelector,
             Func<ChecklistItemObserver, IObserverNode> observerNodeGenerator
             )
         {
             var item = new ChecklistItemViewModel(descriptionSelector, statusSelector, observerNodeGenerator);
-            InnerItems.Add(item);
-            return item;
+            InnerStatuses.Add(item);
         }
 
-        // -----
         // Title
-        // -----
 
         private string GetTitleDescription()
         {
@@ -53,9 +77,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Export
                 .ObservingProperty(entryViewModel.TitleProperty);
         }
 
-        // -------
         // Authors
-        // -------
 
         private string GetAuthorsDescription()
         {
@@ -72,9 +94,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Export
                 .ObservingCollection(teamViewModel.Authors, author => observer.CreateViewModelObserver());
         }
 
-        // ---------
         // Launchers
-        // ---------
 
         private string GetLaunchersDescription()
         {
@@ -101,9 +121,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Export
                 .ObservingProperty(launcherViewModel.LocationProperty);
         }
 
-        // ------
         // Readme
-        // ------
 
         private string GetReadmeDescription()
         {
@@ -125,9 +143,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Export
                 .ObservingProperty(readmeViewModel.IsRequiredProperty);
         }
 
-        // ---------
         // Afterword
-        // ---------
 
         private string GetAfterwordDescription()
         {
@@ -146,9 +162,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Export
                 .ObservingProperty(afterwordViewModel.LocationProperty);
         }
 
-        // ----------
         // Thumbnails
-        // ----------
 
         private string GetThumbnailsDescription()
         {
@@ -166,6 +180,22 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Export
             return observer.CreateViewModelObserver()
                 .ObservingProperty(thumbnailsViewModel.ThumbnailLocationProperty)
                 .ObservingProperty(thumbnailsViewModel.ThumbnailSmallProperty);
+        }
+
+        // ---------
+        // Reminders
+        // ---------
+
+        private List<ReminderItemViewModel> InnerReminders { get; }
+        public IReadOnlyCollection<ReminderItemViewModel> Reminders => InnerReminders;
+
+        private void CreateReminder(
+            Expression<Func<ReminderItemViewModel, bool>> propertyExpression,
+            string description
+            )
+        {
+            var item = new ReminderItemViewModel(Model, propertyExpression, description);
+            InnerReminders.Add(item);
         }
     }
 }
