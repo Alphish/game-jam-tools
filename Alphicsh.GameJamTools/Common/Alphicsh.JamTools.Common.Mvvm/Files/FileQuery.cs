@@ -13,5 +13,10 @@ namespace Alphicsh.JamTools.Common.Controls.Files
         {
             return new OpenDirectoryQuery();
         }
+
+        public static SaveFileQuery SaveFile()
+        {
+            return new SaveFileQuery();
+        }
     }
 }
