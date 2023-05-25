@@ -10,7 +10,7 @@
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Mvvm;component/Converters/Converters.xaml"/>
 
         <!-- Applying styles-->
-        <ResourceDictionary Source="/Alphicsh.JamPlayer.App;component/ThemeVariables.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Alphicsh.JamPlayer.App;component/ThemeVariables.xaml"/>
 
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/BorderStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ImageBoxStyles.xaml"/>
