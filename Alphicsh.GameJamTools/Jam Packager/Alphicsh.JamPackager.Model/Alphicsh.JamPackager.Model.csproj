@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.IO\Alphicsh.JamTools.Common.IO.csproj" />
+    <ProjectReference Include="..\..\Entry Packager\Alphicsh.EntryPackager.Model\Alphicsh.EntryPackager.Model.csproj" />
+  </ItemGroup>
+
+</Project>

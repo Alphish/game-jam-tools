@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.IO\Alphicsh.JamTools.Common.IO.csproj" />
     <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.Mvvm\Alphicsh.JamTools.Common.Mvvm.csproj" />
+    <ProjectReference Include="..\Alphicsh.JamPackager.Model\Alphicsh.JamPackager.Model.csproj" />
   </ItemGroup>
 
 </Project>
