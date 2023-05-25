@@ -4,7 +4,7 @@ using Alphicsh.JamTools.Common.IO.Serialization;
 
 namespace Alphicsh.EntryPackager.Model.Entry.Saving
 {
-    internal class JamEntryDataSaver : IDataSaver<JamEntrySaveData>
+    public class JamEntryDataSaver : IDataSaver<JamEntrySaveData>
     {
         private JsonFileSaver<JamEntryInfo> Saver { get; } = new JsonFileSaver<JamEntryInfo>();
 
