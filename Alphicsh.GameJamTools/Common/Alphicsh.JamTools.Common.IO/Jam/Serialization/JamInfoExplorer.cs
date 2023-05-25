@@ -23,7 +23,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Serialization
             if (jamInfo == null)
                 return null;
 
-            var jamDirectoryPath = jamFilePath.GetParentDirectoryPath()!.Value;
+            var jamDirectoryPath = jamFilePath.GetParentDirectoryPath();
             var entriesPath = jamDirectoryPath.Append(jamInfo.EntriesSubpath);
             jamInfo.Entries = LoadEntriesFromStubs(entriesPath, jamInfo.EntriesStubs).ToList();
 

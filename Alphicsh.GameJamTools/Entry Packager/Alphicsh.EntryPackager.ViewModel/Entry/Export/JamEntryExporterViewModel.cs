@@ -31,7 +31,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Export
         {
             var defaultName = Model.GetDefaultPackageName();
             var zipPath = FileQuery.SaveFile()
-                .FromDirectory(Model.EntryData.Files.DirectoryPath.GetParentDirectoryPath()!.Value)
+                .FromDirectory(Model.EntryData.Files.DirectoryPath.GetParentDirectoryPath())
                 .WithFileType("*.zip", "ZIP archive")
                 .WithDefaultName(defaultName)
                 .GetPath();

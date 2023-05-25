@@ -35,7 +35,7 @@ namespace Alphicsh.JamTools.Common.IO.Compression
 
         private FilePath CreateExtractionDirectory(FilePath zipPath)
         {
-            var parentDirectoryPath = zipPath.GetParentDirectoryPath()!.Value;
+            var parentDirectoryPath = zipPath.GetParentDirectoryPath();
             var directoryName = zipPath.GetNameWithoutExtension();
             var directoryPath = parentDirectoryPath.Append(directoryName);
             var repeatIndex = 0;
@@ -89,7 +89,7 @@ namespace Alphicsh.JamTools.Common.IO.Compression
             }
             else
             {
-                var parentDirectoryPath = extractionPath.GetParentDirectoryPath()!.Value;
+                var parentDirectoryPath = extractionPath.GetParentDirectoryPath();
                 Directory.CreateDirectory(parentDirectoryPath.Value);
                 entry.ExtractToFile(extractionPath.Value, overwrite: true);
             }

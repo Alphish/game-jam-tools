@@ -19,12 +19,12 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
         public JamEntryEditable LoadFromFile(FilePath entryInfoPath)
         {
             return KnownDataReader.TryReadFromFile(entryInfoPath)
-                ?? UnknownDataFinder.FindEntryData(entryInfoPath.GetParentDirectoryPath()!.Value);
+                ?? UnknownDataFinder.FindEntryData(entryInfoPath.GetParentDirectoryPath());
         }
 
         public JamEntryEditable LoadFromZip(FilePath zipPath)
         {
-            var directoryPath = Extractor.ExtractNewDirectoryFrom(zipPath)!.Value;
+            var directoryPath = Extractor.ExtractNewDirectory(zipPath)!.Value;
             var directoryName = zipPath.GetNameWithoutExtension();
 
             return KnownDataReader.TryReadFromDirectory(directoryPath)

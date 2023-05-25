@@ -22,7 +22,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
         public JamEntryEditable? TryReadFromFile(FilePath entryInfoPath)
         {
             var entryInfo = ReadEntryInfo(entryInfoPath);
-            return entryInfo != null ? CreateEntryForInfo(entryInfoPath.GetParentDirectoryPath()!.Value, entryInfo) : null;
+            return entryInfo != null ? CreateEntryForInfo(entryInfoPath.GetParentDirectoryPath(), entryInfo) : null;
         }
 
         // ------------

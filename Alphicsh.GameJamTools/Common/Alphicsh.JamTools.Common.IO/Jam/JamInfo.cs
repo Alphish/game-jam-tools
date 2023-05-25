@@ -33,7 +33,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam
 
         [JsonIgnore] public FilePath JamDirectoryPath
         {
-            get => JamInfoPath.GetParentDirectoryPath()!.Value;
+            get => JamInfoPath.GetParentDirectoryPath();
             set => JamInfoPath = value.Append(JamInfoFileName);
         }
 

@@ -17,7 +17,7 @@ namespace Alphicsh.JamPlayer.IO.Export
         {
             var content = ExporterInfoSerializer.Serialize(exporterInfo);
             var directoryPath = exporterInfoPath.GetParentDirectoryPath();
-            Directory.CreateDirectory(directoryPath!.Value.Value);
+            Directory.CreateDirectory(directoryPath.Value);
             File.WriteAllText(exporterInfoPath.Value, content);
         }
     }

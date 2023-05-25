@@ -29,7 +29,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam
 
         [JsonIgnore] public FilePath EntryDirectoryPath
         {
-            get => EntryInfoPath.GetParentDirectoryPath()!.Value;
+            get => EntryInfoPath.GetParentDirectoryPath();
             set => EntryInfoPath = value.Append(EntryInfoFileName);
         }
 

@@ -52,7 +52,7 @@ namespace Alphicsh.JamPlayer.App
         {
             var executableFileName = Process.GetCurrentProcess().MainModule!.FileName!;
             var jamPlayerPath = FilePath.From(executableFileName);
-            var jamPlayerDirectory = jamPlayerPath.GetParentDirectoryPath()!.Value;
+            var jamPlayerDirectory = jamPlayerPath.GetParentDirectoryPath();
 
             var jamInfoPaths = FilesystemSearch.ForFilesIn(jamPlayerDirectory)
                 .IncludingTopDirectoryOnly()
