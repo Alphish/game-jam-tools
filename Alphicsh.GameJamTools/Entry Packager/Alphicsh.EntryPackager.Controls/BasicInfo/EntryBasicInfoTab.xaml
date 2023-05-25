@@ -1,0 +1,42 @@
+﻿<UserControl
+  x:Class="Alphicsh.EntryPackager.Controls.BasicInfo.EntryBasicInfoTab"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.BasicInfo"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  mc:Ignorable="d" 
+  d:DesignHeight="450" d:DesignWidth="800"
+>
+  <GroupBox Header="Basic information">
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+
+      <Label Grid.Row="1" Grid.Column="0">Title:</Label>
+      <cc:ImpTextBox Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Title}" Placeholder="&lt;enter title here&gt;"/>
+
+      <Label Grid.Row="2" Grid.Column="0">Short title:</Label>
+      <cc:ImpTextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding ShortTitle}" Placeholder="&lt;same as main title&gt;"/>
+
+      <Label Grid.Row="3" Grid.Column="0">Team name:</Label>
+      <cc:ImpTextBox Grid.Row="3" Grid.Column="1" Margin="2" Text="{Binding Team.Name}" Placeholder="&lt;same as authors&gt;"/>
+
+      <Label Grid.Row="4" Grid.Column="0">Authors:</Label>
+      <cc:ImpTextBox Grid.Row="4" Grid.Column="1" Margin="2" Text="{Binding Team.AuthorsString}" Placeholder="&lt;enter authors here&gt;"/>
+
+      <local:EntryAuthorsList Grid.Row="5" Grid.Column="1" DataContext="{Binding Team}"/>
+    </Grid>
+  </GroupBox>
+</UserControl>

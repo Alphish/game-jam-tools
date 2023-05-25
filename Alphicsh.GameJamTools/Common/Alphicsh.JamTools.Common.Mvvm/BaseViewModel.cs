@@ -10,5 +10,13 @@ namespace Alphicsh.JamTools.Common.Mvvm
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public void RaisePropertyChanged(params string[] propertyNames)
+        {
+            foreach (var propertyName in propertyNames)
+            {
+                RaisePropertyChanged(propertyName);
+            }
+        }
     }
 }

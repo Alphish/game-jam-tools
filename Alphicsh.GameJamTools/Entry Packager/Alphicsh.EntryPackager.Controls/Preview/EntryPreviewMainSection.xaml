@@ -1,0 +1,47 @@
+﻿<UserControl
+  x:Class="Alphicsh.EntryPackager.Controls.Preview.EntryPreviewMainSection"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.Preview"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  mc:Ignorable="d" 
+>
+  <GroupBox Header="Main entry preview" Padding="8">
+    <Grid Margin="2">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"></ColumnDefinition>
+        <ColumnDefinition Width="16"></ColumnDefinition>
+        <ColumnDefinition Width="1*"></ColumnDefinition>
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="1*"/>
+      </Grid.RowDefinitions>
+
+      <!-- Thumbnail -->
+      <cc:ImageBox Grid.Column="0" Style="{StaticResource EntryThumbnail}" Source="{Binding Files.Thumbnails.Thumbnail}"/>
+
+      <StackPanel Grid.Column="2" VerticalAlignment="Center">
+        <!-- Game title -->
+        <TextBlock
+          HorizontalAlignment="Left"
+          Foreground="{DynamicResource HighlightText}"
+          FontSize="24"
+          FontWeight="Bold"
+          Text="{Binding Title, Mode=OneWay}"
+          d:Text="Test game"
+        ></TextBlock>
+
+        <!-- Team and authors -->
+        <local:EntryPreviewTeamDetails DataContext="{Binding Team}"/>
+
+        <Separator/>
+
+        <local:EntryPreviewActionBar/>
+      </StackPanel>
+    </Grid>
+  </GroupBox>
+</UserControl>

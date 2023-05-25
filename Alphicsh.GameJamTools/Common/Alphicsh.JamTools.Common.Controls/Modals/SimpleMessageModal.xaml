@@ -1,0 +1,32 @@
+﻿<Window
+  x:Class="Alphicsh.JamTools.Common.Controls.Modals.SimpleMessageModal"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:Alphicsh.JamTools.Common.Controls.Modals"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls"
+  mc:Ignorable="d"
+  Style="{StaticResource ModalWindow}"
+  Height="180" Width="400"
+>
+  <DockPanel>
+    <local:ModalHeader DockPanel.Dock="Top"/>
+
+    <Border DockPanel.Dock="Bottom" Style="{StaticResource ModalToolbar}">
+      <cc:ImpButton Style="{StaticResource PrimaryButton}" Margin="2" Width="64" Command="{Binding CloseWindowCommand}">Ok</cc:ImpButton>
+    </Border>
+
+    <Border Style="{StaticResource ModalBody}">
+      <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <TextBlock
+          Margin="4,0,4,0"
+          TextWrapping="WrapWithOverflow"
+          Foreground="{DynamicResource BasicText}"
+          FontSize="16"
+          Text="{Binding Message}"
+        />
+      </ScrollViewer>
+    </Border>
+  </DockPanel>
+</Window>

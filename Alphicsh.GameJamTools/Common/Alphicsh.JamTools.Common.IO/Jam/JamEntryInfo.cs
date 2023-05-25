@@ -1,54 +1,106 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using Alphicsh.JamTools.Common.IO.Execution;
+using Alphicsh.JamTools.Common.IO.Jam.Files;
 
 namespace Alphicsh.JamTools.Common.IO.Jam
 {
     public class JamEntryInfo
     {
-        [JsonIgnore] public string Id { get; internal set; } = default!;
-
-        // ----------------
-        // Basic properties
-        // ----------------
-
         public string Title { get; init; } = default!;
+        public string? ShortTitle { get; init; } = default!;
         public JamTeamInfo Team { get; init; } = default!;
+        public JamFilesInfo Files { get; init; } = default!;
 
-        public string? GameFileName { get; set; }
-        public string? ThumbnailFileName { get; set; }
-        public string? ThumbnailSmallFileName { get; set; }
+        // -----------------
+        // Legacy properties
+        // -----------------
 
-        public string? ReadmeFileName { get; set; }
-        public bool IsReadmePlease { get; set; }
-        public string? AfterwordFileName { get; set; }
+        public string? GameFileName { get; init; }
+        public string? ThumbnailFileName { get; init; }
+        public string? ThumbnailSmallFileName { get; init; }
 
-        // ---------------------
-        // Filesystem properties
-        // ---------------------
+        public string? ReadmeFileName { get; init; }
+        public bool? IsReadmePlease { get; init; }
+        public string? AfterwordFileName { get; init; }
 
-        [JsonIgnore] public FilePath EntryInfoPath { get; set; }
-
-        [JsonIgnore] public FilePath EntryDirectoryPath
+        public JamEntryInfo FromLegacyFormat()
         {
-            get => EntryInfoPath.GetParentDirectoryPath()!.Value;
-            set => EntryInfoPath = value.Append(EntryInfoFileName);
+            if (Files != null)
+                return this;
+
+            var files = GetFilesFromLegacyFormat();
+            return new JamEntryInfo { Title = Title, ShortTitle = ShortTitle, Team = Team, Files = files };
         }
 
-        [JsonIgnore] public string EntryInfoFileName
+        private JamFilesInfo GetFilesFromLegacyFormat()
         {
-            get => EntryInfoPath.GetLastSegmentName();
-            set => EntryInfoPath = EntryDirectoryPath.Append(value);
+            var launchers = new List<JamLauncherInfo>();
+            if (GameFileName != null)
+            {
+                var launcher = new JamLauncherInfo()
+                {
+                    Name = "Windows Executable",
+                    Description = null,
+                    Type = (int)LaunchType.WindowsExe,
+                    Location = GameFileName
+                };
+                launchers.Add(launcher);
+            }
+
+            var readme = ReadmeFileName != null ? new JamReadmeInfo
+            {
+                Location = ReadmeFileName,
+                IsRequired = IsReadmePlease ?? false,
+            } : null;
+            
+            var afterword = AfterwordFileName != null ? new JamAfterwordInfo { Location = AfterwordFileName } : null;
+            var thumbnails = ThumbnailFileName != null || ThumbnailSmallFileName != null
+                ? new JamThumbnailsInfo { ThumbnailLocation = ThumbnailFileName, ThumbnailSmallLocation = ThumbnailSmallFileName }
+                : null;
+
+            return new JamFilesInfo
+            {
+                Launchers = launchers,
+                Readme = readme,
+                Afterword = afterword,
+                Thumbnails = thumbnails,
+            };
         }
 
-        [JsonIgnore] public FilePath? GamePath
-            => EntryDirectoryPath.AppendNullable(GameFileName);
-        [JsonIgnore] public FilePath? ThumbnailPath
-            => EntryDirectoryPath.AppendNullable(ThumbnailFileName);
-        [JsonIgnore] public FilePath? ThumbnailSmallPath
-            => EntryDirectoryPath.AppendNullable(ThumbnailSmallFileName);
+        // --------
+        // Equality
+        // --------
 
-        [JsonIgnore] public FilePath? ReadmePath
-            => EntryDirectoryPath.AppendNullable(ReadmeFileName);
-        [JsonIgnore] public FilePath? AfterwordPath
-            => EntryDirectoryPath.AppendNullable(AfterwordFileName);
+        public override bool Equals(object? obj)
+        {
+            return obj is JamEntryInfo info &&
+                   Title == info.Title &&
+                   ShortTitle == info.ShortTitle &&
+                   EqualityComparer<JamTeamInfo>.Default.Equals(Team, info.Team) &&
+                   EqualityComparer<JamFilesInfo>.Default.Equals(Files, info.Files) &&
+                   GameFileName == info.GameFileName &&
+                   ThumbnailFileName == info.ThumbnailFileName &&
+                   ThumbnailSmallFileName == info.ThumbnailSmallFileName &&
+                   ReadmeFileName == info.ReadmeFileName &&
+                   IsReadmePlease == info.IsReadmePlease &&
+                   AfterwordFileName == info.AfterwordFileName;
+        }
+
+        public override int GetHashCode()
+        {
+            HashCode hash = new HashCode();
+            hash.Add(Title);
+            hash.Add(ShortTitle);
+            hash.Add(Team);
+            hash.Add(Files);
+            hash.Add(GameFileName);
+            hash.Add(ThumbnailFileName);
+            hash.Add(ThumbnailSmallFileName);
+            hash.Add(ReadmeFileName);
+            hash.Add(IsReadmePlease);
+            hash.Add(AfterwordFileName);
+            return hash.ToHashCode();
+        }
     }
 }

@@ -12,8 +12,8 @@ namespace Alphicsh.JamTools.Common.IO.Search
         private EnumerationOptions EnumerationOptions { get; }
 
         private HashSet<string>? AllowedExtensions { get; set; }
-        private IEnumerable<string> RequiredPatterns { get; set; }
-        private IEnumerable<string> ExcludedPatterns { get; set; }
+        private IEnumerable<string>? RequiredPatterns { get; set; }
+        private IEnumerable<string>? ExcludedPatterns { get; set; }
 
         private FilesystemSearch(FilePath directory, bool isDirectoriesSearch)
         {

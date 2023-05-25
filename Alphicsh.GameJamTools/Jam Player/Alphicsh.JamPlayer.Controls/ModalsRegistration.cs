@@ -1,5 +1,8 @@
 ﻿using Alphicsh.JamPlayer.Controls.Export.Modals;
 using Alphicsh.JamPlayer.Controls.Jam.Modals;
+using Alphicsh.JamPlayer.ViewModel.Export.Modals;
+using Alphicsh.JamPlayer.ViewModel.Jam.Modals;
+using Alphicsh.JamTools.Common.Mvvm.Modals;
 
 namespace Alphicsh.JamPlayer.Controls
 {
@@ -7,8 +10,8 @@ namespace Alphicsh.JamPlayer.Controls
     {
         public static void Register()
         {
-            ExportModalsRegistration.Register();
-            JamModalsRegistration.Register();
+            ModalWindowMapping.Add<ExportHelpViewModel, ExportHelpModal>();
+            ModalWindowMapping.Add<ConfirmResetDataViewModel, ConfirmResetDataModal>();
         }
     }
 }

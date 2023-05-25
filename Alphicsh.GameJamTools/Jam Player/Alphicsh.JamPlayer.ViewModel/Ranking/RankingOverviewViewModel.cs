@@ -21,7 +21,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
                 .WithDependingProperty(RankedEntries, nameof(RankedEntries.SelectedEntry))
                 .WithDependingProperty(UnrankedEntries, nameof(UnrankedEntries.SelectedEntry));
 
-            GetNextEntryCommand = new SimpleCommand(GetNextEntry);
+            GetNextEntryCommand = SimpleCommand.From(GetNextEntry);
         }
 
         // ---------------
@@ -45,7 +45,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
             SelectedEntry = viewModel;
         }
 
-        public ICommand SaveRankingCommand => AppViewModel.Current.SaveRankingCommand;
+        public ICommand SaveRankingCommand => JamPlayerViewModel.Current.SaveRankingCommand;
 
         // ---------------
         // Ranking entries

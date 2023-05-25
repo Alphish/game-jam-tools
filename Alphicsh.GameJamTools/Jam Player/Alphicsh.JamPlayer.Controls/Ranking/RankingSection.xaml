@@ -4,6 +4,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
   xmlns:local="clr-namespace:Alphicsh.JamPlayer.Controls.Ranking"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
   mc:Ignorable="d" 
   d:DesignHeight="700" d:DesignWidth="400"
 >
@@ -18,7 +19,7 @@
 
     <GroupBox Style="{StaticResource SimpleSection}">
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-        <Button
+        <cc:ImpButton
           Style="{StaticResource PrimaryButton}"
           Width="96"
           Margin="2"
@@ -28,8 +29,8 @@
           <TextBlock>
             <Run>Next (</Run><Run Text="{Binding PendingCount, Mode=OneWay}" d:Text="34"/><Run>)</Run>
           </TextBlock>
-        </Button>
-        <Button Style="{StaticResource PrimaryButton}" Command="{Binding SaveRankingCommand}" Width="96" Margin="2">Save</Button>
+        </cc:ImpButton>
+        <cc:ImpButton Style="{StaticResource PrimaryButton}" Command="{Binding SaveRankingCommand}" Width="96" Margin="2">Save</cc:ImpButton>
       </StackPanel>
     </GroupBox>
     

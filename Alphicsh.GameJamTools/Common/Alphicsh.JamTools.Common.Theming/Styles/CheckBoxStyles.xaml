@@ -59,4 +59,29 @@
       </Setter.Value>
     </Setter>
   </Style>
+
+  <Style TargetType="CheckBox" x:Key="RadioBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type CheckBox}">
+          <BulletDecorator Background="Transparent">
+            <BulletDecorator.Bullet>
+              <Grid Width="16" Height="16">
+                <Ellipse Stroke="{TemplateBinding Foreground}" StrokeThickness="2"></Ellipse>
+                <Ellipse x:Name="CheckBullet" Margin="4" Fill="{TemplateBinding Foreground}" Visibility="Hidden"/>
+              </Grid>
+            </BulletDecorator.Bullet>
+
+            <ContentPresenter Margin="4,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True" />
+          </BulletDecorator>
+
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+              <Setter TargetName="CheckBullet" Property="Visibility" Value="Visible"></Setter>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 </ResourceDictionary>

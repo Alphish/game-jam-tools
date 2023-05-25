@@ -1,0 +1,94 @@
+﻿<UserControl
+  x:Class="Alphicsh.EntryPackager.Controls.Files.EntryThumbnailsSection"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.Files"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  mc:Ignorable="d" 
+  d:DesignHeight="450" d:DesignWidth="600"
+>
+  <GroupBox Header="Thumbnails" Grid.IsSharedSizeScope="True">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="1*"/>
+      </Grid.RowDefinitions>
+
+      <!-- Locations -->
+      <Grid Grid.Row="0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0">Main:</Label>
+        <DockPanel Grid.Row="0" Grid.Column="1" Margin="2">
+          <cc:ImpButton
+            DockPanel.Dock="Right"
+            Style="{StaticResource HelpButton}"
+            Width="56"
+            BarPosition="End"
+            Command="{Binding SearchThumbnailCommand}"
+          >Search</cc:ImpButton>
+
+          <cc:ImpTextBox
+            BarPosition="Start"
+            Text="{Binding ThumbnailLocation}"
+            Placeholder="{Binding ThumbnailLocationPlaceholder}"
+          />
+        </DockPanel>
+        <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource FormComment}">Recommended size: 240x240px</TextBlock>
+
+        <Label Grid.Row="2" Grid.Column="0">Small:</Label>
+        <DockPanel Grid.Row="2" Grid.Column="1" Margin="2">
+          <cc:ImpButton
+            DockPanel.Dock="Right"
+            Style="{StaticResource HelpButton}"
+            Width="56"
+            BarPosition="End"
+            Command="{Binding SearchThumbnailSmallCommand}"
+          >Search</cc:ImpButton>
+
+          <cc:ImpTextBox
+            BarPosition="Start"
+            Text="{Binding ThumbnailSmallLocation}"
+            Placeholder="{Binding ThumbnailLocationPlaceholder}"
+          />
+        </DockPanel>
+        <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource FormComment}">Recommended size: 96x96px</TextBlock>
+      </Grid>
+
+      <Separator Grid.Row="1"/>
+
+      <Grid Grid.Row="2" Margin="8">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="1*"/>
+          <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <cc:ImageBox
+          Grid.Column="0"
+          Style="{StaticResource EntryThumbnail}"
+          Source="{Binding Thumbnail}"
+          Command="{Binding SearchThumbnailCommand}"
+        />
+        <cc:ImageBox
+          Grid.Column="1"
+          Style="{StaticResource EntryThumbnailSmall}"
+          Source="{Binding ThumbnailSmall}"
+          Command="{Binding SearchThumbnailSmallCommand}"
+        />
+      </Grid>
+    </Grid>
+  </GroupBox>
+</UserControl>

@@ -1,0 +1,9 @@
+To open the Jam Entry Packager, you must have installed .NET Desktop Runtime 5.0.17
+Note: just installing runtime for .NET 5 won't be enough, you need to install the Desktop runtime specifically!
+
+You can download the runtime from this page:
+https://dotnet.microsoft.com/en-us/download/dotnet/5.0
+
+Since this Entry Packager version was built for x86 architecture, install the x86 version of the runtime.
+
+Hopefully after the runtime is installed, you won't have any more problems using the Entry Packager!

@@ -10,19 +10,20 @@
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Mvvm;component/Converters/Converters.xaml"/>
 
         <!-- Applying styles-->
-        <ResourceDictionary Source="/Alphicsh.JamPlayer.App;component/ThemeVariables.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Alphicsh.JamPlayer.App;component/ThemeVariables.xaml"/>
 
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/BorderStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ImageBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/TextBlockStyles.xaml"/>
-        
-        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/ButtonStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/LabelStyles.xaml"/>
+
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ButtonStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/RatingSliderStyles.xaml"/>
-        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/TextBoxStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/TextBoxStyles.xaml"/>
 
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/GroupBoxStyles.xaml"/>
-        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/ScrollViewerStyles.xaml"/>
-        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/ListBoxStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ScrollViewerStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ListBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/CheckBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ComboBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/SeparatorStyles.xaml"/>

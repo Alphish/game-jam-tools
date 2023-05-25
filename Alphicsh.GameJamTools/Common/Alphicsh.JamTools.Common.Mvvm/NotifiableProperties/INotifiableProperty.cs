@@ -1,7 +1,10 @@
-﻿namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
+﻿using System;
+
+namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
 {
     public interface INotifiableProperty
     {
-        public void RaisePropertyChanged();
+        void RaisePropertyChanged();
+        event EventHandler? PropertyChanged;
     }
 }

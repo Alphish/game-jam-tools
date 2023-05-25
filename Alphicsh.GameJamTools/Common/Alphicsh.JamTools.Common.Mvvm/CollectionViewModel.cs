@@ -3,11 +3,10 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
 
 namespace Alphicsh.JamTools.Common.Mvvm
 {
-    public class CollectionViewModel<TModel, TViewModel> : BaseViewModel, IList<TViewModel>, INotifyCollectionChanged
+    public class CollectionViewModel<TModel, TViewModel> : BaseViewModel, IList<TViewModel>, ICollectionViewModel
         where TViewModel : WrapperViewModel<TModel>
     {
         protected CollectionViewModelStub<TModel, TViewModel> Stub { get; }
@@ -187,7 +186,7 @@ namespace Alphicsh.JamTools.Common.Mvvm
             )
             where TViewModel : WrapperViewModel<TModel>
         {
-            return new CollectionViewModel<TModel, TViewModel>(modelEntries, stub, isImmutable: true);
+            return new CollectionViewModel<TModel, TViewModel>(modelEntries, stub, isImmutable: false);
         }
     }
 }

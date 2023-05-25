@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Jam Player\Alphicsh.JamPlayer.IO\Alphicsh.JamPlayer.IO.csproj" />
+    <ProjectReference Include="..\Alphicsh.JamTools.Common.Mvvm\Alphicsh.JamTools.Common.Mvvm.csproj" />
+  </ItemGroup>
+
 </Project>

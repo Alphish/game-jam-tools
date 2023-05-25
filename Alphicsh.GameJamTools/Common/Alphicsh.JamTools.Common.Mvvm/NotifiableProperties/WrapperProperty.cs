@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
 {
@@ -38,7 +40,6 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
                 RaisePropertyChanged();
             }
         }
-
     }
 
     // ---------------
@@ -61,6 +62,60 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
             where TViewModel : IViewModel
         {
             return new WrapperProperty<TViewModel, TValue>(viewModel, propertyName, valueGetter, valueSetter: null);
+        }
+
+        public static WrapperProperty<TViewModel, TValue> ForMember<TViewModel, TValue>(
+            TViewModel viewModel, Expression<Func<TViewModel, TValue>> propertyExpression
+            )
+            where TViewModel : IViewModel
+        {
+            var propertyName = (propertyExpression.Body as MemberExpression)!.Member.Name;
+            var valueGetter = propertyExpression.Compile();
+            var valueSetter = CreateSetterFromGetter(propertyExpression);
+            return new WrapperProperty<TViewModel, TValue>(viewModel, propertyName, valueGetter, valueSetter);
+        }
+
+        public static WrapperProperty<TViewModel, TValue> ForMember<TViewModel, TValue>(
+            TViewModel viewModel, string propertyName, Expression<Func<TViewModel, TValue>> propertyExpression
+            )
+            where TViewModel : IViewModel
+        {
+            var valueGetter = propertyExpression.Compile();
+            var valueSetter = CreateSetterFromGetter(propertyExpression);
+            return new WrapperProperty<TViewModel, TValue>(viewModel, propertyName, valueGetter, valueSetter);
+        }
+
+        public static WrapperProperty<TViewModel, TValue> ForReadonlyMember<TViewModel, TValue>(
+            TViewModel viewModel, Expression<Func<TViewModel, TValue>> propertyExpression
+            )
+            where TViewModel : IViewModel
+        {
+            var propertyName = (propertyExpression.Body as MemberExpression)!.Member.Name;
+            var valueGetter = propertyExpression.Compile();
+            return new WrapperProperty<TViewModel, TValue>(viewModel, propertyName, valueGetter, valueSetter: null);
+        }
+
+        public static WrapperProperty<TViewModel, TValue> ForReadonlyMember<TViewModel, TValue>(
+            TViewModel viewModel, string propertyName, Expression<Func<TViewModel, TValue>> propertyExpression
+            )
+            where TViewModel : IViewModel
+        {
+            var valueGetter = propertyExpression.Compile();
+            return new WrapperProperty<TViewModel, TValue>(viewModel, propertyName, valueGetter, valueSetter: null);
+        }
+
+        private static Action<TViewModel, TValue> CreateSetterFromGetter<TViewModel, TValue>(
+            Expression<Func<TViewModel, TValue>> getterExpression
+            )
+        {
+            var viewModelParameter = getterExpression.Parameters.First();
+            var valueGetterBody = getterExpression.Body;
+            var valueSetterValue = Expression.Parameter(typeof(TValue), "value");
+            var valueSetterBody = Expression.Assign(valueGetterBody, valueSetterValue);
+            var valueSetterExpression = Expression.Lambda<Action<TViewModel, TValue>>(
+                valueSetterBody, viewModelParameter, valueSetterValue
+                );
+            return valueSetterExpression.Compile();
         }
     }
 }

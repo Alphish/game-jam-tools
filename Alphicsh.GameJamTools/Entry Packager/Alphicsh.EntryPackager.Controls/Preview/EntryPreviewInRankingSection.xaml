@@ -1,0 +1,61 @@
+﻿<UserControl
+  x:Class="Alphicsh.EntryPackager.Controls.Preview.EntryPreviewInRankingSection"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.Preview"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  mc:Ignorable="d"
+>
+  <GroupBox Header="List entry preview" Padding="8">
+    <Grid Margin="2">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="1*"></ColumnDefinition>
+        <ColumnDefinition Width="24"></ColumnDefinition>
+        <ColumnDefinition Width="4"></ColumnDefinition>
+        <ColumnDefinition Width="48"></ColumnDefinition>
+        <ColumnDefinition Width="4"></ColumnDefinition>
+        <ColumnDefinition Width="480"></ColumnDefinition>
+        <ColumnDefinition Width="1*"></ColumnDefinition>
+      </Grid.ColumnDefinitions>
+
+      <!-- Position -->
+      <TextBlock
+        Grid.Column="1"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Foreground="{DynamicResource DimText}"
+      >-</TextBlock>
+
+      <!-- Thumbnail -->
+      <cc:ImageBox
+        Grid.Column="3"
+        Style="{StaticResource EntryThumbnailSmall}"
+        Source="{Binding Files.Thumbnails.ThumbnailSmall}"
+      />
+
+      <StackPanel Grid.Column="5" VerticalAlignment="Center">
+        <!-- Game title -->
+        <TextBlock
+          Foreground="{DynamicResource HighlightText}"
+          FontSize="16"
+          FontWeight="Bold"
+          Text="{Binding DisplayShortTitle}"
+          d:Text="Test game"
+        ></TextBlock>
+
+        <!-- Game authors -->
+        <TextBlock
+          HorizontalAlignment="Left"
+          VerticalAlignment="Center"
+          Foreground="{DynamicResource DimText}"
+          FontSize="13"
+        >
+          <Run Text="by"></Run>
+          <Run Text="{Binding Team.DisplayName, Mode=OneWay}" d:Text="Team Testers"/>
+        </TextBlock>
+      </StackPanel>
+    </Grid>
+  </GroupBox>
+</UserControl>

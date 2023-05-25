@@ -1,9 +1,12 @@
 ﻿<ResourceDictionary
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:commonConverters="clr-namespace:Alphicsh.JamTools.Common.Mvvm.Converters"
+  xmlns:conv="clr-namespace:Alphicsh.JamTools.Common.Mvvm.Converters"
 >
-  <commonConverters:NullVisibilityConverter x:Key="NullVisibilityConverter"></commonConverters:NullVisibilityConverter>
-  <commonConverters:BoolVisibilityConverter x:Key="ShowTrueVisibilityConverter"></commonConverters:BoolVisibilityConverter>
-  <commonConverters:DoubleStarsConverter x:Key="DoubleStarsConverter"></commonConverters:DoubleStarsConverter>
+  <conv:NullVisibilityConverter x:Key="NullVisibilityConverter"/>
+
+  <conv:BoolVisibilityConverter x:Key="ShowTrueVisibilityConverter"/>
+  <conv:BoolVisibilityConverter x:Key="ShowFalseVisibilityConverter" TrueVisibility="Collapsed" FalseVisibility="Visible"/>
+
+  <conv:DoubleStarsConverter x:Key="DoubleStarsConverter"/>
 </ResourceDictionary>

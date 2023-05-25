@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.Controls\Alphicsh.JamTools.Common.Controls.csproj" />
+    <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.Theming\Alphicsh.JamTools.Common.Theming.csproj" />
+    <ProjectReference Include="..\Alphicsh.EntryPackager.ViewModel\Alphicsh.EntryPackager.ViewModel.csproj" />
+  </ItemGroup>
+
+</Project>

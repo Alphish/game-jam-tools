@@ -17,19 +17,19 @@ namespace Alphicsh.JamPlayer.App
     {
         public static new App Current => (App)Application.Current;
 
-        public AppViewModel ViewModel { get; }
+        public JamPlayerViewModel ViewModel { get; }
 
         public App()
         {
             ModalsRegistration.Register();
 
             var model = new AppModel();
-            ViewModel = AppViewModel.Create(model);
+            ViewModel = JamPlayerViewModel.Create(model);
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            var themeManager = new ThemeManager(this.Resources);
+            ThemeManager.Create(Resources);
             LoadJam(e);
 
             base.OnStartup(e);
@@ -62,6 +62,7 @@ namespace Alphicsh.JamPlayer.App
 
             // not using FirstOrDefault()
             // because jamInfoPaths is a collection of non-nullable FilePaths
+            // so it would return a default FilePath instead
             return jamInfoPaths.Any() ? jamInfoPaths.First() : null;
         }
     }

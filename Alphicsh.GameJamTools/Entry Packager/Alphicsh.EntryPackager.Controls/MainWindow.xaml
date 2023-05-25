@@ -1,0 +1,71 @@
+﻿<mvvm:AppWindow
+  x:Class="Alphicsh.EntryPackager.Controls.MainWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls"
+  xmlns:mvvm="clr-namespace:Alphicsh.JamTools.Common.Mvvm;assembly=Alphicsh.JamTools.Common.Mvvm"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  xmlns:appPreview="clr-namespace:Alphicsh.EntryPackager.Controls.Preview"
+  xmlns:appBasicInfo="clr-namespace:Alphicsh.EntryPackager.Controls.BasicInfo"
+  xmlns:appFiles="clr-namespace:Alphicsh.EntryPackager.Controls.Files"
+  xmlns:appExport="clr-namespace:Alphicsh.EntryPackager.Controls.Export"
+  mc:Ignorable="d"
+  Style="{StaticResource MainWindow}"
+  MinWidth="960"
+  MinHeight="540"
+  Title="Jam Entry Packager" Height="640" Width="1200"
+>
+  <Grid>
+    <local:EntrySelectionPanel Visibility="{Binding HasEntry, Converter={StaticResource ShowFalseVisibilityConverter}}"/>
+
+    <Grid Visibility="{Binding HasEntry, Converter={StaticResource ShowTrueVisibilityConverter}}">
+      <TabControl Style="{StaticResource MenuTabControl}">
+        <!-- Preview tab -->
+        <TabItem>
+          <TabItem.Header>
+            <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuPreviewIconSource}" ToolTip="Preview"/>
+          </TabItem.Header>
+
+          <appPreview:EntryPreviewTab/>
+        </TabItem>
+
+        <!-- Basic information tab -->
+        <TabItem>
+          <TabItem.Header>
+            <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuSummaryIconSource}" ToolTip="Basic information"/>
+          </TabItem.Header>
+
+          <appBasicInfo:EntryBasicInfoTab DataContext="{Binding Entry}"/>
+        </TabItem>
+
+        <!-- Files tab -->
+        <TabItem>
+          <TabItem.Header>
+            <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuFilesIconSource}" ToolTip="Files"/>
+          </TabItem.Header>
+
+          <appFiles:EntryFilesTab DataContext="{Binding Entry.Files}"/>
+        </TabItem>
+      
+        <!-- Package export tab -->
+        <TabItem>
+          <TabItem.Header>
+            <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuJampackIconSource}" ToolTip="Packaging"/>
+          </TabItem.Header>
+
+          <appExport:EntryExportTab DataContext="{Binding ExportSystem}"/>
+        </TabItem>
+      </TabControl>
+
+      <!-- Save button-->
+      <Grid Margin="4" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+        <cc:SaveButton DataContext="{Binding SaveSystem}"/>
+      </Grid>
+    </Grid>
+    
+    <!-- Modal overlay -->
+    <Border Background="#80000000" Visibility="{Binding HasOverlay, Converter={StaticResource ShowTrueVisibilityConverter}}"></Border>
+  </Grid>
+</mvvm:AppWindow>
