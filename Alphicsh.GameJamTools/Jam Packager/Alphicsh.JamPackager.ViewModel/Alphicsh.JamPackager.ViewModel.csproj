@@ -1,17 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.IO\Alphicsh.JamTools.Common.IO.csproj" />
     <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.Mvvm\Alphicsh.JamTools.Common.Mvvm.csproj" />
+    <ProjectReference Include="..\..\Entry Packager\Alphicsh.EntryPackager.ViewModel\Alphicsh.EntryPackager.ViewModel.csproj" />
     <ProjectReference Include="..\Alphicsh.JamPackager.Model\Alphicsh.JamPackager.Model.csproj" />
-    <ProjectReference Include="..\Alphicsh.JamPackager.ViewModel\Alphicsh.JamPackager.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>

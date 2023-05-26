@@ -6,12 +6,11 @@ using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
-namespace Alphicsh.JamPackager.App
+namespace Alphicsh.JamPackager.ViewModel
 {
-    // TODO: Move the whole view model to a separate project
-    public class AppViewModel : BaseViewModel
+    public class JamPackagerViewModel : BaseViewModel
     {
-        public AppViewModel()
+        public JamPackagerViewModel()
         {
             DirectoryPathProperty = new MutableProperty<string>(this, nameof(DirectoryPath), string.Empty);
 
