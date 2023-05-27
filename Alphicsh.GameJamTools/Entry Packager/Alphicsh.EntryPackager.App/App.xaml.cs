@@ -19,7 +19,7 @@ namespace Alphicsh.EntryPackager.App
         {
             ModalsRegistration.Register();
 
-            var model = new AppModel();
+            var model = new EntryPackagerModel();
             ViewModel = new EntryPackagerViewModel(model);
         }
 

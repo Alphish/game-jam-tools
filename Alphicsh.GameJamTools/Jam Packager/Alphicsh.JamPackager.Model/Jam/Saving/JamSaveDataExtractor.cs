@@ -34,7 +34,7 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
                 Title = jamEditable.Title,
                 Theme = jamEditable.Theme,
                 AwardCriteria = jamEditable.Awards.Select(MapAward).ToList(),
-                EntriesSubpath = FilePath.From(jamEditable.EntriesLocation),
+                EntriesSubpath = jamEditable.EntriesLocation,
                 EntriesStubs = jamEditable.Entries.Select(entry => MapEntryToStub(entriesPath, entry)).ToList(),
             };
         }

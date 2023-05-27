@@ -20,7 +20,11 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
                 return null;
 
             var entriesPath = model.DirectoryPath.Append(jamInfo.EntriesSubpath);
-            var entriesData = jamInfo.EntriesStubs.Select(stub => LoadEntryData(entriesPath, stub)).ToList();
+            var entriesData = jamInfo.EntriesStubs
+                .Select(stub => LoadEntryData(entriesPath, stub))
+                .Where(data => data != null)
+                .Select(data => data!)
+                .ToList();
             if (entriesData.Any(entry => entry == null))
                 return null;
 

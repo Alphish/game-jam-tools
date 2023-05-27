@@ -7,19 +7,21 @@ namespace Alphicsh.JamTools.Common.IO.Jam
 {
     public class JamInfo
     {
+        public string Version { get; init; } = default!;
+
         // -------------------
         // General information
         // -------------------
 
         public string? Title { get; init; } = default!;
-        public FilePath? LogoFileName { get; set; } = default!;
+        public string? LogoFileName { get; set; } = default!;
         public string? Theme { get; init; } = default!;
 
         // -------
         // Entries
         // -------
 
-        public FilePath EntriesSubpath { get; init; } = default!;
+        public string EntriesSubpath { get; init; } = default!;
         [JsonPropertyName("entries")] public IReadOnlyCollection<JamEntryStub> EntriesStubs { get; init; } = default!;
         [JsonIgnore] public IReadOnlyCollection<JamEntryLegacyInfo> Entries { get; internal set; } = default!;
 

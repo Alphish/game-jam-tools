@@ -1,72 +1,67 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Alphicsh.EntryPackager.Model.Entry.Saving;
-using Alphicsh.EntryPackager.Model.Entry;
-using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.IO.Compression;
-using Alphicsh.EntryPackager.Model.Entry.Loading;
+﻿using Alphicsh.JamTools.Common.IO;
+using Alphicsh.JamTools.Common.IO.Serialization;
+using Alphicsh.JamTools.Common.IO.Jam;
+using Alphicsh.JamTools.Common.IO.Search;
 
 namespace Alphicsh.JamPackager.Model.Jam.Loading
 {
     public class JamExplorer
     {
-        private static ZipExtractor EntryExtractor { get; } = new ZipExtractor();
-        private static JamEntryExplorer EntryExplorer { get; } = new JamEntryExplorer();
+        private static JsonFileLoader<JamInfo> JamInfoLoader { get; } = new JsonFileLoader<JamInfo>();
 
-        public IReadOnlyCollection<JamEntryEditable> FindEntries(FilePath entriesPath)
+        public JamEditable LoadFromDirectory(FilePath directoryPath)
         {
-            var entriesDirectory = entriesPath.GetDirectory();
-            ExtractEntryArchives(entriesDirectory);
-            WrapLaunchers(entriesDirectory);
-            return SearchEntryDirectories(entriesDirectory);
-        }
+            var result = new JamEditable { DirectoryPath = directoryPath };
 
-        private void WrapLaunchers(DirectoryInfo entriesDirectory)
-        {
-            var windowsExecutables = entriesDirectory.EnumerateFiles("*.exe", SearchOption.TopDirectoryOnly);
-            var gxGameFiles = entriesDirectory.EnumerateFiles("*.gxgame", SearchOption.TopDirectoryOnly);
+            var jamInfo = TryReadJamInfo(directoryPath);
+            if (jamInfo != null)
+                ApplyJamInfo(result, jamInfo);
+            else
+                ApplyDefaultJamSettings(result);
 
-            foreach (var launcherFile in windowsExecutables.Concat(gxGameFiles))
-            {
-                var launcherPath = FilePath.Of(launcherFile);
-                var directoryPath = launcherPath.GetParentDirectoryPath().Append(launcherPath.GetNameWithoutExtension());
-                if (Directory.Exists(directoryPath.Value))
-                    continue;
-
-                Directory.CreateDirectory(directoryPath.Value);
-                var targetPath = directoryPath.Append(launcherFile.Name);
-                launcherFile.MoveTo(targetPath.Value);
-            }
-        }
-
-        private void ExtractEntryArchives(DirectoryInfo entriesDirectory)
-        {
-            var archives = entriesDirectory.EnumerateFiles("*.zip", SearchOption.TopDirectoryOnly);
-            foreach (var archive in archives)
-            {
-                var archivePath = FilePath.Of(archive);
-                var targetPath = archivePath.GetParentDirectoryPath().Append(archivePath.GetNameWithoutExtension());
-                if (Directory.Exists(targetPath.Value))
-                    continue;
-
-                EntryExtractor.ExtractDirectory(archivePath, targetPath);
-            }
-        }
-
-        private IReadOnlyCollection<JamEntryEditable> SearchEntryDirectories(DirectoryInfo entriesDirectory)
-        {
-            var result = new List<JamEntryEditable>();
-            var entryDirectories = entriesDirectory.EnumerateDirectories();
-            foreach (var directory in entryDirectories)
-            {
-                var directoryPath = FilePath.Of(directory);
-                var entryEditable = EntryExplorer.LoadFromDirectory(directoryPath);
-                var saveModel = new JamEntrySaveModel();
-                saveModel.Save(entryEditable);
-                result.Add(entryEditable);
-            }
             return result;
+        }
+
+        private JamInfo? TryReadJamInfo(FilePath directoryPath)
+        {
+            var jamInfoPath = directoryPath.Append("jam.jaminfo");
+            return JamInfoLoader.TryLoad(jamInfoPath);
+        }
+
+        private void ApplyJamInfo(JamEditable jamEditable, JamInfo jamInfo)
+        {
+            jamEditable.Title = jamInfo.Title;
+            jamEditable.Theme = jamInfo.Theme;
+            jamEditable.LogoPath = jamEditable.DirectoryPath.AppendNullable(jamInfo.LogoFileName);
+
+            foreach (var award in jamInfo.AwardCriteria)
+            {
+                jamEditable.Awards.Add(new JamAwardEditable
+                {
+                    Id = award.Id,
+                    Name = award.Name,
+                    Description = award.Description
+                });
+            }
+
+            jamEditable.SetEntriesPath(jamEditable.DirectoryPath.Append(jamInfo.EntriesSubpath));
+        }
+
+        private void ApplyDefaultJamSettings(JamEditable jamEditable)
+        {
+            jamEditable.Title = jamEditable.DirectoryPath.GetLastSegmentName();
+            jamEditable.Theme = null;
+            jamEditable.LogoPath = TryFindLogoPath(jamEditable.DirectoryPath);
+            jamEditable.SetEntriesPath(jamEditable.DirectoryPath.Append("Entries"));
+        }
+
+        private FilePath? TryFindLogoPath(FilePath directoryPath)
+        {
+            return FilesystemSearch.ForFilesIn(directoryPath)
+                .IncludingTopDirectoryOnly()
+                .FindMatches("logo.png")
+                .ElseFindMatches("*.png")
+                .FirstOrDefault();
         }
     }
 }

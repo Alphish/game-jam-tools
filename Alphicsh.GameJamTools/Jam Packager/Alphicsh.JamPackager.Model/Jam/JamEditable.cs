@@ -7,24 +7,25 @@ namespace Alphicsh.JamPackager.Model.Jam
 {
     public class JamEditable
     {
-        private static JamExplorer Explorer { get; } = new JamExplorer();
+        private static JamEntriesExplorer EntriesExplorer { get; } = new JamEntriesExplorer();
 
         public FilePath DirectoryPath { get; init; }
-        public string Title { get; set; } = default!;
-        public string Theme { get; set; } = default!;
+        public string? Title { get; set; } = default!;
+        public string? Theme { get; set; } = default!;
+        public FilePath? LogoPath { get; set; } = default!;
         public ICollection<JamAwardEditable> Awards { get; } = new List<JamAwardEditable>();
 
         // Entries finding
 
         public string EntriesLocation { get; private set; } = default!;
-        public IReadOnlyCollection<JamEntryEditable> Entries { get; private set; }
+        public IReadOnlyCollection<JamEntryEditable> Entries { get; private set; } = default!;
         public void SetEntriesPath(FilePath entriesPath)
         {
             if (!entriesPath.IsSubpathOf(DirectoryPath))
                 return;
 
             EntriesLocation = entriesPath.AsRelativeTo(DirectoryPath).Value;
-            Entries = Explorer.FindEntries(entriesPath);
+            Entries = EntriesExplorer.FindEntries(entriesPath);
         }
     }
 }

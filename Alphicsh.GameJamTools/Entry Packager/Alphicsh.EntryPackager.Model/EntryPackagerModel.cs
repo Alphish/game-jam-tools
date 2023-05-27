@@ -4,14 +4,14 @@ using Alphicsh.JamTools.Common.IO;
 
 namespace Alphicsh.EntryPackager.Model
 {
-    public class AppModel
+    public class EntryPackagerModel
     {
         private JamEntryExplorer EntryExplorer { get; } = new JamEntryExplorer();
 
         public JamEntryEditable? Entry { get; private set; }
         public bool HasEntry => Entry != null;
 
-        public AppModel()
+        public EntryPackagerModel()
         {
         }
 

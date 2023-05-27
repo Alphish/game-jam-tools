@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Alphicsh.JamPackager.Model;
 using Alphicsh.JamPackager.ViewModel;
 
 namespace Alphicsh.JamPackager.App
@@ -12,7 +13,8 @@ namespace Alphicsh.JamPackager.App
         {
             InitializeComponent();
 
-            DataContext = new JamPackagerViewModel();
+            var model = new JamPackagerModel();
+            DataContext = new JamPackagerViewModel(model);
         }
     }
 }
