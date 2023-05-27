@@ -13,5 +13,6 @@
   Title="Jam Packager" Height="640" Width="1200"
 >
   <Grid>
+    <local:JamSelectionPanel Visibility="{Binding HasJam, Converter={StaticResource ShowFalseVisibilityConverter}}"/>
   </Grid>
 </mvvm:AppWindow>

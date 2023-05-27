@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using Alphicsh.JamPackager.Model;
+using Alphicsh.JamTools.Common.Controls.Files;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
@@ -9,30 +10,41 @@ namespace Alphicsh.JamPackager.ViewModel
 {
     public class JamPackagerViewModel : AppViewModel<JamPackagerModel>
     {
-
         public static JamPackagerViewModel Current => (JamPackagerViewModel)AppViewModel.Current;
 
         public JamPackagerViewModel(JamPackagerModel model) : base(model)
         {
-            DirectoryPathProperty = new MutableProperty<string>(this, nameof(DirectoryPath), string.Empty);
+            HasJamProperty = NotifiableProperty.Create(this, nameof(HasJam));
 
-            GenerateJamFilesCommand = SimpleCommand.From(GenerateJamFiles);
+            OpenJamDirectoryCommand = SimpleCommand.From(OpenJamDirectory);
         }
 
-        public MutableProperty<string> DirectoryPathProperty { get; }
-        public string DirectoryPath { get => DirectoryPathProperty.Value; set => DirectoryPathProperty.Value = value; }
+        public NotifiableProperty HasJamProperty { get; }
+        public bool HasJam => Model.HasJam;
 
-        public ICommand GenerateJamFilesCommand { get; }
-        private void GenerateJamFiles()
+        // -------
+        // Loading
+        // -------
+
+        public ICommand OpenJamDirectoryCommand { get; }
+        private void OpenJamDirectory()
         {
-            Model.LoadDirectory(FilePath.From(DirectoryPath));
-            // will need to remove all this saving eventually
-            /*
-            var jamDirectoryPath = FilePath.From(DirectoryPath);
+            var directoryPath = FileQuery.OpenDirectory().GetPath();
+            if (directoryPath == null)
+                return;
 
-            var jamInfo = JamInfo.RediscoverFromDirectory(jamDirectoryPath);
-            jamInfo.Save();
-            */
+            LoadJamDirectory(directoryPath.Value);
+        }
+
+        public void LoadJamDirectory(FilePath directoryPath)
+        {
+            Model.LoadDirectory(directoryPath);
+            UpdateJamViewModel();
+        }
+
+        private void UpdateJamViewModel()
+        {
+            RaisePropertyChanged(nameof(HasJam));
         }
     }
 }
