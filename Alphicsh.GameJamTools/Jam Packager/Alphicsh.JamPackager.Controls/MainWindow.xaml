@@ -1,0 +1,17 @@
+﻿<mvvm:AppWindow
+  x:Class="Alphicsh.JamPackager.Controls.MainWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:Alphicsh.JamPackager.Controls"
+  xmlns:mvvm="clr-namespace:Alphicsh.JamTools.Common.Mvvm;assembly=Alphicsh.JamTools.Common.Mvvm"
+  mc:Ignorable="d"
+  Style="{StaticResource MainWindow}"
+  MinWidth="960"
+  MinHeight="540"
+  Title="Jam Packager" Height="640" Width="1200"
+>
+  <Grid>
+  </Grid>
+</mvvm:AppWindow>
