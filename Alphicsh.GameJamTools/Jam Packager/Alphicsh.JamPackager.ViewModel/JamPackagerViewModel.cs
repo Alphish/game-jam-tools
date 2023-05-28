@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using Alphicsh.JamPackager.Model;
+using Alphicsh.JamPackager.ViewModel.Jam;
 using Alphicsh.JamTools.Common.Controls.Files;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.Mvvm;
@@ -17,7 +18,10 @@ namespace Alphicsh.JamPackager.ViewModel
             HasJamProperty = NotifiableProperty.Create(this, nameof(HasJam));
 
             OpenJamDirectoryCommand = SimpleCommand.From(OpenJamDirectory);
+            CloseJamCommand = SimpleCommand.From(CloseJam);
         }
+
+        public JamEditableViewModel? Jam { get; private set; }
 
         public NotifiableProperty HasJamProperty { get; }
         public bool HasJam => Model.HasJam;
@@ -44,7 +48,21 @@ namespace Alphicsh.JamPackager.ViewModel
 
         private void UpdateJamViewModel()
         {
-            RaisePropertyChanged(nameof(HasJam));
+            Jam = new JamEditableViewModel(Model.Jam!);
+            RaisePropertyChanged(nameof(Jam), nameof(HasJam));
+        }
+
+        // -------
+        // Closing
+        // -------
+
+        public ICommand CloseJamCommand { get; }
+        private void CloseJam()
+        {
+            Model.CloseJam();
+            Jam = null;
+
+            RaisePropertyChanged(nameof(Jam), nameof(HasJam));
         }
     }
 }

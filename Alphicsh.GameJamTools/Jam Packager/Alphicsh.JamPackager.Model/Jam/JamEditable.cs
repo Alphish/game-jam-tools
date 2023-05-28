@@ -12,7 +12,6 @@ namespace Alphicsh.JamPackager.Model.Jam
         public FilePath DirectoryPath { get; init; }
         public string? Title { get; set; } = default!;
         public string? Theme { get; set; } = default!;
-        public FilePath? LogoPath { get; set; } = default!;
         public ICollection<JamAwardEditable> Awards { get; } = new List<JamAwardEditable>();
 
         // Entries finding
@@ -27,5 +26,10 @@ namespace Alphicsh.JamPackager.Model.Jam
             EntriesLocation = entriesPath.AsRelativeTo(DirectoryPath).Value;
             Entries = EntriesExplorer.FindEntries(entriesPath);
         }
+
+        // Logo handling
+
+        public string? LogoLocation { get; set; } = default;
+        public FilePath? LogoPath => DirectoryPath.AppendNullable(LogoLocation);
     }
 }

@@ -32,7 +32,7 @@ namespace Alphicsh.JamPackager.Model.Jam.Loading
         {
             jamEditable.Title = jamInfo.Title;
             jamEditable.Theme = jamInfo.Theme;
-            jamEditable.LogoPath = jamEditable.DirectoryPath.AppendNullable(jamInfo.LogoFileName);
+            jamEditable.LogoLocation = jamInfo.LogoFileName;
 
             foreach (var award in jamInfo.AwardCriteria)
             {
@@ -51,17 +51,19 @@ namespace Alphicsh.JamPackager.Model.Jam.Loading
         {
             jamEditable.Title = jamEditable.DirectoryPath.GetLastSegmentName();
             jamEditable.Theme = null;
-            jamEditable.LogoPath = TryFindLogoPath(jamEditable.DirectoryPath);
+            jamEditable.LogoLocation = TryFindLogoLocation(jamEditable.DirectoryPath);
             jamEditable.SetEntriesPath(jamEditable.DirectoryPath.Append("Entries"));
         }
 
-        private FilePath? TryFindLogoPath(FilePath directoryPath)
+        private string? TryFindLogoLocation(FilePath directoryPath)
         {
-            return FilesystemSearch.ForFilesIn(directoryPath)
+            var logoPath = FilesystemSearch.ForFilesIn(directoryPath)
                 .IncludingTopDirectoryOnly()
                 .FindMatches("logo.png")
                 .ElseFindMatches("*.png")
                 .FirstOrDefault();
+
+            return logoPath?.AsRelativeTo(directoryPath).Value;
         }
     }
 }
