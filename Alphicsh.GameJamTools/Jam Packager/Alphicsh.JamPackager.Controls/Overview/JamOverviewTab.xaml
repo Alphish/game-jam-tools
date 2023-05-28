@@ -82,10 +82,10 @@
       />
 
       <Label Grid.Row="4" Grid.Column="0">Title:</Label>
-      <cc:ImpTextBox Grid.Row="4" Grid.Column="1" Margin="2" Text="{Binding Jam.Title}" Placeholder="&lt;enter title here&gt;"/>
+      <cc:ImpTextBox Grid.Row="4" Grid.Column="1" Margin="2" Text="{Binding Jam.Title}" Placeholder="&lt;enter title&gt;"/>
 
       <Label Grid.Row="5" Grid.Column="0">Theme:</Label>
-      <cc:ImpTextBox Grid.Row="5" Grid.Column="1" Margin="2" Text="{Binding Jam.Theme}" Placeholder="&lt;enter theme here&gt;"/>
+      <cc:ImpTextBox Grid.Row="5" Grid.Column="1" Margin="2" Text="{Binding Jam.Theme}" Placeholder="&lt;enter theme&gt;"/>
 
       <Separator Grid.Row="6" Grid.ColumnSpan="2"/>
 

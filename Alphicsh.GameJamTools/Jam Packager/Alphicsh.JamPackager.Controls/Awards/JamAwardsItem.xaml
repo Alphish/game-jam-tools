@@ -1,0 +1,33 @@
+﻿<UserControl
+  x:Class="Alphicsh.JamPackager.Controls.Awards.JamAwardsItem"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.JamPackager.Controls.Awards"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  mc:Ignorable="d" 
+  d:DesignHeight="450" d:DesignWidth="800"
+>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto" SharedSizeGroup="AddRemove"/>
+      <ColumnDefinition Width="1*" MinWidth="80"/>
+      <ColumnDefinition Width="2*" MinWidth="120"/>
+      <ColumnDefinition Width="5*" MinWidth="120"/>
+    </Grid.ColumnDefinitions>
+
+    <cc:ImpButton
+      Grid.Column="0"
+      Style="{StaticResource DangerButton}"
+      Margin="2"
+      Width="40"
+      Command="{Binding DataContext.RemoveAwardCommand, RelativeSource={RelativeSource AncestorType=local:JamAwardsTab}}"
+      CommandParameter="{Binding}"
+    >x</cc:ImpButton>
+
+    <cc:ImpTextBox Grid.Column="1" Margin="2" Text="{Binding Id}" Placeholder="&lt;enter award id&gt;"/>
+    <cc:ImpTextBox Grid.Column="2" Margin="2" Text="{Binding Name}" Placeholder="&lt;enter name&gt;"/>
+    <cc:ImpTextBox Grid.Column="3" Margin="2" Text="{Binding Description}" Placeholder="&lt;no description&gt;"/>
+  </Grid>
+</UserControl>

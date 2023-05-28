@@ -12,7 +12,7 @@ namespace Alphicsh.JamPackager.Model.Jam
         public FilePath DirectoryPath { get; init; }
         public string? Title { get; set; } = default!;
         public string? Theme { get; set; } = default!;
-        public ICollection<JamAwardEditable> Awards { get; } = new List<JamAwardEditable>();
+        public IList<JamAwardEditable> Awards { get; } = new List<JamAwardEditable>();
 
         // Entries finding
 

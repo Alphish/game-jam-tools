@@ -34,6 +34,9 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
             TitleProperty = WrapperProperty.ForMember(this, vm => vm.Model.Title);
             ThemeProperty = WrapperProperty.ForMember(this, vm => vm.Model.Theme);
 
+            Awards = CollectionViewModel.CreateMutable(Model.Awards, JamAwardEditableViewModel.CollectionStub);
+            AddAwardCommand = SimpleCommand.From(AddAward);
+            RemoveAwardCommand = SimpleCommand.WithParameter<JamAwardEditableViewModel>(RemoveAward);
         }
 
         // -----------
@@ -112,5 +115,27 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
 
         public WrapperProperty<JamEditableViewModel, string?> ThemeProperty { get; }
         public string? Theme { get => ThemeProperty.Value; set => ThemeProperty.Value = value; }
+
+        // ------
+        // Awards
+        // ------
+
+        public CollectionViewModel<JamAwardEditable, JamAwardEditableViewModel> Awards { get; }
+
+        public ICommand AddAwardCommand { get; }
+        private void AddAward()
+        {
+            var awardModel = new JamAwardEditable { Id = "award", Name = "Best of Awards" };
+            var awardVm = new JamAwardEditableViewModel(awardModel);
+            Awards.Add(awardVm);
+            Awards.CompleteChanges();
+        }
+
+        public ICommand RemoveAwardCommand { get; }
+        private void RemoveAward(JamAwardEditableViewModel awardVm)
+        {
+            Awards.Remove(awardVm);
+            Awards.CompleteChanges();
+        }
     }
 }
