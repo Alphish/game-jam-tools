@@ -14,5 +14,8 @@
 >
   <Grid>
     <local:JamSelectionPanel Visibility="{Binding HasJam, Converter={StaticResource ShowFalseVisibilityConverter}}"/>
+
+    <!-- Modal overlay -->
+    <Border Background="#80000000" Visibility="{Binding HasOverlay, Converter={StaticResource ShowTrueVisibilityConverter}}"/>
   </Grid>
 </mvvm:AppWindow>

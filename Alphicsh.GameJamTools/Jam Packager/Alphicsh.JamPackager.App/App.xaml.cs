@@ -15,6 +15,8 @@ namespace Alphicsh.JamPackager.App
 
         public App()
         {
+            ModalsRegistration.Register();
+
             var model = new JamPackagerModel();
             ViewModel = new JamPackagerViewModel(model);
         }
