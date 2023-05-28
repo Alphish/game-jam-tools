@@ -39,8 +39,8 @@ namespace Alphicsh.JamPackager.Model.Jam.Loading
                 jamEditable.Awards.Add(new JamAwardEditable
                 {
                     Id = award.Id,
-                    Name = award.Name,
-                    Description = award.Description
+                    Name = award.FixedName,
+                    Description = award.FixedDescription
                 });
             }
 
