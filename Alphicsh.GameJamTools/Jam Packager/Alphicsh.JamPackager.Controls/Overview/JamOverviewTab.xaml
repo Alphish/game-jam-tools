@@ -1,0 +1,103 @@
+﻿<UserControl
+  x:Class="Alphicsh.JamPackager.Controls.Overview.JamOverviewTab"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.JamPackager.Controls.Overview"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  mc:Ignorable="d" 
+  d:DesignHeight="450" d:DesignWidth="800"
+>
+  <GroupBox Header="Jam overview">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="1*"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="1*"/>
+      </Grid.ColumnDefinitions>
+
+      <!-- Jam directory -->
+      <Label Grid.Row="0" Grid.Column="0">Jam directory:</Label>
+      <DockPanel Grid.Row="0" Grid.Column="1" Margin="2">
+        <cc:ImpButton
+            DockPanel.Dock="Right"
+            Style="{StaticResource HelpButton}"
+            Width="64"
+            Command="{Binding Jam.OpenDirectoryCommand}"
+            BarPosition="End"
+          >Open</cc:ImpButton>
+
+        <cc:ImpTextBox IsReadOnly="True" Text="{Binding Jam.DirectoryPath, Mode=OneWay}" BarPosition="Start"/>
+      </DockPanel>
+
+      <!-- Entries subpath -->
+      <Label Grid.Row="1" Grid.Column="0">Entries subpath:</Label>
+      <DockPanel Grid.Row="1" Grid.Column="1" Margin="2">
+        <cc:ImpButton
+            DockPanel.Dock="Right"
+            Style="{StaticResource HelpButton}"
+            Width="64"
+            Command="{Binding Jam.SelectEntriesSubpathCommand}"
+            BarPosition="End"
+          >Select</cc:ImpButton>
+
+        <cc:ImpTextBox IsReadOnly="True" Text="{Binding Jam.EntriesLocation, Mode=OneWay}" BarPosition="Start"/>
+      </DockPanel>
+
+      <!-- Logo -->
+      <Label Grid.Row="2" Grid.Column="0">Logo filename:</Label>
+      <DockPanel Grid.Row="2" Grid.Column="1" Margin="2">
+        <cc:ImpButton
+            DockPanel.Dock="Right"
+            Style="{StaticResource HelpButton}"
+            Width="64"
+            Command="{Binding Jam.SearchLogoCommand}"
+            BarPosition="End"
+          >Search</cc:ImpButton>
+
+        <cc:ImpTextBox IsReadOnly="True" Text="{Binding Jam.LogoLocation, Mode=OneWay}" BarPosition="Start"/>
+      </DockPanel>
+
+      <cc:ImageBox
+        Grid.Row="3"
+        Grid.Column="1"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Width="{Binding Jam.LogoWidth}"
+        Height="{Binding Jam.LogoHeight}"
+        Source="{Binding Jam.Logo}"
+        PlaceholderSource="{DynamicResource EntryPlaceholderSource}"
+        Command="{Binding Jam.SearchLogoCommand}"
+      />
+
+      <Label Grid.Row="4" Grid.Column="0">Title:</Label>
+      <cc:ImpTextBox Grid.Row="4" Grid.Column="1" Margin="2" Text="{Binding Jam.Title}" Placeholder="&lt;enter title here&gt;"/>
+
+      <Label Grid.Row="5" Grid.Column="0">Theme:</Label>
+      <cc:ImpTextBox Grid.Row="5" Grid.Column="1" Margin="2" Text="{Binding Jam.Theme}" Placeholder="&lt;enter theme here&gt;"/>
+
+      <Separator Grid.Row="6" Grid.ColumnSpan="2"/>
+
+      <WrapPanel Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <cc:ImpButton
+          Style="{StaticResource DangerButton}"
+          Margin="2"
+          Width="128"
+          Command="{Binding CloseJamCommand}"
+          ToolTip="Close current jam and choose another one"
+        >Close jam</cc:ImpButton>
+      </WrapPanel>
+    </Grid>
+  </GroupBox>
+</UserControl>
