@@ -19,7 +19,9 @@ namespace Alphicsh.JamPackager.Model.Jam.Loading
             var entriesDirectory = entriesPath.GetDirectory();
             ExtractEntryArchives(entriesDirectory);
             WrapLaunchers(entriesDirectory);
-            return SearchEntryDirectories(entriesDirectory);
+            
+            var foundEntries = SearchEntryDirectories(entriesDirectory);
+            return foundEntries.OrderBy(entry => entry.Files.DirectoryPath.Value).ToList();
         }
 
         private void WrapLaunchers(DirectoryInfo entriesDirectory)

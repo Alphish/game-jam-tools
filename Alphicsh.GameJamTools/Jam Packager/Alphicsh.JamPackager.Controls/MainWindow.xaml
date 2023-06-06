@@ -9,6 +9,7 @@
   xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
   xmlns:appOverview="clr-namespace:Alphicsh.JamPackager.Controls.Overview"
   xmlns:appAwards="clr-namespace:Alphicsh.JamPackager.Controls.Awards"
+  xmlns:appEntries="clr-namespace:Alphicsh.JamPackager.Controls.Entries"
   mc:Ignorable="d"
   Style="{StaticResource MainWindow}"
   MinWidth="960"
@@ -37,6 +38,16 @@
 
           <appAwards:JamAwardsTab DataContext="{Binding Jam}"/>
         </TabItem>
+        
+        <!-- Entries tab -->
+        <TabItem>
+          <TabItem.Header>
+            <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuSummaryIconSource}" ToolTip="Entries"/>
+          </TabItem.Header>
+
+          <appEntries:JamEntriesList DataContext="{Binding Jam}"/>
+        </TabItem>
+        
       </TabControl>
     </Grid>
 

@@ -1,6 +1,9 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
+using Alphicsh.EntryPackager.ViewModel.Entry;
 using Alphicsh.JamPackager.Model.Jam;
 using Alphicsh.JamTools.Common.Controls.Files;
 using Alphicsh.JamTools.Common.IO.Execution;
@@ -37,6 +40,8 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
             Awards = CollectionViewModel.CreateMutable(Model.Awards, JamAwardEditableViewModel.CollectionStub);
             AddAwardCommand = SimpleCommand.From(AddAward);
             RemoveAwardCommand = SimpleCommand.WithParameter<JamAwardEditableViewModel>(RemoveAward);
+
+            Entries = Model.Entries.Select(model => new JamEntryEditableViewModel(model)).ToList();
         }
 
         // -----------
@@ -66,6 +71,8 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
             }
 
             Model.SetEntriesPath(entriesPath.Value);
+            Entries = Model.Entries.Select(model => new JamEntryEditableViewModel(model)).ToList();
+            RaisePropertyChanged(nameof(EntriesLocation), nameof(Entries));
         }
 
         // ----
@@ -137,5 +144,11 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
             Awards.Remove(awardVm);
             Awards.CompleteChanges();
         }
+
+        // -------
+        // Entries
+        // -------
+
+        public IReadOnlyCollection<JamEntryEditableViewModel> Entries { get; private set; }
     }
 }

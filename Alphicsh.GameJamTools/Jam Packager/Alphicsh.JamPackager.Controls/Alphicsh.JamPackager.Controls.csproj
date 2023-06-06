@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.Controls\Alphicsh.JamTools.Common.Controls.csproj" />
     <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.Theming\Alphicsh.JamTools.Common.Theming.csproj" />
+    <ProjectReference Include="..\..\Entry Packager\Alphicsh.EntryPackager.Controls\Alphicsh.EntryPackager.Controls.csproj" />
     <ProjectReference Include="..\Alphicsh.JamPackager.ViewModel\Alphicsh.JamPackager.ViewModel.csproj" />
   </ItemGroup>
 
