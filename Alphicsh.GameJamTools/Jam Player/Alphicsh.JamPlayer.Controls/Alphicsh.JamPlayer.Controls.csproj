@@ -13,4 +13,13 @@
     <ProjectReference Include="..\Alphicsh.JamPlayer.ViewModel\Alphicsh.JamPlayer.ViewModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="JamEntry\Modals\PlaySelectionList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="JamEntry\Modals\PlaySelectionModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>
