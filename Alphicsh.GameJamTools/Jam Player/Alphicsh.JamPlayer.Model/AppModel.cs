@@ -2,11 +2,11 @@
 using Alphicsh.JamPlayer.Model.Awards;
 using Alphicsh.JamPlayer.Model.Export;
 using Alphicsh.JamPlayer.Model.Jam;
+using Alphicsh.JamPlayer.Model.Jam.Loading;
 using Alphicsh.JamPlayer.Model.Ranking;
 using Alphicsh.JamPlayer.Model.Ratings;
 using Alphicsh.JamPlayer.Model.Ratings.NumericScale;
 using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.IO.Jam;
 
 namespace Alphicsh.JamPlayer.Model
 {
@@ -84,14 +84,11 @@ namespace Alphicsh.JamPlayer.Model
         // Loading Jam
         // -----------
 
+        private static JamLoader JamLoader { get; } = new JamLoader();
+
         public void LoadJamFromFile(FilePath jamFilePath)
         {
-            var jamInfo = JamInfo.LoadFromFile(jamFilePath);
-            if (jamInfo == null)
-                return;
-
-            var mapper = new JamInfoMapper();
-            Jam = mapper.MapInfoToJam(jamInfo);
+            Jam = JamLoader.ReadFromDirectory(jamFilePath.GetParentDirectoryPath())!;
             PlayerDataManager.LoadRanking();
             PlayerDataManager.LoadExporter();
         }
