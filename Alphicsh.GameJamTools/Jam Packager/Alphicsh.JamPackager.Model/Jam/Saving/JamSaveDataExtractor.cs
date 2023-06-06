@@ -33,6 +33,7 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
             {
                 Title = jamEditable.Title,
                 Theme = jamEditable.Theme,
+                LogoFileName = jamEditable.LogoLocation,
                 AwardCriteria = jamEditable.Awards.Select(MapAward).ToList(),
                 EntriesSubpath = jamEditable.EntriesLocation,
                 EntriesStubs = jamEditable.Entries.Select(entry => MapEntryToStub(entriesPath, entry)).ToList(),
@@ -44,6 +45,7 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
             return new JamAwardInfo
             {
                 Id = awardEditable.Id,
+                Name = awardEditable.Name,
                 Description = awardEditable.Description,
             };
         }
