@@ -49,6 +49,11 @@
         </TabItem>
         
       </TabControl>
+
+      <!-- Save button-->
+      <Grid Margin="4" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+        <cc:SaveButton DataContext="{Binding SaveSystem}"/>
+      </Grid>
     </Grid>
 
     <!-- Modal overlay -->
