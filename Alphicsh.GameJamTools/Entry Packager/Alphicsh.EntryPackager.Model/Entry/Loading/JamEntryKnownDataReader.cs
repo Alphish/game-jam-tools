@@ -11,7 +11,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
 {
     internal class JamEntryKnownDataReader
     {
-        private JsonFileLoader<JamEntryInfo> Loader { get; } = new JsonFileLoader<JamEntryInfo>();
+        private static JsonFileLoader<JamEntryInfo> Loader { get; } = new JsonFileLoader<JamEntryInfo>();
 
         public JamEntryEditable? TryReadFromDirectory(FilePath directoryPath)
         {
@@ -45,7 +45,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
 
         private JamEntryInfo? ReadEntryInfo(FilePath entryInfoPath)
         {
-            return Loader.TryLoad(entryInfoPath);
+            return Loader.TryLoad(entryInfoPath)?.FromLegacyFormat();
         }
 
         // ----------------
@@ -62,8 +62,6 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
 
         private void ApplyEntryInfo(JamEntryEditable entryEditable, JamEntryInfo entryInfo)
         {
-            entryInfo = entryInfo.FromLegacyFormat();
-
             entryEditable.Title = entryInfo.Title;
             ApplyTeamInfo(entryEditable.Team, entryInfo.Team);
             ApplyFilesInfo(entryEditable.Files, entryInfo.Files);

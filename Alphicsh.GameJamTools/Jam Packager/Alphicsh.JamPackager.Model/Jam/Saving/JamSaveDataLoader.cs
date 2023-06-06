@@ -20,7 +20,7 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
                 return null;
 
             var entriesPath = model.DirectoryPath.Append(jamInfo.EntriesSubpath);
-            var entriesData = jamInfo.EntriesStubs
+            var entriesData = jamInfo.Entries
                 .Select(stub => LoadEntryData(entriesPath, stub))
                 .Where(data => data != null)
                 .Select(data => data!)
