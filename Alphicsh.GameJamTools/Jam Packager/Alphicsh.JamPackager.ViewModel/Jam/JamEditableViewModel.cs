@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
-using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Alphicsh.EntryPackager.ViewModel.Entry;
 using Alphicsh.JamPackager.Model.Jam;
 using Alphicsh.JamTools.Common.Controls.Files;
@@ -80,13 +80,13 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
         // ----
 
         public ImageSourceProperty<JamEditableViewModel> LogoProperty { get; }
-        public ImageSource? Logo => LogoProperty.ImageSource;
+        public BitmapSource? Logo => LogoProperty.ImageSource as BitmapSource;
         
         public NotifiableProperty LogoWidthProperty { get; }
-        public double LogoWidth => Logo?.Width ?? 120d;
+        public double LogoWidth => Logo?.PixelWidth ?? 120d;
 
         public NotifiableProperty LogoHeightProperty { get; }
-        public double LogoHeight => Logo?.Height ?? 120d;
+        public double LogoHeight => Logo?.PixelHeight ?? 120d;
 
         public NotifiableProperty LogoLocationProperty { get; }
         public string? LogoLocation => Model.LogoLocation;
