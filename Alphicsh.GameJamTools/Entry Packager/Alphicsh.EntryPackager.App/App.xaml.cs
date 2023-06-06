@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using Alphicsh.EntryPackager.Controls;
 using Alphicsh.EntryPackager.Model;
@@ -19,7 +20,7 @@ namespace Alphicsh.EntryPackager.App
         {
             ModalsRegistration.Register();
 
-            var model = new AppModel();
+            var model = new EntryPackagerModel();
             ViewModel = new EntryPackagerViewModel(model);
         }
 
@@ -36,11 +37,17 @@ namespace Alphicsh.EntryPackager.App
 
         private void OpenEntryFromArgs(StartupEventArgs e)
         {
-            var directoryPath = FilePath.FromNullable(e.Args.FirstOrDefault());
-            if (directoryPath.HasValue && directoryPath.Value.HasDirectory())
-            {
-                ViewModel.LoadEntryDirectory(directoryPath.Value);
-            }
+            var argPath = FilePath.FromNullable(e.Args.FirstOrDefault());
+            if (!argPath.HasValue)
+                return;
+            else if (argPath.Value.HasDirectory())
+                ViewModel.LoadEntryDirectory(argPath.Value);
+            else if (!argPath.Value.HasFile())
+                return;
+            else if (StringComparer.OrdinalIgnoreCase.Equals(argPath.Value.GetLastSegmentName(), "entry.jamentry"))
+                ViewModel.LoadEntryInfo(argPath.Value);
+            else if (StringComparer.OrdinalIgnoreCase.Equals(argPath.Value.GetExtension(), ".zip"))
+                ViewModel.LoadEntryZip(argPath.Value);
         }
     }
 }

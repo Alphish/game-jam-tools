@@ -68,6 +68,7 @@ namespace Alphicsh.JamTools.Common.Mvvm.NotifiableProperties
 
             var bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
+            bitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
             bitmapImage.UriSource = path.Value.ToUri();
             bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
             bitmapImage.EndInit();

@@ -12,11 +12,11 @@ using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 namespace Alphicsh.EntryPackager.ViewModel
 {
-    public class EntryPackagerViewModel : AppViewModel<AppModel>
+    public class EntryPackagerViewModel : AppViewModel<EntryPackagerModel>
     {
         public static EntryPackagerViewModel Current => (EntryPackagerViewModel)AppViewModel.Current;
 
-        public EntryPackagerViewModel(AppModel model) : base(model)
+        public EntryPackagerViewModel(EntryPackagerModel model) : base(model)
         {
             Entry = null;
             HasEntryProperty = WrapperProperty.ForReadonlyMember(this, vm => vm.Model.HasEntry);

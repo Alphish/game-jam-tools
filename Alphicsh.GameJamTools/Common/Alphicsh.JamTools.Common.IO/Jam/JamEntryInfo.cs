@@ -7,6 +7,9 @@ namespace Alphicsh.JamTools.Common.IO.Jam
 {
     public class JamEntryInfo
     {
+        public string Version { get; init; } = default!;
+        public string WrittenBy { get; init; } = default!;
+
         public string Title { get; init; } = default!;
         public string? ShortTitle { get; init; } = default!;
         public JamTeamInfo Team { get; init; } = default!;

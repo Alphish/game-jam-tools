@@ -7,12 +7,7 @@ namespace Alphicsh.EntryPackager.Model.Entry
     public class JamTeamEditable
     {
         public string? Name { get; set; }
-        public IList<JamAuthorEditable> Authors { get; }
-
-        public JamTeamEditable()
-        {
-            Authors = new List<JamAuthorEditable>();
-        }
+        public IList<JamAuthorEditable> Authors { get; } = new List<JamAuthorEditable>();
 
         public string DisplayName => !string.IsNullOrEmpty(Name) ? Name : string.Join(", ", Authors.Select(author => author.Name));
 

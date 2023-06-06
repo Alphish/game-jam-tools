@@ -23,7 +23,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Serialization
             if (jamInfo == null)
                 return null;
 
-            var jamDirectoryPath = jamFilePath.GetParentDirectoryPath()!.Value;
+            var jamDirectoryPath = jamFilePath.GetParentDirectoryPath();
             var entriesPath = jamDirectoryPath.Append(jamInfo.EntriesSubpath);
             jamInfo.Entries = LoadEntriesFromStubs(entriesPath, jamInfo.EntriesStubs).ToList();
 
@@ -45,7 +45,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Serialization
         {
             var jamInfo = StubJamInfoFromFile(jamDirectoryPath) ?? StubJamInfoFromDirectory(jamDirectoryPath);
 
-            jamInfo.LogoFileName ??= FindLogoPath(jamDirectoryPath)?.AsRelativeTo(jamDirectoryPath);
+            jamInfo.LogoFileName ??= FindLogoPath(jamDirectoryPath)?.AsRelativeTo(jamDirectoryPath).Value;
 
             var entriesPath = jamDirectoryPath.Append(jamInfo.EntriesSubpath);
             jamInfo.Entries = RediscoverEntriesFromStubs(entriesPath, jamInfo.EntriesStubs).ToList();
@@ -87,8 +87,8 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Serialization
             return new JamInfo()
             {
                 JamInfoPath = jamDirectoryPath.Append("jam.jaminfo"),
-                LogoFileName = logoPath?.AsRelativeTo(jamDirectoryPath),
-                EntriesSubpath = entriesPath.Value.AsRelativeTo(jamDirectoryPath),
+                LogoFileName = logoPath?.AsRelativeTo(jamDirectoryPath).Value,
+                EntriesSubpath = entriesPath.Value.AsRelativeTo(jamDirectoryPath).Value,
                 EntriesStubs = entriesStubs,
             };
         }

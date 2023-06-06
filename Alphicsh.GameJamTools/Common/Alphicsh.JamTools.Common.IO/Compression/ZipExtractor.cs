@@ -5,20 +5,28 @@ namespace Alphicsh.JamTools.Common.IO.Compression
 {
     public class ZipExtractor
     {
-        public FilePath? ExtractNewDirectoryFrom(FilePath zipPath)
+        public bool ExtractDirectory(FilePath zipPath, FilePath targetPath)
         {
             if (!zipPath.HasFile())
-                return null;
+                return false;
 
             using var zipStream = new FileStream(zipPath.Value, FileMode.Open);
             using var archive = OpenArchiveToExtract(zipStream);
             if (archive == null || archive.Entries.Count == 0)
-                return null;
+                return false;
 
-            var extractionDirectoryPath = CreateExtractionDirectory(zipPath);
-            ExtractArchive(archive, extractionDirectoryPath);
+            if (!Directory.Exists(targetPath.Value))
+                Directory.CreateDirectory(targetPath.Value);
 
-            return extractionDirectoryPath;
+            ExtractArchive(archive, targetPath);
+            return true;
+        }
+
+        public FilePath? ExtractNewDirectory(FilePath zipPath)
+        {
+            var targetPath = FindNewDirectoryName(zipPath);
+            var extractionResult = ExtractDirectory(zipPath, targetPath);
+            return extractionResult ? targetPath : null;
         }
 
         private ZipArchive? OpenArchiveToExtract(FileStream stream)
@@ -33,9 +41,9 @@ namespace Alphicsh.JamTools.Common.IO.Compression
             }
         }
 
-        private FilePath CreateExtractionDirectory(FilePath zipPath)
+        private FilePath FindNewDirectoryName(FilePath zipPath)
         {
-            var parentDirectoryPath = zipPath.GetParentDirectoryPath()!.Value;
+            var parentDirectoryPath = zipPath.GetParentDirectoryPath();
             var directoryName = zipPath.GetNameWithoutExtension();
             var directoryPath = parentDirectoryPath.Append(directoryName);
             var repeatIndex = 0;
@@ -45,19 +53,17 @@ namespace Alphicsh.JamTools.Common.IO.Compression
                 directoryPath = parentDirectoryPath.Append($"{directoryName} ({repeatIndex})");
             }
 
-            Directory.CreateDirectory(directoryPath.Value);
-
             return directoryPath;
         }
 
-        private void ExtractArchive(ZipArchive archive, FilePath extractionDirectoryPath)
+        private void ExtractArchive(ZipArchive archive, FilePath zipTargetPath)
         {
             // if the ZIP includes a top-level directory containing all subsequent entries
             // the extra directory is removed from the extracted content
             var zipCommonDirectory = FindZipCommonDirectory(archive);
             foreach (var entry in archive.Entries)
             {
-                ExtractEntry(entry, extractionDirectoryPath, zipCommonDirectory);
+                ExtractEntry(entry, zipTargetPath, zipCommonDirectory);
             }
         }
 
@@ -78,10 +84,10 @@ namespace Alphicsh.JamTools.Common.IO.Compression
             return commonDirectoryCandidate;
         }
 
-        private void ExtractEntry(ZipArchiveEntry entry, FilePath extractionDirectoryPath, string zipCommonDirectory)
+        private void ExtractEntry(ZipArchiveEntry entry, FilePath zipTargetPath, string zipCommonDirectory)
         {
             var relativePath = entry.FullName.Substring(zipCommonDirectory.Length);
-            var extractionPath = extractionDirectoryPath.Append(relativePath);
+            var extractionPath = zipTargetPath.Append(relativePath);
 
             if (entry.Name == "") // entry is directory
             {
@@ -89,7 +95,7 @@ namespace Alphicsh.JamTools.Common.IO.Compression
             }
             else
             {
-                var parentDirectoryPath = extractionPath.GetParentDirectoryPath()!.Value;
+                var parentDirectoryPath = extractionPath.GetParentDirectoryPath();
                 Directory.CreateDirectory(parentDirectoryPath.Value);
                 entry.ExtractToFile(extractionPath.Value, overwrite: true);
             }

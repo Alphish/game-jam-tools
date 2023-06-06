@@ -35,9 +35,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.EntryPackager.App"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.EntryPackager.Controls", "Entry Packager\Alphicsh.EntryPackager.Controls\Alphicsh.EntryPackager.Controls.csproj", "{BC504CEC-78AB-4939-AF53-61CD1BC79E62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.EntryPackager.ViewModel", "Entry Packager\Alphicsh.EntryPackager.ViewModel\Alphicsh.EntryPackager.ViewModel.csproj", "{12439473-5924-420F-9D72-6F3BA4930BC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.EntryPackager.ViewModel", "Entry Packager\Alphicsh.EntryPackager.ViewModel\Alphicsh.EntryPackager.ViewModel.csproj", "{12439473-5924-420F-9D72-6F3BA4930BC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.EntryPackager.Model", "Entry Packager\Alphicsh.EntryPackager.Model\Alphicsh.EntryPackager.Model.csproj", "{935CA6F3-67A0-4E96-B4A8-1C8740F84AA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.EntryPackager.Model", "Entry Packager\Alphicsh.EntryPackager.Model\Alphicsh.EntryPackager.Model.csproj", "{935CA6F3-67A0-4E96-B4A8-1C8740F84AA0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamPackager.Model", "Jam Packager\Alphicsh.JamPackager.Model\Alphicsh.JamPackager.Model.csproj", "{B2B57A3A-CADF-4E83-9F4A-1CC6C12055FE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamPackager.ViewModel", "Jam Packager\Alphicsh.JamPackager.ViewModel\Alphicsh.JamPackager.ViewModel.csproj", "{259F91A6-E781-441B-82C9-3FCBC941B9F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamPackager.Controls", "Jam Packager\Alphicsh.JamPackager.Controls\Alphicsh.JamPackager.Controls.csproj", "{1F707AF4-C70F-47DC-8332-0265981E82B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +107,18 @@ Global
 		{935CA6F3-67A0-4E96-B4A8-1C8740F84AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{935CA6F3-67A0-4E96-B4A8-1C8740F84AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{935CA6F3-67A0-4E96-B4A8-1C8740F84AA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2B57A3A-CADF-4E83-9F4A-1CC6C12055FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B57A3A-CADF-4E83-9F4A-1CC6C12055FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2B57A3A-CADF-4E83-9F4A-1CC6C12055FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2B57A3A-CADF-4E83-9F4A-1CC6C12055FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{259F91A6-E781-441B-82C9-3FCBC941B9F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{259F91A6-E781-441B-82C9-3FCBC941B9F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{259F91A6-E781-441B-82C9-3FCBC941B9F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{259F91A6-E781-441B-82C9-3FCBC941B9F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F707AF4-C70F-47DC-8332-0265981E82B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F707AF4-C70F-47DC-8332-0265981E82B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F707AF4-C70F-47DC-8332-0265981E82B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F707AF4-C70F-47DC-8332-0265981E82B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +138,9 @@ Global
 		{BC504CEC-78AB-4939-AF53-61CD1BC79E62} = {43B25523-1396-459C-8599-8C1655B616FA}
 		{12439473-5924-420F-9D72-6F3BA4930BC6} = {43B25523-1396-459C-8599-8C1655B616FA}
 		{935CA6F3-67A0-4E96-B4A8-1C8740F84AA0} = {43B25523-1396-459C-8599-8C1655B616FA}
+		{B2B57A3A-CADF-4E83-9F4A-1CC6C12055FE} = {77FE7337-4F98-4CA6-90E7-DEEB44E113AC}
+		{259F91A6-E781-441B-82C9-3FCBC941B9F0} = {77FE7337-4F98-4CA6-90E7-DEEB44E113AC}
+		{1F707AF4-C70F-47DC-8332-0265981E82B9} = {77FE7337-4F98-4CA6-90E7-DEEB44E113AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DF6235F-0198-4921-B6F6-CC96A4448F90}

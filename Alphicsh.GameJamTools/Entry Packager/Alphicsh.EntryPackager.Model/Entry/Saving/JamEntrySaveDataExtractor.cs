@@ -6,7 +6,7 @@ using Alphicsh.JamTools.Common.IO.Saving;
 
 namespace Alphicsh.EntryPackager.Model.Entry.Saving
 {
-    internal class JamEntrySaveDataExtractor : ISaveDataExtractor<JamEntryEditable, JamEntrySaveData>
+    public class JamEntrySaveDataExtractor : ISaveDataExtractor<JamEntryEditable, JamEntrySaveData>
     {
         public JamEntrySaveData ExtractData(JamEntryEditable model)
         {

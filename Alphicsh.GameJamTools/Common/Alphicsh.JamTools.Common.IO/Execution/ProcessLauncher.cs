@@ -10,7 +10,7 @@ namespace Alphicsh.JamTools.Common.IO.Execution
         {
             var processStartInfo = new ProcessStartInfo(filePath.Value)
             {
-                WorkingDirectory = filePath.GetParentDirectoryPath()!.Value.Value,
+                WorkingDirectory = filePath.GetParentDirectoryPath().Value,
                 UseShellExecute = true
             };
             Process.Start(processStartInfo);

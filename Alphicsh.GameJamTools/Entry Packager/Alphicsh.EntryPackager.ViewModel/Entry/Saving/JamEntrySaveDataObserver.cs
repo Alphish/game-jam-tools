@@ -4,7 +4,7 @@ using Alphicsh.JamTools.Common.Mvvm.Saving;
 
 namespace Alphicsh.EntryPackager.ViewModel.Entry.Saving
 {
-    internal class JamEntrySaveDataObserver : SaveDataObserver<JamEntryEditableViewModel>
+    public class JamEntrySaveDataObserver : SaveDataObserver<JamEntryEditableViewModel>
     {
         protected override IObserverNode CreateInnerObserver(JamEntryEditableViewModel viewModel)
         {

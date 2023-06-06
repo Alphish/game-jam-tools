@@ -1,0 +1,26 @@
+﻿<UserControl
+  x:Class="Alphicsh.JamPackager.Controls.Awards.JamAwardsTab"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.JamPackager.Controls.Awards"
+  xmlns:jamVm="clr-namespace:Alphicsh.JamPackager.ViewModel.Jam;assembly=Alphicsh.JamPackager.ViewModel"
+  mc:Ignorable="d"
+>
+  <GroupBox Header="Awards">
+    <ScrollViewer VerticalScrollBarVisibility="Visible">
+      <StackPanel>
+        <local:JamAwardsHeader/>
+
+        <ItemsControl ItemsSource="{Binding Awards}">
+          <ItemsControl.Resources>
+            <DataTemplate DataType="{x:Type jamVm:JamAwardEditableViewModel}">
+              <local:JamAwardsItem DataContext="{Binding}"/>
+            </DataTemplate>
+          </ItemsControl.Resources>
+        </ItemsControl>
+      </StackPanel>
+    </ScrollViewer>
+  </GroupBox>
+</UserControl>

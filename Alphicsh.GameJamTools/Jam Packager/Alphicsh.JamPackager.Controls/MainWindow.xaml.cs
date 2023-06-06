@@ -1,17 +1,15 @@
-﻿using System.Windows;
+﻿using Alphicsh.JamTools.Common.Mvvm;
 
-namespace Alphicsh.JamPackager.App
+namespace Alphicsh.JamPackager.Controls
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : AppWindow
     {
         public MainWindow()
         {
             InitializeComponent();
-
-            DataContext = new AppViewModel();
         }
     }
 }

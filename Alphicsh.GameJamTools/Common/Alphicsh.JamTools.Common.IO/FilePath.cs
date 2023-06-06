@@ -19,6 +19,12 @@ namespace Alphicsh.JamTools.Common.IO
         public static FilePath? FromNullable(string? path)
             => path != null ? new FilePath(path) : (FilePath?)null;
 
+        public static FilePath Of(DirectoryInfo directory)
+            => new FilePath(directory.FullName);
+
+        public static FilePath Of(FileInfo fileInfo)
+            => new FilePath(fileInfo.FullName);
+
         public override string ToString()
         {
             return Value;
@@ -99,8 +105,15 @@ namespace Alphicsh.JamTools.Common.IO
         public DirectoryInfo GetDirectory()
             => new DirectoryInfo(Value);
 
-        public FilePath? GetParentDirectoryPath()
-            => FilePath.FromNullable(Path.GetDirectoryName(Value));
+        public FilePath GetParentDirectoryPath()
+        {
+            var value = Path.GetDirectoryName(Value);
+            if (value == null)
+                throw new InvalidOperationException("Cannot get a parent directory path for a root directory.");
+
+            return FilePath.From(value);
+        }
+
         public string GetLastSegmentName()
             => Path.GetFileName(this.Value);
         public string GetNameWithoutExtension()

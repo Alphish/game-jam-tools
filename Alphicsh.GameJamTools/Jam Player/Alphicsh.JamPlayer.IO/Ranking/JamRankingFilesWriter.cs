@@ -18,7 +18,7 @@ namespace Alphicsh.JamPlayer.IO.Ranking
         {
             var content = JamRankingInfoSerializer.Serialize(jamRankingInfo);
             var directoryPath = rankingInfoPath.GetParentDirectoryPath();
-            Directory.CreateDirectory(directoryPath!.Value.Value);
+            Directory.CreateDirectory(directoryPath.Value);
             File.WriteAllText(rankingInfoPath.Value, content);
         }
     }
