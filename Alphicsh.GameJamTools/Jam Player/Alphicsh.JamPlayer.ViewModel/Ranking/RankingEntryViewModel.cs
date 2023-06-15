@@ -20,6 +20,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
         {
             JamEntry = new JamEntryViewModel(model.JamEntry);
 
+            IsUnjudgedProperty = WrapperProperty.ForMember(this, vm => vm.Model.IsUnjudged);
             RankProperty = WrapperProperty.ForMember(this, vm => vm.Model.Rank)
                 .WithDependingProperty(nameof(IsRanked));
 
@@ -41,6 +42,9 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
         private WrapperProperty<RankingEntryViewModel, int?> RankProperty { get; }
         public int? Rank { get => RankProperty.Value; set => RankProperty.Value = value; }
         public bool IsRanked => Rank.HasValue;
+
+        public WrapperProperty<RankingEntryViewModel, bool> IsUnjudgedProperty { get; }
+        public bool IsUnjudged { get => IsUnjudgedProperty.Value; set => IsUnjudgedProperty.Value = value; }
 
         public IReadOnlyCollection<RatingViewModel> Ratings { get; private set; }
 

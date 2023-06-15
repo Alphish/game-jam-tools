@@ -10,6 +10,7 @@ namespace Alphicsh.JamPlayer.Model.Ranking
         public JamEntry JamEntry { get; init; } = default!;
         public string Comment { get; set; } = string.Empty;
         public int? Rank { get; set; } = default!;
+        public bool IsUnjudged { get; set; }
 
         private IReadOnlyCollection<IRating> InnerRatings { get; init; }
         private IReadOnlyDictionary<string, IRating> RatingsById { get; init; }

@@ -79,6 +79,7 @@ namespace Alphicsh.JamPlayer.Model.Ranking
                 JamEntry = jamEntry,
                 Ratings = ratings,
                 Comment = ratingsInfo?.Comment ?? string.Empty,
+                IsUnjudged = ratingsInfo?.IsUnjudged == true,
             };
         }
 
@@ -127,7 +128,7 @@ namespace Alphicsh.JamPlayer.Model.Ranking
 
         private bool RankingEntryHasRatings(RankingEntry entry)
         {
-            return entry.Ratings.Any(rating => rating.HasValue) || !string.IsNullOrWhiteSpace(entry.Comment);
+            return entry.Ratings.Any(rating => rating.HasValue) || !string.IsNullOrWhiteSpace(entry.Comment) || entry.IsUnjudged == true;
         }
 
         private EntryRatingsInfo MapRankingEntryToRatingsInfo(RankingEntry entry)
@@ -144,6 +145,7 @@ namespace Alphicsh.JamPlayer.Model.Ranking
                 EntryId = entry.JamEntry.Id,
                 Ratings = ratings,
                 Comment = comment,
+                IsUnjudged = entry.IsUnjudged ? true : null,
             };
         }
     }

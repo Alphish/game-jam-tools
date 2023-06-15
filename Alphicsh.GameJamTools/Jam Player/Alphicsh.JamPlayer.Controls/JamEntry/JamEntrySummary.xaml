@@ -85,6 +85,11 @@
           Command="{Binding JamEntry.OpenDirectoryCommand}"
         >Directory</cc:ImpButton>
       </WrapPanel>
+
+      <WrapPanel>
+        <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsUnjudged}"/>
+        <Label Style="{StaticResource ItemLabel}" ToolTip="Mark entry as excluded from judgement, if you couldn't play it properly but also don't want to hurt the entry by leaving it unranked">Unjudged</Label>
+      </WrapPanel>
     </StackPanel>
   </Grid>
 </UserControl>
