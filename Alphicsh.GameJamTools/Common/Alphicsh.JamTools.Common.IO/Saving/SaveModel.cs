@@ -46,5 +46,10 @@
             DataSaver.Save(CurrentData!);
             SavedData = CurrentData!;
         }
+
+        public void MarkUnmodified()
+        {
+            SavedData = CurrentData;
+        }
     }
 }

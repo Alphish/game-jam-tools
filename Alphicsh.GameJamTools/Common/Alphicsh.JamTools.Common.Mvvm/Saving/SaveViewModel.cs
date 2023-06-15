@@ -75,5 +75,14 @@ namespace Alphicsh.JamTools.Common.Mvvm.Saving
             if (wasModified != IsModified)
                 IsModifiedProperty.RaisePropertyChanged();
         }
+
+        public void MarkUnmodified()
+        {
+            if (!SaveModel.IsModified)
+                return;
+
+            SaveModel.MarkUnmodified();
+            IsModifiedProperty.RaisePropertyChanged();
+        }
     }
 }
