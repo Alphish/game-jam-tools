@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Windows.Input;
 using Alphicsh.JamPlayer.Model;
+using Alphicsh.JamPlayer.Model.Vote;
 using Alphicsh.JamPlayer.ViewModel.Awards;
 using Alphicsh.JamPlayer.ViewModel.Export;
 using Alphicsh.JamPlayer.ViewModel.Jam;
 using Alphicsh.JamPlayer.ViewModel.Ranking;
+using Alphicsh.JamPlayer.ViewModel.Vote;
+using Alphicsh.JamPlayer.ViewModel.Vote.Saving;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
@@ -27,6 +30,8 @@ namespace Alphicsh.JamPlayer.ViewModel
 
         private JamPlayerViewModel(AppModel model) : base(model)
         {
+            VoteSaveSystem = new JamVoteSaveViewModel();
+
             JamProperty = MutableProperty.Create<JamOverviewViewModel>(this, nameof(Jam), default!);
             RankingProperty = MutableProperty.Create<RankingOverviewViewModel>(this, nameof(Ranking), default!);
             AwardsProperty = MutableProperty.Create<AwardsOverviewViewModel>(this, nameof(Awards), default!);
@@ -43,6 +48,14 @@ namespace Alphicsh.JamPlayer.ViewModel
             Ranking = new RankingOverviewViewModel(Model.Ranking);
             Awards = new AwardsOverviewViewModel(Model.Awards, Jam);
             Exporter = new ExporterViewModel(Model.Exporter);
+
+            VoteSaveSystem.DropViewModel();
+            if (Model.Jam.DirectoryPath != default)
+            {
+                Vote = new JamVoteViewModel(this, new JamVote());
+                VoteSaveSystem.TrackViewModel(Vote);
+                VoteSaveSystem.MarkUnmodified();
+            }
         }
 
         public MutableProperty<JamOverviewViewModel> JamProperty { get; }
@@ -56,6 +69,9 @@ namespace Alphicsh.JamPlayer.ViewModel
 
         public MutableProperty<ExporterViewModel> ExporterProperty { get; }
         public ExporterViewModel Exporter { get => ExporterProperty.Value; private set => ExporterProperty.Value = value; }
+
+        public JamVoteViewModel Vote { get; private set; } = default!;
+        public JamVoteSaveViewModel VoteSaveSystem { get; }
 
         public ICommand SaveRankingCommand { get; }
         public ICommand SaveExporterCommand { get; }

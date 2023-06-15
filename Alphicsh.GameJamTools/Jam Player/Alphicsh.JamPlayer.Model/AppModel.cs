@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Alphicsh.JamPlayer.Model.Awards;
 using Alphicsh.JamPlayer.Model.Export;
 using Alphicsh.JamPlayer.Model.Jam;
@@ -12,6 +13,8 @@ namespace Alphicsh.JamPlayer.Model
 {
     public class AppModel
     {
+        internal static AppModel Current { get; set; } = default!;
+
         public JamOverview Jam { get; private set; }
         public JamPlayerDataManager PlayerDataManager { get; }
 
@@ -27,6 +30,11 @@ namespace Alphicsh.JamPlayer.Model
 
         public AppModel()
         {
+            if (Current != null)
+                throw new InvalidOperationException("AppModel should be created only once.");
+
+            Current = this;
+
             Jam = new JamOverview
             {
                 Entries = new List<JamEntry>(),
