@@ -20,6 +20,7 @@ namespace Alphicsh.JamPackager.ViewModel
 
             OpenJamDirectoryCommand = SimpleCommand.From(OpenJamDirectory);
             CloseJamCommand = SimpleCommand.From(CloseJam);
+            ExportCompatibilityCommand = SimpleCommand.From(ExportCompatibility);
 
             SaveSystem = new JamSaveViewModel();
         }
@@ -74,5 +75,13 @@ namespace Alphicsh.JamPackager.ViewModel
 
             RaisePropertyChanged(nameof(Jam), nameof(HasJam));
         }
+
+        // -------------
+        // Compatibility
+        // -------------
+
+        public ICommand ExportCompatibilityCommand { get; }
+        private void ExportCompatibility()
+            => Model.ExportCompatibilityData();
     }
 }

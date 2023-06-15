@@ -97,6 +97,14 @@
           Command="{Binding CloseJamCommand}"
           ToolTip="Close current jam and choose another one"
         >Close jam</cc:ImpButton>
+        
+        <cc:ImpButton
+          Style="{StaticResource HelpButton}"
+          Margin="2"
+          Width="128"
+          Command="{Binding ExportCompatibilityCommand}"
+          ToolTip="Export data for legacy Jam Player"
+        >Export LTS data</cc:ImpButton>
       </WrapPanel>
     </Grid>
   </GroupBox>
