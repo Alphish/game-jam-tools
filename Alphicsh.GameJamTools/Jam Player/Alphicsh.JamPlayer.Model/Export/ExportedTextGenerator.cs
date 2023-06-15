@@ -62,7 +62,7 @@ namespace Alphicsh.JamPlayer.Model.Export
             {
                 var jamEntry = awardEntry.JamEntry!;
                 sb.Append("\n");
-                sb.Append($"[b]{ awardEntry.Criterion.Description }:[/b] { jamEntry.Title } by { jamEntry.Team.Description }");
+                sb.Append($"[b]{ awardEntry.Criterion.Name }:[/b] { jamEntry.Title } by { jamEntry.Team.Description }");
             }
         }
 
@@ -75,17 +75,50 @@ namespace Alphicsh.JamPlayer.Model.Export
             sb.Append($"[size=6]Ranking:[/size]");
 
             sb.Append("\n\n");
-            sb.Append($"[spoiler][list=1]");
+            sb.Append($"[spoiler]");
 
+            GenerateRankedList(sb, ranking);
+            GenerateUnjudgedList(sb, ranking);
+
+            sb.Append("[/spoiler]");
+        }
+
+        private void GenerateRankedList(StringBuilder sb, RankingOverview ranking)
+        {
+            sb.Append($"[list=1]");
             foreach (var rankingEntry in ranking.RankedEntries)
             {
                 var jamEntry = rankingEntry.JamEntry;
                 sb.Append("\n");
-                sb.Append($"[*][b]{ jamEntry.Title }[/b] by { jamEntry.Team.Description }");
+                sb.Append($"[*][b]{jamEntry.ShortTitle}[/b] by {jamEntry.Team.Description}");
             }
+            sb.Append("[/list]");
+        }
 
-            sb.Append("\n");
-            sb.Append("[/list][/spoiler]");
+        private void GenerateUnjudgedList(StringBuilder sb, RankingOverview ranking)
+        {
+            var pendingEntries = ranking.PendingEntries.Select(entry => entry.JamEntry);
+            var markedEntries = ranking.GetAllEntries().Where(entry => entry.IsUnjudged).Select(entry => entry.JamEntry);
+            var rankedEntries = ranking.RankedEntries.Select(entry => entry.JamEntry);
+
+            var unjudgedEntries = pendingEntries.Concat(markedEntries).Except(rankedEntries)
+                .OrderBy(entry => entry.ShortTitle).ThenBy(entry => entry.Team.Description)
+                .ToList();
+
+            if (unjudgedEntries.Count == 0)
+                return;
+
+            sb.Append("\n\n");
+            sb.Append($"[b]Unjudged entries:[/b]");
+            sb.Append("\n\n");
+
+            sb.Append($"[list]");
+            foreach (var jamEntry in unjudgedEntries)
+            {
+                sb.Append("\n");
+                sb.Append($"[*][b]{jamEntry.ShortTitle}[/b] by {jamEntry.Team.Description}");
+            }
+            sb.Append("[/list]");
         }
 
         private void GenerateComments(StringBuilder sb, RankingOverview ranking, string commentTemplateString)
