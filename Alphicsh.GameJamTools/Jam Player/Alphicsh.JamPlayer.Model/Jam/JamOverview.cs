@@ -14,8 +14,15 @@ namespace Alphicsh.JamPlayer.Model.Jam
         public FilePath? LogoPath { get; init; } = default!;
         public string? Theme { get; init; } = default!;
 
+        public IReadOnlyCollection<JamAwardCriterion> AwardCriteria { get; init; } = default!;
+
+        // -------
+        // Entries
+        // -------
+
         private readonly IReadOnlyCollection<JamEntry> _entries = default!;
         private readonly IReadOnlyDictionary<string, JamEntry> _entriesById = default!;
+
         public IReadOnlyCollection<JamEntry> Entries
         {
             get => _entries;
@@ -25,6 +32,7 @@ namespace Alphicsh.JamPlayer.Model.Jam
                 _entriesById = value.ToDictionary(entry => entry.Id, StringComparer.OrdinalIgnoreCase);
             }
         }
+        
         public JamEntry? GetEntryById(string? entryId)
         {
             if (entryId == null)
@@ -32,7 +40,5 @@ namespace Alphicsh.JamPlayer.Model.Jam
 
             return _entriesById.TryGetValue(entryId, out var entry) ? entry : null;
         }
-
-        public IReadOnlyCollection<JamAwardCriterion> AwardCriteria { get; init; } = default!;
     }
 }

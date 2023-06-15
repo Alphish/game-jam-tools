@@ -20,12 +20,12 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
         {
             JamEntry = new JamEntryViewModel(model.JamEntry);
 
-            RankProperty = WrapperProperty.Create(this, nameof(Rank), vm => vm.Model.Rank, (vm, value) => vm.Model.Rank = value)
+            RankProperty = WrapperProperty.ForMember(this, vm => vm.Model.Rank)
                 .WithDependingProperty(nameof(IsRanked));
 
             Ratings = model.Ratings.Select(RatingViewModel.Create).ToList();
 
-            CommentProperty = WrapperProperty.Create(this, nameof(Comment), vm => vm.Model.Comment, (vm, value) => vm.Model.Comment = value);
+            CommentProperty = WrapperProperty.ForMember(this, vm => vm.Model.Comment);
         }
 
         // ---------------

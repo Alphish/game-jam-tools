@@ -46,8 +46,8 @@
           Style="{StaticResource PrimaryButton}"
           Margin="0,4,8,4"
           Width="96"
-          Command="{Binding JamEntry.OpenReadmePleaseCommand}"
-          Visibility="{Binding JamEntry.OpenReadmePleaseCommand, Converter={StaticResource NullVisibilityConverter}}"
+          Command="{Binding JamEntry.OpenReadmeCommand}"
+          Visibility="{Binding JamEntry.HasRequiredReadme, Converter={StaticResource ShowTrueVisibilityConverter}}"
         >Readme</cc:ImpButton>
         
         <!-- Game launching -->
@@ -66,7 +66,7 @@
           Margin="0,4,8,4"
           Width="96"
           Command="{Binding JamEntry.OpenReadmeCommand}"
-          Visibility="{Binding JamEntry.OpenReadmeCommand, Converter={StaticResource NullVisibilityConverter}}"
+          Visibility="{Binding JamEntry.HasRegularReadme, Converter={StaticResource ShowTrueVisibilityConverter}}"
         >Readme</cc:ImpButton>
         
         <!-- Afterword -->
@@ -75,7 +75,7 @@
           Margin="0,4,8,4"
           Width="96"
           Command="{Binding JamEntry.OpenAfterwordCommand}"
-          Visibility="{Binding JamEntry.OpenAfterwordCommand, Converter={StaticResource NullVisibilityConverter}}"
+          Visibility="{Binding JamEntry.HasAfterword, Converter={StaticResource ShowTrueVisibilityConverter}}"
         >Afterword</cc:ImpButton>
         
         <!-- Directory -->
