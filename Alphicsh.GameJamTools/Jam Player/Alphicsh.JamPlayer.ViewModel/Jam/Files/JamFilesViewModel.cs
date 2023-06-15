@@ -75,7 +75,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam.Files
 
         public JamThumbnailsViewModel? Thumbnails { get; }
         public ImageSource? Thumbnail => Thumbnails?.Thumbnail;
-        public ImageSource? ThumbnailSmall => Thumbnails?.Thumbnail;
+        public ImageSource? ThumbnailSmall => Thumbnails?.ThumbnailSmall;
 
         // ---------
         // Directory
