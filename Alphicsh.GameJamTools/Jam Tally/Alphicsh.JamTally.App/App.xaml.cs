@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using Alphicsh.JamTally.Controls;
+using Alphicsh.JamTally.Model;
+using Alphicsh.JamTally.ViewModel;
+using Alphicsh.JamTools.Common.Theming;
 
 namespace Alphicsh.JamTally.App
 {
@@ -13,5 +11,24 @@ namespace Alphicsh.JamTally.App
     /// </summary>
     public partial class App : Application
     {
+        public JamTallyViewModel ViewModel { get; }
+
+        public App()
+        {
+            ModalsRegistration.Register();
+
+            var model = new JamTallyModel();
+            ViewModel = new JamTallyViewModel(model);
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            ThemeManager.Create(Resources);
+
+            base.OnStartup(e);
+
+            var window = new MainWindow() { DataContext = ViewModel };
+            window.Show();
+        }
     }
 }
