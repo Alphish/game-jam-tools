@@ -15,12 +15,19 @@
       <ColumnDefinition Width="8"></ColumnDefinition>
       <ColumnDefinition Width="1*"></ColumnDefinition>
     </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="4"/>
+    </Grid.RowDefinitions>
     
-    <!-- Award description -->
-    <TextBlock Grid.Column="0" Style="{StaticResource FormLabel}" Text="{Binding Description}" d:Text="Best at Consolation Awards"></TextBlock>
-    
+    <!-- Award name -->
+    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource FormLabel}" Text="{Binding Name}" d:Text="Best of Awards"/>
+
     <!-- Award selection -->
     <ComboBox
+      Grid.Row="0"
       Grid.Column="2"
       MinHeight="36"
       HorizontalAlignment="Stretch"
@@ -34,5 +41,14 @@
         </DataTemplate>
       </ComboBox.ItemTemplate>
     </ComboBox>
+    
+    <!-- Award explanation -->
+    <TextBlock
+      Grid.Row="1" Grid.Column="2"
+      Visibility="{Binding Description, Converter={StaticResource NullVisibilityConverter}}"
+      Style="{StaticResource FormComment}"
+      FontSize="14"
+      Text="{Binding Description}"
+    />
   </Grid>
 </UserControl>

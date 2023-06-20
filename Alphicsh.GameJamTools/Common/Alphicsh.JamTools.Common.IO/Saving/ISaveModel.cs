@@ -7,5 +7,6 @@
         void LoadSavedModel(TModel model);
         void UpdateCurrentModel(TModel model);
         void Save(TModel model);
+        void MarkUnmodified();
     }
 }

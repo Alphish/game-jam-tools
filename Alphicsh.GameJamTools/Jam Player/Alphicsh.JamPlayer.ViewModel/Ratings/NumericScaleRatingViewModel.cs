@@ -17,7 +17,8 @@ namespace Alphicsh.JamPlayer.ViewModel.Ratings
         {
             ValueProperty = WrapperProperty.Create(this, nameof(Value), vm => vm.Model.Value, (vm, value) => vm.Model.Value = value)
                 .WithDependingProperty(nameof(DisplayValue))
-                .WithDependingProperty(nameof(HasValue));
+                .WithDependingProperty(nameof(HasValue))
+                .WithDependingProperty(GenericValueProperty);
 
             ClearValueCommand = SimpleCommand.From(() => ValueProperty.Value = null);
         }
@@ -31,5 +32,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ratings
         public double? Value { get => ValueProperty.Value; set => ValueProperty.Value = value; }
         public double DisplayValue { get => ValueProperty.Value ?? 0d; set => ValueProperty.Value = value; }
         public bool HasValue => Model.HasValue;
+
+        public override object GenericValue => Value ?? -1;
     }
 }

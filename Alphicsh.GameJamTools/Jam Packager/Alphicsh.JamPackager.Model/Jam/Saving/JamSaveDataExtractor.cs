@@ -36,7 +36,7 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
                 LogoFileName = jamEditable.LogoLocation,
                 AwardCriteria = jamEditable.Awards.Select(MapAward).ToList(),
                 EntriesSubpath = jamEditable.EntriesLocation,
-                EntriesStubs = jamEditable.Entries.Select(entry => MapEntryToStub(entriesPath, entry)).ToList(),
+                Entries = jamEditable.Entries.Select(entry => MapEntryToStub(entriesPath, entry)).ToList(),
             };
         }
 

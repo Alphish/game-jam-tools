@@ -18,6 +18,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Awards
             EntryProperty = MutableProperty.Create(this, nameof(Entry), currentCandidate);
         }
 
+        public string Name => Model.Criterion.Name;
         public string Description => Model.Criterion.Description;
 
         public MutableProperty<AwardCandidateViewModel> EntryProperty { get; }

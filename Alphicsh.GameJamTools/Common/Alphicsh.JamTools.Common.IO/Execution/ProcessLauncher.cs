@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 
 namespace Alphicsh.JamTools.Common.IO.Execution
 {
@@ -32,30 +31,12 @@ namespace Alphicsh.JamTools.Common.IO.Execution
         {
             var operaGxFullPath = new FilePath(Environment.ExpandEnvironmentVariables(operaGxPath));
             if (!operaGxFullPath.HasFile())
+            {
+                OpenWebsite(gxGameUri);
                 return;
+            }
 
             var processStartInfo = new ProcessStartInfo(operaGxFullPath.Value, '"' + gxGameUri.ToString() + '"');
-            Process.Start(processStartInfo);
-        }
-
-        [Obsolete]
-        public void OpenGxGame(string operaGxPath, FilePath filePath)
-        {
-            var operaGxFullPath = new FilePath(Environment.ExpandEnvironmentVariables(operaGxPath));
-            if (!operaGxFullPath.HasFile())
-                return;
-
-            if (!filePath.HasFile())
-                return;
-
-            var gxGameLink = File.ReadAllText(filePath.Value);
-            if (!Uri.TryCreate(gxGameLink, UriKind.Absolute, out var gxGameUri))
-                return;
-
-            if (gxGameUri.Scheme != "https")
-                return;
-
-            var processStartInfo = new ProcessStartInfo(operaGxFullPath.Value, '"' + gxGameLink.ToString() + '"');
             Process.Start(processStartInfo);
         }
     }

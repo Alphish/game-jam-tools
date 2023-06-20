@@ -1,13 +1,8 @@
-﻿using System.Windows.Media;
-
-using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.Mvvm;
-using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
-
+﻿using System.Windows.Input;
+using System.Windows.Media;
 using Alphicsh.JamPlayer.Model.Jam;
-using Alphicsh.JamTools.Common.Mvvm.Commands;
-using Alphicsh.JamTools.Common.IO.Execution;
-using System.Windows.Input;
+using Alphicsh.JamPlayer.ViewModel.Jam.Files;
+using Alphicsh.JamTools.Common.Mvvm;
 
 namespace Alphicsh.JamPlayer.ViewModel.Jam
 {
@@ -20,68 +15,34 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
             : base(model)
         {
             Team = new JamTeamViewModel(model.Team);
-
-            ThumbnailPathProperty = ImageSourceProperty.CreateReadonly(this, nameof(Thumbnail), vm => vm.Model.ThumbnailPath);
-            ThumbnailSmallPathProperty = ImageSourceProperty.CreateReadonly(this, nameof(ThumbnailSmall), vm => vm.Model.ThumbnailSmallPath);
-
-            Launcher = new ProcessLauncher();
-            LaunchGameCommand = SimpleCommand.From(LaunchGame);
-            OpenReadmeCommand = ReadmePath != null && !model.IsReadmePlease ? SimpleCommand.From(OpenReadme) : null;
-            OpenReadmePleaseCommand = ReadmePath != null && model.IsReadmePlease ? SimpleCommand.From(OpenReadme) : null;
-            OpenAfterwordCommand = AfterwordPath != null ? SimpleCommand.From(OpenAfterword) : null;
-            OpenDirectoryCommand = SimpleCommand.From(OpenDirectory);
+            Files = new JamFilesViewModel(model.Files);
         }
 
         public string Title => Model.Title;
         public JamTeamViewModel Team { get; }
+        public JamFilesViewModel Files { get; }
 
         // ------
         // Images
         // ------
 
-        public ImageSourceProperty<JamEntryViewModel> ThumbnailPathProperty { get; }
-        public ImageSource? Thumbnail => ThumbnailPathProperty.ImageSource;
-
-        public ImageSourceProperty<JamEntryViewModel> ThumbnailSmallPathProperty { get; }
-        public ImageSource? ThumbnailSmall => ThumbnailSmallPathProperty.ImageSource;
+        public ImageSource? Thumbnail => Files.Thumbnail;
+        public ImageSource? ThumbnailSmall => Files.ThumbnailSmall;
 
         // ---------
         // Execution
         // ---------
 
-        private ProcessLauncher Launcher { get; }
+        public string PlayDescription => Files.PlayDescription;
+        public ICommand LaunchGameCommand => Files.PlayCommand;
 
-        public FilePath? GamePath => Model.GamePath;
-        public bool IsGxGame => Model.GamePath?.GetExtension().ToLowerInvariant() == ".gxgame";
-        public string PlayDescription => Model.GamePath == null ? "" : IsGxGame ? "Play (GX)" : "Play";
-        public ICommand LaunchGameCommand { get; }
-        private void LaunchGame()
-        {
-            if (GamePath == null)
-                return;
+        public bool HasRequiredReadme => Files.HasRequiredReadme;
+        public bool HasRegularReadme => Files.HasRegularReadme;
+        public ICommand? OpenReadmeCommand => Files.OpenReadmeCommand;
 
-            if (GamePath.Value.GetExtension().ToLowerInvariant() == ".gxgame")
-                Launcher.OpenGxGame(@"%LOCALAPPDATA%\Programs\Opera GX\opera.exe", GamePath.Value);
-            else
-                Launcher.OpenFile(GamePath.Value);
-        }
+        public bool HasAfterword => Files.HasAfterword;
+        public ICommand? OpenAfterwordCommand => Files.OpenAfterwordCommand;
 
-        public FilePath? ReadmePath => Model.ReadmePath;
-        public ICommand? OpenReadmeCommand { get; }
-        public ICommand? OpenReadmePleaseCommand { get; }
-        private void OpenReadme()
-            => Launcher.OpenFile(ReadmePath!.Value);
-
-        public FilePath? AfterwordPath => Model.AfterwordPath;
-        public ICommand? OpenAfterwordCommand { get; }
-        private void OpenAfterword()
-            => Launcher.OpenFile(AfterwordPath!.Value);
-
-        public FilePath DirectoryPath => Model.DirectoryPath;
-        public ICommand OpenDirectoryCommand { get; }
-        public void OpenDirectory()
-        {
-            Launcher.OpenDirectory(DirectoryPath);
-        }
+        public ICommand OpenDirectoryCommand => Files.OpenDirectoryCommand;
     }
 }

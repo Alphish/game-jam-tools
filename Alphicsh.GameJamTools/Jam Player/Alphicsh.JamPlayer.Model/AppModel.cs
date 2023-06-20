@@ -1,17 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Alphicsh.JamPlayer.Model.Awards;
 using Alphicsh.JamPlayer.Model.Export;
 using Alphicsh.JamPlayer.Model.Jam;
+using Alphicsh.JamPlayer.Model.Jam.Loading;
 using Alphicsh.JamPlayer.Model.Ranking;
 using Alphicsh.JamPlayer.Model.Ratings;
 using Alphicsh.JamPlayer.Model.Ratings.NumericScale;
 using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.IO.Jam;
 
 namespace Alphicsh.JamPlayer.Model
 {
     public class AppModel
     {
+        internal static AppModel Current { get; set; } = default!;
+
         public JamOverview Jam { get; private set; }
         public JamPlayerDataManager PlayerDataManager { get; }
 
@@ -27,6 +30,11 @@ namespace Alphicsh.JamPlayer.Model
 
         public AppModel()
         {
+            if (Current != null)
+                throw new InvalidOperationException("AppModel should be created only once.");
+
+            Current = this;
+
             Jam = new JamOverview
             {
                 Entries = new List<JamEntry>(),
@@ -84,14 +92,11 @@ namespace Alphicsh.JamPlayer.Model
         // Loading Jam
         // -----------
 
+        private static JamLoader JamLoader { get; } = new JamLoader();
+
         public void LoadJamFromFile(FilePath jamFilePath)
         {
-            var jamInfo = JamInfo.LoadFromFile(jamFilePath);
-            if (jamInfo == null)
-                return;
-
-            var mapper = new JamInfoMapper();
-            Jam = mapper.MapInfoToJam(jamInfo);
+            Jam = JamLoader.ReadFromDirectory(jamFilePath.GetParentDirectoryPath())!;
             PlayerDataManager.LoadRanking();
             PlayerDataManager.LoadExporter();
         }

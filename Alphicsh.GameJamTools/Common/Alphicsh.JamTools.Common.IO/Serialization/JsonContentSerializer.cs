@@ -12,7 +12,11 @@ namespace Alphicsh.JamTools.Common.IO.Serialization
 
         protected JsonSerializerOptions SerializerOptions { get; }
 
-        public JsonContentSerializer()
+        public JsonContentSerializer() : this(JsonIgnoreCondition.WhenWritingNull)
+        {
+        }
+
+        public JsonContentSerializer(JsonIgnoreCondition ignoreCondition)
         {
             SerializerOptions = new JsonSerializerOptions()
             {
@@ -24,7 +28,7 @@ namespace Alphicsh.JamTools.Common.IO.Serialization
                 ReadCommentHandling = JsonCommentHandling.Skip,
 
                 // ignoring properties
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                DefaultIgnoreCondition = ignoreCondition,
                 IncludeFields = false,
 
                 // property names

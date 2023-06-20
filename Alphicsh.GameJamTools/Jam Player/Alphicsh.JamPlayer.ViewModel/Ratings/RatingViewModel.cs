@@ -3,6 +3,7 @@
 using Alphicsh.JamPlayer.Model.Ratings;
 using Alphicsh.JamPlayer.Model.Ratings.NumericScale;
 using Alphicsh.JamTools.Common.Mvvm;
+using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 namespace Alphicsh.JamPlayer.ViewModel.Ratings
 {
@@ -11,6 +12,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ratings
         protected RatingViewModel(IRating model)
             : base(model)
         {
+            GenericValueProperty = NotifiableProperty.Create(this, nameof(GenericValue));
         }
 
         public static RatingViewModel Create(IRating rating)
@@ -26,5 +28,8 @@ namespace Alphicsh.JamPlayer.ViewModel.Ratings
 
         public string Id => Model.Id;
         public string Name => Model.Name;
+
+        public abstract object GenericValue { get; }
+        public NotifiableProperty GenericValueProperty { get; }
     }
 }

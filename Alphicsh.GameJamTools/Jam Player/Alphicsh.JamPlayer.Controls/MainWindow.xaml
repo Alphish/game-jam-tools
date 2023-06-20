@@ -53,7 +53,12 @@
         <appExport:ExportTab DataContext="{Binding}"></appExport:ExportTab>
       </TabItem>
     </TabControl>
-    
+
+    <!-- Save button-->
+    <Grid Margin="4" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+      <cc:SaveButton DataContext="{Binding VoteSaveSystem}"/>
+    </Grid>
+
     <!-- Modal overlay -->
     <Border Background="#80000000" Visibility="{Binding HasOverlay, Converter={StaticResource ShowTrueVisibilityConverter}}"></Border>
   </Grid>

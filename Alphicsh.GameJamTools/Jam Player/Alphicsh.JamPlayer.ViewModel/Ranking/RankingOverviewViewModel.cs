@@ -17,6 +17,9 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
             RankedEntries = new RankedEntriesListViewModel(model.RankedEntries, rankingOverview: this);
             UnrankedEntries = new UnrankedEntriesListViewModel(model.UnrankedEntries, rankingOverview: this);
 
+            HasPendingEntriesProperty = NotifiableProperty.Create(this, nameof(HasPendingEntriesProperty));
+            PendingCountProperty = NotifiableProperty.Create(this, nameof(PendingCount));
+
             SelectedEntryProperty = MutableProperty.Create(this, nameof(SelectedEntry), initialValue: (RankingEntryViewModel?)null)
                 .WithDependingProperty(RankedEntries, nameof(RankedEntries.SelectedEntry))
                 .WithDependingProperty(UnrankedEntries, nameof(UnrankedEntries.SelectedEntry));
@@ -28,8 +31,12 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
         // Pending entries
         // ---------------
 
+        public NotifiableProperty PendingCountProperty { get; }
         public int PendingCount => Model.PendingEntries.Count;
+
+        public NotifiableProperty HasPendingEntriesProperty { get; }
         public bool HasPendingEntries => Model.PendingEntries.Any();
+
         public ICommand GetNextEntryCommand { get; }
         private void GetNextEntry()
         {
@@ -37,8 +44,8 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
             if (modelEntry == null)
                 return;
 
-            RaisePropertyChanged(nameof(PendingCount));
-            RaisePropertyChanged(nameof(HasPendingEntries));
+            PendingCountProperty.RaisePropertyChanged();
+            HasPendingEntriesProperty.RaisePropertyChanged();
             UnrankedEntries.SynchronizeWithModels();
 
             var viewModel = UnrankedEntries.First(vm => vm.Model == modelEntry);

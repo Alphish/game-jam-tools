@@ -12,6 +12,11 @@
     <ApplicationIcon>jam-player.ico</ApplicationIcon>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.Theming\Alphicsh.JamTools.Common.Theming.csproj" />
     <ProjectReference Include="..\Alphicsh.JamPlayer.Controls\Alphicsh.JamPlayer.Controls.csproj" />
