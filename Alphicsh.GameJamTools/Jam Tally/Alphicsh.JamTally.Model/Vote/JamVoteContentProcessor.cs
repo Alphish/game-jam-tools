@@ -164,11 +164,11 @@ namespace Alphicsh.JamTally.Model.Vote
             var unprefixedLine = UnprefixDigits(line);
             if (unprefixedLine != null)
             {
-                var byUnprefixedLine = jam.GetEntryByLine(line);
+                var byUnprefixedLine = jam.GetEntryByLine(unprefixedLine);
                 if (byUnprefixedLine != null)
                     return byUnprefixedLine;
 
-                var byUnprefixedTitle = jam.GetEntryByTitle(line);
+                var byUnprefixedTitle = jam.GetEntryByTitle(unprefixedLine);
                 if (byUnprefixedTitle != null)
                     return byUnprefixedTitle;
             }
