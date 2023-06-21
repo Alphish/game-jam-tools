@@ -2,6 +2,7 @@
 using Alphicsh.JamTally.Model.Jam;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTally.Model.Jam.Loading;
+using Alphicsh.JamTally.Model.Vote;
 
 namespace Alphicsh.JamTally.Model
 {
@@ -10,9 +11,11 @@ namespace Alphicsh.JamTally.Model
         internal static JamTallyModel Current { get; set; } = default!;
 
         private static JamLoader JamLoader { get; } = new JamLoader();
+        private static JamVoteLoader VoteLoader { get; } = new JamVoteLoader();
 
-        public JamOverview? Jam { get; private set; }
         public bool HasJam => Jam != null;
+        public JamOverview? Jam { get; private set; }
+        public JamVoteCollection? VotesCollection { get; private set; }
 
         public JamTallyModel()
         {
@@ -27,6 +30,9 @@ namespace Alphicsh.JamTally.Model
         // -----------
 
         public void LoadDirectory(FilePath directoryPath)
-            => Jam = JamLoader.LoadFromDirectory(directoryPath);
+        {
+            Jam = JamLoader.LoadFromDirectory(directoryPath);
+            VotesCollection = VoteLoader.LoadFromDirectory(directoryPath);
+        }
     }
 }
