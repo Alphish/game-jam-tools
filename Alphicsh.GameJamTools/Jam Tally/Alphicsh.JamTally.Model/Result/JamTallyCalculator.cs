@@ -10,14 +10,20 @@ namespace Alphicsh.JamTally.Model.Result
         public JamTallyResult CalculateResults(JamVoteCollection votesCollection)
         {
             var jam = JamTallyModel.Current.Jam!;
-            var finalRanking = CalculateFinalRanking(jam, votesCollection);
-            var awardRankings = CalculateAwardRankings(jam, votesCollection);
+            var talliedVotes = votesCollection.Votes.Where(vote => vote.Ranking.Any()).ToList();
+            var finalRanking = CalculateFinalRanking(jam, talliedVotes);
+            var awardRankings = CalculateAwardRankings(jam, talliedVotes);
 
             return new JamTallyResult
             {
                 Awards = jam.AwardCriteria,
                 Entries = jam.Entries,
-                Votes = votesCollection.Votes.ToList(),
+                Votes = talliedVotes,
+
+                EntriesCount = jam.Entries.Count,
+                AwardsCount = jam.AwardCriteria.Count,
+                UnjudgedMaxCount = talliedVotes.Max(vote => vote.Unjudged.Count),
+                ReactionsMaxCount = talliedVotes.Max(vote => vote.Reactions.Count),
 
                 FinalRanking = finalRanking,
                 AwardRankings = awardRankings,
@@ -28,14 +34,14 @@ namespace Alphicsh.JamTally.Model.Result
         // Calculating results
         // -------------------
 
-        private IReadOnlyCollection<JamTallyEntryScore> CalculateFinalRanking(JamOverview jam, JamVoteCollection votesCollection)
+        private IReadOnlyCollection<JamTallyEntryScore> CalculateFinalRanking(JamOverview jam, IReadOnlyCollection<JamVote> votes)
         {
             var entryScores = jam.Entries.ToDictionary(
                 entry => entry,
-                entry => new JamTallyEntryScore { Entry = entry, TotalVotesCount = votesCollection.Votes.Count }
+                entry => new JamTallyEntryScore { Entry = entry, TotalVotesCount = votes.Count }
                 );
 
-            foreach (var vote in votesCollection.Votes)
+            foreach (var vote in votes)
             {
                 var rank = 1;
                 foreach (var entry in vote.Ranking)
@@ -55,9 +61,9 @@ namespace Alphicsh.JamTally.Model.Result
                 .ToList();
         }
 
-        private IReadOnlyCollection<JamTallyAwardRanking> CalculateAwardRankings(JamOverview jam, JamVoteCollection votesCollection)
+        private IReadOnlyCollection<JamTallyAwardRanking> CalculateAwardRankings(JamOverview jam, IReadOnlyCollection<JamVote> votes)
         {
-            var nominations = votesCollection.Votes.SelectMany(vote => vote.Awards);
+            var nominations = votes.SelectMany(vote => vote.Awards);
             var awardScores = nominations
                 .GroupBy(nomination => nomination)
                 .Select(group => new JamTallyAwardScore { VoteAward = group.Key, Count = group.Count() })

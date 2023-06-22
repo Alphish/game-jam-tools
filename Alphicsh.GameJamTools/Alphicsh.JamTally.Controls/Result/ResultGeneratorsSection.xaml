@@ -12,7 +12,23 @@
   <GroupBox Header="Generators">
     <DockPanel>
       <cc:ImpButton
-        DockPanel.Dock="Bottom"
+        DockPanel.Dock="Top"
+        Style="{StaticResource HelpButton}"
+        Margin="2"
+        Width="216"
+        Command="{Binding GenerateRankingSheetCommand}"
+      >Generate ranking sheet</cc:ImpButton>
+
+      <cc:ImpButton
+        DockPanel.Dock="Top"
+        Style="{StaticResource HelpButton}"
+        Margin="2"
+        Width="216"
+        Command="{Binding GenerateVotesSheetCommand}"
+      >Generate votes sheet</cc:ImpButton>
+
+      <cc:ImpButton
+        DockPanel.Dock="Top"
         Style="{StaticResource HelpButton}"
         Margin="2"
         Width="216"

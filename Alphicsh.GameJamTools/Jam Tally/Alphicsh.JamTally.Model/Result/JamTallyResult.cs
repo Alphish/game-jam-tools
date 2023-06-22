@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Alphicsh.JamTally.Model.Jam;
-using Alphicsh.JamTally.Model.Result.Generators;
+using Alphicsh.JamTally.Model.Result.Spreadsheets;
 using Alphicsh.JamTally.Model.Vote;
 
 namespace Alphicsh.JamTally.Model.Result
@@ -11,6 +11,11 @@ namespace Alphicsh.JamTally.Model.Result
         public IReadOnlyCollection<JamAwardCriterion> Awards { get; init; } = default!;
         public IReadOnlyCollection<JamEntry> Entries { get; init; } = default!;
         public IReadOnlyCollection<JamVote> Votes { get; init; } = default!;
+
+        public int EntriesCount { get; init; }
+        public int AwardsCount { get; init; }
+        public int UnjudgedMaxCount { get; init; }
+        public int ReactionsMaxCount { get; init; }
 
         // -------
         // Ranking
@@ -45,8 +50,16 @@ namespace Alphicsh.JamTally.Model.Result
         // ----------
 
         private static ResultsPostGenerator ResultsPostGenerator { get; } = new ResultsPostGenerator();
+        private static VotesSheetGenerator VotesSheetGenerator { get; } = new VotesSheetGenerator();
+        private static RankingSheetGenerator RankingSheetGenerator { get; } = new RankingSheetGenerator();
 
         public string GenerateResultsPost()
             => ResultsPostGenerator.Generate(this);
+
+        public string GenerateVotesSheet()
+            => VotesSheetGenerator.Generate(this);
+
+        public string GenerateRankingSheet()
+            => RankingSheetGenerator.Generate(this);
     }
 }

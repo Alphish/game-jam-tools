@@ -1,9 +1,9 @@
 ﻿using System.Text;
 using Alphicsh.JamTally.Model.Jam;
 
-namespace Alphicsh.JamTally.Model.Result.Generators
+namespace Alphicsh.JamTally.Model.Result
 {
-    public class ResultsPostGenerator
+    internal class ResultsPostGenerator
     {
         public string Generate(JamTallyResult result)
         {
@@ -13,7 +13,7 @@ namespace Alphicsh.JamTally.Model.Result.Generators
             GenerateRanking(result, sb);
             GenerateAwards(result, sb);
             GenerateFooter(sb);
-            
+
             return sb.ToString();
         }
 
