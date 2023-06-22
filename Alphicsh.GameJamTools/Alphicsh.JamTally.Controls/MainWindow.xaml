@@ -8,6 +8,7 @@
   xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
   xmlns:mvvm="clr-namespace:Alphicsh.JamTools.Common.Mvvm;assembly=Alphicsh.JamTools.Common.Mvvm"
   xmlns:appVote="clr-namespace:Alphicsh.JamTally.Controls.Vote"
+  xmlns:appResult="clr-namespace:Alphicsh.JamTally.Controls.Result"
   mc:Ignorable="d"
   Style="{StaticResource MainWindow}"
   MinWidth="960"
@@ -26,6 +27,15 @@
           </TabItem.Header>
 
           <appVote:VotesTab/>
+        </TabItem>
+        
+        <!-- Tally tab -->
+        <TabItem>
+          <TabItem.Header>
+            <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuAwardsIconSource}" ToolTip="Results"/>
+          </TabItem.Header>
+
+          <appResult:ResultTab/>
         </TabItem>
       </TabControl>
     </Grid>

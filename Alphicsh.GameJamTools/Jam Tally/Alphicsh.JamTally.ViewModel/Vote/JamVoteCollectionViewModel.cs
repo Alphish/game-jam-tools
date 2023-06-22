@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using Alphicsh.JamTally.Model.Vote;
+using Alphicsh.JamTally.ViewModel.Result;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
@@ -16,6 +17,7 @@ namespace Alphicsh.JamTally.ViewModel.Vote
             AddVoteCommand = SimpleCommand.From(AddVote);
             RemoveVoteCommand = SimpleCommand.WithParameter<JamVoteViewModel>(RemoveVote);
             SaveVotesCommand = SimpleCommand.From(SaveVotes);
+            TallyVotesCommand = SimpleCommand.From(TallyVotes);
         }
 
         public CollectionViewModel<JamVote, JamVoteViewModel> Votes { get; }
@@ -46,6 +48,20 @@ namespace Alphicsh.JamTally.ViewModel.Vote
         private void SaveVotes()
         {
             Model.SaveVotes();
+        }
+
+        // -----
+        // Tally
+        // -----
+
+        public JamTallyResultViewModel? TallyResult { get; private set; }
+
+        public ICommand TallyVotesCommand { get; }
+        private void TallyVotes()
+        {
+            Model.TallyVotes();
+            TallyResult = new JamTallyResultViewModel(Model.TallyResult!);
+            RaisePropertyChanged(nameof(TallyResult));
         }
     }
 }
