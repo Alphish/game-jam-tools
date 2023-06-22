@@ -10,5 +10,8 @@ namespace Alphicsh.JamTally.Model.Jam
         public IReadOnlyCollection<string> Authors { get; init; } = default!;
 
         public string Line => $"{Title} by {Team}";
+
+        public override string ToString()
+            => Line;
     }
 }
