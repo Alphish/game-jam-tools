@@ -28,6 +28,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
                 Id = id,
                 Title = entryInfo.ShortTitle ?? entryInfo.Title,
                 Team = entryInfo.Team.Name ?? string.Join(", ", authorNames),
+                RawTeam = entryInfo.Team.Name,
                 Authors = authorNames
             };
         }

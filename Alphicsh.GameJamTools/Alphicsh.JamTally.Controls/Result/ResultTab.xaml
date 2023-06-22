@@ -15,5 +15,7 @@
     </Grid.ColumnDefinitions>
 
     <local:ResultSummarySection Grid.Column="0" DataContext="{Binding VotesCollection}"/>
+
+    <local:ResultGeneratorsSection Grid.Column="1" DataContext="{Binding VotesCollection.TallyResult}"/>
   </Grid>
 </UserControl>

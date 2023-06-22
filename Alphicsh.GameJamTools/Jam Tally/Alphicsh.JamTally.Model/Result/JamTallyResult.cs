@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Alphicsh.JamTally.Model.Jam;
+using Alphicsh.JamTally.Model.Result.Generators;
 using Alphicsh.JamTally.Model.Vote;
 
 namespace Alphicsh.JamTally.Model.Result
@@ -39,5 +40,13 @@ namespace Alphicsh.JamTally.Model.Result
             yield return "";
         }
 
+        // ----------
+        // Generators
+        // ----------
+
+        private static ResultsPostGenerator ResultsPostGenerator { get; } = new ResultsPostGenerator();
+
+        public string GenerateResultsPost()
+            => ResultsPostGenerator.Generate(this);
     }
 }
