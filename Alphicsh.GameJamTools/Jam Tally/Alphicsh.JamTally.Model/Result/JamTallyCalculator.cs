@@ -11,13 +11,14 @@ namespace Alphicsh.JamTally.Model.Result
         {
             var jam = JamTallyModel.Current.Jam!;
             var finalRanking = CalculateFinalRanking(jam, votesCollection);
-            var awardRankings = CalculateAwardRankings(votesCollection);
+            var awardRankings = CalculateAwardRankings(jam, votesCollection);
 
             return new JamTallyResult
             {
                 Awards = jam.AwardCriteria,
                 Entries = jam.Entries,
                 Votes = votesCollection.Votes.ToList(),
+
                 FinalRanking = finalRanking,
                 AwardRankings = awardRankings,
             };
@@ -54,7 +55,7 @@ namespace Alphicsh.JamTally.Model.Result
                 .ToList();
         }
 
-        private IReadOnlyDictionary<JamAwardCriterion, JamTallyAwardRanking> CalculateAwardRankings(JamVoteCollection votesCollection)
+        private IReadOnlyCollection<JamTallyAwardRanking> CalculateAwardRankings(JamOverview jam, JamVoteCollection votesCollection)
         {
             var nominations = votesCollection.Votes.SelectMany(vote => vote.Awards);
             var awardScores = nominations
@@ -62,13 +63,15 @@ namespace Alphicsh.JamTally.Model.Result
                 .Select(group => new JamTallyAwardScore { VoteAward = group.Key, Count = group.Count() })
                 .ToList();
 
-            return awardScores
+            var awardRankings = awardScores
                 .GroupBy(awardScore => awardScore.Award)
                 .Select(group => new JamTallyAwardRanking
                 {
                     Award = group.Key,
                     Scores = group.OrderByDescending(score => score.Count).ThenBy(score => score.Entry.Line).ToList()
                 }).ToDictionary(ranking => ranking.Award);
+
+            return jam.AwardCriteria.Select(criterion => awardRankings[criterion]).ToList();
         }
     }
 }

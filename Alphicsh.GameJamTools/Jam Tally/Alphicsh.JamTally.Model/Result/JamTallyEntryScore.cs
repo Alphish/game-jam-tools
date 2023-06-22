@@ -24,6 +24,6 @@ namespace Alphicsh.JamTally.Model.Result
         }
 
         public override string ToString()
-            => $"{Entry}: {TotalScore} ({BaseScore} over {JudgedCount}/{TotalVotesCount})";
+            => $"{Entry}: {TotalScore:F3} ({BaseScore:F3} over {JudgedCount}/{TotalVotesCount})";
     }
 }
