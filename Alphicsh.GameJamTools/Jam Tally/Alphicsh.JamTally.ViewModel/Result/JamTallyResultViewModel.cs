@@ -16,6 +16,7 @@ namespace Alphicsh.JamTally.ViewModel.Result
 
             GenerateRankingSheetCommand = SimpleCommand.From(GenerateRankingSheet);
             GenerateVotesSheetCommand = SimpleCommand.From(GenerateVotesSheet);
+            GenerateTrophiesTemplateCommand = SimpleCommand.From(GenerateTrophiesTemplate);
             GenerateResultsPostCommand = SimpleCommand.From(GenerateResultsPost);
         }
 
@@ -54,6 +55,27 @@ namespace Alphicsh.JamTally.ViewModel.Result
                 return;
 
             File.WriteAllText(filePath.Value.Value, votesSheet);
+        }
+
+        public ICommand GenerateTrophiesTemplateCommand { get; }
+        private void GenerateTrophiesTemplate()
+        {
+            var sourcePath = FileQuery.OpenFile()
+                .WithFileType("*.svg", "Scalable Vector Graphics")
+                .GetPath();
+
+            if (sourcePath == null)
+                return;
+
+            var destinationPath = FileQuery.SaveFile()
+                .WithFileType("*.svg", "Scalable Vector Graphics")
+                .WithDefaultName(sourcePath.Value.GetNameWithoutExtension() + ".new.svg")
+                .GetPath();
+
+            if (destinationPath == null)
+                return;
+
+            Model.GenerateTrophiesTemplate(sourcePath.Value, destinationPath.Value);
         }
 
         public string ResultsPostText { get; private set; }

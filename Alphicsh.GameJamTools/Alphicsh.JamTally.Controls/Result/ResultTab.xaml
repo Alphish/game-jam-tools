@@ -11,11 +11,12 @@
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="3*"/>
+      <ColumnDefinition Width="8"/>
       <ColumnDefinition Width="2*"/>
     </Grid.ColumnDefinitions>
 
     <local:ResultSummarySection Grid.Column="0" DataContext="{Binding VotesCollection}"/>
 
-    <local:ResultGeneratorsSection Grid.Column="1" DataContext="{Binding VotesCollection.TallyResult}"/>
+    <local:ResultGeneratorsSection Grid.Column="2" DataContext="{Binding VotesCollection.TallyResult}"/>
   </Grid>
 </UserControl>
