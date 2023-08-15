@@ -18,7 +18,7 @@
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/LabelStyles.xaml"/>
 
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ButtonStyles.xaml"/>
-        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/RatingSliderStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/RatingSliderStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/TextBoxStyles.xaml"/>
 
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/GroupBoxStyles.xaml"/>
