@@ -21,6 +21,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ratings
                 .WithDependingProperty(GenericValueProperty);
 
             ClearValueCommand = SimpleCommand.From(() => ValueProperty.Value = null);
+            ZeroValueCommand = SimpleCommand.From(() => ValueProperty.Value = 0);
         }
 
         public double MaxValue => Model.Criterion.MaxValue;
@@ -29,6 +30,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ratings
 
         public WrapperProperty<NumericScaleRatingViewModel, double?> ValueProperty { get; }
         public ICommand ClearValueCommand { get; }
+        public ICommand ZeroValueCommand { get; }
         public double? Value { get => ValueProperty.Value; set => ValueProperty.Value = value; }
         public double DisplayValue { get => ValueProperty.Value ?? 0d; set => ValueProperty.Value = value; }
         public bool HasValue => Model.HasValue;
