@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -22,6 +23,11 @@ namespace Alphicsh.JamTools.Common.Controls
 
         private static DependencyPropertyHelper<RatingSlider> Deps
             = new DependencyPropertyHelper<RatingSlider>();
+
+        public RatingSlider()
+        {
+            IsMoveToPointEnabled = true;
+        }
 
         // ----------------
         // Value properties
@@ -220,34 +226,44 @@ namespace Alphicsh.JamTools.Common.Controls
             }
         }
 
-        // -------------------
-        // Thumb sliding setup
-        // -------------------
+        // -----------------------
+        // Sliding behaviour setup
+        // -----------------------
 
-        private Thumb? InnerThumb = null;
-
-        public override void OnApplyTemplate()
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            base.OnApplyTemplate();
+            base.OnPreviewMouseLeftButtonDown(e);
+            MoveValueToMousePosition(e);
+            CaptureMouse();
 
-            if (InnerThumb != null)
-                InnerThumb.MouseEnter -= OnThumbMouseEnter;
-
-            InnerThumb = ((Track)GetTemplateChild("PART_Track")).Thumb;
-            
-            if (InnerThumb != null)
-                InnerThumb.MouseEnter += OnThumbMouseEnter;
+            var thumb = ((Track)GetTemplateChild("PART_Track")).Thumb;
+            thumb.Focus();
         }
 
-        private void OnThumbMouseEnter(object sender, MouseEventArgs e)
+        protected override void OnPreviewMouseMove(MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                // if pressed mouse enters the thumb, the thumb is automatically grabbed
-                MouseButtonEventArgs args = new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, MouseButton.Left);
-                args.RoutedEvent = MouseLeftButtonDownEvent;
-                ((Thumb)sender).RaiseEvent(args);
-            }
+            base.OnPreviewMouseMove(e);
+            if (!IsMouseCaptured)
+                return;
+
+            MoveValueToMousePosition(e);
+        }
+
+        protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
+        {
+            base.OnPreviewMouseUp(e);
+            Mouse.Capture(null);
+        }
+
+        private void MoveValueToMousePosition(MouseEventArgs e)
+        {
+            var position = e.GetPosition(this);
+
+            var innerX = position.X - (ActualWidth - InnerWidth) / 2;
+            var positionValue = Math.Ceiling(Maximum * innerX / InnerWidth);
+            positionValue = Math.Clamp(positionValue, Minimum, Maximum);
+
+            Value = positionValue;
         }
     }
 }

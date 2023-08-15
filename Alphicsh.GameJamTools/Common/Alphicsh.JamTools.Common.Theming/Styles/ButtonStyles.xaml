@@ -119,7 +119,8 @@
   </Style>
 
   <Style TargetType="{x:Type cc:ImpButton}" x:Key="NotAvailableButton" BasedOn="{StaticResource {x:Type cc:ImpButton}}">
-    <Setter Property="Height" Value="24"></Setter>
+    <Setter Property="Height" Value="16"></Setter>
+    <Setter Property="MinHeight" Value="16"></Setter>
     <Setter Property="Width" Value="32"></Setter>
     <Setter Property="FontSize" Value="12"></Setter>
     <Setter Property="Foreground" Value="{DynamicResource DimText}"></Setter>

@@ -10,7 +10,11 @@
   d:DesignHeight="450" d:DesignWidth="800"
 >
   <StackPanel Orientation="Horizontal" Height="32">
-    <cc:ImpButton Style="{StaticResource NotAvailableButton}" Command="{Binding ClearValueCommand}">N/A</cc:ImpButton>
+    <StackPanel Orientation="Vertical" Margin="0,0,2,0">
+      <cc:ImpButton Style="{StaticResource NotAvailableButton}" Command="{Binding ClearValueCommand}">N/A</cc:ImpButton>
+      <cc:ImpButton Style="{StaticResource NotAvailableButton}" Command="{Binding ZeroValueCommand}">0</cc:ImpButton>
+    </StackPanel>
+    
     <cc:RatingSlider x:Name="RatingSliderElement"
       Minimum="0"
       Maximum="{Binding MaxValue}"
