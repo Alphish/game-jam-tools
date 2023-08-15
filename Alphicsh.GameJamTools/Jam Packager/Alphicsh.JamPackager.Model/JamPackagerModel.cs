@@ -9,14 +9,10 @@ namespace Alphicsh.JamPackager.Model
     {
         private static JamCompatibilityExporter CompatibilityExporter { get; } = new JamCompatibilityExporter();
 
-        private JamExplorer JamExplorer { get; } = new JamExplorer();
+        private static JamExplorer JamExplorer { get; } = new JamExplorer();
 
         public JamEditable? Jam { get; private set; }
         public bool HasJam => Jam != null;
-
-        public JamPackagerModel()
-        {
-        }
 
         public void LoadDirectory(FilePath directoryPath)
             => Jam = JamExplorer.LoadFromDirectory(directoryPath);

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.Mvvm\Alphicsh.JamTools.Common.Mvvm.csproj" />
+    <ProjectReference Include="..\Alphicsh.JamTally.Model\Alphicsh.JamTally.Model.csproj" />
+  </ItemGroup>
+
+</Project>
