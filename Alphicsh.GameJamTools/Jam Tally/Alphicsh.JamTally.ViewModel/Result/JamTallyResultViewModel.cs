@@ -1,6 +1,8 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Alphicsh.JamTally.Model.Result;
+using Alphicsh.JamTally.Model.Result.Trophies;
 using Alphicsh.JamTools.Common.Controls.Files;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
@@ -17,6 +19,7 @@ namespace Alphicsh.JamTally.ViewModel.Result
             GenerateRankingSheetCommand = SimpleCommand.From(GenerateRankingSheet);
             GenerateVotesSheetCommand = SimpleCommand.From(GenerateVotesSheet);
             GenerateTrophiesTemplateCommand = SimpleCommand.From(GenerateTrophiesTemplate);
+            ExportTrophiesCommand = SimpleCommand.From(ExportTrophies);
             GenerateResultsPostCommand = SimpleCommand.From(GenerateResultsPost);
         }
 
@@ -78,6 +81,29 @@ namespace Alphicsh.JamTally.ViewModel.Result
             Model.GenerateTrophiesTemplate(sourcePath.Value, destinationPath.Value);
         }
 
+        public ICommand ExportTrophiesCommand { get; }
+        private void ExportTrophies()
+        {
+            var sourcePath = FileQuery.OpenFile()
+                .WithFileType("*.svg", "Scalable Vector Graphics")
+                .GetPath();
+
+            if (sourcePath == null)
+                return;
+
+            ResultsPostText = "";
+            var trophiesExporter = new TrophiesExporter(sourcePath.Value);
+            trophiesExporter.ExportProgress += OnExportProgress;
+            Task.Run(trophiesExporter.Export);
+        }
+
+        private void OnExportProgress(object? sender, TrophiesExportProgressEvent e)
+        {
+            var previousDetails = ResultsPostText != "" ? ResultsPostText.Substring(ResultsPostText.IndexOf("\n")) : "";
+            ResultsPostText = $"Exported items: {e.ExportedItems}/{e.TotalItems}\n" + e.Message + previousDetails;
+            RaisePropertyChanged(nameof(ResultsPostText));
+        }
+
         public string ResultsPostText { get; private set; }
         public ICommand GenerateResultsPostCommand { get; }
         private void GenerateResultsPost()
@@ -85,6 +111,5 @@ namespace Alphicsh.JamTally.ViewModel.Result
             ResultsPostText = Model.GenerateResultsPost();
             RaisePropertyChanged(nameof(ResultsPostText));
         }
-
     }
 }
