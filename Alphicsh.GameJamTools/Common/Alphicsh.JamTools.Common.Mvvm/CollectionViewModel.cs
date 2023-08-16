@@ -8,6 +8,7 @@ namespace Alphicsh.JamTools.Common.Mvvm
 {
     public class CollectionViewModel<TModel, TViewModel> : BaseViewModel, IList<TViewModel>, ICollectionViewModel
         where TViewModel : WrapperViewModel<TModel>
+        where TModel : notnull
     {
         protected CollectionViewModelStub<TModel, TViewModel> Stub { get; }
         protected Func<TModel, TViewModel> ViewModelMapping => Stub.ViewModelMapping;
@@ -39,7 +40,10 @@ namespace Alphicsh.JamTools.Common.Mvvm
 
         public void SynchronizeWithModels()
         {
-            var viewModels = Models.Select(ViewModelMapping);
+            var viewModelsByModels = ViewModels.ToDictionary(vm => vm.Model);
+            var viewModels = Models.Select(
+                model => viewModelsByModels.TryGetValue(model, out var viewModel) ? viewModel : ViewModelMapping(model)
+                );
             ViewModels.Clear();
             foreach (var viewModel in viewModels)
                 ViewModels.Add(viewModel);
