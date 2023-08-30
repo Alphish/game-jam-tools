@@ -9,7 +9,7 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
 {
     public class JamSaveDataExtractor : ISaveDataExtractor<JamEditable, JamSaveData>
     {
-        private static JamEntrySaveDataExtractor EntryExtractor { get; } = new JamEntrySaveDataExtractor();
+        private static JamEntrySaveDataExtractor EntryExtractor { get; } = new JamEntrySaveDataExtractor(isFromEntryPackager: false);
 
         public JamSaveData ExtractData(JamEditable model)
         {

@@ -4,6 +4,8 @@ namespace Alphicsh.EntryPackager.Model.Entry
 {
     public class JamEntryEditable
     {
+        public string? WrittenBy { get; set; }
+
         public string Title { get; set; } = default!;
         public string? ShortTitle { get; set; }
         public string? Alignment { get; set; }
