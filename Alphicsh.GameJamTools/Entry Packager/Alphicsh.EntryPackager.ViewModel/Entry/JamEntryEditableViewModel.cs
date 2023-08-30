@@ -16,6 +16,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
         {
             TitleProperty = WrapperProperty.ForMember(this, vm => vm.Model.Title);
             ShortTitleProperty = WrapperProperty.ForMember(this, vm => vm.Model.ShortTitle);
+            AlignmentProperty = WrapperProperty.ForMember(this, vm => vm.Model.Alignment);
             DisplayShortTitleProperty = NotifiableProperty.Create(this, nameof(DisplayShortTitle))
                 .DependingOn(TitleProperty, ShortTitleProperty);
 
@@ -42,6 +43,9 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
 
         public WrapperProperty<JamEntryEditableViewModel, string?> ShortTitleProperty { get; }
         public string? ShortTitle { get => ShortTitleProperty.Value; set => ShortTitleProperty.Value = value; }
+
+        public WrapperProperty<JamEntryEditableViewModel, string?> AlignmentProperty { get; }
+        public string? Alignment { get => AlignmentProperty.Value; set => AlignmentProperty.Value = value; }
 
         public NotifiableProperty DisplayShortTitleProperty { get; }
         public string DisplayShortTitle => Model.DisplayShortTitle;

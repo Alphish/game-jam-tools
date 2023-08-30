@@ -62,7 +62,10 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
 
         private void ApplyEntryInfo(JamEntryEditable entryEditable, JamEntryInfo entryInfo)
         {
+            entryEditable.WrittenBy = entryInfo.WrittenBy;
             entryEditable.Title = entryInfo.Title;
+            entryEditable.ShortTitle = entryInfo.ShortTitle;
+            entryEditable.Alignment = entryInfo.Alignment;
             ApplyTeamInfo(entryEditable.Team, entryInfo.Team);
             ApplyFilesInfo(entryEditable.Files, entryInfo.Files);
         }

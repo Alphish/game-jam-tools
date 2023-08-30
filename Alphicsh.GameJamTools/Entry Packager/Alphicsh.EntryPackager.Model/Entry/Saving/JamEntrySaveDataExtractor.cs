@@ -8,6 +8,15 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
 {
     public class JamEntrySaveDataExtractor : ISaveDataExtractor<JamEntryEditable, JamEntrySaveData>
     {
+        private const string SavedVersion = "V2";
+
+        private bool IsFromEntryPackager { get; set; }
+
+        public JamEntrySaveDataExtractor(bool isFromEntryPackager)
+        {
+            IsFromEntryPackager = isFromEntryPackager;
+        }
+
         public JamEntrySaveData ExtractData(JamEntryEditable model)
         {
             return new JamEntrySaveData
@@ -21,8 +30,11 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
         {
             return new JamEntryInfo
             {
+                Version = SavedVersion,
+                WrittenBy = IsFromEntryPackager ? "EntryPackager" : (entryEditable.WrittenBy ?? "JamPackager"),
                 Title = ToNullIfEmpty(entryEditable.Title) ?? string.Empty,
                 ShortTitle = ToNullIfEmpty(entryEditable.ShortTitle),
+                Alignment = ToNullIfEmpty(entryEditable.Alignment),
                 Team = MapTeam(entryEditable.Team),
                 Files = MapFiles(entryEditable.Files),
             };

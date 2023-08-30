@@ -7,7 +7,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Saving
     public class JamEntrySaveViewModel : SaveViewModel<JamEntryEditable, JamEntryEditableViewModel>
     {
         public JamEntrySaveViewModel() : base(
-            new JamEntrySaveModel(),
+            new JamEntrySaveModel(isFromEntryPackager: true),
             new JamEntrySaveDataObserver()
             )
         {

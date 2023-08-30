@@ -64,7 +64,7 @@ namespace Alphicsh.JamPackager.Model.Jam.Loading
             {
                 var directoryPath = FilePath.Of(directory);
                 var entryEditable = EntryExplorer.LoadFromDirectory(directoryPath);
-                var saveModel = new JamEntrySaveModel();
+                var saveModel = new JamEntrySaveModel(isFromEntryPackager: false);
                 saveModel.Save(entryEditable);
                 result.Add(entryEditable);
             }
