@@ -5,7 +5,8 @@ namespace Alphicsh.EntryPackager.Model.Entry
     public class JamEntryEditable
     {
         public string Title { get; set; } = default!;
-        public string? ShortTitle { get; set; } = default!;
+        public string? ShortTitle { get; set; }
+        public string? Alignment { get; set; }
         public string DisplayShortTitle => !string.IsNullOrWhiteSpace(ShortTitle) ? ShortTitle : Title;
 
         public JamTeamEditable Team { get; } = new JamTeamEditable();

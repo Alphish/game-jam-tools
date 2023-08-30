@@ -11,7 +11,8 @@ namespace Alphicsh.JamTools.Common.IO.Jam
         public string WrittenBy { get; init; } = default!;
 
         public string Title { get; init; } = default!;
-        public string? ShortTitle { get; init; } = default!;
+        public string? ShortTitle { get; init; }
+        public string? Alignment { get; init; }
         public JamTeamInfo Team { get; init; } = default!;
         public JamFilesInfo Files { get; init; } = default!;
 
@@ -80,6 +81,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam
             return obj is JamEntryInfo info &&
                    Title == info.Title &&
                    ShortTitle == info.ShortTitle &&
+                   Alignment == info.Alignment &&
                    EqualityComparer<JamTeamInfo>.Default.Equals(Team, info.Team) &&
                    EqualityComparer<JamFilesInfo>.Default.Equals(Files, info.Files) &&
                    GameFileName == info.GameFileName &&
@@ -95,6 +97,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam
             HashCode hash = new HashCode();
             hash.Add(Title);
             hash.Add(ShortTitle);
+            hash.Add(Alignment);
             hash.Add(Team);
             hash.Add(Files);
             hash.Add(GameFileName);

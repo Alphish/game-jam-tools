@@ -21,6 +21,8 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
 
@@ -30,13 +32,18 @@
       <Label Grid.Row="2" Grid.Column="0">Short title:</Label>
       <cc:ImpTextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding ShortTitle}" Placeholder="&lt;same as main title&gt;"/>
 
-      <Label Grid.Row="3" Grid.Column="0">Team name:</Label>
-      <cc:ImpTextBox Grid.Row="3" Grid.Column="1" Margin="2" Text="{Binding Team.Name}" Placeholder="&lt;same as authors&gt;"/>
+      <Label Grid.Row="3" Grid.Column="0">Alignment:</Label>
+      <cc:ImpTextBox Grid.Row="3" Grid.Column="1" Margin="2" Text="{Binding Alignment}" Placeholder="&lt;no alignment given&gt;"/>
 
-      <Label Grid.Row="4" Grid.Column="0">Authors:</Label>
-      <cc:ImpTextBox Grid.Row="4" Grid.Column="1" Margin="2" Text="{Binding Team.AuthorsString}" Placeholder="&lt;enter authors here&gt;"/>
+      <Separator Grid.Row="4" Grid.ColumnSpan="2"/>
 
-      <local:EntryAuthorsList Grid.Row="5" Grid.Column="1" DataContext="{Binding Team}"/>
+      <Label Grid.Row="5" Grid.Column="0">Team name:</Label>
+      <cc:ImpTextBox Grid.Row="5" Grid.Column="1" Margin="2" Text="{Binding Team.Name}" Placeholder="&lt;same as authors&gt;"/>
+
+      <Label Grid.Row="6" Grid.Column="0">Authors:</Label>
+      <cc:ImpTextBox Grid.Row="6" Grid.Column="1" Margin="2" Text="{Binding Team.AuthorsString}" Placeholder="&lt;enter authors here&gt;"/>
+
+      <local:EntryAuthorsList Grid.Row="7" Grid.Column="1" DataContext="{Binding Team}"/>
     </Grid>
   </GroupBox>
 </UserControl>

@@ -11,6 +11,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Saving
             return CreateViewModelObserver()
                 .ObservingProperty(viewModel.TitleProperty)
                 .ObservingProperty(viewModel.ShortTitleProperty)
+                .ObservingProperty(viewModel.AlignmentProperty)
                 .ObservingViewModel(ObserveTeam(viewModel.Team))
                 .ObservingViewModel(ObserveFiles(viewModel.Files));
         }

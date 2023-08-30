@@ -23,6 +23,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
             {
                 Title = ToNullIfEmpty(entryEditable.Title) ?? string.Empty,
                 ShortTitle = ToNullIfEmpty(entryEditable.ShortTitle),
+                Alignment = ToNullIfEmpty(entryEditable.Alignment),
                 Team = MapTeam(entryEditable.Team),
                 Files = MapFiles(entryEditable.Files),
             };
