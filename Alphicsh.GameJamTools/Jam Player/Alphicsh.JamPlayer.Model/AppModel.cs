@@ -64,8 +64,10 @@ namespace Alphicsh.JamPlayer.Model
             {
                 CreateNumericScaleCriterion(id: "theme", name: "Theme", defaultNumericScaleSkin),
                 CreateNumericScaleCriterion(id: "concept", name: "Concept", defaultNumericScaleSkin),
-                CreateNumericScaleCriterion(id: "presentation", name: "Presentation", defaultNumericScaleSkin),
                 CreateNumericScaleCriterion(id: "story", name: "Story", defaultNumericScaleSkin),
+                CreateNumericScaleCriterion(id: "visuals", name: "Visuals", defaultNumericScaleSkin),
+                CreateNumericScaleCriterion(id: "audio", name: "Audio", defaultNumericScaleSkin),
+                CreateNumericScaleCriterion(id: "ux", name: "UX", defaultNumericScaleSkin),
                 CreateNumericScaleCriterion(id: "overall", name: "Overall", defaultNumericScaleSkin),
             };
 
