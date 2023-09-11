@@ -30,7 +30,13 @@
             <Run>Next (</Run><Run Text="{Binding PendingCount, Mode=OneWay}" d:Text="34"/><Run>)</Run>
           </TextBlock>
         </cc:ImpButton>
-        <cc:ImpButton Style="{StaticResource PrimaryButton}" Command="{Binding SaveRankingCommand}" Width="96" Margin="2">Save</cc:ImpButton>
+        
+        <cc:ImpButton
+          Style="{StaticResource HelpButton}"
+          Width="96"
+          Margin="2"
+          Command="{Binding SearchEntryCommand}"
+        >Search</cc:ImpButton>
       </StackPanel>
     </GroupBox>
     
