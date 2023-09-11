@@ -11,7 +11,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking.Modals
         public SearchEntryViewModel()
             : base("Search entry")
         {
-            PickableEntries = GetAllPickableEntries();
+            SearchableEntries = GetAllSearchableEntries();
         }
 
         public static SearchEntryViewModel ShowModal()
@@ -26,9 +26,9 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking.Modals
         // ---------------
 
         public SearchableEntryViewModel? PickedEntry { get; private set; }
-        public IReadOnlyCollection<SearchableEntryViewModel> PickableEntries { get; }
+        public IReadOnlyCollection<SearchableEntryViewModel> SearchableEntries { get; }
 
-        private IReadOnlyCollection<SearchableEntryViewModel> GetAllPickableEntries()
+        private IReadOnlyCollection<SearchableEntryViewModel> GetAllSearchableEntries()
         {
             var rankedEntries = JamPlayerViewModel.Current.Ranking.RankedEntries.Select(rankingEntry => rankingEntry.JamEntry);
             var unrankedEntries = JamPlayerViewModel.Current.Ranking.UnrankedEntries.Select(rankingEntry => rankingEntry.JamEntry);
@@ -76,7 +76,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking.Modals
             if (queryWords.Count == 0 || (queryWords.Count == 1 && queryWords.First().Length < 3))
                 return new List<SearchableEntryViewModel>();
 
-            return PickableEntries.Where(entry => entry.MatchQuery(queryWords)).ToList();
+            return SearchableEntries.Where(entry => entry.MatchQuery(queryWords)).ToList();
         }
 
         // -----------------
