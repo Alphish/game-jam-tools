@@ -41,7 +41,7 @@
           <Bold>AUTHORS</Bold> - a comma-separated list of authors<LineBreak/>
           <Bold>COMMENT</Bold> - the comment written for the entry<LineBreak/>
           <Bold>RANK</Bold> - the position of the entry in ranking as ordered by the user<LineBreak/>
-          <Bold>THEME, CONCEPT, PRESENTATION, STORY, OVERALL</Bold> - the entry ratings given by the user
+          <Bold>THEME, CONCEPT, STORY, VISUALS, AUDIO, UX, OVERALL</Bold> - the entry ratings given by the user
         </TextBlock>
       </ScrollViewer>
     </Border>
