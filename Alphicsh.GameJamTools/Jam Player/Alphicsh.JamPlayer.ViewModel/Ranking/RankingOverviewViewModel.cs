@@ -6,6 +6,7 @@ using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 using Alphicsh.JamPlayer.Model.Ranking;
+using Alphicsh.JamPlayer.ViewModel.Ranking.Modals;
 
 namespace Alphicsh.JamPlayer.ViewModel.Ranking
 {
@@ -25,6 +26,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
                 .WithDependingProperty(UnrankedEntries, nameof(UnrankedEntries.SelectedEntry));
 
             GetNextEntryCommand = SimpleCommand.From(GetNextEntry);
+            SearchEntryCommand = SimpleCommand.From(SearchEntry);
         }
 
         // ---------------
@@ -49,6 +51,25 @@ namespace Alphicsh.JamPlayer.ViewModel.Ranking
             UnrankedEntries.SynchronizeWithModels();
 
             var viewModel = UnrankedEntries.First(vm => vm.Model == modelEntry);
+            SelectedEntry = viewModel;
+        }
+
+        public ICommand SearchEntryCommand { get; }
+        private void SearchEntry()
+        {
+            var searchViewModel = SearchEntryViewModel.ShowModal();
+            var pickedEntry = searchViewModel.PickedEntry;
+            if (pickedEntry == null)
+                return;
+
+            var rankingEntry = Model.PickEntry(pickedEntry.Entry.Model);
+
+            PendingCountProperty.RaisePropertyChanged();
+            HasPendingEntriesProperty.RaisePropertyChanged();
+            UnrankedEntries.SynchronizeWithModels();
+
+            var viewModel = UnrankedEntries.Concat(RankedEntries).First(vm => vm.Model == rankingEntry);
+            
             SelectedEntry = viewModel;
         }
 

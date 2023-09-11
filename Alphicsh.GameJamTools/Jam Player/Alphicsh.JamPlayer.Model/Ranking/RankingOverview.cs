@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using Alphicsh.JamPlayer.Model.Jam;
 
 namespace Alphicsh.JamPlayer.Model.Ranking
 {
@@ -33,6 +34,20 @@ namespace Alphicsh.JamPlayer.Model.Ranking
             PendingEntries.Remove(entry);
             UnrankedEntries.Add(entry);
             return entry;
+        }
+
+        public RankingEntry? PickEntry(JamEntry entry)
+        {
+            var missingEntry = PendingEntries.FirstOrDefault(rankingEntry => rankingEntry.JamEntry == entry);
+            if (missingEntry == null)
+            {
+                return UnrankedEntries.FirstOrDefault(rankingEntry => rankingEntry.JamEntry == entry)
+                    ?? RankedEntries.FirstOrDefault(rankingEntry => rankingEntry.JamEntry == entry);
+            }
+
+            PendingEntries.Remove(missingEntry);
+            UnrankedEntries.Add(missingEntry);
+            return missingEntry;
         }
     }
 }
