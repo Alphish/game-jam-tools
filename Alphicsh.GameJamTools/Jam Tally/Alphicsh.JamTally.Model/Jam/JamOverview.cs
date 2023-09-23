@@ -81,5 +81,11 @@ namespace Alphicsh.JamTally.Model.Jam
 
             return null;
         }
+
+        // ----------
+        // Alignments
+        // ----------
+
+        public JamAlignments? Alignments { get; init; }
     }
 }

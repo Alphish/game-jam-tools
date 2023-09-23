@@ -11,6 +11,8 @@ namespace Alphicsh.JamTally.Model.Jam
         public string? RawTeam { get; init; }
         public IReadOnlyCollection<string> Authors { get; init; } = default!;
 
+        public JamAlignmentOption? Alignment { get; init; }
+
         public string Line => $"{Title} by {Team}";
         public string FullLine => $"{FullTitle} by {Team}";
 
