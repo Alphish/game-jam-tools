@@ -15,6 +15,7 @@ namespace Alphicsh.JamTally.Model.Vote
         }
 
         public string? Voter { get; internal set; }
+        public JamAlignmentOption? Alignment { get; internal set; }
         
         public IReadOnlyCollection<JamVoteAward> Awards { get; internal set; } = new List<JamVoteAward>();
         public JamEntry? FindEntryForAward(JamAwardCriterion award)
