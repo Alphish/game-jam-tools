@@ -27,7 +27,18 @@
           Command="{Binding SaveVotesCommand}"
         >Save votes</cc:ImpButton>
       </WrapPanel>
-      
+
+      <Separator DockPanel.Dock="Top"/>
+
+      <cc:ImpButton DockPanel.Dock="Bottom"
+        Style="{StaticResource PrimaryButton}"
+        Margin="2"
+        Width="96"
+        Command="{Binding TallyVotesCommand}"
+      >Tally it all!</cc:ImpButton>
+
+      <Separator DockPanel.Dock="Bottom"/>
+
       <local:VotesListBox
         ItemsSource="{Binding Votes}"
         SelectedItem="{Binding SelectedVote}"

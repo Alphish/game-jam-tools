@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Alphicsh.JamTally.Controls.Result
+namespace Alphicsh.JamTally.Controls.Generators
 {
     /// <summary>
-    /// Interaction logic for ResultGeneratorsSection.xaml
+    /// Interaction logic for ResultTextGeneratorsSection.xaml
     /// </summary>
-    public partial class ResultGeneratorsSection : UserControl
+    public partial class ResultTextGeneratorsSection : UserControl
     {
-        public ResultGeneratorsSection()
+        public ResultTextGeneratorsSection()
         {
             InitializeComponent();
         }

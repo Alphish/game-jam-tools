@@ -10,40 +10,27 @@
   d:DesignHeight="450" d:DesignWidth="800"
 >
   <GroupBox Header="Results summary">
-    <DockPanel>
-      <WrapPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
-        <cc:ImpButton
-          Style="{StaticResource PrimaryButton}"
-          Margin="2"
-          Width="128"
-          Command="{Binding TallyVotesCommand}"
-        >Tally it all!</cc:ImpButton>
-      </WrapPanel>
+    <Grid DataContext="{Binding TallyResult}">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="1*"/>
+        <ColumnDefinition Width="1*"/>
+      </Grid.ColumnDefinitions>
 
-      <Separator DockPanel.Dock="Top"/>
+      <cc:ImpTextBox
+        Grid.Column="0"
+        Margin="2"
+        Style="{StaticResource TextArea}"
+        Text="{Binding FinalRankingText, Mode=OneWay}"
+        IsReadOnly="True"
+      />
 
-      <Grid DataContext="{Binding TallyResult}">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="1*"/>
-          <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-
-        <cc:ImpTextBox
-          Grid.Column="0"
-          Margin="2"
-          Style="{StaticResource TextArea}"
-          Text="{Binding FinalRankingText, Mode=OneWay}"
-          IsReadOnly="True"
-        />
-        
-        <cc:ImpTextBox
-          Grid.Column="1"
-          Margin="2"
-          Style="{StaticResource TextArea}"
-          Text="{Binding AwardRankingsText, Mode=OneWay}"
-          IsReadOnly="True"
-        />
-      </Grid>
-    </DockPanel>
+      <cc:ImpTextBox
+        Grid.Column="1"
+        Margin="2"
+        Style="{StaticResource TextArea}"
+        Text="{Binding AwardRankingsText, Mode=OneWay}"
+        IsReadOnly="True"
+      />
+    </Grid>
   </GroupBox>
 </UserControl>

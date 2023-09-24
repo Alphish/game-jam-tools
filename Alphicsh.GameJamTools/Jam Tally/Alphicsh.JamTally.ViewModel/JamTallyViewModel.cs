@@ -6,7 +6,6 @@ using Alphicsh.JamTools.Common.Controls.Files;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
-using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 namespace Alphicsh.JamTally.ViewModel
 {
@@ -16,13 +15,11 @@ namespace Alphicsh.JamTally.ViewModel
 
         public JamTallyViewModel(JamTallyModel model) : base(model)
         {
-            HasJamProperty = NotifiableProperty.Create(this, nameof(HasJam));
-
             OpenJamDirectoryCommand = SimpleCommand.From(OpenJamDirectory);
         }
 
-        public NotifiableProperty HasJamProperty { get; }
         public bool HasJam => Model.HasJam;
+        public bool HasAlignments => Model.HasAlignments;
 
         public JamOverviewViewModel? Jam { get; private set; }
         public JamVoteCollectionViewModel? VotesCollection { get; private set; }
@@ -51,7 +48,7 @@ namespace Alphicsh.JamTally.ViewModel
         {
             Jam = new JamOverviewViewModel(Model.Jam!);
             VotesCollection = new JamVoteCollectionViewModel(Model.VotesCollection!);
-            RaisePropertyChanged(nameof(HasJam), nameof(Jam), nameof(VotesCollection));
+            RaisePropertyChanged(nameof(HasJam), nameof(HasAlignments), nameof(Jam), nameof(VotesCollection));
         }
     }
 }

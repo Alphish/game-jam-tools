@@ -9,6 +9,7 @@
   xmlns:mvvm="clr-namespace:Alphicsh.JamTools.Common.Mvvm;assembly=Alphicsh.JamTools.Common.Mvvm"
   xmlns:appVote="clr-namespace:Alphicsh.JamTally.Controls.Vote"
   xmlns:appResult="clr-namespace:Alphicsh.JamTally.Controls.Result"
+  xmlns:appGenerators="clr-namespace:Alphicsh.JamTally.Controls.Generators"
   mc:Ignorable="d"
   Style="{StaticResource MainWindow}"
   MinWidth="960"
@@ -29,13 +30,22 @@
           <appVote:VotesTab/>
         </TabItem>
         
-        <!-- Tally tab -->
-        <TabItem>
+        <!-- Results tab -->
+        <TabItem Visibility="{Binding VotesCollection.HasTallyResults, Converter={StaticResource ShowTrueVisibilityConverter}}">
           <TabItem.Header>
             <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuAwardsIconSource}" ToolTip="Results"/>
           </TabItem.Header>
 
           <appResult:ResultTab/>
+        </TabItem>
+
+        <!-- Generators tab -->
+        <TabItem Visibility="{Binding VotesCollection.HasTallyResults, Converter={StaticResource ShowTrueVisibilityConverter}}">
+          <TabItem.Header>
+            <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuExportIconSource}" ToolTip="Generators"/>
+          </TabItem.Header>
+
+          <appGenerators:GeneratorsTab/>
         </TabItem>
       </TabControl>
     </Grid>
