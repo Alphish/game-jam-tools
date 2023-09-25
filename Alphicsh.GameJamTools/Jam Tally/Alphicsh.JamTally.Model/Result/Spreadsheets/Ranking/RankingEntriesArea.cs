@@ -16,9 +16,9 @@ namespace Alphicsh.JamTally.Model.Result.Spreadsheets.Ranking
         public void Populate()
         {
             AddHeaderRow();
-            foreach (var entry in Sheet.Jam.Entries)
+            foreach (var entry in Sheet.TallyResult.FinalRanking)
             {
-                AddEntryRow(entry);
+                AddEntryRow(entry.Entry);
             }
         }
 

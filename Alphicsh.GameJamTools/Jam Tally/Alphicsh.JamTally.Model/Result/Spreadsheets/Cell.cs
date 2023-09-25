@@ -25,5 +25,19 @@
             var rowName = absoluteRow ? "$" + row.ToString() : row.ToString();
             return columnName + rowName;
         }
+
+        public static string ColumnRange(int column, int rowFrom, int rowTo, bool absoluteColumn = false, bool absoluteRow = false)
+        {
+            var cellFrom = At(column, rowFrom, absoluteColumn, absoluteRow);
+            var cellTo = At(column, rowTo, absoluteColumn, absoluteRow);
+            return $"{cellFrom}:{cellTo}";
+        }
+
+        public static string RowRange(int row, int columnFrom, int columnTo, bool absoluteColumn = false, bool absoluteRow = false)
+        {
+            var cellFrom = At(columnFrom, row, absoluteColumn, absoluteRow);
+            var cellTo = At(columnTo, row, absoluteColumn, absoluteRow);
+            return $"{cellFrom}:{cellTo}";
+        }
     }
 }

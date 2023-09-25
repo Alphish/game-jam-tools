@@ -15,9 +15,9 @@ namespace Alphicsh.JamTally.Model.Result.Spreadsheets.Ranking
         public void Populate()
         {
             AddHeaderRow();
-            foreach (var entry in TallyResult.Entries)
+            foreach (var entry in TallyResult.FinalRanking)
             {
-                AddEntryRow(entry);
+                AddEntryRow(entry.Entry);
             }
             AddFooterRow();
         }
@@ -63,8 +63,8 @@ namespace Alphicsh.JamTally.Model.Result.Spreadsheets.Ranking
         {
             var titleCell = Sheet.TitleCellFor(row);
             var unjudgedRange = $"Votes!{Sheet.Workbook.VotesSheet.GetUnjudgedRange()}";
-            var countExpression = $"COUNTIF({unjudgedRange},\"=\"&{titleCell})";
-            var formula = $"=IF({countExpression}>0,{countExpression},)";
+            var condition = $"\"=\"&{titleCell}";
+            var formula = Formula.CountIfOrEmptyFormula(unjudgedRange, condition);
             return formula;
         }
 

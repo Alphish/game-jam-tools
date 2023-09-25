@@ -12,9 +12,9 @@ namespace Alphicsh.JamTally.Model.Result.Spreadsheets.Ranking
         public void Populate()
         {
             AddHeaderRow();
-            foreach (var entry in Sheet.Jam.Entries)
+            foreach (var entry in Sheet.TallyResult.FinalRanking)
             {
-                AddEntryRow(entry);
+                AddEntryRow(entry.Entry);
             }
         }
 
@@ -36,8 +36,8 @@ namespace Alphicsh.JamTally.Model.Result.Spreadsheets.Ranking
             foreach (var award in Sheet.TallyResult.Awards)
             {
                 var entryRange = $"Votes!{votesSheet.GetAwardRange(award)}";
-                var countExpression = $"COUNTIF({entryRange},\"=\"&{titleCell})";
-                var formula = $"=IF({countExpression}>0,{countExpression},)";
+                var condition = $"\"=\"&{titleCell}";
+                var formula = Formula.CountIfOrEmptyFormula(entryRange, condition);
                 row.Add(formula);
             }
         }
