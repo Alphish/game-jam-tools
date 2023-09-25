@@ -13,11 +13,22 @@ namespace Alphicsh.JamTally.Model.Result.Alignments
                 .Where(vote => vote.Ranking.Any())
                 .Select(CalculateSingleVote)
                 .ToList();
-            var totalScores = CalculateTotalScores(alignmentVotes);
+
+            var baseScores = CalculateBaseScores(alignmentVotes);
+            var reviewScores = CalculateReviewScores(votesCollection);
+            var themeBonuses = CalculateThemeBonuses(votesCollection);
+            var totalScores = CalculateTotalScores(baseScores, reviewScores, themeBonuses);
+
+            var ranking = totalScores.OrderByDescending(kvp => kvp.Value).Select(kvp => kvp.Key).ToList();
+
             return new JamAlignmentTally
             {
                 Votes = alignmentVotes,
+                BaseScores = baseScores,
+                ReviewScores = reviewScores,
+                ThemeBonuses = themeBonuses,
                 TotalScores = totalScores,
+                AlignmentRanking = ranking,
             };
         }
 
@@ -91,6 +102,8 @@ namespace Alphicsh.JamTally.Model.Result.Alignments
             // returning the result
             return new JamAlignmentVote
             {
+                OriginalVote = vote,
+
                 TotalRankedCount = rankedEntries.Count,
                 TotalUnrankedCount = unrankedEntries.Count,
                 TotalEntriesCount = votedEntries.Count,
@@ -106,13 +119,68 @@ namespace Alphicsh.JamTally.Model.Result.Alignments
             };
         }
 
-        private IReadOnlyDictionary<JamAlignmentOption, decimal> CalculateTotalScores(IReadOnlyCollection<JamAlignmentVote> votes)
+        private IReadOnlyDictionary<JamAlignmentOption, decimal> CalculateBaseScores(IReadOnlyCollection<JamAlignmentVote> votes)
         {
             var options = JamTallyModel.Current.Jam!.Alignments!.GetAvailableOptions();
             var voteAverages = votes.SelectMany(vote => vote.AlignedAverages).ToList();
             return voteAverages
                 .GroupBy(kvp => kvp.Key)
                 .ToDictionary(group => group.Key, group => group.Average(kvp => kvp.Value));
+        }
+
+        private IReadOnlyDictionary<JamAlignmentOption, JamAlignmentReviewScore> CalculateReviewScores(JamVoteCollection votesCollection)
+        {
+            var jam = JamTallyModel.Current.Jam!;
+            var votelessEntries = new HashSet<JamEntry>(jam.Entries);
+
+            var eligibleVotes = votesCollection.Votes.Where(vote => vote.Ranking.Count >= 20 && vote.ReviewsCount >= 20).ToList();
+            foreach (var authoredEntry in eligibleVotes.SelectMany(vote => vote.Authored))
+                votelessEntries.Remove(authoredEntry);
+
+            foreach (var duplicate in votesCollection.AlignmentBattleData!.Duplicates)
+                votelessEntries.Remove(duplicate);
+
+            var result = new Dictionary<JamAlignmentOption, JamAlignmentReviewScore>();
+            foreach (var alignment in jam.Alignments!.GetAvailableOptions())
+            {
+                var eligibleVotesCount = eligibleVotes.Count(vote => vote.Alignment == alignment);
+                var votelessEntriesCount = votelessEntries.Count(entry => entry.Alignment == alignment);
+                var reviewScore = new JamAlignmentReviewScore
+                {
+                    Alignment = alignment,
+                    EligibleVotes = eligibleVotesCount,
+                    VotelessEntries = votelessEntriesCount
+                };
+                result.Add(alignment, reviewScore);
+            }
+            return result;
+        }
+
+        private IReadOnlyDictionary<JamAlignmentOption, decimal> CalculateThemeBonuses(JamVoteCollection votesCollection)
+        {
+            var jam = JamTallyModel.Current.Jam!;
+            var themeGuessed = votesCollection.AlignmentBattleData!.ThemeGuessed;
+            return jam.Alignments!.GetAvailableOptions()
+                .ToDictionary(alignment => alignment, alignment => alignment == themeGuessed ? 0.02m : 0.00m);
+        }
+
+        private IReadOnlyDictionary<JamAlignmentOption, decimal> CalculateTotalScores(
+            IReadOnlyDictionary<JamAlignmentOption, decimal> baseScores,
+            IReadOnlyDictionary<JamAlignmentOption, JamAlignmentReviewScore> reviewScores,
+            IReadOnlyDictionary<JamAlignmentOption, decimal> themeBonuses
+            )
+        {
+            var jam = JamTallyModel.Current.Jam!;
+            var result = new Dictionary<JamAlignmentOption, decimal>();
+            foreach (var alignment in jam.Alignments!.GetAvailableOptions())
+            {
+                var baseScore = baseScores[alignment];
+                var reviewMultiplier = reviewScores[alignment].Multiplier;
+                var themeBonus = themeBonuses[alignment];
+                var totalScore = baseScore * reviewMultiplier + themeBonus;
+                result.Add(alignment, totalScore);
+            }
+            return result;
         }
     }
 }

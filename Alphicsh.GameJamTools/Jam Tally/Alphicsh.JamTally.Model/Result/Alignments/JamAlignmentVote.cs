@@ -1,10 +1,15 @@
 ﻿using System.Collections.Generic;
 using Alphicsh.JamTally.Model.Jam;
+using Alphicsh.JamTally.Model.Vote;
 
 namespace Alphicsh.JamTally.Model.Result.Alignments
 {
     public class JamAlignmentVote
     {
+        public JamVote OriginalVote { get; init; } = default!;
+        public string? Voter => OriginalVote.Voter;
+        public JamAlignmentOption? VoterAlignment => OriginalVote.Alignment;
+
         public int TotalRankedCount { get; init; } = default!;
         public int TotalUnrankedCount { get; init; } = default!;
         public int TotalEntriesCount { get; init; } = default!;
