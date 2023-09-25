@@ -13,11 +13,14 @@ namespace Alphicsh.JamTally.Model.Vote
         private string? Voter { get; set; }
         private JamAlignmentOption? Alignment { get; set; }
 
+        private int ReviewsCount { get; set; }
+
         private IDictionary<JamAwardCriterion, JamEntry> Awards { get; } = new Dictionary<JamAwardCriterion, JamEntry>();
 
         private HashSet<JamEntry> MissingEntries { get; set; } = default!;
         private IList<JamEntry> Ranking { get; } = new List<JamEntry>();
         private IList<JamEntry> UnjudgedEntries { get; } = new List<JamEntry>();
+        private IList<JamEntry> AuthoredEntries { get; } = new List<JamEntry>();
 
         private IList<JamVoteReaction> Reactions { get; } = new List<JamVoteReaction>();
 
@@ -87,12 +90,16 @@ namespace Alphicsh.JamTally.Model.Vote
             {
                 case "VOTER":
                     return ReadVoterName;
+                case "STATS":
+                    return ReadStats;
                 case "AWARDS":
                     return ReadAward;
                 case "RANKING":
                     return ReadRankingEntry;
                 case "UNJUDGED":
                     return ReadUnjudgedEntry;
+                case "AUTHORED":
+                    return ReadAuthoredEntry;
                 case "REACTIONS":
                     return ReadReaction;
                 default:
@@ -115,6 +122,20 @@ namespace Alphicsh.JamTally.Model.Vote
                 Alignment = jam.Alignments.GetAlignment(line);
             else
                 throw new InvalidOperationException($"Voter name and alignment were already provided.");
+        }
+
+        private void ReadStats(string line, JamOverview jam)
+        {
+            line = line.ToLowerInvariant();
+            if (line.StartsWith("reviews count:"))
+            {
+                var countString = line.Substring("reviews count:".Length).Trim();
+                ReviewsCount = int.Parse(countString);
+            }
+            else
+            {
+                throw new InvalidOperationException($"Cannot read statistics line: '{line}'.");
+            }
         }
 
         // -------
@@ -157,6 +178,12 @@ namespace Alphicsh.JamTally.Model.Vote
                 throw new InvalidOperationException($"The entry '{entry.Line}' was already added to the ranking or unjudged entries.");
 
             UnjudgedEntries.Add(entry);
+        }
+
+        private void ReadAuthoredEntry(string line, JamOverview jam)
+        {
+            var entry = FindEntryByLine(line, line, jam);
+            AuthoredEntries.Add(entry);
         }
 
         private JamEntry FindEntryByLine(string line, string displayLine, JamOverview jam)
@@ -225,9 +252,11 @@ namespace Alphicsh.JamTally.Model.Vote
         private void GenerateContent()
         {
             GenerateNameSection();
+            GenerateStatsSection();
             GenerateAwardsSection();
             GenerateRankingSection();
             GenerateUnjudgedEntriesSection();
+            GenerateAuthoredEntriesSection();
             GenerateReactionsSection();
         }
 
@@ -252,6 +281,16 @@ namespace Alphicsh.JamTally.Model.Vote
             if (Alignment != null)
                 AddLine(Alignment.ShortTitle);
             
+            AddLine();
+        }
+
+        private void GenerateStatsSection()
+        {
+            AddSection("STATS");
+
+            if (ReviewsCount != 0)
+                AddLine($"Reviews count: {ReviewsCount}");
+
             AddLine();
         }
 
@@ -289,6 +328,16 @@ namespace Alphicsh.JamTally.Model.Vote
             AddLine();
         }
 
+        private void GenerateAuthoredEntriesSection()
+        {
+            AddSection("AUTHORED");
+            foreach (var entry in AuthoredEntries.OrderBy(entry => entry.Line.ToLowerInvariant()))
+            {
+                AddLine(entry.Line);
+            }
+            AddLine();
+        }
+
         private void GenerateReactionsSection()
         {
             AddSection("REACTIONS");
@@ -307,10 +356,12 @@ namespace Alphicsh.JamTally.Model.Vote
         {
             Vote.Voter = Voter;
             Vote.Alignment = Alignment;
+            Vote.ReviewsCount = ReviewsCount;
             Vote.Awards = Awards.Select(kvp => new JamVoteAward { Award = kvp.Key, Entry = kvp.Value }).ToList();
             Vote.Ranking = Ranking.ToList();
             Vote.Unjudged = UnjudgedEntries.OrderBy(entry => entry.Line, StringComparer.OrdinalIgnoreCase).ToList();
             Vote.Missing = MissingEntries.OrderBy(entry => entry.Line, StringComparer.OrdinalIgnoreCase).ToList();
+            Vote.Authored = AuthoredEntries.OrderBy(entry => entry.Line, StringComparer.OrdinalIgnoreCase).ToList();
             Vote.Reactions = AggregateReactions();
 
             Vote.Error = Error;
