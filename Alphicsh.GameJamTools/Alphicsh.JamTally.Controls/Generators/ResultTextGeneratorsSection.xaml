@@ -16,18 +16,8 @@
         Style="{StaticResource HelpButton}"
         Margin="2"
         Width="216"
-        Command="{Binding TallyResult.GenerateRankingSheetCommand}"
-      >Generate ranking sheet</cc:ImpButton>
-
-      <cc:ImpButton
-        DockPanel.Dock="Top"
-        Style="{StaticResource HelpButton}"
-        Margin="2"
-        Width="216"
-        Command="{Binding TallyResult.GenerateVotesSheetCommand}"
-      >Generate votes sheet</cc:ImpButton>
-
-      <Separator DockPanel.Dock="Top" Width="216"/>
+        Command="{Binding TallyResult.GenerateTallySheetsCommand}"
+      >Generate tally spreadsheets</cc:ImpButton>
 
       <cc:ImpButton
         DockPanel.Dock="Top"

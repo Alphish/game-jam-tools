@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Alphicsh.JamTally.Model.Jam;
+using Alphicsh.JamTally.Model.Result.Alignments;
 using Alphicsh.JamTally.Model.Result.Spreadsheets;
 using Alphicsh.JamTally.Model.Result.Trophies;
 using Alphicsh.JamTally.Model.Vote;
@@ -18,6 +19,8 @@ namespace Alphicsh.JamTally.Model.Result
         public int AwardsCount { get; init; }
         public int UnjudgedMaxCount { get; init; }
         public int ReactionsMaxCount { get; init; }
+
+        public JamAlignmentTally? AlignmentTally { get; init; }
 
         // -------
         // Ranking
@@ -51,22 +54,21 @@ namespace Alphicsh.JamTally.Model.Result
         // Generators
         // ----------
 
-        private static RankingSheetGenerator RankingSheetGenerator { get; } = new RankingSheetGenerator();
-        private static VotesSheetGenerator VotesSheetGenerator { get; } = new VotesSheetGenerator();
-        private static TrophiesTemplateGenerator TrophiesTemplateGenerator { get; } = new TrophiesTemplateGenerator();
-
         private static ResultsPostGenerator ResultsPostGenerator { get; } = new ResultsPostGenerator();
+
+        public void GenerateTallySheets(FilePath directoryPath)
+        {
+            var workbook = new TallyWorkbook(JamTallyModel.Current.Jam!, this, AlignmentTally);
+            workbook.Populate();
+            workbook.Save(directoryPath);
+        }
 
         public string GenerateResultsPost()
             => ResultsPostGenerator.Generate(this);
 
-        public string GenerateVotesSheet()
-            => VotesSheetGenerator.Generate(this);
+        private static TrophiesTemplateGenerator TrophiesTemplateGenerator { get; } = new TrophiesTemplateGenerator();
 
         public void GenerateTrophiesTemplate(FilePath sourcePath, FilePath destinationPath)
             => TrophiesTemplateGenerator.Generate(this, sourcePath, destinationPath);
-
-        public string GenerateRankingSheet()
-            => RankingSheetGenerator.Generate(this);
     }
 }

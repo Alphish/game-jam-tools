@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using Alphicsh.JamTally.Model.Result;
 using Alphicsh.JamTally.Model.Result.Trophies;
@@ -16,8 +15,7 @@ namespace Alphicsh.JamTally.ViewModel.Result
             FinalRankingText = model.GetFinalRankingText();
             AwardRankingsText = model.GetAwardRankingsText();
 
-            GenerateRankingSheetCommand = SimpleCommand.From(GenerateRankingSheet);
-            GenerateVotesSheetCommand = SimpleCommand.From(GenerateVotesSheet);
+            GenerateTallySheetsCommand = SimpleCommand.From(GenerateTallySheets);
             GenerateTrophiesTemplateCommand = SimpleCommand.From(GenerateTrophiesTemplate);
             ExportTrophiesCommand = SimpleCommand.From(ExportTrophies);
             GenerateResultsPostCommand = SimpleCommand.From(GenerateResultsPost);
@@ -30,34 +28,14 @@ namespace Alphicsh.JamTally.ViewModel.Result
         // Generators
         // ----------
 
-        public ICommand GenerateRankingSheetCommand { get; }
-        private void GenerateRankingSheet()
+        public ICommand GenerateTallySheetsCommand { get; }
+        private void GenerateTallySheets()
         {
-            var rankingSheet = Model.GenerateRankingSheet();
-            var filePath = FileQuery.SaveFile()
-                .WithFileType("*.csv", "Comma-separated values")
-                .WithDefaultName("Ranking.csv")
-                .GetPath();
-
-            if (filePath == null)
+            var directoryPath = FileQuery.OpenDirectory().GetPath();
+            if (directoryPath == null)
                 return;
 
-            File.WriteAllText(filePath.Value.Value, rankingSheet);
-        }
-
-        public ICommand GenerateVotesSheetCommand { get; }
-        private void GenerateVotesSheet()
-        {
-            var votesSheet = Model.GenerateVotesSheet();
-            var filePath = FileQuery.SaveFile()
-                .WithFileType("*.csv", "Comma-separated values")
-                .WithDefaultName("Votes.csv")
-                .GetPath();
-
-            if (filePath == null)
-                return;
-
-            File.WriteAllText(filePath.Value.Value, votesSheet);
+            Model.GenerateTallySheets(directoryPath.Value);
         }
 
         public ICommand GenerateTrophiesTemplateCommand { get; }
@@ -81,6 +59,14 @@ namespace Alphicsh.JamTally.ViewModel.Result
             Model.GenerateTrophiesTemplate(sourcePath.Value, destinationPath.Value);
         }
 
+        public string ResultsPostText { get; private set; } = string.Empty;
+        public ICommand GenerateResultsPostCommand { get; }
+        private void GenerateResultsPost()
+        {
+            ResultsPostText = Model.GenerateResultsPost();
+            RaisePropertyChanged(nameof(ResultsPostText));
+        }
+
         public ICommand ExportTrophiesCommand { get; }
         private void ExportTrophies()
         {
@@ -101,14 +87,6 @@ namespace Alphicsh.JamTally.ViewModel.Result
         {
             var previousDetails = ResultsPostText != "" ? ResultsPostText.Substring(ResultsPostText.IndexOf("\n")) : "";
             ResultsPostText = $"Exported items: {e.ExportedItems}/{e.TotalItems}\n" + e.Message + previousDetails;
-            RaisePropertyChanged(nameof(ResultsPostText));
-        }
-
-        public string ResultsPostText { get; private set; }
-        public ICommand GenerateResultsPostCommand { get; }
-        private void GenerateResultsPost()
-        {
-            ResultsPostText = Model.GenerateResultsPost();
             RaisePropertyChanged(nameof(ResultsPostText));
         }
     }

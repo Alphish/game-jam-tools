@@ -1,18 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Alphicsh.JamTally.Model.Jam;
+using Alphicsh.JamTally.Model.Result.Alignments;
 using Alphicsh.JamTally.Model.Vote;
 
 namespace Alphicsh.JamTally.Model.Result
 {
     public class JamTallyCalculator
     {
+        private static JamAlignmentTallyCalculator AlignmentTallyCalculator { get; } = new JamAlignmentTallyCalculator();
+
         public JamTallyResult CalculateResults(JamVoteCollection votesCollection)
         {
             var jam = JamTallyModel.Current.Jam!;
             var talliedVotes = votesCollection.Votes.Where(vote => vote.Ranking.Any()).ToList();
             var finalRanking = CalculateFinalRanking(jam, talliedVotes);
             var awardRankings = CalculateAwardRankings(jam, talliedVotes);
+
+            var alignmentTally = JamTallyModel.Current.Jam?.Alignments != null
+                ? AlignmentTallyCalculator.CalculateResults(votesCollection)
+                : null;
 
             return new JamTallyResult
             {
@@ -27,6 +34,8 @@ namespace Alphicsh.JamTally.Model.Result
 
                 FinalRanking = finalRanking,
                 AwardRankings = awardRankings,
+
+                AlignmentTally = alignmentTally,
             };
         }
 
