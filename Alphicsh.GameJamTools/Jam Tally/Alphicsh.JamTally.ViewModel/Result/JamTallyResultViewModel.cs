@@ -24,9 +24,9 @@ namespace Alphicsh.JamTally.ViewModel.Result
         public string FinalRankingText { get; }
         public string AwardRankingsText { get; }
 
-        // ----------
-        // Generators
-        // ----------
+        // ---------------
+        // Text generators
+        // ---------------
 
         public ICommand GenerateTallySheetsCommand { get; }
         private void GenerateTallySheets()
@@ -37,6 +37,18 @@ namespace Alphicsh.JamTally.ViewModel.Result
 
             Model.GenerateTallySheets(directoryPath.Value);
         }
+
+        public string ResultsPostText { get; private set; } = string.Empty;
+        public ICommand GenerateResultsPostCommand { get; }
+        private void GenerateResultsPost()
+        {
+            ResultsPostText = Model.GenerateResultsPost();
+            RaisePropertyChanged(nameof(ResultsPostText));
+        }
+
+        // -------------------
+        // Trophies generators
+        // -------------------
 
         public ICommand GenerateTrophiesTemplateCommand { get; }
         private void GenerateTrophiesTemplate()
@@ -59,14 +71,6 @@ namespace Alphicsh.JamTally.ViewModel.Result
             Model.GenerateTrophiesTemplate(sourcePath.Value, destinationPath.Value);
         }
 
-        public string ResultsPostText { get; private set; } = string.Empty;
-        public ICommand GenerateResultsPostCommand { get; }
-        private void GenerateResultsPost()
-        {
-            ResultsPostText = Model.GenerateResultsPost();
-            RaisePropertyChanged(nameof(ResultsPostText));
-        }
-
         public ICommand ExportTrophiesCommand { get; }
         private void ExportTrophies()
         {
@@ -77,17 +81,18 @@ namespace Alphicsh.JamTally.ViewModel.Result
             if (sourcePath == null)
                 return;
 
-            ResultsPostText = "";
+            ExportProgressText = "";
             var trophiesExporter = new TrophiesExporter(sourcePath.Value);
             trophiesExporter.ExportProgress += OnExportProgress;
             Task.Run(trophiesExporter.Export);
         }
 
+        public string ExportProgressText { get; private set; } = string.Empty;
         private void OnExportProgress(object? sender, TrophiesExportProgressEvent e)
         {
-            var previousDetails = ResultsPostText != "" ? ResultsPostText.Substring(ResultsPostText.IndexOf("\n")) : "";
-            ResultsPostText = $"Exported items: {e.ExportedItems}/{e.TotalItems}\n" + e.Message + previousDetails;
-            RaisePropertyChanged(nameof(ResultsPostText));
+            var previousDetails = ExportProgressText != "" ? ExportProgressText.Substring(ExportProgressText.IndexOf("\n")) : "";
+            ExportProgressText = $"Exported items: {e.ExportedItems}/{e.TotalItems}\n" + e.Message + previousDetails;
+            RaisePropertyChanged(nameof(ExportProgressText));
         }
     }
 }

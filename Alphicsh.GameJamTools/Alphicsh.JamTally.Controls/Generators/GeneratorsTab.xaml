@@ -16,5 +16,7 @@
     </Grid.ColumnDefinitions>
 
     <local:ResultTextGeneratorsSection Grid.Column="0" DataContext="{Binding VotesCollection}"/>
+    
+    <local:TrophiesGeneratorsSection Grid.Column="2" DataContext="{Binding VotesCollection}"/>
   </Grid>
 </UserControl>
