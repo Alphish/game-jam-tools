@@ -54,6 +54,7 @@ namespace Alphicsh.JamTally.ViewModel.Vote
         // Tally
         // -----
 
+        public bool HasTallyResults => Model.HasTallyResult;
         public JamTallyResultViewModel? TallyResult { get; private set; }
 
         public ICommand TallyVotesCommand { get; }
@@ -61,7 +62,7 @@ namespace Alphicsh.JamTally.ViewModel.Vote
         {
             Model.TallyVotes();
             TallyResult = new JamTallyResultViewModel(Model.TallyResult!);
-            RaisePropertyChanged(nameof(TallyResult));
+            RaisePropertyChanged(nameof(TallyResult), nameof(HasTallyResults));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using Alphicsh.JamTally.Model.Result;
 using Alphicsh.JamTally.Model.Result.Trophies;
@@ -16,8 +15,7 @@ namespace Alphicsh.JamTally.ViewModel.Result
             FinalRankingText = model.GetFinalRankingText();
             AwardRankingsText = model.GetAwardRankingsText();
 
-            GenerateRankingSheetCommand = SimpleCommand.From(GenerateRankingSheet);
-            GenerateVotesSheetCommand = SimpleCommand.From(GenerateVotesSheet);
+            GenerateTallySheetsCommand = SimpleCommand.From(GenerateTallySheets);
             GenerateTrophiesTemplateCommand = SimpleCommand.From(GenerateTrophiesTemplate);
             ExportTrophiesCommand = SimpleCommand.From(ExportTrophies);
             GenerateResultsPostCommand = SimpleCommand.From(GenerateResultsPost);
@@ -26,39 +24,31 @@ namespace Alphicsh.JamTally.ViewModel.Result
         public string FinalRankingText { get; }
         public string AwardRankingsText { get; }
 
-        // ----------
-        // Generators
-        // ----------
+        // ---------------
+        // Text generators
+        // ---------------
 
-        public ICommand GenerateRankingSheetCommand { get; }
-        private void GenerateRankingSheet()
+        public ICommand GenerateTallySheetsCommand { get; }
+        private void GenerateTallySheets()
         {
-            var rankingSheet = Model.GenerateRankingSheet();
-            var filePath = FileQuery.SaveFile()
-                .WithFileType("*.csv", "Comma-separated values")
-                .WithDefaultName("Ranking.csv")
-                .GetPath();
-
-            if (filePath == null)
+            var directoryPath = FileQuery.OpenDirectory().GetPath();
+            if (directoryPath == null)
                 return;
 
-            File.WriteAllText(filePath.Value.Value, rankingSheet);
+            Model.GenerateTallySheets(directoryPath.Value);
         }
 
-        public ICommand GenerateVotesSheetCommand { get; }
-        private void GenerateVotesSheet()
+        public string ResultsPostText { get; private set; } = string.Empty;
+        public ICommand GenerateResultsPostCommand { get; }
+        private void GenerateResultsPost()
         {
-            var votesSheet = Model.GenerateVotesSheet();
-            var filePath = FileQuery.SaveFile()
-                .WithFileType("*.csv", "Comma-separated values")
-                .WithDefaultName("Votes.csv")
-                .GetPath();
-
-            if (filePath == null)
-                return;
-
-            File.WriteAllText(filePath.Value.Value, votesSheet);
+            ResultsPostText = Model.GenerateResultsPost();
+            RaisePropertyChanged(nameof(ResultsPostText));
         }
+
+        // -------------------
+        // Trophies generators
+        // -------------------
 
         public ICommand GenerateTrophiesTemplateCommand { get; }
         private void GenerateTrophiesTemplate()
@@ -91,25 +81,18 @@ namespace Alphicsh.JamTally.ViewModel.Result
             if (sourcePath == null)
                 return;
 
-            ResultsPostText = "";
+            ExportProgressText = "";
             var trophiesExporter = new TrophiesExporter(sourcePath.Value);
             trophiesExporter.ExportProgress += OnExportProgress;
             Task.Run(trophiesExporter.Export);
         }
 
+        public string ExportProgressText { get; private set; } = string.Empty;
         private void OnExportProgress(object? sender, TrophiesExportProgressEvent e)
         {
-            var previousDetails = ResultsPostText != "" ? ResultsPostText.Substring(ResultsPostText.IndexOf("\n")) : "";
-            ResultsPostText = $"Exported items: {e.ExportedItems}/{e.TotalItems}\n" + e.Message + previousDetails;
-            RaisePropertyChanged(nameof(ResultsPostText));
-        }
-
-        public string ResultsPostText { get; private set; }
-        public ICommand GenerateResultsPostCommand { get; }
-        private void GenerateResultsPost()
-        {
-            ResultsPostText = Model.GenerateResultsPost();
-            RaisePropertyChanged(nameof(ResultsPostText));
+            var previousDetails = ExportProgressText != "" ? ExportProgressText.Substring(ExportProgressText.IndexOf("\n")) : "";
+            ExportProgressText = $"Exported items: {e.ExportedItems}/{e.TotalItems}\n" + e.Message + previousDetails;
+            RaisePropertyChanged(nameof(ExportProgressText));
         }
     }
 }

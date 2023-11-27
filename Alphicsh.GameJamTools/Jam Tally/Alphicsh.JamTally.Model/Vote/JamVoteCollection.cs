@@ -11,6 +11,7 @@ namespace Alphicsh.JamTally.Model.Vote
 
         public FilePath DirectoryPath { get; init; } = default!;
         public IList<JamVote> Votes { get; init; } = default!;
+        public JamAlignmentBattleData? AlignmentBattleData { get; init; }
 
         public bool HasTallyResult => TallyResult != null;
         public JamTallyResult? TallyResult { get; private set; }

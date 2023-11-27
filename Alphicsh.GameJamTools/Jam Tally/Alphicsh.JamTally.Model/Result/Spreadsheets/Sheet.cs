@@ -1,44 +1,33 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Alphicsh.JamTally.Model.Result.Spreadsheets
 {
     internal class Sheet
     {
-        private IList<SheetColumn> Columns { get; } = new List<SheetColumn>();
+        private List<List<string>> Cells { get; } = new List<List<string>>();
 
-        public void AddColumn(SheetColumn column)
+        public void ExpandTo(int width, int height)
         {
-            Columns.Add(column);
-        }
-
-        // ----------------
-        // Formatting cells
-        // ----------------
-
-        private static char[] Alphabet { get; } = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-
-        public static string At(int column, int row, bool absoluteColumn = false, bool absoluteRow = false)
-        {
-            var remainder = column - 1;
-            var letterIdx = remainder % 26;
-            var columnName = Alphabet[letterIdx].ToString();
-            remainder -= letterIdx;
-
-            while (remainder > 0)
+            while (Cells.Count < height)
             {
-                remainder = (remainder / 26) - 1;
-                letterIdx = remainder % 26;
-                columnName = Alphabet[letterIdx] + columnName;
-                remainder -= letterIdx;
+                Cells.Add(new List<string>());
             }
 
-            if (absoluteColumn)
-                columnName = "$" + columnName;
+            foreach (var row in Cells)
+            {
+                while (row.Count < width)
+                    row.Add(string.Empty);
+            }
+        }
 
-            var rowName = absoluteRow ? "$" + row.ToString() : row.ToString();
-            return columnName + rowName;
+        public void Set(int row, int column, string content)
+        {
+            if (Cells[row - 1][column - 1] != string.Empty)
+                throw new InvalidOperationException($"The cell at ({row},{column}) already has a value '{content}'.");
+
+            Cells[row - 1][column - 1] = content;
         }
 
         // --------------
@@ -48,24 +37,24 @@ namespace Alphicsh.JamTally.Model.Result.Spreadsheets
         public string GenerateCsv()
         {
             var sb = new StringBuilder();
-            var rowsCount = Columns.First().Count;
+            var rowsCount = Cells.Count;
             for (var i = 0; i < rowsCount; i++)
             {
-                PopulateRow(i, sb);
+                WriteRow(i, sb);
             }
             return sb.ToString();
         }
 
-        private void PopulateRow(int row, StringBuilder sb)
+        private void WriteRow(int row, StringBuilder sb)
         {
             var isFirst = true;
-            foreach (var column in Columns)
+            foreach (var cell in Cells[row])
             {
                 if (!isFirst)
                     sb.Append("\t");
 
                 sb.Append("\"");
-                sb.Append(column.Cells[row].Replace("\"", "\"\""));
+                sb.Append(cell.Replace("\"", "\"\""));
                 sb.Append("\"");
 
                 isFirst = false;

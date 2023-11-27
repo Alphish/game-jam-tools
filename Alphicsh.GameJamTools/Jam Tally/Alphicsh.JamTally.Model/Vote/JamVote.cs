@@ -15,6 +15,9 @@ namespace Alphicsh.JamTally.Model.Vote
         }
 
         public string? Voter { get; internal set; }
+        public JamAlignmentOption? Alignment { get; internal set; }
+
+        public int ReviewsCount { get; internal set; }
         
         public IReadOnlyCollection<JamVoteAward> Awards { get; internal set; } = new List<JamVoteAward>();
         public JamEntry? FindEntryForAward(JamAwardCriterion award)
@@ -23,6 +26,8 @@ namespace Alphicsh.JamTally.Model.Vote
         public IReadOnlyCollection<JamEntry> Ranking { get; internal set; } = new List<JamEntry>();
         public IReadOnlyCollection<JamEntry> Unjudged { get; internal set; } = new List<JamEntry>();
         public IReadOnlyCollection<JamEntry> Missing { get; internal set; } = new List<JamEntry>();
+
+        public IReadOnlyCollection<JamEntry> Authored { get; internal set; } = new List<JamEntry>();
 
         public IReadOnlyCollection<JamVoteReaction> Reactions { get; internal set; } = new List<JamVoteReaction>();
         public int GetReactionScore()
@@ -34,6 +39,11 @@ namespace Alphicsh.JamTally.Model.Vote
         {
             var parser = new JamVoteContentProcessor(this);
             parser.Process();
+        }
+
+        public override string ToString()
+        {
+            return $"vote by {Voter ?? ("<unknown voter>")}";
         }
     }
 }

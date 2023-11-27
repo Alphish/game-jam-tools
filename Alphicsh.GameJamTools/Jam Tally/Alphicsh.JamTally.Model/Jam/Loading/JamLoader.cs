@@ -25,10 +25,12 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
         private JamOverview MapJam(FilePath directoryPath, JamInfo jamInfo)
         {
             var entriesPath = directoryPath.Append(jamInfo.EntriesSubpath);
+            var alignments = MapAlignments(jamInfo.Alignments);
             return new JamOverview
             {
                 AwardCriteria = jamInfo.AwardCriteria.Select(MapAwardCriterion).ToList(),
-                Entries = MapEntries(entriesPath, jamInfo.Entries),
+                Alignments = alignments,
+                Entries = MapEntries(entriesPath, jamInfo.Entries, alignments),
             };
         }
 
@@ -41,23 +43,42 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
             };
         }
 
-        private IReadOnlyCollection<JamEntry> MapEntries(FilePath entriesPath, IEnumerable<JamEntryStub> stubs)
+        private JamAlignments? MapAlignments(JamAlignmentInfo? alignments)
+        {
+            if (alignments == null)
+                return null;
+
+            var neitherTitle = alignments.NeitherTitle;
+            var options = alignments.Options.Select(MapAlignmentOption);
+            return new JamAlignments(neitherTitle, options);
+        }
+
+        private JamAlignmentOption MapAlignmentOption(JamAlignmentOptionInfo optionInfo)
+        {
+            return new JamAlignmentOption
+            {
+                Title = optionInfo.Title,
+                ShortTitle = optionInfo.ShortTitle,
+            };
+        }
+
+        private IReadOnlyCollection<JamEntry> MapEntries(FilePath entriesPath, IEnumerable<JamEntryStub> stubs, JamAlignments? alignments)
         {
             var result = new List<JamEntry>();
             foreach (var stub in stubs)
             {
-                var entry = TryLoadEntry(entriesPath, stub);
+                var entry = TryLoadEntry(entriesPath, stub, alignments);
                 if (entry != null)
                     result.Add(entry);
             }
             return result;
         }
 
-        private JamEntry? TryLoadEntry(FilePath entriesPath, JamEntryStub stub)
+        private JamEntry? TryLoadEntry(FilePath entriesPath, JamEntryStub stub, JamAlignments? alignments)
         {
             var id = stub.Id;
             var directoryPath = entriesPath.Append(stub.EntrySubpath);
-            return EntryLoader.ReadFromDirectory(id, directoryPath);
+            return EntryLoader.ReadFromDirectory(id, directoryPath, alignments);
         }
     }
 }

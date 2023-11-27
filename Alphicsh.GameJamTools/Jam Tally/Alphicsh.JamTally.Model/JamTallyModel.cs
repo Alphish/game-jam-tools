@@ -14,6 +14,7 @@ namespace Alphicsh.JamTally.Model
         private static JamVoteLoader VoteLoader { get; } = new JamVoteLoader();
 
         public bool HasJam => Jam != null;
+        public bool HasAlignments => Jam?.Alignments != null;
         public JamOverview? Jam { get; private set; }
         public JamVoteCollection? VotesCollection { get; private set; }
 

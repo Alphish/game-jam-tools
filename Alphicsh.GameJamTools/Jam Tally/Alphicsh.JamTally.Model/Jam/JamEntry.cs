@@ -6,11 +6,15 @@ namespace Alphicsh.JamTally.Model.Jam
     {
         public string Id { get; init; } = default!;
         public string Title { get; init; } = default!;
+        public string FullTitle { get; init; } = default!;
         public string Team { get; init; } = default!;
-        public string? RawTeam { get; init; } = default!;
+        public string? RawTeam { get; init; }
         public IReadOnlyCollection<string> Authors { get; init; } = default!;
 
+        public JamAlignmentOption? Alignment { get; init; }
+
         public string Line => $"{Title} by {Team}";
+        public string FullLine => $"{FullTitle} by {Team}";
 
         public override string ToString()
             => Line;

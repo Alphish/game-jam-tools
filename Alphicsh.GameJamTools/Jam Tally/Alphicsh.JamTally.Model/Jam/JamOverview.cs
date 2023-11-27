@@ -37,7 +37,9 @@ namespace Alphicsh.JamTally.Model.Jam
 
         private readonly IReadOnlyCollection<JamEntry> _entries = default!;
         private readonly IReadOnlyDictionary<string, JamEntry> _entriesByTitles = default!;
+        private readonly IReadOnlyDictionary<string, JamEntry> _entriesByFullTitles = default!;
         private readonly IReadOnlyDictionary<string, JamEntry> _entriesByLines = default!;
+        private readonly IReadOnlyDictionary<string, JamEntry> _entriesByFullLines = default!;
 
         public IReadOnlyCollection<JamEntry> Entries
         {
@@ -46,7 +48,9 @@ namespace Alphicsh.JamTally.Model.Jam
             {
                 _entries = value;
                 _entriesByTitles = value.ToDictionary(entry => entry.Title, StringComparer.OrdinalIgnoreCase);
+                _entriesByFullTitles = value.ToDictionary(entry => entry.FullTitle, StringComparer.OrdinalIgnoreCase);
                 _entriesByLines = value.ToDictionary(entry => entry.Line, StringComparer.OrdinalIgnoreCase);
+                _entriesByFullLines = value.ToDictionary(entry => entry.FullLine, StringComparer.OrdinalIgnoreCase);
             }
         }
 
@@ -55,7 +59,13 @@ namespace Alphicsh.JamTally.Model.Jam
             if (title == null)
                 return null;
 
-            return _entriesByTitles.TryGetValue(title, out var entry) ? entry : null;
+            if (_entriesByTitles.TryGetValue(title, out var entry))
+                return entry;
+
+            if (_entriesByFullTitles.TryGetValue(title, out var fullTitleEntry))
+                return fullTitleEntry;
+
+            return null;
         }
 
         public JamEntry? GetEntryByLine(string? line)
@@ -63,7 +73,19 @@ namespace Alphicsh.JamTally.Model.Jam
             if (line == null)
                 return null;
 
-            return _entriesByLines.TryGetValue(line, out var entry) ? entry : null;
+            if (_entriesByLines.TryGetValue(line, out var entry))
+                return entry;
+
+            if (_entriesByFullLines.TryGetValue(line, out var fullLineEntry))
+                return fullLineEntry;
+
+            return null;
         }
+
+        // ----------
+        // Alignments
+        // ----------
+
+        public JamAlignments? Alignments { get; init; }
     }
 }
