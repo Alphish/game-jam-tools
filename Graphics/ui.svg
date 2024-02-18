@@ -7,7 +7,7 @@
    viewBox="0 0 48 48"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
    sodipodi:docname="ui.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -25,12 +25,12 @@
      showgrid="false"
      units="px"
      inkscape:zoom="1"
-     inkscape:cx="247.5"
-     inkscape:cy="129"
-     inkscape:window-width="3840"
-     inkscape:window-height="2081"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:cx="89"
+     inkscape:cy="173.5"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="311"
+     inkscape:window-y="1432"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer2"
      inkscape:snap-global="false" />
@@ -175,7 +175,7 @@
        id="rect866"
        width="48"
        height="48"
-       x="64"
+       x="128"
        y="192"
        inkscape:export-filename="C:\Omnipocket\Development\NET\game-jam-tools\Graphics\UI\menu_save.png"
        inkscape:export-xdpi="96"
@@ -185,7 +185,7 @@
        id="rect3219"
        width="48"
        height="48"
-       x="128"
+       x="192"
        y="192"
        inkscape:export-filename="C:\Omnipocket\Development\NET\game-jam-tools\Graphics\UI\menu_save_modified.png"
        inkscape:export-xdpi="96"
@@ -238,6 +238,16 @@
        x="256"
        y="128"
        inkscape:export-filename="C:\Omnipocket\Development\NET\game-jam-tools\Graphics\UI\menu_jampack.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="display:inline;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke-width:0.197531"
+       id="rect891"
+       width="48"
+       height="48"
+       x="64"
+       y="192"
+       inkscape:export-filename="C:\Omnipocket\Development\NET\game-jam-tools\Graphics\UI\menu_config.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
   </g>
@@ -434,40 +444,40 @@
     <path
        id="rect1029"
        style="fill:#ffffff;stroke-width:9;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:3.6"
-       d="M 71 198 L 71 234 L 105 234 L 105 204 L 99 198 L 71 198 z M 73 200 L 98 200 L 103 205 L 103 232 L 73 232 L 73 200 z " />
+       d="m 135,198 v 36 h 34 v -30 l -6,-6 z m 2,2 h 25 l 5,5 v 27 h -30 z" />
     <path
        id="rect2255"
        style="fill:#ffffff;fill-opacity:1;stroke-width:9;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:3.6"
-       d="M 76 218 L 76 234 L 100 234 L 100 218 L 76 218 z M 78 220 L 98 220 L 98 232 L 78 232 L 78 220 z " />
+       d="m 140,218 v 16 h 24 v -16 z m 2,2 h 20 v 12 h -20 z" />
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke-width:8.99996;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:3.6"
        id="rect2465"
        width="12"
        height="2"
-       x="82"
+       x="146"
        y="223" />
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke-width:8.99996;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:3.6"
        id="rect2521"
        width="12"
        height="2"
-       x="82"
+       x="146"
        y="227" />
     <path
        id="rect2579"
        style="fill:#ffffff;fill-opacity:1;stroke-width:8.99999;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:3.6"
-       d="M 80 198 L 80 210 L 96 210 L 96 198 L 80 198 z M 82 200 L 94 200 L 94 208 L 82 208 L 82 200 z " />
+       d="m 144,198 v 12 h 16 v -12 z m 2,2 h 12 v 8 h -12 z" />
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke-width:8.99998;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:3.6"
        id="rect2637"
        width="2"
        height="4"
-       x="90"
+       x="154"
        y="202" />
     <circle
        style="fill:#ffffff;fill-opacity:1;stroke-width:9;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:3.6"
        id="path3263"
-       cx="168"
+       cx="232"
        cy="232"
        r="6" />
     <path
@@ -538,5 +548,9 @@
        style="display:inline;fill:#ffffff;fill-opacity:1;stroke-width:3.2"
        d="m 288.8,161 h -17.6 c 0.005,4.77659 -0.01,0.12907 0.007,4.90535 0.0592,0.87331 0.95219,1.41217 1.76938,1.29466 4.84278,-0.005 9.68605,0.01 14.52852,-0.007 0.87332,-0.0592 1.41219,-0.95219 1.29468,-1.76938 z"
        sodipodi:nodetypes="ccccccc" />
+    <path
+       id="path1007"
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke-width:8;stroke-linecap:square"
+       d="M 88,200 A 16,16 0 0 0 84.675781,200.39062 5,5 0 0 1 82.5,206.47461 5,5 0 0 1 76.154297,205.27539 16,16 0 0 0 72.804688,211.07031 5,5 0 0 1 77,216 a 5,5 0 0 1 -4.207031,4.89648 16,16 0 0 0 3.357422,5.82422 5,5 0 0 1 3.611328,-1.85937 5,5 0 0 1 2.738281,0.66406 5,5 0 0 1 2.175781,6.08399 A 16,16 0 0 0 88,232 16,16 0 0 0 91.357422,231.60156 5,5 0 0 1 93.5,225.52539 a 5,5 0 0 1 2.738281,-0.66406 5,5 0 0 1 3.611328,1.85937 16,16 0 0 0 3.357421,-5.82422 A 5,5 0 0 1 99,216 5,5 0 0 1 103.22656,211.10156 16,16 0 0 0 99.857422,205.25977 5,5 0 0 1 93.5,206.47461 5,5 0 0 1 91.371094,200.36328 16,16 0 0 0 88,200 Z m 0,11 a 5,5 0 0 1 5,5 5,5 0 0 1 -5,5 5,5 0 0 1 -5,-5 5,5 0 0 1 5,-5 z" />
   </g>
 </svg>
