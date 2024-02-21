@@ -47,6 +47,7 @@ namespace Alphicsh.JamTools.Common.Theming
             HighlightTextVariable = VariableFor(x => x.HighlightText);
             DimTextVariable = VariableFor(x => x.DimText);
             ExtraDimTextVariable = VariableFor(x => x.ExtraDimText);
+            DisabledTextVariable = VariableFor(x => x.DisabledText);
             ErrorTextVariable = VariableFor(x => x.ErrorText);
 
             MainBackgroundBrushVariable = VariableFor(x => x.MainBackgroundBrush);
@@ -191,6 +192,9 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public Brush ExtraDimText { get => ExtraDimTextVariable.Value; set => ExtraDimTextVariable.Value = value; }
         private ThemeVariable<Brush> ExtraDimTextVariable { get; }
+
+        public Brush DisabledText { get => DisabledTextVariable.Value; set => DisabledTextVariable.Value = value; }
+        private ThemeVariable<Brush> DisabledTextVariable { get; }
 
         public Brush ErrorText { get => ErrorTextVariable.Value; set => ErrorTextVariable.Value = value; }
         private ThemeVariable<Brush> ErrorTextVariable { get; }
