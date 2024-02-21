@@ -1,5 +1,5 @@
 ﻿using Alphicsh.EntryPackager.Controls.Preview.Modals;
-using Alphicsh.EntryPackager.ViewModel.Entry.Files.Modals;
+using Alphicsh.EntryPackager.ViewModel.Entry.Preview.Modals;
 using Alphicsh.JamTools.Common.Controls.Modals;
 using Alphicsh.JamTools.Common.Mvvm.Modals;
 

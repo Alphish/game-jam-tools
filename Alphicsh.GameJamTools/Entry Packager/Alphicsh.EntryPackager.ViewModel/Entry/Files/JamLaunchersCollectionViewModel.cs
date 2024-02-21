@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Alphicsh.EntryPackager.Model.Entry.Files;
-using Alphicsh.EntryPackager.ViewModel.Entry.Files.Modals;
+using Alphicsh.EntryPackager.ViewModel.Entry.Preview.Modals;
 using Alphicsh.JamTools.Common.IO.Execution;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
