@@ -139,12 +139,17 @@ namespace Alphicsh.JamTools.Common.Theming
             MenuSaveIconSourceVariable = ImageVariableFor(x => x.MenuSaveIconSource, "menu_save.png");
             MenuSaveModifiedIconSourceVariable = ImageVariableFor(x => x.MenuSaveModifiedIconSource, "menu_save_modified.png");
 
-            EntryPlaceholderSourceVariable = ImageVariableFor(x => x.EntryPlaceholderSource, "entry_placeholder.png");
-            StarEmptySourceVariable = ImageVariableFor(x => x.StarEmptySource, "star_empty.png");
-            StarFullSourceVariable = ImageVariableFor(x => x.StarFullSource, "star_full.png");
+            IconBinSourceVariable = ImageVariableFor(x => x.IconBinSource, "icon_bin.png");
+            IconCenterSourceVariable = ImageVariableFor(x => x.IconCenterSource, "icon_center.png");
             IconCheckSourceVariable = ImageVariableFor(x => x.IconCheckSource, "icon_check.png");
             IconCrossSourceVariable = ImageVariableFor(x => x.IconCrossSource, "icon_cross.png");
             IconNilSourceVariable = ImageVariableFor(x => x.IconNilSource, "icon_nil.png");
+            IconPreviewSourceVariable = ImageVariableFor(x => x.IconPreviewSource, "icon_preview.png");
+            IconSaveSourceVariable = ImageVariableFor(x => x.IconSaveSource, "icon_save.png");
+
+            EntryPlaceholderSourceVariable = ImageVariableFor(x => x.EntryPlaceholderSource, "entry_placeholder.png");
+            StarEmptySourceVariable = ImageVariableFor(x => x.StarEmptySource, "star_empty.png");
+            StarFullSourceVariable = ImageVariableFor(x => x.StarFullSource, "star_full.png");
         }
 
         private ThemeVariable<TValue> VariableFor<TValue>(Expression<Func<ThemeManager, TValue>> propertyExpression)
@@ -368,9 +373,9 @@ namespace Alphicsh.JamTools.Common.Theming
         public Brush ListScrollDisabledBrush { get => ListScrollDisabledBrushVariable.Value; set => ListScrollDisabledBrushVariable.Value = value; }
         private ThemeVariable<Brush> ListScrollDisabledBrushVariable { get; }
 
-        // ------------
+        // -----------------
         // Separator theming
-        // ------------
+        // -----------------
 
         public Brush SeparatorBrush { get => SeparatorBrushVariable.Value; set => SeparatorBrushVariable.Value = value; }
         private ThemeVariable<Brush> SeparatorBrushVariable { get; }
@@ -428,6 +433,31 @@ namespace Alphicsh.JamTools.Common.Theming
         public ImageSource MenuSaveModifiedIconSource { get => MenuSaveModifiedIconSourceVariable.Value; set => MenuSaveModifiedIconSourceVariable.Value = value; }
         private ThemeVariable<ImageSource> MenuSaveModifiedIconSourceVariable { get; }
 
+        // -----------
+        // Small icons
+        // -----------
+
+        public ImageSource IconBinSource { get => IconBinSourceVariable.Value; set => IconBinSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> IconBinSourceVariable { get; }
+
+        public ImageSource IconCenterSource { get => IconCenterSourceVariable.Value; set => IconCenterSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> IconCenterSourceVariable { get; }
+
+        public ImageSource IconCheckSource { get => IconCheckSourceVariable.Value; set => IconCheckSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> IconCheckSourceVariable { get; }
+
+        public ImageSource IconCrossSource { get => IconCrossSourceVariable.Value; set => IconCrossSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> IconCrossSourceVariable { get; }
+
+        public ImageSource IconNilSource { get => IconNilSourceVariable.Value; set => IconNilSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> IconNilSourceVariable { get; }
+
+        public ImageSource IconPreviewSource { get => IconPreviewSourceVariable.Value; set => IconPreviewSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> IconPreviewSourceVariable { get; }
+
+        public ImageSource IconSaveSource { get => IconSaveSourceVariable.Value; set => IconSaveSourceVariable.Value = value; }
+        private ThemeVariable<ImageSource> IconSaveSourceVariable { get; }
+
         // --------------------
         // Miscellaneous images
         // --------------------
@@ -440,14 +470,5 @@ namespace Alphicsh.JamTools.Common.Theming
 
         public ImageSource StarFullSource { get => StarFullSourceVariable.Value; set => StarFullSourceVariable.Value = value; }
         private ThemeVariable<ImageSource> StarFullSourceVariable { get; }
-
-        public ImageSource IconCheckSource { get => IconCheckSourceVariable.Value; set => IconCheckSourceVariable.Value = value; }
-        private ThemeVariable<ImageSource> IconCheckSourceVariable { get; }
-
-        public ImageSource IconCrossSource { get => IconCrossSourceVariable.Value; set => IconCrossSourceVariable.Value = value; }
-        private ThemeVariable<ImageSource> IconCrossSourceVariable { get; }
-
-        public ImageSource IconNilSource { get => IconNilSourceVariable.Value; set => IconNilSourceVariable.Value = value; }
-        private ThemeVariable<ImageSource> IconNilSourceVariable { get; }
     }
 }

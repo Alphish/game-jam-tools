@@ -94,6 +94,7 @@
   <SolidColorBrush x:Key="ModalBorderBrush" Color="#ff1c1c1c"></SolidColorBrush>
 
   <!-- Image variables reference -->
+  
   <!-- ImageSource x:Key="MenuJamIconSource" -->
   <!-- ImageSource x:Key="MenuRankingIconSource" -->
   <!-- ImageSource x:Key="MenuAwardsIconSource" -->
@@ -106,10 +107,15 @@
   <!-- ImageSource x:Key="MenuSaveIconSource" -->
   <!-- ImageSource x:Key="MenuSaveModifiedIconSource" -->
 
-  <!-- ImageSource x:Key="EntryPlaceholderSource" -->
-  <!-- ImageSource x:Key="StarEmptySource" -->
-  <!-- ImageSource x:Key="StarFullSource" -->
+  <!-- ImageSource x:Key="IconBinSource" -->
+  <!-- ImageSource x:Key="IconCenterSource" -->
   <!-- ImageSource x:Key="IconCheckSource" -->
   <!-- ImageSource x:Key="IconCrossSource" -->
   <!-- ImageSource x:Key="IconNilSource" -->
+  <!-- ImageSource x:Key="IconPreviewSource" -->
+  <!-- ImageSource x:Key="IconSaveSource" -->
+
+  <!-- ImageSource x:Key="EntryPlaceholderSource" -->
+  <!-- ImageSource x:Key="StarEmptySource" -->
+  <!-- ImageSource x:Key="StarFullSource" -->
 </ResourceDictionary>
