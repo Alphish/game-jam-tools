@@ -16,11 +16,13 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
         public JamReadmeEditableViewModel(JamReadmeEditable model) : base(model)
         {
             LocationProperty = WrapperProperty.ForMember(this, vm => vm.Model.Location);
-            IsRequiredProperty = WrapperProperty.ForMember(this, vm => vm.Model.IsRequired);
-
             SearchCommand = SimpleCommand.From(SearchReadme);
             OpenReadmeCommand = ConditionalCommand.From(CanOpenReadme, OpenReadme)
                 .ExecutionDependingOn(LocationProperty);
+            OpenReadmeTextProperty = NotifiableProperty.Create(this, nameof(OpenReadmeText))
+                .DependingOn(LocationProperty);
+
+            IsRequiredProperty = WrapperProperty.ForMember(this, vm => vm.Model.IsRequired);
         }
 
         public WrapperProperty<JamReadmeEditableViewModel, string?> LocationProperty { get; }
@@ -66,7 +68,20 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
         // -------
 
         public IConditionalCommand OpenReadmeCommand { get; }
-        private bool CanOpenReadme() => Model.CanOpen;
-        private void OpenReadme() => ProcessLauncher.OpenFile(Model.FullLocation!.Value);
+
+        public NotifiableProperty OpenReadmeTextProperty { get; }
+        public string OpenReadmeText => Model.IsEmpty ? "Make" : "Open";
+
+        private bool CanOpenReadme() => Model.IsEmpty || Model.CanOpen;
+        private void OpenReadme()
+        {
+            if (Model.IsEmpty)
+            {
+                Location = "README.txt";
+                if (!File.Exists(Model.FullLocation!.Value.Value))
+                    File.WriteAllText(Model.FullLocation!.Value.Value, "");
+            }
+            ProcessLauncher.OpenFile(Model.FullLocation!.Value);
+        }
     }
 }
