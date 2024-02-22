@@ -103,13 +103,16 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files.Modals
             if (CropPreview == null)
                 return;
 
+            var currentLocation = Thumbnails.ThumbnailSmallFullLocation != Thumbnails.ThumbnailFullLocation
+                ? Thumbnails.ThumbnailSmallFullLocation
+                : null;
             var defaultLocation = Thumbnails.GetFullLocation("thumbnail_small.png")!.Value;
-            var savePath = Thumbnails.ThumbnailSmallFullLocation ?? defaultLocation;
+            var savePath = currentLocation ?? defaultLocation;
             var isSaved = TrySave(CropPreview, savePath);
             if (!isSaved)
                 return;
 
-            if (Thumbnails.ThumbnailSmallLocation == null)
+            if (currentLocation == null)
                 Thumbnails.ThumbnailSmallLocation = savePath.GetLastSegmentName();
 
             Thumbnails.ThumbnailProperty.RaisePropertyChanged();
