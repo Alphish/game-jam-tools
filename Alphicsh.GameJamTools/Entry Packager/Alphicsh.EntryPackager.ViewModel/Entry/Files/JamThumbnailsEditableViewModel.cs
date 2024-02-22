@@ -2,7 +2,9 @@
 using System.Windows.Input;
 using System.Windows.Media;
 using Alphicsh.EntryPackager.Model.Entry.Files;
+using Alphicsh.EntryPackager.ViewModel.Entry.Files.Modals;
 using Alphicsh.JamTools.Common.Controls.Files;
+using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
@@ -26,9 +28,14 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
                 .CreateReadonly(this, nameof(ThumbnailSmall), vm => vm.Model.ThumbnailSmallFullLocation ?? vm.Model.ThumbnailFullLocation)
                 .DependingOn(ThumbnailLocationProperty, ThumbnailSmallLocationProperty);
 
+            MakeThumbnailCommand = SimpleCommand.From(MakeThumbnail);
             SearchThumbnailCommand = SimpleCommand.From(SearchThumbnail);
             SearchThumbnailSmallCommand = SimpleCommand.From(SearchThumbnailSmall);
         }
+
+        // --------
+        // Location
+        // --------
 
         public WrapperProperty<JamThumbnailsEditableViewModel, string?> ThumbnailLocationProperty { get; }
         public string? ThumbnailLocation { get => ThumbnailLocationProperty.Value; set => ThumbnailLocationProperty.Value = value; }
@@ -44,6 +51,10 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
         public string ThumbnailLocationPlaceholder
             => Model.HasThumbnailLocation || Model.HasThumbnailSmallLocation ? "<same as other>" : "<no thumbnail>";
 
+        internal FilePath? ThumbnailFullLocation => Model.ThumbnailFullLocation;
+        internal FilePath? ThumbnailSmallFullLocation => Model.ThumbnailSmallFullLocation;
+        internal FilePath? GetFullLocation(string? location) => Model.GetFullLocation(location);
+
         // ------
         // Images
         // ------
@@ -53,6 +64,13 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
 
         public ImageSourceProperty<JamThumbnailsEditableViewModel> ThumbnailSmallProperty { get; }
         public ImageSource? ThumbnailSmall => ThumbnailSmallProperty.ImageSource;
+
+        // ------
+        // Making
+        // ------
+
+        public ICommand MakeThumbnailCommand { get; }
+        private void MakeThumbnail() => ThumbnailEditorViewModel.ShowModal(this);
 
         // ---------
         // Searching
