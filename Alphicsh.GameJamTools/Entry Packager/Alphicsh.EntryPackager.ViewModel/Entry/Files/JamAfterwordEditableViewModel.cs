@@ -16,10 +16,11 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
         public JamAfterwordEditableViewModel(JamAfterwordEditable model) : base(model)
         {
             LocationProperty = WrapperProperty.ForMember(this, vm => vm.Model.Location);
-
             SearchCommand = SimpleCommand.From(SearchAfterword);
             OpenAfterwordCommand = ConditionalCommand.From(CanOpenAfterword, OpenAfterword)
                 .ExecutionDependingOn(LocationProperty);
+            OpenAfterwordTextProperty = NotifiableProperty.Create(this, nameof(OpenAfterwordText))
+                .DependingOn(LocationProperty);
         }
 
         public WrapperProperty<JamAfterwordEditableViewModel, string?> LocationProperty { get; }
@@ -62,7 +63,20 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files
         // -------
 
         public IConditionalCommand OpenAfterwordCommand { get; }
-        private bool CanOpenAfterword() => Model.CanOpen;
-        private void OpenAfterword() => ProcessLauncher.OpenFile(Model.FullLocation!.Value);
+
+        public NotifiableProperty OpenAfterwordTextProperty { get; }
+        public string OpenAfterwordText => Model.IsEmpty ? "Make" : "Open";
+
+        private bool CanOpenAfterword() => Model.IsEmpty || Model.CanOpen;
+        private void OpenAfterword()
+        {
+            if (Model.IsEmpty)
+            {
+                Location = "AFTERWORD.txt";
+                if (!File.Exists(Model.FullLocation!.Value.Value))
+                    File.WriteAllText(Model.FullLocation!.Value.Value, "");
+            }
+            ProcessLauncher.OpenFile(Model.FullLocation!.Value);
+        }
     }
 }

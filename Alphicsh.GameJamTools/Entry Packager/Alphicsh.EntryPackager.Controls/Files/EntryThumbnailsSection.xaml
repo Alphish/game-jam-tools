@@ -29,6 +29,7 @@
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto"/>
           <ColumnDefinition Width="1*"/>
+          <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0">Main:</Label>
@@ -66,6 +67,16 @@
           />
         </DockPanel>
         <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource FormComment}">Recommended size: 96x96px</TextBlock>
+
+        <cc:ImpButton
+          Grid.Row="0" Grid.RowSpan="3" Grid.Column="2"
+          VerticalAlignment="Center"
+          Margin="4"
+          Style="{StaticResource PrimaryButton}"
+          Width="56"
+          Height="56"
+          Command="{Binding MakeThumbnailCommand}"
+        >Make</cc:ImpButton>
       </Grid>
 
       <Separator Grid.Row="1"/>

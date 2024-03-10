@@ -5,7 +5,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
   xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.Preview.Modals"
-  xmlns:vm="clr-namespace:Alphicsh.EntryPackager.ViewModel.Entry.Files.Modals;assembly=Alphicsh.EntryPackager.ViewModel"
+  xmlns:vm="clr-namespace:Alphicsh.EntryPackager.ViewModel.Entry.Preview.Modals;assembly=Alphicsh.EntryPackager.ViewModel"
   mc:Ignorable="d" 
 >
   <ItemsControl ItemsSource="{Binding Items}">

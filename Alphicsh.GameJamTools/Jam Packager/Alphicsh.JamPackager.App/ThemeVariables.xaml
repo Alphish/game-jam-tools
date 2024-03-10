@@ -7,6 +7,7 @@
   <SolidColorBrush x:Key="HighlightText" Color="#ff88d658"></SolidColorBrush>
   <SolidColorBrush x:Key="DimText" Color="#ffa7a7a7"></SolidColorBrush>
   <SolidColorBrush x:Key="ExtraDimText" Color="#ff727272"></SolidColorBrush>
+  <SolidColorBrush x:Key="DisabledText" Color="#80727272"></SolidColorBrush>
   <SolidColorBrush x:Key="ErrorText" Color="#ffb42d2d"/>
 
   <SolidColorBrush x:Key="MainBackgroundBrush" Color="#ff292929"></SolidColorBrush>
@@ -93,6 +94,7 @@
   <SolidColorBrush x:Key="ModalBorderBrush" Color="#ff1c1c1c"></SolidColorBrush>
 
   <!-- Image variables reference -->
+  
   <!-- ImageSource x:Key="MenuJamIconSource" -->
   <!-- ImageSource x:Key="MenuRankingIconSource" -->
   <!-- ImageSource x:Key="MenuAwardsIconSource" -->
@@ -105,10 +107,15 @@
   <!-- ImageSource x:Key="MenuSaveIconSource" -->
   <!-- ImageSource x:Key="MenuSaveModifiedIconSource" -->
 
-  <!-- ImageSource x:Key="EntryPlaceholderSource" -->
-  <!-- ImageSource x:Key="StarEmptySource" -->
-  <!-- ImageSource x:Key="StarFullSource" -->
+  <!-- ImageSource x:Key="IconBinSource" -->
+  <!-- ImageSource x:Key="IconCenterSource" -->
   <!-- ImageSource x:Key="IconCheckSource" -->
   <!-- ImageSource x:Key="IconCrossSource" -->
   <!-- ImageSource x:Key="IconNilSource" -->
+  <!-- ImageSource x:Key="IconPreviewSource" -->
+  <!-- ImageSource x:Key="IconSaveSource" -->
+
+  <!-- ImageSource x:Key="EntryPlaceholderSource" -->
+  <!-- ImageSource x:Key="StarEmptySource" -->
+  <!-- ImageSource x:Key="StarFullSource" -->
 </ResourceDictionary>

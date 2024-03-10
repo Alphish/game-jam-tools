@@ -1,5 +1,7 @@
-﻿using Alphicsh.EntryPackager.Controls.Preview.Modals;
+﻿using Alphicsh.EntryPackager.Controls.Files.Modals;
+using Alphicsh.EntryPackager.Controls.Preview.Modals;
 using Alphicsh.EntryPackager.ViewModel.Entry.Files.Modals;
+using Alphicsh.EntryPackager.ViewModel.Entry.Preview.Modals;
 using Alphicsh.JamTools.Common.Controls.Modals;
 using Alphicsh.JamTools.Common.Mvvm.Modals;
 
@@ -13,6 +15,8 @@ namespace Alphicsh.EntryPackager.Controls
             ModalWindowMapping.Add<SaveOnCloseViewModel, SaveOnCloseModal>();
 
             ModalWindowMapping.Add<PlaySelectionViewModel, PlaySelectionModal>();
+
+            ModalWindowMapping.Add<ThumbnailEditorViewModel, ThumbnailEditorModal>();
         }
     }
 }

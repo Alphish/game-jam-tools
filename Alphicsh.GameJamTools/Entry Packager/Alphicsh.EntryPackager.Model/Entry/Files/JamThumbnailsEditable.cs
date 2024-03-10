@@ -6,17 +6,16 @@ namespace Alphicsh.EntryPackager.Model.Entry.Files
     {
         public JamFilesEditable Files { get; }
 
+        public FilePath? GetFullLocation(string? location)
+            => !string.IsNullOrWhiteSpace(location) ? Files.DirectoryPath.Append(location) : null;
+
         public string? ThumbnailLocation { get; set; }
-        public bool HasThumbnailLocation
-            => !string.IsNullOrWhiteSpace(ThumbnailLocation);
-        public FilePath? ThumbnailFullLocation
-            => HasThumbnailLocation ? Files.DirectoryPath.Append(ThumbnailLocation!) : null;
+        public bool HasThumbnailLocation => !string.IsNullOrWhiteSpace(ThumbnailLocation);
+        public FilePath? ThumbnailFullLocation => GetFullLocation(ThumbnailLocation);
 
         public string? ThumbnailSmallLocation { get; set; }
-        public bool HasThumbnailSmallLocation
-            => !string.IsNullOrWhiteSpace(ThumbnailSmallLocation);
-        public FilePath? ThumbnailSmallFullLocation
-            => HasThumbnailSmallLocation ? Files.DirectoryPath.Append(ThumbnailSmallLocation!) : null;
+        public bool HasThumbnailSmallLocation => !string.IsNullOrWhiteSpace(ThumbnailSmallLocation);
+        public FilePath? ThumbnailSmallFullLocation => GetFullLocation(ThumbnailSmallLocation);
 
         public bool IsEmpty => string.IsNullOrWhiteSpace(ThumbnailLocation) && string.IsNullOrWhiteSpace(ThumbnailSmallLocation);
 

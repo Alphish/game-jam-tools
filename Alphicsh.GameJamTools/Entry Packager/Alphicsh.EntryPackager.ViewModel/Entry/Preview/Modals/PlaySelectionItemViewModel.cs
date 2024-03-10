@@ -1,7 +1,8 @@
-﻿using Alphicsh.JamTools.Common.Mvvm;
+﻿using Alphicsh.EntryPackager.ViewModel.Entry.Files;
+using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
-namespace Alphicsh.EntryPackager.ViewModel.Entry.Files.Modals
+namespace Alphicsh.EntryPackager.ViewModel.Entry.Preview.Modals
 {
     public class PlaySelectionItemViewModel : BaseViewModel
     {

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using Alphicsh.EntryPackager.ViewModel.Entry.Files;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.Modals;
 
-namespace Alphicsh.EntryPackager.ViewModel.Entry.Files.Modals
+namespace Alphicsh.EntryPackager.ViewModel.Entry.Preview.Modals
 {
     public class PlaySelectionViewModel : ModalViewModel
     {
@@ -12,7 +13,12 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Files.Modals
         {
             Items = launchers.Select(launcher => new PlaySelectionItemViewModel(this, launcher)).ToList();
             PlayCommand = SimpleCommand.From(Play);
-            SelectItem(Items.First());
+
+            SelectedItem = Items.First();
+            foreach (var item in Items)
+            {
+                item.IsSelectedProperty.RaisePropertyChanged();
+            }
         }
 
         public static void ShowModal(JamLaunchersCollectionViewModel launchers)

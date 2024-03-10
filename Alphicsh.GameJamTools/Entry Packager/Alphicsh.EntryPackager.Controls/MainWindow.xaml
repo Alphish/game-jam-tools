@@ -13,9 +13,9 @@
   xmlns:appExport="clr-namespace:Alphicsh.EntryPackager.Controls.Export"
   mc:Ignorable="d"
   Style="{StaticResource MainWindow}"
-  MinWidth="960"
-  MinHeight="540"
-  Title="Jam Entry Packager" Height="640" Width="1200"
+  MinWidth="960" Width="1200"
+  MinHeight="600" Height="640"
+  Title="Jam Entry Packager"
 >
   <Grid>
     <local:EntrySelectionPanel Visibility="{Binding HasEntry, Converter={StaticResource ShowFalseVisibilityConverter}}"/>
