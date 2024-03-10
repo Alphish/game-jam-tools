@@ -40,10 +40,10 @@
     />
 
     <!-- Entry information -->
-    <cc:ImpTextBox Grid.Column="2" Grid.Row="0" Margin="2" Text="{Binding Title}" Placeholder="&lt;enter title here&gt;"/>
-    <cc:ImpTextBox Grid.Column="3" Grid.Row="0" Margin="2" Text="{Binding Alignment}" Placeholder="&lt;no alignment&gt;"/>
-    <cc:ImpTextBox Grid.Column="2" Grid.Row="1" Margin="2" Text="{Binding Team.Name}" Placeholder="&lt;enter team name here&gt;"/>
-    <cc:ImpTextBox Grid.Column="3" Grid.Row="1" Margin="2" Text="{Binding Team.AuthorsString}" Placeholder="&lt;enter authors here&gt;"/>
+    <cc:ImpTextBox Grid.Column="2" Grid.Row="0" Margin="2" Text="{Binding Title}" ToolTip="The game title" Placeholder="&lt;enter title here&gt;"/>
+    <cc:ImpTextBox Grid.Column="3" Grid.Row="0" Margin="2" Text="{Binding ShortTitle}" ToolTip="The alternative shorter title" Placeholder="&lt;same as title&gt;"/>
+    <cc:ImpTextBox Grid.Column="2" Grid.Row="1" Margin="2" Text="{Binding Team.Name}" ToolTip="The name of the team, if any" Placeholder="&lt;enter team name here&gt;"/>
+    <cc:ImpTextBox Grid.Column="3" Grid.Row="1" Margin="2" Text="{Binding Team.AuthorsString}" ToolTip="The names of individual authors" Placeholder="&lt;enter authors here&gt;"/>
     
     <!-- Entry actions -->
     <DockPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3">
@@ -55,7 +55,16 @@
         Command="{Binding Files.RediscoverFilesCommand}"
         ToolTip="Automatically searches for missing launchers, text files and thumbnails"
       >Rediscover files</cc:ImpButton>
-
+      
+      <cc:ImpButton
+        DockPanel.Dock="Right"
+        Style="{StaticResource HelpButton}"
+        Margin="2"
+        Width="128"
+        Command="{Binding Files.Thumbnails.MakeThumbnailCommand}"
+        ToolTip="Makes your own thumbnail"
+      >Make thumbnails</cc:ImpButton>
+      
       <WrapPanel Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="0" Margin="2,0,0,0">
         <entryPreview:EntryPreviewActionBar/>
       </WrapPanel>
