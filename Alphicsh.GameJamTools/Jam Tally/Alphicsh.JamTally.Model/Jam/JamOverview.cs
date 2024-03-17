@@ -82,10 +82,30 @@ namespace Alphicsh.JamTally.Model.Jam
             return null;
         }
 
+        public IReadOnlyCollection<JamEntry> GetEntriesByAuthor(string author)
+        {
+            return Entries
+                .Where(entry => entry.Authors.Any(entryAuthor => StringComparer.OrdinalIgnoreCase.Equals(entryAuthor, author)))
+                .ToList();
+        }
+
         // ----------
         // Alignments
         // ----------
 
         public JamAlignments? Alignments { get; init; }
+
+        // ---------
+        // Reactions
+        // ---------
+
+        public IReadOnlyCollection<JamReactionType> ReactionTypes { get; } = new List<JamReactionType>()
+        {
+            new JamReactionType { Name = "Like", Value = 1, IsPrimary = true },
+            new JamReactionType { Name = "Love", Value = 2, IsPrimary = true },
+            new JamReactionType { Name = "Best", Value = 5, IsPrimary = true },
+
+            new JamReactionType { Name = "Laugh", Value = 1, IsPrimary = false },
+        };
     }
 }

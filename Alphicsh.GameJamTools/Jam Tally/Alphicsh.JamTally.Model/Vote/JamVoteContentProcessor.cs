@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Alphicsh.JamTally.Model.Jam;
+using Alphicsh.JamTally.Model.Vote.Search;
 
 namespace Alphicsh.JamTally.Model.Vote
 {
-    public class JamVoteContentProcessor
+    internal class JamVoteContentProcessor
     {
         private JamVote Vote { get; }
+        private JamSearch JamSearch { get; }
         
         private string? Voter { get; set; }
         private JamAlignmentOption? Alignment { get; set; }
@@ -27,9 +29,10 @@ namespace Alphicsh.JamTally.Model.Vote
         private string? Error { get; set; }
         private StringBuilder ContentBuilder { get; set; } = new StringBuilder();
 
-        public JamVoteContentProcessor(JamVote vote)
+        public JamVoteContentProcessor(JamVote vote, JamSearch jamSearch)
         {
             Vote = vote;
+            JamSearch = jamSearch;
         }
 
         public void Process()
@@ -116,12 +119,14 @@ namespace Alphicsh.JamTally.Model.Vote
         {
             if (Voter == null)
                 Voter = line;
-            else if (jam.Alignments == null)
+            else if (!JamSearch.AlignmentsEnabled)
                 throw new InvalidOperationException($"There are no alignments specified for this Jam, and thus voter alignment can't be provided.");
-            else if (Alignment == null)
-                Alignment = jam.Alignments.GetAlignment(line);
-            else
+            else if (Alignment != null)
                 throw new InvalidOperationException($"Voter name and alignment were already provided.");
+            else if (!JamSearch.IsAlignmentValid(line))
+                throw new InvalidOperationException($"Could not resolve alignment '{line}'.");
+            else
+                Alignment = JamSearch.FindAlignment(line);
         }
 
         private void ReadStats(string line, JamOverview jam)
@@ -144,22 +149,21 @@ namespace Alphicsh.JamTally.Model.Vote
 
         private void ReadAward(string line, JamOverview jam)
         {
-            var colonIdx = line.IndexOf(':');
-            if (colonIdx < 0)
+            if (!JamSearch.IsAwardWellFormed(line))
                 throw new ArgumentException($"The award line '{line}' must be in the 'award: entry' format.", nameof(line));
 
-            var awardName = line.Remove(colonIdx).Trim();
-            var award = jam.GetAwardByName(awardName);
-            if (award == null)
-                throw new InvalidOperationException($"Could not resolve award for name '{awardName}'.");
+            var criterion = JamSearch.FindAwardCriterion(line);
+            if (criterion == null)
+                throw new InvalidOperationException($"Could not resolve award for '{line}'.");
 
-            if (Awards.ContainsKey(award))
-                throw new InvalidOperationException($"Duplicate award entry for '{awardName}'.");
+            if (Awards.ContainsKey(criterion))
+                throw new InvalidOperationException($"Duplicate award entry for '{criterion.Name}'.");
 
-            var entryLine = line.Substring(colonIdx + 1).Trim();
-            var entry = FindEntryByLine(entryLine, line, jam);
+            var entry = JamSearch.FindAwardEntry(line);
+            if (entry == null)
+                throw new InvalidOperationException($"Could not resolve award entry for '{line}'.");
 
-            Awards.Add(award, entry);
+            Awards.Add(criterion, entry);
         }
 
         private void ReadRankingEntry(string line, JamOverview jam)
@@ -188,43 +192,11 @@ namespace Alphicsh.JamTally.Model.Vote
 
         private JamEntry FindEntryByLine(string line, string displayLine, JamOverview jam)
         {
-            var byLine = jam.GetEntryByLine(line);
-            if (byLine != null)
-                return byLine;
+            var entry = JamSearch.FindEntry(line, unprefixRanking: true);
+            if (entry == null)
+                throw new InvalidOperationException($"Could not resolve entry for line '{displayLine}'.");
 
-            var byTitle = jam.GetEntryByTitle(line);
-            if (byTitle != null)
-                return byTitle;
-
-            var unprefixedLine = UnprefixDigits(line);
-            if (unprefixedLine != null)
-            {
-                var byUnprefixedLine = jam.GetEntryByLine(unprefixedLine);
-                if (byUnprefixedLine != null)
-                    return byUnprefixedLine;
-
-                var byUnprefixedTitle = jam.GetEntryByTitle(unprefixedLine);
-                if (byUnprefixedTitle != null)
-                    return byUnprefixedTitle;
-            }
-
-            throw new InvalidOperationException($"Could not resolve entry for line '{displayLine}'.");
-        }
-
-        private string? UnprefixDigits(string line)
-        {
-            var idx = 0;
-            var chars = line.ToCharArray();
-            while (idx < chars.Length && char.IsDigit(chars[idx]))
-                idx++;
-
-            if (idx == 0)
-                return null;
-
-            if (chars[idx] == '.')
-                idx++;
-
-            return line.Substring(idx).Trim();
+            return entry;
         }
 
         // ---------
@@ -233,14 +205,9 @@ namespace Alphicsh.JamTally.Model.Vote
 
         private void ReadReaction(string line, JamOverview jam)
         {
-            line = line.TrimStart('+');
-            var value = int.Parse(line.Remove(1));
-            var name = line.Substring(1).Trim();
-            var reaction = new JamVoteReaction
-            {
-                Name = name,
-                Value = value,
-            };
+            var reaction = JamSearch.FindReaction(line);
+            if (reaction == null)
+                throw new InvalidOperationException($"Could not resolve reaction for line '{line}'.");
 
             Reactions.Add(reaction);
         }
@@ -362,20 +329,11 @@ namespace Alphicsh.JamTally.Model.Vote
             Vote.Unjudged = UnjudgedEntries.OrderBy(entry => entry.Line, StringComparer.OrdinalIgnoreCase).ToList();
             Vote.Missing = MissingEntries.OrderBy(entry => entry.Line, StringComparer.OrdinalIgnoreCase).ToList();
             Vote.Authored = AuthoredEntries.OrderBy(entry => entry.Line, StringComparer.OrdinalIgnoreCase).ToList();
-            Vote.Reactions = AggregateReactions();
+            Vote.Reactions = Reactions.ToList();
 
             Vote.Error = Error;
             if (Error == null)
                 Vote.Content = ContentBuilder.ToString();
-        }
-
-        private IReadOnlyCollection<JamVoteReaction> AggregateReactions()
-        {
-            return Reactions
-                .GroupBy(reaction => reaction.Name, StringComparer.OrdinalIgnoreCase)
-                .Select(group => new JamVoteReaction { Name = group.First().Name, Value = group.Max(reaction => reaction.Value) })
-                .OrderBy(reaction => reaction.Name, StringComparer.OrdinalIgnoreCase)
-                .ToList();
         }
     }
 }

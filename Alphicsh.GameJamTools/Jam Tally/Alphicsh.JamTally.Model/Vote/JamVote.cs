@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Alphicsh.JamTally.Model.Jam;
+using Alphicsh.JamTally.Model.Vote.Search;
 
 namespace Alphicsh.JamTally.Model.Vote
 {
@@ -38,7 +39,8 @@ namespace Alphicsh.JamTally.Model.Vote
 
         public void ProcessContent()
         {
-            var parser = new JamVoteContentProcessor(this);
+            var search = new JamSearch(JamTallyModel.Current.Jam!);
+            var parser = new JamVoteContentProcessor(this, search);
             parser.Process();
         }
 

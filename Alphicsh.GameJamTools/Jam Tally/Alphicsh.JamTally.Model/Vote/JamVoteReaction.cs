@@ -1,11 +1,16 @@
-﻿namespace Alphicsh.JamTally.Model.Vote
+﻿using Alphicsh.JamTally.Model.Jam;
+
+namespace Alphicsh.JamTally.Model.Vote
 {
     public class JamVoteReaction
     {
-        public string Name { get; init; }
-        public int Value { get; init; }
+        public JamReactionType Type { get; init; } = default!;
+        public string User { get; init; } = default!;
 
-        public string Line => $"+{Value} {Name}";
+        public string Name => User;
+        public int Value => Type.Value;
+
+        public string Line => $"{Type.Name} {User}";
         public override string ToString() => Line;
     }
 }
