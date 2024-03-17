@@ -4,5 +4,8 @@
     {
         public string Name { get; init; }
         public int Value { get; init; }
+
+        public string Line => $"+{Value} {Name}";
+        public override string ToString() => Line;
     }
 }

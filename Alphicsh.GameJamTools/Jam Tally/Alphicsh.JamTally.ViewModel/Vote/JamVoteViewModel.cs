@@ -21,7 +21,7 @@ namespace Alphicsh.JamTally.ViewModel.Vote
             HasError = !string.IsNullOrEmpty(Model.Error);
             Message = Model.Error ?? "Processing successful!";
 
-            AwardLines = Model.Awards.Select(award => $"{award.Award.Name}: {award.Entry.Line}").ToList();
+            AwardLines = Model.Awards.Select(award => $"{award.Criterion.Name}: {award.Entry.Line}").ToList();
             EntryLines = CalculateEntryLines();
             ReactionLines = Model.Reactions.Select(reaction => $"+{reaction.Value} {reaction.Name}").ToList();
             ReactionScore = "Reaction score: " + Model.GetReactionScore();
@@ -61,7 +61,7 @@ namespace Alphicsh.JamTally.ViewModel.Vote
             Message = Model.Error ?? "Processing successful!";
             RaisePropertyChanged(nameof(HasError), nameof(Message), nameof(Voter));
 
-            AwardLines = Model.Awards.Select(award => $"{award.Award.Name}: {award.Entry.Line}").ToList();
+            AwardLines = Model.Awards.Select(award => $"{award.Criterion.Name}: {award.Entry.Line}").ToList();
             RaisePropertyChanged(nameof(AwardLines));
 
             EntryLines = CalculateEntryLines();

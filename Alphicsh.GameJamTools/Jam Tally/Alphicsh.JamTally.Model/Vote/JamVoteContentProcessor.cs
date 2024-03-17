@@ -356,8 +356,8 @@ namespace Alphicsh.JamTally.Model.Vote
         {
             Vote.Voter = Voter;
             Vote.Alignment = Alignment;
-            Vote.ReviewsCount = ReviewsCount;
-            Vote.Awards = Awards.Select(kvp => new JamVoteAward { Award = kvp.Key, Entry = kvp.Value }).ToList();
+            Vote.DirectReviewsCount = ReviewsCount;
+            Vote.Awards = Awards.Select(kvp => new JamVoteAward { Criterion = kvp.Key, Entry = kvp.Value }).ToList();
             Vote.Ranking = Ranking.ToList();
             Vote.Unjudged = UnjudgedEntries.OrderBy(entry => entry.Line, StringComparer.OrdinalIgnoreCase).ToList();
             Vote.Missing = MissingEntries.OrderBy(entry => entry.Line, StringComparer.OrdinalIgnoreCase).ToList();

@@ -8,7 +8,7 @@ namespace Alphicsh.JamTally.Model.Result
         public JamVoteAward VoteAward { get; init; } = default!;
         public int Count { get; init; }
 
-        public JamAwardCriterion Award => VoteAward.Award;
+        public JamAwardCriterion Award => VoteAward.Criterion;
         public JamEntry Entry => VoteAward.Entry;
 
         public override string ToString()
