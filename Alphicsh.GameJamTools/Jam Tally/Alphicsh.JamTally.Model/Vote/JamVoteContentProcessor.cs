@@ -120,7 +120,7 @@ namespace Alphicsh.JamTally.Model.Vote
             if (Voter == null)
                 Voter = line;
             else if (!JamSearch.AlignmentsEnabled)
-                throw new InvalidOperationException($"There are no alignments specified for this Jam, and thus voter alignment can't be provided.");
+                throw new InvalidOperationException($"There are no alignments specified for this Jam, and thus voter alignment is not applicable.");
             else if (Alignment != null)
                 throw new InvalidOperationException($"Voter name and alignment were already provided.");
             else if (!JamSearch.IsAlignmentValid(line))
