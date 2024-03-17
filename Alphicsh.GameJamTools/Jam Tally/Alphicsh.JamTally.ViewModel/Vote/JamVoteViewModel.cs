@@ -23,7 +23,7 @@ namespace Alphicsh.JamTally.ViewModel.Vote
 
             AwardLines = Model.Awards.Select(award => $"{award.Criterion.Name}: {award.Entry.Line}").ToList();
             EntryLines = CalculateEntryLines();
-            ReactionLines = Model.Reactions.Select(reaction => $"+{reaction.Value} {reaction.Name}").ToList();
+            ReactionLines = Model.AggregateReactions.Select(reaction => $"+{reaction.Value} {reaction.Name}").ToList();
             ReactionScore = "Reaction score: " + Model.GetReactionScore();
         }
 

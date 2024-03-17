@@ -32,8 +32,9 @@ namespace Alphicsh.JamTally.Model.Vote
         public int ReviewsCount => DirectReviewsCount ?? ReviewedEntries.Count;
 
         public IReadOnlyCollection<JamVoteReaction> Reactions { get; internal set; } = new List<JamVoteReaction>();
+        public IReadOnlyCollection<JamVoteReaction> AggregateReactions { get; internal set; } = new List<JamVoteReaction>();
         public int GetReactionScore()
-            => Reactions.Sum(reaction => reaction.Value);
+            => AggregateReactions.Sum(reaction => reaction.Value);
 
         public string? Error { get; internal set; }
 

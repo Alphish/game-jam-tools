@@ -106,7 +106,8 @@ namespace Alphicsh.JamTally.Model.Vote.Serialization.Parsing
             {
                 case "":
                     return new JamVoteParserLegacy(content, Jam, JamSearch);
-
+                case "v1":
+                    return new JamVoteParserV1(content, Jam, JamSearch);
                 default:
                     throw new NotSupportedException($"The vote version '{content.Version}' is not supported.");
             }

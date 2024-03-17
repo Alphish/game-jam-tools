@@ -66,7 +66,7 @@ namespace Alphicsh.JamTally.Model.Vote.Serialization.Parsing
             return entries.ToList();
         }
 
-        private JamEntry ParseEntryLine(string line)
+        protected JamEntry ParseEntryLine(string line)
         {
             var entry = JamSearch.FindEntry(line, unprefixRanking: false);
             if (entry == null)
@@ -136,6 +136,48 @@ namespace Alphicsh.JamTally.Model.Vote.Serialization.Parsing
                 throw new InvalidOperationException($"Could not resolve reaction user for '{line}'.");
 
             return new JamVoteReaction { Type = reactionType, User = user };
+        }
+
+        // ---------------
+        // Post-processing
+        // ---------------
+
+        protected void CompleteVote(JamVote vote)
+        {
+            EnsureNoDuplicateEntries(vote);
+
+            vote.Missing = GetMissingEntries(vote);
+            vote.AggregateReactions = GetAggregateReactions(vote.Reactions);
+        }
+
+        private void EnsureNoDuplicateEntries(JamVote vote)
+        {
+            var duplicateEntries = vote.Authored.Concat(vote.Ranking).Concat(vote.Unjudged)
+                .GroupBy(entry => entry)
+                .Where(group => group.Count() > 1)
+                .Select(group => group.Key)
+                .ToList();
+
+            if (duplicateEntries.Any())
+                throw new InvalidOperationException($"Entry '{duplicateEntries.First().FullLine}' appears multiple times.");
+        }
+
+        private IReadOnlyCollection<JamEntry> GetMissingEntries(JamVote vote)
+        {
+            return Jam.Entries
+                .Except(vote.Authored)
+                .Except(vote.Ranking)
+                .Except(vote.Unjudged)
+                .OrderBy(entry => entry.FullLine)
+                .ToList();
+        }
+
+        protected IReadOnlyCollection<JamVoteReaction> GetAggregateReactions(IEnumerable<JamVoteReaction> allReactions)
+        {
+            return allReactions.GroupBy(reaction => reaction.User)
+                .Select(group => group.OrderByDescending(reaction => reaction.Value).First())
+                .OrderBy(reaction => reaction.User)
+                .ToList();
         }
     }
 }

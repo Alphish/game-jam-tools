@@ -5,14 +5,14 @@ using Alphicsh.JamTally.Model.Vote.Search;
 
 namespace Alphicsh.JamTally.Model.Vote.Serialization.Parsing
 {
-    internal class JamVoteParserLegacy : JamVoteParserBase
+    internal class JamVoteParserV1 : JamVoteParserBase
     {
-        public JamVoteParserLegacy(JamVoteContent content, JamOverview jam, JamSearch jamSearch)
+        public JamVoteParserV1(JamVoteContent content, JamOverview jam, JamSearch jamSearch)
             : base(content, jam, jamSearch)
         {
         }
 
-        public override string Version => string.Empty;
+        public override string Version => "V1";
 
         public override JamVote Parse()
         {
@@ -27,9 +27,6 @@ namespace Alphicsh.JamTally.Model.Vote.Serialization.Parsing
 
             if (sections.ContainsKey("VOTER"))
                 ProcessVoterSection(vote, sections["VOTER"]);
-
-            if (sections.ContainsKey("STATS"))
-                ProcessStatsSection(vote, sections["STATS"]);
 
             // Entries
 
@@ -51,6 +48,11 @@ namespace Alphicsh.JamTally.Model.Vote.Serialization.Parsing
             if (sections.ContainsKey("AWARDS"))
                 vote.Awards = ParseAwardsSection(sections["AWARDS"]);
 
+            // Reviews
+
+            if (sections.ContainsKey("REVIEWED"))
+                ProcessReviewedSection(vote, sections["REVIEWED"]);
+
             // Reactions
 
             if (sections.ContainsKey("REACTIONS"))
@@ -60,23 +62,25 @@ namespace Alphicsh.JamTally.Model.Vote.Serialization.Parsing
             return vote;
         }
 
-        private void ProcessStatsSection(JamVote vote, JamVoteSection section)
+        private void ProcessReviewedSection(JamVote vote, JamVoteSection section)
         {
-            foreach (var line in section.Lines)
-            {
-                if (line.StartsWith("Reviews count:", StringComparison.OrdinalIgnoreCase))
-                {
-                    var reviewsCountString = line.Substring("Reviews count:".Length).Trim();
-                    if (!int.TryParse(reviewsCountString, out var reviewsCount))
-                        throw new InvalidOperationException($"Could not parse reviews count from '{line}'.");
+            var countLines = section.Lines.Where(line => line.StartsWith("=")).ToList();
+            if (countLines.Count > 1)
+                throw new InvalidOperationException($"Multiple review counts were given: {string.Join(",", countLines)}");
 
-                    vote.DirectReviewsCount = reviewsCount;
-                }
-                else
-                {
-                    throw new InvalidOperationException($"Could not resolve stats line '{line}'.");
-                }
+            if (countLines.Count == 1)
+            {
+                var countString = countLines[0].Substring(1).Trim();
+                if (!int.TryParse(countString, out var reviewsCount))
+                    throw new InvalidOperationException($"Could not read review count from '{countLines[0]}'");
+
+                vote.DirectReviewsCount = reviewsCount;
             }
+
+            var entryLines = section.Lines.Where(line => !line.StartsWith("=")).ToList();
+            vote.ReviewedEntries = entryLines.Select(ParseEntryLine)
+                .OrderBy(entry => entry.FullLine)
+                .ToList();
         }
     }
 }
