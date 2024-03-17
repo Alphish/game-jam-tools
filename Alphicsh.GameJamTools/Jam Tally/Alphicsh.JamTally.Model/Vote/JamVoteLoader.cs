@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Alphicsh.JamTally.Model.Vote.Search;
 using Alphicsh.JamTally.Model.Vote.Serialization.Parsing;
+using Alphicsh.JamTally.Model.Vote.Serialization.Formatting;
 
 namespace Alphicsh.JamTally.Model.Vote
 {
@@ -29,6 +30,16 @@ namespace Alphicsh.JamTally.Model.Vote
             var votesParser = new JamVotesFileParser(jam, jamSearch);
             
             var votes = votesParser.ParseVotes(content);
+            var contentBuilder = new JamVoteContentBuilder(jam);
+            var contentFormatter = new JamVoteContentFormatter();
+            foreach (var vote in votes)
+            {
+                var voteContent = contentBuilder.BuildVoteContent(vote);
+                var voteString = contentFormatter.Format(voteContent);
+
+                vote.Content = voteString;
+            }
+
             return votes;
         }
 

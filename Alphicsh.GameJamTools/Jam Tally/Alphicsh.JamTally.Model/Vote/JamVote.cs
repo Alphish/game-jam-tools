@@ -12,7 +12,6 @@ namespace Alphicsh.JamTally.Model.Vote
         public JamVote(string content = "")
         {
             Content = content;
-            ProcessContent();
         }
 
         public string? Voter { get; internal set; }
@@ -28,6 +27,7 @@ namespace Alphicsh.JamTally.Model.Vote
             => Awards.FirstOrDefault(voteAward => voteAward.Criterion == award)?.Entry;
 
         public int? DirectReviewsCount { get; internal set; }
+        public bool HasDirectReviewsCount => DirectReviewsCount.HasValue && DirectReviewsCount > 0;
         public IReadOnlyCollection<JamEntry> ReviewedEntries { get; internal set; } = new List<JamEntry>();
         public int ReviewsCount => DirectReviewsCount ?? ReviewedEntries.Count;
 
