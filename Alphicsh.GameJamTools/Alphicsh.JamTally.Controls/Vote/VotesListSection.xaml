@@ -40,6 +40,7 @@
       <Separator DockPanel.Dock="Bottom"/>
 
       <local:VotesListBox
+        VoteCollection="{Binding}"
         ItemsSource="{Binding Votes}"
         SelectedItem="{Binding SelectedVote}"
         HorizontalContentAlignment="Stretch"
