@@ -23,7 +23,7 @@
       <TextBlock Grid.Row="0" Style="{StaticResource SublistHeader}">Ranking</TextBlock>
 
       <local:VoteEntriesListBox
-        Grid.Row="1" Margin="4"
+        Grid.Row="1" Margin="8"
         Style="{StaticResource {x:Type ListBox}}"
         ItemsSource="{Binding RankingEntries}"
         Vote="{Binding}"
@@ -38,7 +38,7 @@
       <TextBlock Grid.Row="2" Style="{StaticResource SublistHeader}">Unjudged entries</TextBlock>
 
       <local:VoteEntriesListBox
-        Grid.Row="3" Margin="4"
+        Grid.Row="3" Margin="8"
         Style="{StaticResource {x:Type ListBox}}"
         ItemsSource="{Binding UnjudgedEntries}"
         Vote="{Binding}"
@@ -53,7 +53,7 @@
       <TextBlock Grid.Row="4" Style="{StaticResource SublistHeader}">Unranked entries</TextBlock>
 
       <local:VoteEntriesListBox
-        Grid.Row="5" Margin="4"
+        Grid.Row="5" Margin="8"
         Style="{StaticResource {x:Type ListBox}}"
         ItemsSource="{Binding UnrankedEntries}"
         Vote="{Binding}"
