@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Alphicsh.JamTally.Model.Jam;
 using Alphicsh.JamTally.Model.Vote;
 using Alphicsh.JamTally.ViewModel.Jam;
+using Alphicsh.JamTally.ViewModel.Vote.Modals;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
@@ -28,17 +29,12 @@ namespace Alphicsh.JamTally.ViewModel.Vote
             UnjudgedEntries = CollectionViewModel.CreateMutable(model.Unjudged, JamVoteEntryViewModel.CollectionStub);
             UnrankedEntries = CollectionViewModel.CreateMutable(model.Missing, JamVoteEntryViewModel.CollectionStub);
 
-            AutoFillAuthoredEntriesCommand = SimpleCommand.From(AutoFillAuthoredEntries);
-
             AwardSelections = JamTallyViewModel.Current.Jam!.Model.AwardCriteria
                 .Select(criterion => new JamVoteAwardSelectionViewModel(Model, criterion))
                 .ToList();
 
-            ContentProperty = WrapperProperty.ForMember(this, vm => vm.Model.Content);
-            ProcessContentCommand = SimpleCommand.From(ProcessContent);
-
-            HasError = !string.IsNullOrEmpty(Model.Error);
-            Message = Model.Error ?? "Processing successful!";
+            AutoFillAuthoredEntriesCommand = SimpleCommand.From(AutoFillAuthoredEntries);
+            OpenEntriesEditorCommand = SimpleCommand.From(OpenEntriesEditor);
 
             AwardLines = Model.Awards.Select(award => $"{award.Criterion.Name}: {award.Entry.Line}").ToList();
             EntryLines = CalculateEntryLines();
@@ -68,37 +64,27 @@ namespace Alphicsh.JamTally.ViewModel.Vote
         public CollectionViewModel<JamEntry, JamVoteEntryViewModel> UnjudgedEntries { get; }
         public CollectionViewModel<JamEntry, JamVoteEntryViewModel> UnrankedEntries { get; }
 
-        public ICommand AutoFillAuthoredEntriesCommand { get; }
-        private void AutoFillAuthoredEntries()
-            => JamTallyViewModel.Current.VoteManager.AutoFillVoteAuthoredEntries(this);
-
         // ------
         // Awards
         // ------
 
         public IReadOnlyCollection<JamVoteAwardSelectionViewModel> AwardSelections { get; }
 
-        // ----------------
-        // Content handling
-        // ----------------
+        // ----------
+        // Management
+        // ----------
 
-        public WrapperProperty<JamVoteViewModel, string> ContentProperty { get; }
-        public string Content { get => ContentProperty.Value; set => ContentProperty.Value = value; }
+        public ICommand AutoFillAuthoredEntriesCommand { get; }
+        private void AutoFillAuthoredEntries()
+            => JamTallyViewModel.Current.VoteManager.AutoFillVoteAuthoredEntries(this);
 
-        public ICommand ProcessContentCommand { get; }
-        private void ProcessContent()
-        {
-            Model.ProcessContent();
-            ReloadVote();
-            RaisePropertyChanged(nameof(Content));
-        }
+        public ICommand OpenEntriesEditorCommand { get; }
+        private void OpenEntriesEditor()
+            => VoteEntriesEditorViewModel.ShowModal(this);
 
         // ---------
         // Vote data
         // ---------
-
-        public bool HasError { get; set; }
-        public string Message { get; set; }
 
         public IReadOnlyCollection<string> AwardLines { get; set; }
         public IReadOnlyCollection<string> EntryLines { get; set; }
@@ -107,10 +93,6 @@ namespace Alphicsh.JamTally.ViewModel.Vote
 
         private void ReloadVote()
         {
-            HasError = !string.IsNullOrEmpty(Model.Error);
-            Message = Model.Error ?? "Processing successful!";
-            RaisePropertyChanged(nameof(HasError), nameof(Message), nameof(Voter));
-
             AwardLines = Model.Awards.Select(award => $"{award.Criterion.Name}: {award.Entry.Line}").ToList();
             RaisePropertyChanged(nameof(AwardLines));
 
