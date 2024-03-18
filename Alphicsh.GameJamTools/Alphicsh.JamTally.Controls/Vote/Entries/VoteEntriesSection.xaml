@@ -1,0 +1,70 @@
+﻿<UserControl
+  x:Class="Alphicsh.JamTally.Controls.Vote.Entries.VoteEntriesSection"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.JamTally.Controls.Vote.Entries"
+  xmlns:voteVm="clr-namespace:Alphicsh.JamTally.ViewModel.Vote;assembly=Alphicsh.JamTally.ViewModel"
+  mc:Ignorable="d" 
+  d:DesignHeight="600" d:DesignWidth="400"
+>
+  <GroupBox Header="Entries">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="96"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="96"/>
+      </Grid.RowDefinitions>
+
+      <TextBlock Grid.Row="0" Style="{StaticResource SublistHeader}">Ranking</TextBlock>
+
+      <local:VoteEntriesListBox
+        Grid.Row="1" Margin="4"
+        Style="{StaticResource {x:Type ListBox}}"
+        ItemsSource="{Binding RankingEntries}"
+        Vote="{Binding}"
+      >
+        <local:VoteEntriesListBox.Resources>
+          <DataTemplate DataType="{x:Type voteVm:JamVoteEntryViewModel}">
+            <local:EntriesListEntry DataContext="{Binding}"></local:EntriesListEntry>
+          </DataTemplate>
+        </local:VoteEntriesListBox.Resources>
+      </local:VoteEntriesListBox>
+
+      <TextBlock Grid.Row="2" Style="{StaticResource SublistHeader}">Unjudged entries</TextBlock>
+
+      <local:VoteEntriesListBox
+        Grid.Row="3" Margin="4"
+        Style="{StaticResource {x:Type ListBox}}"
+        ItemsSource="{Binding UnjudgedEntries}"
+        Vote="{Binding}"
+      >
+        <local:VoteEntriesListBox.Resources>
+          <DataTemplate DataType="{x:Type voteVm:JamVoteEntryViewModel}">
+            <local:EntriesListEntry DataContext="{Binding}"></local:EntriesListEntry>
+          </DataTemplate>
+        </local:VoteEntriesListBox.Resources>
+      </local:VoteEntriesListBox>
+
+      <TextBlock Grid.Row="4" Style="{StaticResource SublistHeader}">Unranked entries</TextBlock>
+
+      <local:VoteEntriesListBox
+        Grid.Row="5" Margin="4"
+        Style="{StaticResource {x:Type ListBox}}"
+        ItemsSource="{Binding UnrankedEntries}"
+        Vote="{Binding}"
+      >
+        <local:VoteEntriesListBox.Resources>
+          <DataTemplate DataType="{x:Type voteVm:JamVoteEntryViewModel}">
+            <local:EntriesListEntry DataContext="{Binding}"></local:EntriesListEntry>
+          </DataTemplate>
+        </local:VoteEntriesListBox.Resources>
+      </local:VoteEntriesListBox>
+
+    </Grid>
+  </GroupBox>
+</UserControl>

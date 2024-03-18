@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using Alphicsh.JamTally.Model.Jam;
 using Alphicsh.JamTally.Model.Vote;
+using Alphicsh.JamTally.ViewModel.Jam;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
@@ -15,6 +17,11 @@ namespace Alphicsh.JamTally.ViewModel.Vote
 
         public JamVoteViewModel(JamVote model) : base(model)
         {
+            AuthoredEntries = CollectionViewModel.CreateMutable(model.Authored, JamVoteEntryViewModel.CollectionStub);
+            RankingEntries = CollectionViewModel.CreateMutable(model.Ranking, JamVoteEntryViewModel.CollectionStub);
+            UnjudgedEntries = CollectionViewModel.CreateMutable(model.Unjudged, JamVoteEntryViewModel.CollectionStub);
+            UnrankedEntries = CollectionViewModel.CreateMutable(model.Missing, JamVoteEntryViewModel.CollectionStub);
+
             ContentProperty = WrapperProperty.ForMember(this, vm => vm.Model.Content);
             ProcessContentCommand = SimpleCommand.From(ProcessContent);
 
@@ -26,6 +33,15 @@ namespace Alphicsh.JamTally.ViewModel.Vote
             ReactionLines = Model.AggregateReactions.Select(reaction => $"+{reaction.Value} {reaction.Name}").ToList();
             ReactionScore = "Reaction score: " + Model.GetReactionScore();
         }
+
+        // -----------
+        // Collections
+        // -----------
+
+        public CollectionViewModel<JamEntry, JamVoteEntryViewModel> AuthoredEntries { get; }
+        public CollectionViewModel<JamEntry, JamVoteEntryViewModel> RankingEntries { get; }
+        public CollectionViewModel<JamEntry, JamVoteEntryViewModel> UnjudgedEntries { get; }
+        public CollectionViewModel<JamEntry, JamVoteEntryViewModel> UnrankedEntries { get; }
 
         // ----------------
         // Content handling

@@ -57,7 +57,7 @@ namespace Alphicsh.JamTally.Model.Vote.Serialization.Parsing
         // Entries
         // -------
 
-        protected IReadOnlyCollection<JamEntry> ParseEntriesSection(JamVoteSection section, bool unordered)
+        protected IList<JamEntry> ParseEntriesSection(JamVoteSection section, bool unordered)
         {
             var entries = section.Lines.Select(ParseEntryLine);
             if (unordered)
@@ -162,7 +162,7 @@ namespace Alphicsh.JamTally.Model.Vote.Serialization.Parsing
                 throw new InvalidOperationException($"Entry '{duplicateEntries.First().FullLine}' appears multiple times.");
         }
 
-        private IReadOnlyCollection<JamEntry> GetMissingEntries(JamVote vote)
+        private IList<JamEntry> GetMissingEntries(JamVote vote)
         {
             return Jam.Entries
                 .Except(vote.Authored)

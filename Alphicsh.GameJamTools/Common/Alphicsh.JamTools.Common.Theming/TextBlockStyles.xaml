@@ -24,7 +24,16 @@
     <Setter Property="FontSize" Value="16"/>
     <Setter Property="Foreground" Value="{DynamicResource DimText}"/>
   </Style>
-  
+
+  <Style TargetType="TextBlock" x:Key="SublistHeader" BasedOn="{StaticResource {x:Type TextBlock}}">
+    <Setter Property="HorizontalAlignment" Value="Center"/>
+    <Setter Property="VerticalAlignment" Value="Center"/>
+    <Setter Property="Margin" Value="2"/>
+    <Setter Property="FontSize" Value="16"/>
+    <Setter Property="FontWeight" Value="Bold"/>
+    <Setter Property="Foreground" Value="{DynamicResource DimText}"/>
+  </Style>
+
   <Style TargetType="TextBlock" x:Key="ModalCaption" BasedOn="{StaticResource {x:Type TextBlock}}">
     <Setter Property="HorizontalAlignment" Value="Left"/>
     <Setter Property="VerticalAlignment" Value="Center"/>

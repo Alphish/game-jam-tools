@@ -14,13 +14,13 @@ namespace Alphicsh.JamTally.Model.Vote
             Content = content;
         }
 
-        public string? Voter { get; internal set; }
-        public JamAlignmentOption? Alignment { get; internal set; }
+        public string Voter { get; set; } = string.Empty;
+        public JamAlignmentOption? Alignment { get; set; }
 
-        public IReadOnlyCollection<JamEntry> Ranking { get; internal set; } = new List<JamEntry>();
-        public IReadOnlyCollection<JamEntry> Authored { get; internal set; } = new List<JamEntry>();
-        public IReadOnlyCollection<JamEntry> Unjudged { get; internal set; } = new List<JamEntry>();
-        public IReadOnlyCollection<JamEntry> Missing { get; internal set; } = new List<JamEntry>();
+        public IList<JamEntry> Ranking { get; internal set; } = new List<JamEntry>();
+        public IList<JamEntry> Authored { get; internal set; } = new List<JamEntry>();
+        public IList<JamEntry> Unjudged { get; internal set; } = new List<JamEntry>();
+        public IList<JamEntry> Missing { get; internal set; } = new List<JamEntry>();
 
         public IReadOnlyCollection<JamVoteAward> Awards { get; internal set; } = new List<JamVoteAward>();
         public JamEntry? FindEntryForAward(JamAwardCriterion award)
