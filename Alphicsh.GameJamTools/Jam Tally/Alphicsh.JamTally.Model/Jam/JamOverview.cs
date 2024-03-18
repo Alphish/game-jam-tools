@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Alphicsh.JamTally.Model.Vote.Search;
 
 namespace Alphicsh.JamTally.Model.Jam
 {
@@ -107,5 +108,11 @@ namespace Alphicsh.JamTally.Model.Jam
 
             new JamReactionType { Name = "Laugh", Value = 1, IsPrimary = false },
         };
+
+        // ------
+        // Search
+        // ------
+
+        internal JamSearch? Search { get; set; }
     }
 }

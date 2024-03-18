@@ -3,6 +3,7 @@ using Alphicsh.JamTally.Model.Jam;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTally.Model.Jam.Loading;
 using Alphicsh.JamTally.Model.Vote;
+using Alphicsh.JamTally.Model.Vote.Management;
 
 namespace Alphicsh.JamTally.Model
 {
@@ -17,6 +18,8 @@ namespace Alphicsh.JamTally.Model
         public bool HasAlignments => Jam?.Alignments != null;
         public JamOverview? Jam { get; private set; }
         public JamVoteCollection? VotesCollection { get; private set; }
+
+        public JamVoteManager VoteManager { get; } = new JamVoteManager();
 
         public JamTallyModel()
         {

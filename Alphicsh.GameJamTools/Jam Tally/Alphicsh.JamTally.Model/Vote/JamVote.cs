@@ -17,19 +17,47 @@ namespace Alphicsh.JamTally.Model.Vote
         public string Voter { get; set; } = string.Empty;
         public JamAlignmentOption? Alignment { get; set; }
 
-        public IList<JamEntry> Ranking { get; internal set; } = new List<JamEntry>();
+        // -------
+        // Entries
+        // -------
+
         public IList<JamEntry> Authored { get; internal set; } = new List<JamEntry>();
+        public IList<JamEntry> Ranking { get; internal set; } = new List<JamEntry>();
         public IList<JamEntry> Unjudged { get; internal set; } = new List<JamEntry>();
         public IList<JamEntry> Missing { get; internal set; } = new List<JamEntry>();
+
+        public void SetAuthored(IEnumerable<JamEntry> entries)
+        {
+            Authored.Clear();
+            foreach (var entry in entries)
+            {
+                Authored.Add(entry);
+                Ranking.Remove(entry);
+                Unjudged.Remove(entry);
+                Missing.Remove(entry);
+            }
+        }
+
+        // ------
+        // Awards
+        // ------
 
         public IReadOnlyCollection<JamVoteAward> Awards { get; internal set; } = new List<JamVoteAward>();
         public JamEntry? FindEntryForAward(JamAwardCriterion award)
             => Awards.FirstOrDefault(voteAward => voteAward.Criterion == award)?.Entry;
 
+        // -------
+        // Reviews
+        // -------
+
         public int? DirectReviewsCount { get; internal set; }
         public bool HasDirectReviewsCount => DirectReviewsCount.HasValue && DirectReviewsCount > 0;
         public IReadOnlyCollection<JamEntry> ReviewedEntries { get; internal set; } = new List<JamEntry>();
         public int ReviewsCount => DirectReviewsCount ?? ReviewedEntries.Count;
+
+        // ---------
+        // Reactions
+        // ---------
 
         public IReadOnlyCollection<JamVoteReaction> Reactions { get; internal set; } = new List<JamVoteReaction>();
         public IReadOnlyCollection<JamVoteReaction> AggregateReactions { get; internal set; } = new List<JamVoteReaction>();

@@ -1,4 +1,5 @@
-﻿using Alphicsh.JamTally.Model.Jam;
+﻿using System.Collections.Generic;
+using Alphicsh.JamTally.Model.Jam;
 
 namespace Alphicsh.JamTally.Model.Vote.Search
 {
@@ -35,6 +36,9 @@ namespace Alphicsh.JamTally.Model.Vote.Search
 
         public JamEntry? FindEntry(string line, bool unprefixRanking)
             => EntrySearch.FindEntry(line, unprefixRanking);
+
+        public IReadOnlyCollection<JamEntry> FindEntriesBy(string author)
+            => EntrySearch.FindEntriesBy(author);
 
         // ------
         // Awards

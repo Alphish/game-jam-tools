@@ -7,10 +7,12 @@ namespace Alphicsh.JamTally.Model.Vote.Search
 {
     internal class JamEntrySearch
     {
+        private IReadOnlyCollection<JamEntry> Entries { get; }
         private IReadOnlyDictionary<string, JamEntry?> EntriesByLine { get; }
 
         public JamEntrySearch(JamOverview jam)
         {
+            Entries = jam.Entries;
             EntriesByLine = MakeEntriesByLine(jam);
         }
 
@@ -67,7 +69,7 @@ namespace Alphicsh.JamTally.Model.Vote.Search
             if (!unprefixRanking)
                 return null;
 
-            var unprefixedLine = line;
+            var unprefixedLine = UnprefixRankingDigits(line);
             if (unprefixedLine == null)
                 return null;
 
@@ -75,7 +77,7 @@ namespace Alphicsh.JamTally.Model.Vote.Search
             return byUnprefixedLine;
         }
 
-        private string UnprefixRankingDigits(string line)
+        private string? UnprefixRankingDigits(string line)
         {
             var idx = 0;
             var chars = line.ToCharArray();
@@ -89,6 +91,13 @@ namespace Alphicsh.JamTally.Model.Vote.Search
                 idx++;
 
             return line.Substring(idx).Trim();
+        }
+
+        public IReadOnlyCollection<JamEntry> FindEntriesBy(string author)
+        {
+            return Entries
+                .Where(entry => entry.Authors.Contains(author, StringComparer.OrdinalIgnoreCase))
+                .ToList();
         }
     }
 }
