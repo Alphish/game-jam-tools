@@ -97,7 +97,5 @@ namespace Alphicsh.JamTally.ViewModel.Vote.Modals
 
             Window.Close();
         }
-
-
     }
 }

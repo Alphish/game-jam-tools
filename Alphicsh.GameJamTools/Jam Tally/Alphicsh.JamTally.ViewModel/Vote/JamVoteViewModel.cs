@@ -5,6 +5,7 @@ using Alphicsh.JamTally.Model.Jam;
 using Alphicsh.JamTally.Model.Vote;
 using Alphicsh.JamTally.ViewModel.Jam;
 using Alphicsh.JamTally.ViewModel.Vote.Modals;
+using Alphicsh.JamTally.ViewModel.Vote.Reactions;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
@@ -40,12 +41,11 @@ namespace Alphicsh.JamTally.ViewModel.Vote
                 );
             ReviewedEntries = CollectionViewModel.CreateMutable(model.ReviewedEntries, JamVoteEntryViewModel.CollectionStub);
 
-            Reactions = Model.Reactions
-                .Select(reaction => new JamVoteReactionViewModel(reaction, Model.AggregateReactions.Contains(reaction)))
-                .ToList();
+            Reactions = CalculateReactions();
 
             AutoFillAuthoredEntriesCommand = SimpleCommand.From(AutoFillAuthoredEntries);
             OpenEntriesEditorCommand = SimpleCommand.From(OpenEntriesEditor);
+            OpenReactionsEditorCommand = SimpleCommand.From(OpenReactionsEditor);
         }
 
         // -----
@@ -90,7 +90,17 @@ namespace Alphicsh.JamTally.ViewModel.Vote
         // ---------
 
         public string ReactionsHeader => $"Reaction score: {Model.GetReactionScore()}";
-        public IReadOnlyCollection<JamVoteReactionViewModel> Reactions { get; }
+        public IReadOnlyCollection<JamVoteReactionViewModel> Reactions { get; set; }
+
+        public IReadOnlyCollection<JamVoteReactionViewModel> CalculateReactions()
+        {
+            return Model.Reactions
+                .Select(reaction => new JamVoteReactionViewModel(reaction, Model.AggregateReactions.Contains(reaction)))
+                .OrderBy(reaction => reaction.User)
+                .ThenByDescending(reaction => reaction.IsCounted ? 1 : 0)
+                .ThenByDescending(reaction => reaction.Value)
+                .ToList();
+        }
 
         // ----------
         // Management
@@ -103,5 +113,9 @@ namespace Alphicsh.JamTally.ViewModel.Vote
         public ICommand OpenEntriesEditorCommand { get; }
         private void OpenEntriesEditor()
             => VoteEntriesEditorViewModel.ShowModal(this);
+
+        public ICommand OpenReactionsEditorCommand { get; }
+        private void OpenReactionsEditor()
+            => VoteReactionsEditorViewModel.ShowModal(this);
     }
 }

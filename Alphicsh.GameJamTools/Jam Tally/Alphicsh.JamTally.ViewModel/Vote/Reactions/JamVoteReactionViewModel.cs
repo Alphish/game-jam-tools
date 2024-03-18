@@ -3,7 +3,7 @@ using Alphicsh.JamTally.Model.Vote;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Theming;
 
-namespace Alphicsh.JamTally.ViewModel.Vote
+namespace Alphicsh.JamTally.ViewModel.Vote.Reactions
 {
     public class JamVoteReactionViewModel : WrapperViewModel<JamVoteReaction>
     {

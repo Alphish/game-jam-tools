@@ -117,7 +117,7 @@ namespace Alphicsh.JamTally.Model.Vote.Serialization.Parsing
         // Reactions
         // ---------
 
-        protected IReadOnlyCollection<JamVoteReaction> ParseReactionsSection(JamVoteSection section)
+        protected IList<JamVoteReaction> ParseReactionsSection(JamVoteSection section)
         {
             return section.Lines.Select(ParseReactionLine).ToList();
         }
@@ -172,7 +172,7 @@ namespace Alphicsh.JamTally.Model.Vote.Serialization.Parsing
                 .ToList();
         }
 
-        protected IReadOnlyCollection<JamVoteReaction> GetAggregateReactions(IEnumerable<JamVoteReaction> allReactions)
+        protected IList<JamVoteReaction> GetAggregateReactions(IEnumerable<JamVoteReaction> allReactions)
         {
             return allReactions.GroupBy(reaction => reaction.User)
                 .Select(group => group.OrderByDescending(reaction => reaction.Value).First())

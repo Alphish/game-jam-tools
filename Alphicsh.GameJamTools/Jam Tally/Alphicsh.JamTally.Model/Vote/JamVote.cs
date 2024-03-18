@@ -68,8 +68,8 @@ namespace Alphicsh.JamTally.Model.Vote
         // Reactions
         // ---------
 
-        public IReadOnlyCollection<JamVoteReaction> Reactions { get; internal set; } = new List<JamVoteReaction>();
-        public IReadOnlyCollection<JamVoteReaction> AggregateReactions { get; internal set; } = new List<JamVoteReaction>();
+        public IList<JamVoteReaction> Reactions { get; internal set; } = new List<JamVoteReaction>();
+        public IList<JamVoteReaction> AggregateReactions { get; internal set; } = new List<JamVoteReaction>();
         public int GetReactionScore()
             => AggregateReactions.Sum(reaction => reaction.Value);
 
@@ -129,6 +129,23 @@ namespace Alphicsh.JamTally.Model.Vote
             ReviewedEntries.Clear();
             foreach (var entry in entries)
                 ReviewedEntries.Add(entry);
+        }
+
+        public void SetReactions(IEnumerable<JamVoteReaction> reactions)
+        {
+            Reactions.Clear();
+            foreach (var entry in reactions)
+                Reactions.Add(entry);
+
+            var newAggregateReactions = Reactions
+                .GroupBy(reaction => reaction.User)
+                .Select(group => group.OrderByDescending(reaction => reaction.Value).First())
+                .OrderBy(reaction => reaction.User)
+                .ToList();
+
+            AggregateReactions.Clear();
+            foreach (var reaction in newAggregateReactions)
+                AggregateReactions.Add(reaction);
         }
     }
 }
