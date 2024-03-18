@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Alphicsh.JamTally.Model.Jam;
-using Alphicsh.JamTally.Model.Vote.Search;
 
 namespace Alphicsh.JamTally.Model.Vote
 {
@@ -17,6 +16,11 @@ namespace Alphicsh.JamTally.Model.Vote
         public string Voter { get; set; } = string.Empty;
         public JamAlignmentOption? Alignment { get; set; }
 
+        public override string ToString()
+        {
+            return $"vote by {Voter ?? ("<unknown voter>")}";
+        }
+
         // -------
         // Entries
         // -------
@@ -25,29 +29,6 @@ namespace Alphicsh.JamTally.Model.Vote
         public IList<JamEntry> Ranking { get; internal set; } = new List<JamEntry>();
         public IList<JamEntry> Unjudged { get; internal set; } = new List<JamEntry>();
         public IList<JamEntry> Missing { get; internal set; } = new List<JamEntry>();
-
-        public void SetAuthored(IEnumerable<JamEntry> entries)
-        {
-            Authored.Clear();
-            foreach (var entry in entries)
-            {
-                Authored.Add(entry);
-                Ranking.Remove(entry);
-                Unjudged.Remove(entry);
-            }
-        }
-
-        internal void RecalculateMissingEntries(IEnumerable<JamEntry> allEntries)
-        {
-            Missing.Clear();
-            var missingEntries = allEntries
-                .Except(Authored).Except(Ranking).Except(Unjudged)
-                .OrderBy(entry => entry.FullLine)
-                .ToList();
-
-            foreach (var entry in missingEntries)
-                Missing.Add(entry);
-        }
 
         // ------
         // Awards
@@ -86,16 +67,54 @@ namespace Alphicsh.JamTally.Model.Vote
 
         public string? Error { get; internal set; }
 
-        public void ProcessContent()
+        // ----------
+        // Operations
+        // ----------
+
+        public void UpdateRankableEntries(
+            IReadOnlyCollection<JamEntry> allEntries,
+            IReadOnlyCollection<JamEntry> authoredEntries,
+            IReadOnlyCollection<JamEntry> rankingEntries,
+            IReadOnlyCollection<JamEntry> unjudgedEntries
+            )
         {
-            var search = new JamSearch(JamTallyModel.Current.Jam!);
-            var parser = new JamVoteContentProcessor(this, search);
-            parser.Process();
+            Authored.Clear();
+            foreach (var entry in authoredEntries)
+                Authored.Add(entry);
+
+            Ranking.Clear();
+            foreach (var entry in rankingEntries)
+                Ranking.Add(entry);
+
+            Unjudged.Clear();
+            foreach (var entry in unjudgedEntries)
+                Unjudged.Add(entry);
+
+            RecalculateMissingEntries(allEntries);
         }
 
-        public override string ToString()
+        public void SetAuthored(IEnumerable<JamEntry> entries)
         {
-            return $"vote by {Voter ?? ("<unknown voter>")}";
+            Authored.Clear();
+            foreach (var entry in entries)
+            {
+                Authored.Add(entry);
+                Ranking.Remove(entry);
+                Unjudged.Remove(entry);
+            }
         }
+
+        internal void RecalculateMissingEntries(IEnumerable<JamEntry> allEntries)
+        {
+            Missing.Clear();
+            var missingEntries = allEntries
+                .Except(Authored).Except(Ranking).Except(Unjudged)
+                .OrderBy(entry => entry.FullLine)
+                .ToList();
+
+            foreach (var entry in missingEntries)
+                Missing.Add(entry);
+        }
+
     }
 }
