@@ -46,11 +46,6 @@ namespace Alphicsh.JamTally.ViewModel.Vote
 
             AutoFillAuthoredEntriesCommand = SimpleCommand.From(AutoFillAuthoredEntries);
             OpenEntriesEditorCommand = SimpleCommand.From(OpenEntriesEditor);
-
-            AwardLines = Model.Awards.Select(award => $"{award.Criterion.Name}: {award.Entry.Line}").ToList();
-            EntryLines = CalculateEntryLines();
-            ReactionLines = Model.AggregateReactions.Select(reaction => $"+{reaction.Value} {reaction.Name}").ToList();
-            ReactionScore = "Reaction score: " + Model.GetReactionScore();
         }
 
         // -----
@@ -108,57 +103,5 @@ namespace Alphicsh.JamTally.ViewModel.Vote
         public ICommand OpenEntriesEditorCommand { get; }
         private void OpenEntriesEditor()
             => VoteEntriesEditorViewModel.ShowModal(this);
-
-        // ---------
-        // Vote data
-        // ---------
-
-        public IReadOnlyCollection<string> AwardLines { get; set; }
-        public IReadOnlyCollection<string> EntryLines { get; set; }
-        public IReadOnlyCollection<string> ReactionLines { get; set; }
-        public string ReactionScore { get; set; }
-
-        private void ReloadVote()
-        {
-            AwardLines = Model.Awards.Select(award => $"{award.Criterion.Name}: {award.Entry.Line}").ToList();
-            RaisePropertyChanged(nameof(AwardLines));
-
-            EntryLines = CalculateEntryLines();
-            RaisePropertyChanged(nameof(EntryLines));
-
-            ReactionLines = Model.Reactions.Select(reaction => $"+{reaction.Value} {reaction.Name}").ToList();
-            ReactionScore = "Reaction score: " + Model.GetReactionScore();
-            RaisePropertyChanged(nameof(ReactionLines), nameof(ReactionScore));
-        }
-
-        private IReadOnlyCollection<string> CalculateEntryLines()
-        {
-            var lines = new List<string>();
-            foreach (var entry in Model.Ranking)
-            {
-                lines.Add(entry.Line);
-            }
-
-            if (Model.Unjudged.Count > 0)
-            {
-                lines.Add("");
-                lines.Add("Unjudged entries:");
-                foreach (var entry in Model.Unjudged)
-                {
-                    lines.Add(entry.Line);
-                }
-            }
-
-            if (Model.Missing.Count > 0)
-            {
-                lines.Add("");
-                lines.Add("Missing entries:");
-                foreach (var entry in Model.Missing)
-                {
-                    lines.Add(entry.Line);
-                }
-            }
-            return lines;
-        }
     }
 }
