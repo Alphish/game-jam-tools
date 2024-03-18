@@ -8,6 +8,8 @@ namespace Alphicsh.JamTally.Model.Vote.Management
 {
     public class JamVoteReactionsEditor
     {
+        private VoteReactionsScraper ReactionsScraper { get; } = new VoteReactionsScraper();
+
         public JamVoteReactionsEditor(JamVote vote)
         {
             Vote = vote;
@@ -157,6 +159,18 @@ namespace Alphicsh.JamTally.Model.Vote.Management
             var lines = reactions.Select(reaction => $"+{reaction.Value} {reaction.User} ({reaction.Type.Name})").ToList();
             lines.Add("=" + reactions.Sum(reaction => reaction.Value));
             return string.Join("\n", lines);
+        }
+
+        // --------
+        // Scraping
+        // --------
+
+        public string ScrapeInput { get; set; } = string.Empty;
+        public string ScrapeResult { get; private set; } = string.Empty;
+
+        public void ScrapeReactions()
+        {
+            ScrapeResult = ReactionsScraper.ScrapeReactions(ScrapeInput);
         }
 
         // ----------

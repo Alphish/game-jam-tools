@@ -24,6 +24,10 @@ namespace Alphicsh.JamTally.ViewModel.Vote.Reactions
             ProcessCommand = SimpleCommand.From(ProcessInputs);
             ConfirmCommand = ConditionalCommand.From(Model.CanUpdateVote, Confirm)
                 .ExecutionDependingOn(ReactionsTextProperty);
+
+            ScrapeInputProperty = WrapperProperty.ForMember(this, vm => vm.Model.ScrapeInput);
+            ScrapeResultProperty = WrapperProperty.ForReadonlyMember(this, vm => vm.Model.ScrapeResult);
+            ScrapeReactionsCommand = SimpleCommand.From(ScrapeReactions);
         }
 
         // -----
@@ -74,6 +78,23 @@ namespace Alphicsh.JamTally.ViewModel.Vote.Reactions
             EditedVote.RaisePropertyChanged(nameof(EditedVote.ReactionsHeader), nameof(EditedVote.Reactions));
 
             Window.Close();
+        }
+
+        // --------
+        // Scraping
+        // --------
+
+        public WrapperProperty<VoteReactionsEditorViewModel, string> ScrapeInputProperty { get; }
+        public string ScrapeInput { get => ScrapeInputProperty.Value; set => ScrapeInputProperty.Value = value; }
+
+        public WrapperProperty<VoteReactionsEditorViewModel, string> ScrapeResultProperty { get; }
+        public string ScrapeResult => ScrapeResultProperty.Value;
+
+        public ICommand ScrapeReactionsCommand { get; }
+        private void ScrapeReactions()
+        {
+            Model.ScrapeReactions();
+            RaisePropertyChanged(nameof(ScrapeResult));
         }
     }
 }
