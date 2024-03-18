@@ -1,0 +1,21 @@
+﻿<UserControl
+  x:Class="Alphicsh.JamTally.Controls.Vote.Reactions.VoteReactionsSection"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.JamTally.Controls.Vote.Reactions"
+  xmlns:voteVm="clr-namespace:Alphicsh.JamTally.ViewModel.Vote;assembly=Alphicsh.JamTally.ViewModel"
+  mc:Ignorable="d" 
+  d:DesignHeight="400" d:DesignWidth="250"
+>
+  <GroupBox Header="{Binding ReactionsHeader}">
+    <ListBox ItemsSource="{Binding Reactions}" Margin="8">
+      <ListBox.Resources>
+        <DataTemplate DataType="{x:Type voteVm:JamVoteReactionViewModel}">
+          <local:VoteReactionEntry DataContext="{Binding}"/>
+        </DataTemplate>
+      </ListBox.Resources>
+    </ListBox>
+  </GroupBox>
+</UserControl>
