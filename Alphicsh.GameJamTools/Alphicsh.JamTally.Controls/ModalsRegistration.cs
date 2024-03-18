@@ -1,4 +1,6 @@
-﻿using Alphicsh.JamTools.Common.Controls.Modals;
+﻿using Alphicsh.JamTally.Controls.Vote.Modals;
+using Alphicsh.JamTally.ViewModel.Vote.Modals;
+using Alphicsh.JamTools.Common.Controls.Modals;
 using Alphicsh.JamTools.Common.Mvvm.Modals;
 
 namespace Alphicsh.JamTally.Controls
@@ -9,6 +11,8 @@ namespace Alphicsh.JamTally.Controls
         {
             ModalWindowMapping.Add<SimpleMessageViewModel, SimpleMessageModal>();
             ModalWindowMapping.Add<SaveOnCloseViewModel, SaveOnCloseModal>();
+
+            ModalWindowMapping.Add<VoteEntriesEditorViewModel, VoteEntriesEditorModal>();
         }
     }
 }
