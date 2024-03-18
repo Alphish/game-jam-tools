@@ -21,19 +21,10 @@
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
+    <!-- Basic information -->
     <local:JamVoterSection Grid.Row="0"/>
 
-    <GroupBox Grid.Row="4" Style="{StaticResource SimpleSection}">
-      <WrapPanel HorizontalAlignment="Center">
-        <cc:ImpButton
-          Style="{StaticResource HelpButton}"
-          Margin="2"
-          Width="96"
-          Command="{Binding OpenEntriesEditorCommand}"
-        >Edit entries</cc:ImpButton>
-      </WrapPanel>
-    </GroupBox>
-
+    <!-- Entries and reactions -->
     <Grid Grid.Row="2">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="3*"/>
@@ -65,5 +56,25 @@
         </Grid>
       </Grid>
     </Grid>
+    
+    <!-- Management tools -->
+    <GroupBox Grid.Row="4" Style="{StaticResource SimpleSection}">
+      <WrapPanel HorizontalAlignment="Center">
+        <cc:ImpButton
+          Style="{StaticResource HelpButton}"
+          Margin="2"
+          Width="120"
+          Command="{Binding OpenEntriesEditorCommand}"
+        >Edit entries</cc:ImpButton>
+        
+        <cc:ImpButton
+          Style="{StaticResource HelpButton}"
+          Margin="2"
+          Width="120"
+          Command="{Binding OpenReactionsEditorCommand}"
+        >Edit reactions</cc:ImpButton>
+      </WrapPanel>
+    </GroupBox>
+
   </Grid>
 </UserControl>
