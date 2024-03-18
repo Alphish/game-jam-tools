@@ -40,6 +40,10 @@ namespace Alphicsh.JamTally.ViewModel.Vote
                 );
             ReviewedEntries = CollectionViewModel.CreateMutable(model.ReviewedEntries, JamVoteEntryViewModel.CollectionStub);
 
+            Reactions = Model.Reactions
+                .Select(reaction => new JamVoteReactionViewModel(reaction, Model.AggregateReactions.Contains(reaction)))
+                .ToList();
+
             AutoFillAuthoredEntriesCommand = SimpleCommand.From(AutoFillAuthoredEntries);
             OpenEntriesEditorCommand = SimpleCommand.From(OpenEntriesEditor);
 
@@ -85,6 +89,13 @@ namespace Alphicsh.JamTally.ViewModel.Vote
         public string DirectCountString { get => DirectCountStringProperty.Value; set => DirectCountStringProperty.Value = value; }
 
         public CollectionViewModel<JamEntry, JamVoteEntryViewModel> ReviewedEntries { get; }
+
+        // ---------
+        // Reactions
+        // ---------
+
+        public string ReactionsHeader => $"Reaction score: {Model.GetReactionScore()}";
+        public IReadOnlyCollection<JamVoteReactionViewModel> Reactions { get; }
 
         // ----------
         // Management
