@@ -33,6 +33,13 @@ namespace Alphicsh.JamTally.ViewModel.Vote
                 .Select(criterion => new JamVoteAwardSelectionViewModel(Model, criterion))
                 .ToList();
 
+            DirectCountStringProperty = WrapperProperty.Create(
+                this, nameof(DirectCountString),
+                vm => vm.Model.HasDirectReviewsCount ? vm.Model.DirectReviewsCount!.Value.ToString() : string.Empty,
+                (vm, value) => vm.Model.SetReviewsCountByString(value)
+                );
+            ReviewedEntries = CollectionViewModel.CreateMutable(model.ReviewedEntries, JamVoteEntryViewModel.CollectionStub);
+
             AutoFillAuthoredEntriesCommand = SimpleCommand.From(AutoFillAuthoredEntries);
             OpenEntriesEditorCommand = SimpleCommand.From(OpenEntriesEditor);
 
@@ -69,6 +76,15 @@ namespace Alphicsh.JamTally.ViewModel.Vote
         // ------
 
         public IReadOnlyCollection<JamVoteAwardSelectionViewModel> AwardSelections { get; }
+
+        // -------
+        // Reviews
+        // -------
+
+        public WrapperProperty<JamVoteViewModel, string> DirectCountStringProperty { get; }
+        public string DirectCountString { get => DirectCountStringProperty.Value; set => DirectCountStringProperty.Value = value; }
+
+        public CollectionViewModel<JamEntry, JamVoteEntryViewModel> ReviewedEntries { get; }
 
         // ----------
         // Management

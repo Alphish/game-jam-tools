@@ -53,8 +53,16 @@ namespace Alphicsh.JamTally.Model.Vote
 
         public int? DirectReviewsCount { get; internal set; }
         public bool HasDirectReviewsCount => DirectReviewsCount.HasValue && DirectReviewsCount > 0;
-        public IReadOnlyCollection<JamEntry> ReviewedEntries { get; internal set; } = new List<JamEntry>();
+        public IList<JamEntry> ReviewedEntries { get; internal set; } = new List<JamEntry>();
         public int ReviewsCount => DirectReviewsCount ?? ReviewedEntries.Count;
+
+        public void SetReviewsCountByString(string countString)
+        {
+            if (int.TryParse(countString, out var count))
+                DirectReviewsCount = count;
+            else
+                DirectReviewsCount = null;
+        }
 
         // ---------
         // Reactions
@@ -116,5 +124,11 @@ namespace Alphicsh.JamTally.Model.Vote
                 Missing.Add(entry);
         }
 
+        public void SetReviewedEntries(IEnumerable<JamEntry> entries)
+        {
+            ReviewedEntries.Clear();
+            foreach (var entry in entries)
+                ReviewedEntries.Add(entry);
+        }
     }
 }

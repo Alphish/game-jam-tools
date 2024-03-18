@@ -92,6 +92,9 @@ namespace Alphicsh.JamTally.ViewModel.Vote.Modals
             foreach (var awardSelection in EditedVote.AwardSelections)
                 awardSelection.RaisePropertyChanged(nameof(awardSelection.SelectedEntry));
 
+            EditedVote.RaisePropertyChanged(nameof(EditedVote.DirectCountString));
+            EditedVote.ReviewedEntries.SynchronizeWithModels();
+
             Window.Close();
         }
 

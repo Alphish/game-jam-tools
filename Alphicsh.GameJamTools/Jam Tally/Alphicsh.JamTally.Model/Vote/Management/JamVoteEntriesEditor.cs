@@ -122,7 +122,9 @@ namespace Alphicsh.JamTally.Model.Vote.Management
 
             AuthoredEntries = ReadEntries(AuthoredText, unordered: true);
             RankingEntries = ReadEntries(RankingText, unordered: false);
-            UnjudgedEntries = ReadEntries(UnjudgedText, unordered: true);
+            UnjudgedEntries = ReadEntries(UnjudgedText, unordered: true).Except(AuthoredEntries).ToList();
+            EnsureNoDuplicateEntries();
+
             Awards = ReadAwards(AwardsText);
 
             ProcessReviewed(ReviewedText);
@@ -153,6 +155,14 @@ namespace Alphicsh.JamTally.Model.Vote.Management
                 if (entry == null)
                     continue;
 
+                if (result.Contains(entry))
+                {
+                    if (!unordered)
+                        WriteError<JamEntry>($"Duplicate ranking entry for '{line}'.");
+
+                    continue;
+                }
+
                 result.Add(entry);
             }
 
@@ -169,6 +179,21 @@ namespace Alphicsh.JamTally.Model.Vote.Management
                 return WriteError<JamEntry>($"Could not resolve entry for '{line}'.");
 
             return entry;
+        }
+
+        private void EnsureNoDuplicateEntries()
+        {
+            var joinedEntries = AuthoredEntries.Concat(RankingEntries).Concat(UnjudgedEntries);
+            var duplicateEntries = joinedEntries
+                .GroupBy(entry => entry)
+                .Where(group => group.Count() > 1)
+                .Select(group => group.Key)
+                .ToList();
+
+            foreach (var entry in duplicateEntries)
+            {
+                WriteError<JamEntry>($"Duplicate entry found between ranking/authored/unranked: '{entry.FullLine}'.");
+            }
         }
 
         // Awards
@@ -245,7 +270,7 @@ namespace Alphicsh.JamTally.Model.Vote.Management
             }
 
             DirectReviewsCount = directCount;
-            ReviewedEntries = entries.OrderBy(entry => entry.FullLine).ToList();
+            ReviewedEntries = entries.Distinct().OrderBy(entry => entry.FullLine).ToList();
         }
 
         private int? TryParseDirectCount(string line)
@@ -303,7 +328,7 @@ namespace Alphicsh.JamTally.Model.Vote.Management
             Vote.UpdateRankableEntries(Jam.Entries, AuthoredEntries, RankingEntries, UnjudgedEntries);
             Vote.Awards = Awards;
             Vote.DirectReviewsCount = DirectReviewsCount;
-            Vote.ReviewedEntries = ReviewedEntries;
+            Vote.SetReviewedEntries(ReviewedEntries);
         }
     }
 }
