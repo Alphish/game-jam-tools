@@ -10,6 +10,7 @@ namespace Alphicsh.JamTally.ViewModel.Jam
         public JamOverviewViewModel(JamOverview model) : base(model)
         {
             AvailableAlignments = MakeAvailableAlignments();
+            AvailableEntries = MakeAvailableEntries();
         }
 
         // ----------
@@ -29,6 +30,22 @@ namespace Alphicsh.JamTally.ViewModel.Jam
                 .ToList();
 
             result.Insert(0, new JamAlignmentOptionViewModel(option: null, Model.Alignments.NeitherTitle));
+            return result;
+        }
+
+        // -------
+        // Entries
+        // -------
+
+        public IReadOnlyCollection<JamEntryOptionViewModel> AvailableEntries { get; }
+        private IReadOnlyCollection<JamEntryOptionViewModel> MakeAvailableEntries()
+        {
+            var result = Model.Entries
+                .OrderBy(entry => entry.FullLine)
+                .Select(entry => new JamEntryOptionViewModel(entry, entry.FullLine))
+                .ToList();
+
+            result.Insert(0, new JamEntryOptionViewModel(entry: null, "<no entry selected>"));
             return result;
         }
     }

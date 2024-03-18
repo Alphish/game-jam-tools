@@ -30,6 +30,10 @@ namespace Alphicsh.JamTally.ViewModel.Vote
 
             AutoFillAuthoredEntriesCommand = SimpleCommand.From(AutoFillAuthoredEntries);
 
+            AwardSelections = JamTallyViewModel.Current.Jam!.Model.AwardCriteria
+                .Select(criterion => new JamVoteAwardSelectionViewModel(Model, criterion))
+                .ToList();
+
             ContentProperty = WrapperProperty.ForMember(this, vm => vm.Model.Content);
             ProcessContentCommand = SimpleCommand.From(ProcessContent);
 
@@ -55,9 +59,9 @@ namespace Alphicsh.JamTally.ViewModel.Vote
         public IReadOnlyCollection<JamAlignmentOptionViewModel> AvailableAlignments
             => JamTallyViewModel.Current.Jam!.AvailableAlignments;
 
-        // -----------
-        // Collections
-        // -----------
+        // -------
+        // Entries
+        // -------
 
         public CollectionViewModel<JamEntry, JamVoteEntryViewModel> AuthoredEntries { get; }
         public CollectionViewModel<JamEntry, JamVoteEntryViewModel> RankingEntries { get; }
@@ -67,6 +71,12 @@ namespace Alphicsh.JamTally.ViewModel.Vote
         public ICommand AutoFillAuthoredEntriesCommand { get; }
         private void AutoFillAuthoredEntries()
             => JamTallyViewModel.Current.VoteManager.AutoFillVoteAuthoredEntries(this);
+
+        // ------
+        // Awards
+        // ------
+
+        public IReadOnlyCollection<JamVoteAwardSelectionViewModel> AwardSelections { get; }
 
         // ----------------
         // Content handling

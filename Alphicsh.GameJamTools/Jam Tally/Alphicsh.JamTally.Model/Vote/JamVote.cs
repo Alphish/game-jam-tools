@@ -54,8 +54,17 @@ namespace Alphicsh.JamTally.Model.Vote
         // ------
 
         public IReadOnlyCollection<JamVoteAward> Awards { get; internal set; } = new List<JamVoteAward>();
-        public JamEntry? FindEntryForAward(JamAwardCriterion award)
-            => Awards.FirstOrDefault(voteAward => voteAward.Criterion == award)?.Entry;
+        public JamEntry? GetEntryForAward(JamAwardCriterion criterion)
+            => Awards.FirstOrDefault(voteAward => voteAward.Criterion == criterion)?.Entry;
+
+        public void SetEntryForAward(JamAwardCriterion criterion, JamEntry? entry)
+        {
+            var newAwards = Awards.Where(award => award.Criterion != criterion).ToList();
+            if (entry != null)
+                newAwards.Add(new JamVoteAward { Criterion = criterion, Entry = entry });
+
+            Awards = newAwards;
+        }
 
         // -------
         // Reviews
