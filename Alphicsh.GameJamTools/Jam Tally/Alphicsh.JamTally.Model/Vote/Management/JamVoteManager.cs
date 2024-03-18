@@ -8,6 +8,7 @@ namespace Alphicsh.JamTally.Model.Vote.Management
         {
             var authored = jam.Search!.FindEntriesBy(vote.Voter);
             vote.SetAuthored(authored);
+            vote.RecalculateMissingEntries(jam.Entries);
         }
     }
 }

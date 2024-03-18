@@ -34,8 +34,19 @@ namespace Alphicsh.JamTally.Model.Vote
                 Authored.Add(entry);
                 Ranking.Remove(entry);
                 Unjudged.Remove(entry);
-                Missing.Remove(entry);
             }
+        }
+
+        internal void RecalculateMissingEntries(IEnumerable<JamEntry> allEntries)
+        {
+            Missing.Clear();
+            var missingEntries = allEntries
+                .Except(Authored).Except(Ranking).Except(Unjudged)
+                .OrderBy(entry => entry.FullLine)
+                .ToList();
+
+            foreach (var entry in missingEntries)
+                Missing.Add(entry);
         }
 
         // ------
