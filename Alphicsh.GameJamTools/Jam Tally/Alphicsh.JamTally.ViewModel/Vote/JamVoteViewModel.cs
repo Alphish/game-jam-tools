@@ -17,10 +17,18 @@ namespace Alphicsh.JamTally.ViewModel.Vote
 
         public JamVoteViewModel(JamVote model) : base(model)
         {
+            VoterProperty = WrapperProperty
+                .Create(this, nameof(Voter), vm => vm.Model.Voter, (vm, value) => vm.Model.Voter = value)
+                .WithDependingProperty(nameof(DisplayVoter));
+            AlignmentProperty = WrapperProperty
+                .Create(this, nameof(Alignment), vm => vm.Model.Alignment, (vm, value) => vm.Model.Alignment = value);
+
             AuthoredEntries = CollectionViewModel.CreateMutable(model.Authored, JamVoteEntryViewModel.CollectionStub);
             RankingEntries = CollectionViewModel.CreateMutable(model.Ranking, JamVoteEntryViewModel.CollectionStub);
             UnjudgedEntries = CollectionViewModel.CreateMutable(model.Unjudged, JamVoteEntryViewModel.CollectionStub);
             UnrankedEntries = CollectionViewModel.CreateMutable(model.Missing, JamVoteEntryViewModel.CollectionStub);
+
+            AutoFillAuthoredEntriesCommand = SimpleCommand.From(AutoFillAuthoredEntries);
 
             ContentProperty = WrapperProperty.ForMember(this, vm => vm.Model.Content);
             ProcessContentCommand = SimpleCommand.From(ProcessContent);
@@ -34,6 +42,19 @@ namespace Alphicsh.JamTally.ViewModel.Vote
             ReactionScore = "Reaction score: " + Model.GetReactionScore();
         }
 
+        // -----
+        // Voter
+        // -----
+
+        public WrapperProperty<JamVoteViewModel, string> VoterProperty { get; }
+        public string Voter { get => VoterProperty.Value; set => VoterProperty.Value = value; }
+        public string DisplayVoter => !string.IsNullOrEmpty(Model.Voter) ? Model.Voter : "<unknown voter>";
+
+        public WrapperProperty<JamVoteViewModel, JamAlignmentOption?> AlignmentProperty { get; }
+        public JamAlignmentOption? Alignment { get => AlignmentProperty.Value; set => AlignmentProperty.Value = value; }
+        public IReadOnlyCollection<JamAlignmentOptionViewModel> AvailableAlignments
+            => JamTallyViewModel.Current.Jam!.AvailableAlignments;
+
         // -----------
         // Collections
         // -----------
@@ -42,6 +63,10 @@ namespace Alphicsh.JamTally.ViewModel.Vote
         public CollectionViewModel<JamEntry, JamVoteEntryViewModel> RankingEntries { get; }
         public CollectionViewModel<JamEntry, JamVoteEntryViewModel> UnjudgedEntries { get; }
         public CollectionViewModel<JamEntry, JamVoteEntryViewModel> UnrankedEntries { get; }
+
+        public ICommand AutoFillAuthoredEntriesCommand { get; }
+        private void AutoFillAuthoredEntries()
+            => JamTallyViewModel.Current.VoteManager.AutoFillVoteAuthoredEntries(this);
 
         // ----------------
         // Content handling
@@ -64,7 +89,6 @@ namespace Alphicsh.JamTally.ViewModel.Vote
 
         public bool HasError { get; set; }
         public string Message { get; set; }
-        public string Voter => Model.Voter ?? "<unknown voter>";
 
         public IReadOnlyCollection<string> AwardLines { get; set; }
         public IReadOnlyCollection<string> EntryLines { get; set; }
