@@ -28,7 +28,7 @@ namespace Alphicsh.JamTally.Model.Result.Spreadsheets.Votes
             }
 
             Cursor.MoveTo(Left, Sheet.AwardsFirstRow);
-            var awardsMap = Vote.Awards.ToDictionary(award => award.Award, award => award.Entry);
+            var awardsMap = Vote.Awards.ToDictionary(award => award.Criterion, award => award.Entry);
             foreach (var award in Sheet.TallyResult.Awards)
             {
                 var entry = awardsMap.TryGetValue(award, out var foundEntry) ? foundEntry : null;

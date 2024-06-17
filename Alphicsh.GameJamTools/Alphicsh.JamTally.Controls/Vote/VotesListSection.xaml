@@ -16,16 +16,16 @@
         <cc:ImpButton
           Style="{StaticResource PrimaryButton}"
           Margin="2"
-          Width="96"
+          Width="64"
           Command="{Binding AddVoteCommand}"
-        >New vote</cc:ImpButton>
+        >Add</cc:ImpButton>
         
         <cc:ImpButton
           Style="{StaticResource PrimaryButton}"
           Margin="2"
-          Width="96"
+          Width="64"
           Command="{Binding SaveVotesCommand}"
-        >Save votes</cc:ImpButton>
+        >Save</cc:ImpButton>
       </WrapPanel>
 
       <Separator DockPanel.Dock="Top"/>
@@ -40,6 +40,7 @@
       <Separator DockPanel.Dock="Bottom"/>
 
       <local:VotesListBox
+        VoteCollection="{Binding}"
         ItemsSource="{Binding Votes}"
         SelectedItem="{Binding SelectedVote}"
         HorizontalContentAlignment="Stretch"

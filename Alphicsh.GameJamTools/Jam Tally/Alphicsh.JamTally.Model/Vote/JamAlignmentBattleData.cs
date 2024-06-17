@@ -6,6 +6,6 @@ namespace Alphicsh.JamTally.Model.Vote
     public class JamAlignmentBattleData
     {
         public JamAlignmentOption? ThemeGuessed { get; init; }
-        public IReadOnlyCollection<JamEntry> Duplicates { get; init; }
+        public IReadOnlyCollection<JamEntry> Duplicates { get; init; } = default!;
     }
 }

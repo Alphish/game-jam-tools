@@ -29,6 +29,7 @@
     <Setter Property="local:TextBoxTheming.ShadowBrush" Value="{DynamicResource TextBoxShadowBrush}"/>
 
     <Setter Property="FontSize" Value="13"/>
+    <Setter Property="FontFamily" Value="Segoe UI"/>
     <Setter Property="Foreground" Value="{DynamicResource BasicText}"/>
     <Setter Property="PlaceholderForeground" Value="{DynamicResource ExtraDimText}"/>
 

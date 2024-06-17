@@ -16,6 +16,8 @@ namespace Alphicsh.JamTally.ViewModel
         public JamTallyViewModel(JamTallyModel model) : base(model)
         {
             OpenJamDirectoryCommand = SimpleCommand.From(OpenJamDirectory);
+
+            VoteManager = new JamVoteManagerViewModel(model.VoteManager);
         }
 
         public bool HasJam => Model.HasJam;
@@ -23,6 +25,8 @@ namespace Alphicsh.JamTally.ViewModel
 
         public JamOverviewViewModel? Jam { get; private set; }
         public JamVoteCollectionViewModel? VotesCollection { get; private set; }
+
+        public JamVoteManagerViewModel VoteManager { get; }
 
         // -------
         // Loading

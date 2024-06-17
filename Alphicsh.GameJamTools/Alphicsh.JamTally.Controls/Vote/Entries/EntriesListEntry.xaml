@@ -1,0 +1,25 @@
+﻿<UserControl
+  x:Class="Alphicsh.JamTally.Controls.Vote.Entries.EntriesListEntry"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Alphicsh.JamTally.Controls.Vote.Entries"
+  mc:Ignorable="d" d:DesignWidth="400"
+>
+  <Border>
+    <TextBlock FontSize="15" Foreground="{StaticResource BasicText}">
+      <Run
+        Foreground="{StaticResource HighlightText}"
+        FontWeight="Bold"
+        Text="{Binding Title, Mode=OneWay}"
+        d:Text="Best Entry"
+      />
+      by
+      <Run
+        Text="{Binding Team, Mode=OneWay}"
+        d:Text="Best Team"
+      />
+    </TextBlock>
+  </Border>
+</UserControl>

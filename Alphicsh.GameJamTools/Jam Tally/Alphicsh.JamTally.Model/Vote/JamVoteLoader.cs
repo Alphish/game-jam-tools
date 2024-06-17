@@ -1,8 +1,9 @@
 ﻿using Alphicsh.JamTools.Common.IO;
 using System.Collections.Generic;
 using System.IO;
-using System;
-using System.Linq;
+using Alphicsh.JamTally.Model.Vote.Search;
+using Alphicsh.JamTally.Model.Vote.Serialization.Parsing;
+using Alphicsh.JamTally.Model.Vote.Serialization.Formatting;
 
 namespace Alphicsh.JamTally.Model.Vote
 {
@@ -23,8 +24,22 @@ namespace Alphicsh.JamTally.Model.Vote
                 return new List<JamVote>();
 
             var content = File.ReadAllText(votesPath.Value);
-            var voteContents = content.Split("### VOTE ###", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-            var votes = voteContents.Select(content => new JamVote(content)).ToList();
+
+            var jam = JamTallyModel.Current.Jam!;
+            var jamSearch = new JamSearch(jam);
+            var votesParser = new JamVotesFileParser(jam, jamSearch);
+            
+            var votes = votesParser.ParseVotes(content);
+            var contentBuilder = new JamVoteContentBuilder(jam);
+            var contentFormatter = new JamVoteContentFormatter();
+            foreach (var vote in votes)
+            {
+                var voteContent = contentBuilder.BuildVoteContent(vote);
+                var voteString = contentFormatter.Format(voteContent);
+
+                vote.Content = voteString;
+            }
+
             return votes;
         }
 

@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using Alphicsh.JamTally.Model.Jam;
 using Alphicsh.JamTally.Model.Vote;
+using Alphicsh.JamTally.ViewModel.Jam;
+using Alphicsh.JamTally.ViewModel.Vote.Modals;
+using Alphicsh.JamTally.ViewModel.Vote.Reactions;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
@@ -15,91 +19,103 @@ namespace Alphicsh.JamTally.ViewModel.Vote
 
         public JamVoteViewModel(JamVote model) : base(model)
         {
-            ContentProperty = WrapperProperty.ForMember(this, vm => vm.Model.Content);
-            ProcessContentCommand = SimpleCommand.From(ProcessContent);
+            VoterProperty = WrapperProperty
+                .Create(this, nameof(Voter), vm => vm.Model.Voter, (vm, value) => vm.Model.Voter = value)
+                .WithDependingProperty(nameof(DisplayVoter));
+            AlignmentProperty = WrapperProperty
+                .Create(this, nameof(Alignment), vm => vm.Model.Alignment, (vm, value) => vm.Model.Alignment = value);
 
-            HasError = !string.IsNullOrEmpty(Model.Error);
-            Message = Model.Error ?? "Processing successful!";
+            AuthoredEntries = CollectionViewModel.CreateMutable(model.Authored, JamVoteEntryViewModel.CollectionStub);
+            RankingEntries = CollectionViewModel.CreateMutable(model.Ranking, JamVoteEntryViewModel.CollectionStub);
+            UnjudgedEntries = CollectionViewModel.CreateMutable(model.Unjudged, JamVoteEntryViewModel.CollectionStub);
+            UnrankedEntries = CollectionViewModel.CreateMutable(model.Missing, JamVoteEntryViewModel.CollectionStub);
 
-            AwardLines = Model.Awards.Select(award => $"{award.Award.Name}: {award.Entry.Line}").ToList();
-            EntryLines = CalculateEntryLines();
-            ReactionLines = Model.Reactions.Select(reaction => $"+{reaction.Value} {reaction.Name}").ToList();
-            ReactionScore = "Reaction score: " + Model.GetReactionScore();
+            AwardSelections = JamTallyViewModel.Current.Jam!.Model.AwardCriteria
+                .Select(criterion => new JamVoteAwardSelectionViewModel(Model, criterion))
+                .ToList();
+
+            DirectCountStringProperty = WrapperProperty.Create(
+                this, nameof(DirectCountString),
+                vm => vm.Model.HasDirectReviewsCount ? vm.Model.DirectReviewsCount!.Value.ToString() : string.Empty,
+                (vm, value) => vm.Model.SetReviewsCountByString(value)
+                );
+            ReviewedEntries = CollectionViewModel.CreateMutable(model.ReviewedEntries, JamVoteEntryViewModel.CollectionStub);
+
+            Reactions = CalculateReactions();
+
+            AutoFillAuthoredEntriesCommand = SimpleCommand.From(AutoFillAuthoredEntries);
+            OpenEntriesEditorCommand = SimpleCommand.From(OpenEntriesEditor);
+            OpenReactionsEditorCommand = SimpleCommand.From(OpenReactionsEditor);
         }
 
-        // ----------------
-        // Content handling
-        // ----------------
+        // -----
+        // Voter
+        // -----
 
-        public WrapperProperty<JamVoteViewModel, string> ContentProperty { get; }
-        public string Content { get => ContentProperty.Value; set => ContentProperty.Value = value; }
+        public WrapperProperty<JamVoteViewModel, string> VoterProperty { get; }
+        public string Voter { get => VoterProperty.Value; set => VoterProperty.Value = value; }
+        public string DisplayVoter => !string.IsNullOrEmpty(Model.Voter) ? Model.Voter : "<unknown voter>";
 
-        public ICommand ProcessContentCommand { get; }
-        private void ProcessContent()
-        {
-            Model.ProcessContent();
-            ReloadVote();
-            RaisePropertyChanged(nameof(Content));
-        }
+        public WrapperProperty<JamVoteViewModel, JamAlignmentOption?> AlignmentProperty { get; }
+        public JamAlignmentOption? Alignment { get => AlignmentProperty.Value; set => AlignmentProperty.Value = value; }
+        public IReadOnlyCollection<JamAlignmentOptionViewModel> AvailableAlignments
+            => JamTallyViewModel.Current.Jam!.AvailableAlignments;
+
+        // -------
+        // Entries
+        // -------
+
+        public CollectionViewModel<JamEntry, JamVoteEntryViewModel> AuthoredEntries { get; }
+        public CollectionViewModel<JamEntry, JamVoteEntryViewModel> RankingEntries { get; }
+        public CollectionViewModel<JamEntry, JamVoteEntryViewModel> UnjudgedEntries { get; }
+        public CollectionViewModel<JamEntry, JamVoteEntryViewModel> UnrankedEntries { get; }
+
+        // ------
+        // Awards
+        // ------
+
+        public IReadOnlyCollection<JamVoteAwardSelectionViewModel> AwardSelections { get; }
+
+        // -------
+        // Reviews
+        // -------
+
+        public WrapperProperty<JamVoteViewModel, string> DirectCountStringProperty { get; }
+        public string DirectCountString { get => DirectCountStringProperty.Value; set => DirectCountStringProperty.Value = value; }
+
+        public CollectionViewModel<JamEntry, JamVoteEntryViewModel> ReviewedEntries { get; }
 
         // ---------
-        // Vote data
+        // Reactions
         // ---------
 
-        public bool HasError { get; set; }
-        public string Message { get; set; }
-        public string Voter => Model.Voter ?? "<unknown voter>";
+        public string ReactionsHeader => $"Reaction score: {Model.GetReactionScore()}";
+        public IReadOnlyCollection<JamVoteReactionViewModel> Reactions { get; set; }
 
-        public IReadOnlyCollection<string> AwardLines { get; set; }
-        public IReadOnlyCollection<string> EntryLines { get; set; }
-        public IReadOnlyCollection<string> ReactionLines { get; set; }
-        public string ReactionScore { get; set; }
-
-        private void ReloadVote()
+        public IReadOnlyCollection<JamVoteReactionViewModel> CalculateReactions()
         {
-            HasError = !string.IsNullOrEmpty(Model.Error);
-            Message = Model.Error ?? "Processing successful!";
-            RaisePropertyChanged(nameof(HasError), nameof(Message), nameof(Voter));
-
-            AwardLines = Model.Awards.Select(award => $"{award.Award.Name}: {award.Entry.Line}").ToList();
-            RaisePropertyChanged(nameof(AwardLines));
-
-            EntryLines = CalculateEntryLines();
-            RaisePropertyChanged(nameof(EntryLines));
-
-            ReactionLines = Model.Reactions.Select(reaction => $"+{reaction.Value} {reaction.Name}").ToList();
-            ReactionScore = "Reaction score: " + Model.GetReactionScore();
-            RaisePropertyChanged(nameof(ReactionLines), nameof(ReactionScore));
+            return Model.Reactions
+                .Select(reaction => new JamVoteReactionViewModel(reaction, Model.AggregateReactions.Contains(reaction)))
+                .OrderBy(reaction => reaction.User)
+                .ThenByDescending(reaction => reaction.IsCounted ? 1 : 0)
+                .ThenByDescending(reaction => reaction.Value)
+                .ToList();
         }
 
-        private IReadOnlyCollection<string> CalculateEntryLines()
-        {
-            var lines = new List<string>();
-            foreach (var entry in Model.Ranking)
-            {
-                lines.Add(entry.Line);
-            }
+        // ----------
+        // Management
+        // ----------
 
-            if (Model.Unjudged.Count > 0)
-            {
-                lines.Add("");
-                lines.Add("Unjudged entries:");
-                foreach (var entry in Model.Unjudged)
-                {
-                    lines.Add(entry.Line);
-                }
-            }
+        public ICommand AutoFillAuthoredEntriesCommand { get; }
+        private void AutoFillAuthoredEntries()
+            => JamTallyViewModel.Current.VoteManager.AutoFillVoteAuthoredEntries(this);
 
-            if (Model.Missing.Count > 0)
-            {
-                lines.Add("");
-                lines.Add("Missing entries:");
-                foreach (var entry in Model.Missing)
-                {
-                    lines.Add(entry.Line);
-                }
-            }
-            return lines;
-        }
+        public ICommand OpenEntriesEditorCommand { get; }
+        private void OpenEntriesEditor()
+            => VoteEntriesEditorViewModel.ShowModal(this);
+
+        public ICommand OpenReactionsEditorCommand { get; }
+        private void OpenReactionsEditor()
+            => VoteReactionsEditorViewModel.ShowModal(this);
     }
 }

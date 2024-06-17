@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Alphicsh.JamTally.Controls.Vote
 {
     /// <summary>
-    /// Interaction logic for VoteContentSection.xaml
+    /// Interaction logic for JamVotePanel.xaml
     /// </summary>
-    public partial class VoteContentSection : UserControl
+    public partial class JamVotePanel : UserControl
     {
-        public VoteContentSection()
+        public JamVotePanel()
         {
             InitializeComponent();
         }

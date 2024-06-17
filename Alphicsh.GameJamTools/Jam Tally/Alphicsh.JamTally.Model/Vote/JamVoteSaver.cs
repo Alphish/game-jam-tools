@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using System.Linq;
+using Alphicsh.JamTally.Model.Vote.Serialization.Formatting;
 using Alphicsh.JamTools.Common.IO;
 
 namespace Alphicsh.JamTally.Model.Vote
@@ -12,9 +12,11 @@ namespace Alphicsh.JamTally.Model.Vote
             if (!subdirectoryPath.HasDirectory())
                 Directory.CreateDirectory(subdirectoryPath.Value);
 
+            var jam = JamTallyModel.Current.Jam!;
+            var contentFileFormatter = new JamVotesFileFormatter(jam);
+            var content = contentFileFormatter.FormatVotes(votesCollection.Votes);
+
             var votesPath = subdirectoryPath.Append("votes.jamvotes");
-            var voteContent = votesCollection.Votes.Select(vote => vote.Content);
-            var content = "### VOTE ###\n" + string.Join("\n### VOTE ###\n", voteContent);
             File.WriteAllText(votesPath.Value, content);
         }
     }

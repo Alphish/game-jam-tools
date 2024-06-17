@@ -26,12 +26,14 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
         {
             var entriesPath = directoryPath.Append(jamInfo.EntriesSubpath);
             var alignments = MapAlignments(jamInfo.Alignments);
-            return new JamOverview
+            var jam = new JamOverview
             {
                 AwardCriteria = jamInfo.AwardCriteria.Select(MapAwardCriterion).ToList(),
                 Alignments = alignments,
                 Entries = MapEntries(entriesPath, jamInfo.Entries, alignments),
             };
+            jam.Search = new Vote.Search.JamSearch(jam);
+            return jam;
         }
 
         private JamAwardCriterion MapAwardCriterion(JamAwardInfo awardInfo)
