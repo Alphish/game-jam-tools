@@ -80,7 +80,13 @@ namespace Alphicsh.JamPlayer.Model.Feedback.Storage
                 .Select(award => new FeedbackAwardNominationInfo { AwardId = award.Criterion.Id, EntryId = award.JamEntry!.Id })
                 .ToList();
 
-            return new FeedbackAwardsInfo { Nominations = nominations };
+            var reviewer = !string.IsNullOrWhiteSpace(awards.BestReviewer) ? awards.BestReviewer : null;
+
+            return new FeedbackAwardsInfo
+            {
+                Nominations = nominations,
+                BestReviewer = reviewer
+            };
         }
     }
 }

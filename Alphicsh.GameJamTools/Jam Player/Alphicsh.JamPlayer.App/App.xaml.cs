@@ -37,7 +37,8 @@ namespace Alphicsh.JamPlayer.App
 
             var window = new MainWindow
             {
-                DataContext = ViewModel
+                DataContext = ViewModel,
+                WindowState = WindowState.Maximized,
             };
             window.Show();
         }

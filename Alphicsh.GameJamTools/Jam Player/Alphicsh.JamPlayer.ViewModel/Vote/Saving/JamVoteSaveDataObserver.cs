@@ -48,7 +48,8 @@ namespace Alphicsh.JamPlayer.ViewModel.Vote.Saving
         private IObserverNode ObserveAwards(AwardsOverviewViewModel viewModel)
         {
             return CreateViewModelObserver()
-                .ObservingViewModelsIn(viewModel.Entries, ObserveAwardEntry);
+                .ObservingViewModelsIn(viewModel.Entries, ObserveAwardEntry)
+                .ObservingProperty(viewModel.BestReviewerProperty);
         }
 
         private IObserverNode ObserveAwardEntry(AwardEntryViewModel viewModel)
