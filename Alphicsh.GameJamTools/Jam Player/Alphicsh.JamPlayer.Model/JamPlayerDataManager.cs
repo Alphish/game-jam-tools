@@ -1,8 +1,6 @@
-﻿using System.IO;
-using Alphicsh.JamPlayer.IO.Export;
-using Alphicsh.JamPlayer.IO.Ranking;
+﻿using Alphicsh.JamPlayer.IO.Export;
 using Alphicsh.JamPlayer.Model.Export;
-using Alphicsh.JamPlayer.Model.Ranking;
+using Alphicsh.JamPlayer.Model.Feedback.Storage;
 using Alphicsh.JamTools.Common.IO;
 
 namespace Alphicsh.JamPlayer.Model
@@ -17,12 +15,12 @@ namespace Alphicsh.JamPlayer.Model
         // --------
 
         private FilePath RankingPath => DirectoryPath.Append("ranking.jamranking");
-        private RankingInfoMapper RankingInfoMapper { get; } = new RankingInfoMapper();
+        private FeedbackSaver FeedbackSaver { get; } = new FeedbackSaver();
 
-        public void SaveRanking()
+        public async void SaveRanking()
         {
-            var rankingInfo = RankingInfoMapper.MapRankingToInfo(AppModel.Ranking, AppModel.Awards);
-            rankingInfo.SaveTo(RankingPath);
+            var batch = await FeedbackSaver.PrepareFileBatchAsync(AppModel.Feedback);
+            await FeedbackSaver.SaveFileBatch(batch, batch);
         }
 
         // --------------
