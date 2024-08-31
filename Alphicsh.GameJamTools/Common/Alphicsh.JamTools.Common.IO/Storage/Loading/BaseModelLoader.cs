@@ -10,18 +10,18 @@ namespace Alphicsh.JamTools.Common.IO.Storage.Loading
         private static FileDataManager FileDataManager { get; } = new FileDataManager();
 
         private IModelInfoReader<TInfo, TCore> InfoReader { get; }
-        private IMapper<TInfo, TModel> InfoMapper { get; }
-        private bool RecoverBeforeLoading { get; }
+        private IMapper<TInfo, TModel> InfoMapper { get; set; }
+        private bool FixBeforeLoading { get; }
 
         public BaseModelLoader(
             IModelInfoReader<TInfo, TCore> infoReader,
             IMapper<TInfo, TModel> infoMapper,
-            bool recoverBeforeLoading
+            bool fixBeforeLoading
             )
         {
             InfoReader = infoReader;
             InfoMapper = infoMapper;
-            RecoverBeforeLoading = recoverBeforeLoading;
+            FixBeforeLoading = fixBeforeLoading;
         }
 
         public async Task<TModel?> LoadFrom(FilePath location)
@@ -38,6 +38,11 @@ namespace Alphicsh.JamTools.Common.IO.Storage.Loading
             var corePath = InfoReader.LocateCore(location);
             if (corePath == null)
                 return null;
+
+            if (FixBeforeLoading)
+            {
+                await FileDataManager.FixWriteData(corePath.Value);
+            }
 
             var coreFile = await FileDataManager.LoadFile(corePath.Value);
             if (coreFile == null)
