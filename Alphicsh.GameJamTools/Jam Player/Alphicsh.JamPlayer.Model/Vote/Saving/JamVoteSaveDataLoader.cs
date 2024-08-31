@@ -1,4 +1,4 @@
-﻿using Alphicsh.JamPlayer.IO.Ranking;
+﻿using Alphicsh.JamPlayer.IO.Feedback;
 using Alphicsh.JamTools.Common.IO.Saving;
 
 namespace Alphicsh.JamPlayer.Model.Vote.Saving
@@ -9,7 +9,7 @@ namespace Alphicsh.JamPlayer.Model.Vote.Saving
         {
             // TODO: add actual loading logic here
             var directoryPath = AppModel.Current.PlayerDataManager.DirectoryPath;
-            return new JamVoteSaveData { DirectoryPath = directoryPath, VoteInfo = new JamRankingInfo() };
+            return new JamVoteSaveData { DirectoryPath = directoryPath, VoteInfo = new FeedbackInfo() };
         }
     }
 }
