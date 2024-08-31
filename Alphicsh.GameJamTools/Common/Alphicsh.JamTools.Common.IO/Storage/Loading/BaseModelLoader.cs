@@ -26,7 +26,7 @@ namespace Alphicsh.JamTools.Common.IO.Storage.Loading
 
         public async Task<TModel?> LoadFrom(FilePath location)
         {
-            var modelInfo = await LoadModelInfo(location);
+            var modelInfo = await LoadModelInfo(location) ?? InfoReader.GetFallbackInfo(location);
             if (modelInfo == null)
                 return null;
 
