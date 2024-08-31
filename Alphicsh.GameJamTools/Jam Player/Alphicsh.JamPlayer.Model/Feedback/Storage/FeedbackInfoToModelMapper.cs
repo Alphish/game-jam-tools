@@ -27,7 +27,7 @@ namespace Alphicsh.JamPlayer.Model.Feedback.Loading
             {
                 Location = info.Location,
                 Ranking = MapInfoToRanking(info),
-                Awards = MapInfoToAwards(info),
+                Awards = MapInfoToAwards(info.Awards),
             };
         }
 
@@ -66,7 +66,7 @@ namespace Alphicsh.JamPlayer.Model.Feedback.Loading
             };
         }
 
-        private RankingEntry MapInfoToEntry(JamEntry jamEntry, FeedbackEntryInfo? ratingsInfo)
+        private RankingEntry MapInfoToEntry(JamEntry jamEntry, FeedbackEntryInfo? entryFeedbackInfo)
         {
             // building the list of entries
             var ratingsById = RatingCriteria.Criteria
@@ -74,7 +74,7 @@ namespace Alphicsh.JamPlayer.Model.Feedback.Loading
                 .ToDictionary(rating => rating.Id, StringComparer.OrdinalIgnoreCase);
 
             // applying the rating values stored for the entry
-            var infoRatings = ratingsInfo?.Ratings ?? Enumerable.Empty<FeedbackRatingInfo>();
+            var infoRatings = entryFeedbackInfo?.Ratings ?? Enumerable.Empty<FeedbackRatingInfo>();
             foreach (var ratingsInfoEntry in infoRatings)
             {
                 if (!ratingsById.TryGetValue(ratingsInfoEntry.Id, out var rating))
@@ -88,8 +88,8 @@ namespace Alphicsh.JamPlayer.Model.Feedback.Loading
             {
                 JamEntry = jamEntry,
                 Ratings = ratingsById.Values.ToList(),
-                Comment = ratingsInfo?.Comment ?? string.Empty,
-                IsUnjudged = ratingsInfo?.IsUnjudged == true,
+                Comment = entryFeedbackInfo?.Comment ?? string.Empty,
+                IsUnjudged = entryFeedbackInfo?.IsUnjudged == true,
             };
         }
 
@@ -97,17 +97,18 @@ namespace Alphicsh.JamPlayer.Model.Feedback.Loading
         // Awards
         // ------
 
-        private AwardsOverview MapInfoToAwards(FeedbackInfo rankingInfo)
+        private AwardsOverview MapInfoToAwards(FeedbackAwardsInfo awardsInfo)
         {
             return new AwardsOverview
             {
-                Entries = MapAwards(rankingInfo).ToList(),
+                Entries = MapAwards(awardsInfo).ToList(),
+                BestReviewer = awardsInfo.BestReviewer,
             };
         }
 
-        private IEnumerable<AwardEntry> MapAwards(FeedbackInfo rankingInfo)
+        private IEnumerable<AwardEntry> MapAwards(FeedbackAwardsInfo awardsInfo)
         {
-            var nominationsByAwardId = rankingInfo.Awards.Nominations
+            var nominationsByAwardId = awardsInfo.Nominations
                 .ToDictionary(nomination => nomination.AwardId, StringComparer.OrdinalIgnoreCase);
 
             foreach (var criterion in Jam.AwardCriteria)
