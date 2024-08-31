@@ -1,8 +1,11 @@
 ﻿using System;
 using System.IO;
+using System.Text.Json.Serialization;
+using Alphicsh.JamTools.Common.IO.Serialization;
 
 namespace Alphicsh.JamTools.Common.IO
 {
+    [JsonConverter(typeof(FilePathJsonConverter))]
     public struct FilePath : IEquatable<FilePath>
     {
         public string Value { get; }
@@ -89,6 +92,18 @@ namespace Alphicsh.JamTools.Common.IO
         public FilePath? AppendNullable(FilePath? relativePath)
             => relativePath != null ? Append(relativePath.Value) : null;
 
+        public FilePath GetParentDirectoryPath()
+        {
+            var value = Path.GetDirectoryName(Value);
+            if (value == null)
+                throw new InvalidOperationException("Cannot get a parent directory path for a root directory.");
+
+            return FilePath.From(value);
+        }
+
+        public FilePath ReplaceFilename(string filename)
+            => GetParentDirectoryPath().Append(filename);
+
         // -------------------
         // File/directory info
         // -------------------
@@ -98,21 +113,14 @@ namespace Alphicsh.JamTools.Common.IO
 
         public bool HasFile()
             => File.Exists(Value);
+        public bool HasFileOrUpdate()
+            => File.Exists(Value) || File.Exists(Value + ".new");
         public FileInfo GetFile()
             => new FileInfo(Value);
         public bool HasDirectory()
             => Directory.Exists(Value);
         public DirectoryInfo GetDirectory()
             => new DirectoryInfo(Value);
-
-        public FilePath GetParentDirectoryPath()
-        {
-            var value = Path.GetDirectoryName(Value);
-            if (value == null)
-                throw new InvalidOperationException("Cannot get a parent directory path for a root directory.");
-
-            return FilePath.From(value);
-        }
 
         public string GetLastSegmentName()
             => Path.GetFileName(this.Value);

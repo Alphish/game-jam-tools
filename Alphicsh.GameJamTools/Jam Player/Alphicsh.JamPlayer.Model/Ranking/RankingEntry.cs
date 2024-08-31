@@ -12,8 +12,8 @@ namespace Alphicsh.JamPlayer.Model.Ranking
         public int? Rank { get; set; } = default!;
         public bool IsUnjudged { get; set; }
 
-        private IReadOnlyCollection<IRating> InnerRatings { get; init; }
-        private IReadOnlyDictionary<string, IRating> RatingsById { get; init; }
+        private IReadOnlyCollection<IRating> InnerRatings { get; init; } = default!;
+        private IReadOnlyDictionary<string, IRating> RatingsById { get; init; } = default!;
         public IReadOnlyCollection<IRating> Ratings
         {
             get => InnerRatings;
@@ -23,6 +23,8 @@ namespace Alphicsh.JamPlayer.Model.Ranking
                 RatingsById = InnerRatings.ToDictionary(rating => rating.Id);
             }
         }
+
+        public bool HasFeedback => Ratings.Any() || !string.IsNullOrEmpty(Comment) || IsUnjudged;
 
         public object? GetProperty(string propertyName)
         {

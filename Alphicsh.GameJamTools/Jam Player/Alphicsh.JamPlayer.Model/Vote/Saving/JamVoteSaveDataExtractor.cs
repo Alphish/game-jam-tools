@@ -1,4 +1,4 @@
-﻿using Alphicsh.JamPlayer.IO.Ranking;
+﻿using Alphicsh.JamPlayer.IO.Feedback;
 using Alphicsh.JamTools.Common.IO.Saving;
 
 namespace Alphicsh.JamPlayer.Model.Vote.Saving
@@ -11,7 +11,7 @@ namespace Alphicsh.JamPlayer.Model.Vote.Saving
             return new JamVoteSaveData()
             {
                 DirectoryPath = AppModel.Current.PlayerDataManager.DirectoryPath,
-                VoteInfo = new JamRankingInfo(),
+                VoteInfo = new FeedbackInfo(),
             };
         }
     }

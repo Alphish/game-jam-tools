@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using Alphicsh.JamPlayer.Model.Awards;
 using Alphicsh.JamPlayer.Model.Export;
+using Alphicsh.JamPlayer.Model.Feedback;
+using Alphicsh.JamPlayer.Model.Feedback.Loading;
 using Alphicsh.JamPlayer.Model.Jam;
 using Alphicsh.JamPlayer.Model.Jam.Loading;
 using Alphicsh.JamPlayer.Model.Ranking;
@@ -15,12 +19,17 @@ namespace Alphicsh.JamPlayer.Model
     {
         internal static AppModel Current { get; set; } = default!;
 
-        public JamOverview Jam { get; private set; }
+        private JamLoadModel JamLoadModel { get; }
+
+        public JamOverview Jam => JamLoadModel.Model!;
         public JamPlayerDataManager PlayerDataManager { get; }
 
         public RatingCriteriaOverview RatingCriteria { get; internal set; }
-        public RankingOverview Ranking { get; internal set; }
-        public AwardsOverview Awards { get; internal set; }
+
+        public FeedbackLoadModel FeedbackLoadModel { get; }
+        public JamFeedback Feedback => FeedbackLoadModel.Model!;
+        public RankingOverview Ranking => Feedback.Ranking;
+        public AwardsOverview Awards => Feedback.Awards;
 
         public Exporter Exporter { get; internal set; }
 
@@ -35,16 +44,11 @@ namespace Alphicsh.JamPlayer.Model
 
             Current = this;
 
-            Jam = new JamOverview
-            {
-                Entries = new List<JamEntry>(),
-                AwardCriteria = new List<JamAwardCriterion>()
-            };
-            PlayerDataManager = new JamPlayerDataManager { AppModel = this };
-
+            JamLoadModel = new JamLoadModel();
             RatingCriteria = CreateDefaultRatingCriteria();
-            Ranking = new RankingOverview();
-            Awards = new AwardsOverview();
+            FeedbackLoadModel = new FeedbackLoadModel(Jam, RatingCriteria);
+
+            PlayerDataManager = new JamPlayerDataManager { AppModel = this };
 
             Exporter = new Exporter(this);
         }
@@ -94,12 +98,22 @@ namespace Alphicsh.JamPlayer.Model
         // Loading Jam
         // -----------
 
-        private static JamLoader JamLoader { get; } = new JamLoader();
-
-        public void LoadJamFromFile(FilePath jamFilePath)
+        public async Task LoadJamFromFile(FilePath jamFilePath)
         {
-            Jam = JamLoader.ReadFromDirectory(jamFilePath.GetParentDirectoryPath())!;
-            PlayerDataManager.LoadRanking();
+            await JamLoadModel.LoadFrom(jamFilePath);
+
+            FeedbackLoadModel.UpdateContext(Jam, RatingCriteria);
+            await FeedbackLoadModel.LoadFrom(Jam.DirectoryPath);
+            
+            PlayerDataManager.LoadExporter();
+        }
+
+        public async void ResetUserData()
+        {
+            var userDataPath = Jam.DirectoryPath.Append(".jamplayer");
+            
+            Directory.Delete(userDataPath.Value, recursive: true);
+            await FeedbackLoadModel.LoadFrom(Jam.DirectoryPath);
             PlayerDataManager.LoadExporter();
         }
     }

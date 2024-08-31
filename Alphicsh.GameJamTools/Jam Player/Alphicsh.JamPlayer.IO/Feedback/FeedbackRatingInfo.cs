@@ -1,6 +1,6 @@
-﻿namespace Alphicsh.JamPlayer.IO.Ranking
+﻿namespace Alphicsh.JamPlayer.IO.Feedback
 {
-    public class RatingInfo
+    public class FeedbackRatingInfo
     {
         public string Id { get; init; } = default!;
         public object? Value { get; init; } = default!;
