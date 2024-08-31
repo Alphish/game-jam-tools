@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using Alphicsh.JamPlayer.Model.Awards;
 using Alphicsh.JamPlayer.Model.Export;
+using Alphicsh.JamPlayer.Model.Feedback;
+using Alphicsh.JamPlayer.Model.Feedback.Loading;
 using Alphicsh.JamPlayer.Model.Jam;
 using Alphicsh.JamPlayer.Model.Jam.Loading;
 using Alphicsh.JamPlayer.Model.Ranking;
@@ -21,8 +25,11 @@ namespace Alphicsh.JamPlayer.Model
         public JamPlayerDataManager PlayerDataManager { get; }
 
         public RatingCriteriaOverview RatingCriteria { get; internal set; }
-        public RankingOverview Ranking { get; internal set; }
-        public AwardsOverview Awards { get; internal set; }
+
+        public FeedbackLoadModel FeedbackLoadModel { get; }
+        public JamFeedback Feedback => FeedbackLoadModel.Model!;
+        public RankingOverview Ranking => Feedback.Ranking;
+        public AwardsOverview Awards => Feedback.Awards;
 
         public Exporter Exporter { get; internal set; }
 
@@ -38,12 +45,10 @@ namespace Alphicsh.JamPlayer.Model
             Current = this;
 
             JamLoadModel = new JamLoadModel();
+            RatingCriteria = CreateDefaultRatingCriteria();
+            FeedbackLoadModel = new FeedbackLoadModel(Jam, RatingCriteria);
 
             PlayerDataManager = new JamPlayerDataManager { AppModel = this };
-
-            RatingCriteria = CreateDefaultRatingCriteria();
-            Ranking = new RankingOverview();
-            Awards = new AwardsOverview();
 
             Exporter = new Exporter(this);
         }
@@ -93,10 +98,22 @@ namespace Alphicsh.JamPlayer.Model
         // Loading Jam
         // -----------
 
-        public async void LoadJamFromFile(FilePath jamFilePath)
+        public async Task LoadJamFromFile(FilePath jamFilePath)
         {
             await JamLoadModel.LoadFrom(jamFilePath);
-            PlayerDataManager.LoadRanking();
+
+            FeedbackLoadModel.UpdateContext(Jam, RatingCriteria);
+            await FeedbackLoadModel.LoadFrom(Jam.DirectoryPath);
+            
+            PlayerDataManager.LoadExporter();
+        }
+
+        public async void ResetUserData()
+        {
+            var userDataPath = Jam.DirectoryPath.Append(".jamplayer");
+            
+            Directory.Delete(userDataPath.Value, recursive: true);
+            await FeedbackLoadModel.LoadFrom(Jam.DirectoryPath);
             PlayerDataManager.LoadExporter();
         }
     }

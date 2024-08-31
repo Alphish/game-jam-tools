@@ -25,13 +25,6 @@ namespace Alphicsh.JamPlayer.Model
             rankingInfo.SaveTo(RankingPath);
         }
 
-        public void LoadRanking()
-        {
-            var rankingInfo = JamRankingInfo.LoadOrGetDefault(RankingPath);
-            AppModel.Ranking = RankingInfoMapper.MapInfoToRanking(rankingInfo, AppModel.Jam, AppModel.RatingCriteria);
-            AppModel.Awards = RankingInfoMapper.MapInfoToAwards(rankingInfo, AppModel.Jam);
-        }
-
         // --------------
         // Export options
         // --------------
@@ -49,17 +42,6 @@ namespace Alphicsh.JamPlayer.Model
         {
             var exporterInfo = ExporterInfo.LoadOrGetDefault(ExporterInfoPath);
             AppModel.Exporter = ExporterInfoMapper.MapInfoToExporter(AppModel, exporterInfo);
-        }
-
-        // ---------
-        // Resetting
-        // ---------
-
-        public void ResetUserData()
-        {
-            Directory.Delete(DirectoryPath.Value, recursive: true);
-            LoadRanking();
-            LoadExporter();
         }
     }
 }

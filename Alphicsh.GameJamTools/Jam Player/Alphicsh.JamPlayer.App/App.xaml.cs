@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using Alphicsh.JamPlayer.Controls;
 using Alphicsh.JamPlayer.Model;
@@ -27,10 +28,10 @@ namespace Alphicsh.JamPlayer.App
             ViewModel = JamPlayerViewModel.Create(model);
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             ThemeManager.Create(Resources);
-            LoadJam(e);
+            await LoadJam(e);
 
             base.OnStartup(e);
 
@@ -41,11 +42,11 @@ namespace Alphicsh.JamPlayer.App
             window.Show();
         }
 
-        private void LoadJam(StartupEventArgs e)
+        private async Task LoadJam(StartupEventArgs e)
         {
             var jamFilePath = FilePath.FromNullable(e.Args.FirstOrDefault()) ?? GetJamInfoPathInAppDirectory();
             if (jamFilePath.HasValue)
-                ViewModel.LoadJamFromFile(jamFilePath.Value);
+                await ViewModel.LoadJamFromFile(jamFilePath.Value);
         }
 
         private FilePath? GetJamInfoPathInAppDirectory()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Alphicsh.JamPlayer.Model;
 using Alphicsh.JamPlayer.Model.Vote;
@@ -80,15 +81,15 @@ namespace Alphicsh.JamPlayer.ViewModel
         // Available operations
         // --------------------
 
-        public void LoadJamFromFile(FilePath filePath)
+        public async Task LoadJamFromFile(FilePath filePath)
         {
-            Model.LoadJamFromFile(filePath);
+            await Model.LoadJamFromFile(filePath);
             RecreateViewModels();
         }
 
         public void ResetUserData()
         {
-            Model.PlayerDataManager.ResetUserData();
+            Model.ResetUserData();
             RecreateViewModels();
         }
     }
