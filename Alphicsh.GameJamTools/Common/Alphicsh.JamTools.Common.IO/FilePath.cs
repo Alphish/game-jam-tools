@@ -98,6 +98,8 @@ namespace Alphicsh.JamTools.Common.IO
 
         public bool HasFile()
             => File.Exists(Value);
+        public bool HasFileOrUpdate()
+            => File.Exists(Value) || File.Exists(Value + ".new");
         public FileInfo GetFile()
             => new FileInfo(Value);
         public bool HasDirectory()

@@ -17,7 +17,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.New.Loading
             if (dataLocation.HasDirectory())
                 dataLocation = dataLocation.Append("jam.jaminfo");
 
-            if (dataLocation.HasFile() && dataLocation.GetExtension().Equals(".jaminfo", StringComparison.OrdinalIgnoreCase))
+            if (dataLocation.HasFileOrUpdate() && dataLocation.GetExtension().Equals(".jaminfo", StringComparison.OrdinalIgnoreCase))
                 return dataLocation;
 
             return null;
