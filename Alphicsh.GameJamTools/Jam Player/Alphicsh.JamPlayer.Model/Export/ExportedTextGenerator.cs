@@ -64,6 +64,12 @@ namespace Alphicsh.JamPlayer.Model.Export
                 sb.Append("\n");
                 sb.Append($"[b]{ awardEntry.Criterion.Name }:[/b] { jamEntry.Title } by { jamEntry.Team.Description }");
             }
+
+            if (!string.IsNullOrWhiteSpace(awards.BestReviewer))
+            {
+                sb.Append("\n");
+                sb.Append($"[b]Best Reviewer:[/b] {awards.BestReviewer}");
+            }
         }
 
         private void GenerateRanking(StringBuilder sb, RankingOverview ranking)
