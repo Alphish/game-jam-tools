@@ -9,7 +9,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
         private static JamInfoReader JamInfoReader { get; } = new JamInfoReader();
         private static JamInfoToOverviewMapper Mapper { get; } = new JamInfoToOverviewMapper();
 
-        public JamOverviewLoader() : base(JamInfoReader, Mapper, recoverBeforeLoading: false)
+        public JamOverviewLoader() : base(JamInfoReader, Mapper, fixBeforeLoading: false)
         {
         }
     }
