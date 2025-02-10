@@ -87,6 +87,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
 
             return new JamFiles
             {
+                DirectoryPath = entryDirectory,
                 Launchers = launchers,
                 Thumbnails = filesInfo.Thumbnails != null ? MapThumbnails(filesInfo.Thumbnails, entryDirectory) : null,
                 Readme = filesInfo.Readme != null ? MapReadme(filesInfo.Readme, entryDirectory) : null,
