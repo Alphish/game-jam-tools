@@ -1,8 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Alphicsh.JamTally.Model.Result;
 using Alphicsh.JamTally.Model.Result.Trophies;
+using Alphicsh.JamTally.Model.Result.Trophies.Data;
 using Alphicsh.JamTools.Common.Controls.Files;
+using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 
@@ -16,9 +19,17 @@ namespace Alphicsh.JamTally.ViewModel.Result
             AwardRankingsText = model.GetAwardRankingsText();
 
             GenerateTallySheetsCommand = SimpleCommand.From(GenerateTallySheets);
-            GenerateTrophiesTemplateCommand = SimpleCommand.From(GenerateTrophiesTemplate);
-            ExportTrophiesCommand = SimpleCommand.From(ExportTrophies);
             GenerateResultsPostCommand = SimpleCommand.From(GenerateResultsPost);
+
+            GenerateTrophiesSpecificationCommand = SimpleCommand.From(TrophiesInput.Generate);
+            GenerateTrophiesCoreTemplateCommand = SimpleCommand
+                .From(() => PerformTrophiesImageOperation(Model.GenerateTrophiesCoreTemplate));
+            GenerateTrophiesEntriesTemplateCommand = SimpleCommand
+                .From(() => PerformTrophiesImageOperation(Model.GenerateTrophiesEntriesTemplate));
+            CompileTrophiesCommand = SimpleCommand
+                .From(() => PerformTrophiesImageOperation(Model.CompileTrophies));
+
+            ExportTrophiesCommand = SimpleCommand.From(ExportTrophies);
         }
 
         public string FinalRankingText { get; }
@@ -27,6 +38,8 @@ namespace Alphicsh.JamTally.ViewModel.Result
         // ---------------
         // Text generators
         // ---------------
+
+        public ICommand GenerateTrophiesSpecificationCommand { get; }
 
         public ICommand GenerateTallySheetsCommand { get; }
         private void GenerateTallySheets()
@@ -50,8 +63,11 @@ namespace Alphicsh.JamTally.ViewModel.Result
         // Trophies generators
         // -------------------
 
-        public ICommand GenerateTrophiesTemplateCommand { get; }
-        private void GenerateTrophiesTemplate()
+        public ICommand GenerateTrophiesCoreTemplateCommand { get; }
+        public ICommand GenerateTrophiesEntriesTemplateCommand { get; }
+        public ICommand CompileTrophiesCommand { get; }
+
+        private void PerformTrophiesImageOperation(Action<FilePath, FilePath> action)
         {
             var sourcePath = FileQuery.OpenFile()
                 .WithFileType("*.svg", "Scalable Vector Graphics")
@@ -68,7 +84,7 @@ namespace Alphicsh.JamTally.ViewModel.Result
             if (destinationPath == null)
                 return;
 
-            Model.GenerateTrophiesTemplate(sourcePath.Value, destinationPath.Value);
+            action(sourcePath.Value, destinationPath.Value);
         }
 
         public ICommand ExportTrophiesCommand { get; }
