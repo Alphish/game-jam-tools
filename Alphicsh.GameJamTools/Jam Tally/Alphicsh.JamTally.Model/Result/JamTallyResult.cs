@@ -3,7 +3,7 @@ using System.Linq;
 using Alphicsh.JamTally.Model.Jam;
 using Alphicsh.JamTally.Model.Result.Alignments;
 using Alphicsh.JamTally.Model.Result.Spreadsheets;
-using Alphicsh.JamTally.Model.Result.Trophies;
+using Alphicsh.JamTally.Model.Result.Trophies.Image;
 using Alphicsh.JamTally.Model.Vote;
 using Alphicsh.JamTools.Common.IO;
 
@@ -66,9 +66,15 @@ namespace Alphicsh.JamTally.Model.Result
         public string GenerateResultsPost()
             => ResultsPostGenerator.Generate(this);
 
-        private static TrophiesTemplateGenerator TrophiesTemplateGenerator { get; } = new TrophiesTemplateGenerator();
+        private static TrophiesImageGenerator TrophiesImageGenerator { get; } = new TrophiesImageGenerator();
 
-        public void GenerateTrophiesTemplate(FilePath sourcePath, FilePath destinationPath)
-            => TrophiesTemplateGenerator.Generate(this, sourcePath, destinationPath);
+        public void GenerateTrophiesCoreTemplate(FilePath sourcePath, FilePath destinationPath)
+            => TrophiesImageGenerator.GenerateCoreTemplate(sourcePath, destinationPath);
+
+        public void GenerateTrophiesEntriesTemplate(FilePath sourcePath, FilePath destinationPath)
+            => TrophiesImageGenerator.GenerateEntriesTemplate(sourcePath, destinationPath);
+
+        public void CompileTrophies(FilePath sourcePath, FilePath destinationPath)
+            => TrophiesImageGenerator.CompileTrophies(tallyResult: this, sourcePath, destinationPath);
     }
 }

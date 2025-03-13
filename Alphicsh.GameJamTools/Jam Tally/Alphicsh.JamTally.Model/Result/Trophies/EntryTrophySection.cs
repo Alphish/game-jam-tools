@@ -16,7 +16,7 @@ namespace Alphicsh.JamTally.Model.Result.Trophies
 
         public XElement CreateExportArea()
         {
-            return InkElements.CreateExportArea(ElementId + "_export", "242424", XOffset, YOffset, 480, 120, Entry.Id + ".png");
+            return InkElements.CreateExportArea(ElementId + "_export", "242424", XOffset, YOffset, 520, 120, Entry.Id + ".png");
         }
 
         public IEnumerable<XElement> CreateBoxes()
@@ -24,9 +24,9 @@ namespace Alphicsh.JamTally.Model.Result.Trophies
             yield return InkElements.CreateBox("0080ff", XOffset, YOffset, 20, 120);
             yield return InkElements.CreateBox("ffffff", XOffset + 20, YOffset, 120, 120);
 
-            yield return InkElements.CreateBox("0080ff", XOffset + 150, YOffset + 4, 330, 24);
-            yield return InkElements.CreateBox("0080ff", XOffset + 150, YOffset + 32, 330, 56);
-            yield return InkElements.CreateBox("0080ff", XOffset + 150, YOffset + 92, 330, 24);
+            yield return InkElements.CreateBox("0080ff", XOffset + 150, YOffset + 4, 370, 24);
+            yield return InkElements.CreateBox("0080ff", XOffset + 150, YOffset + 32, 370, 56);
+            yield return InkElements.CreateBox("0080ff", XOffset + 150, YOffset + 92, 370, 24);
         }
     }
 }

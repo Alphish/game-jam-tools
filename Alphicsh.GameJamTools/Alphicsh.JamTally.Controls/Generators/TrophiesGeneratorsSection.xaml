@@ -15,15 +15,39 @@
         DockPanel.Dock="Top"
         Style="{StaticResource HelpButton}"
         Margin="2"
-        Width="216"
-        Command="{Binding TallyResult.GenerateTrophiesTemplateCommand}"
-      >Generate trophies template</cc:ImpButton>
+        Width="240"
+        Command="{Binding TallyResult.GenerateTrophiesSpecificationCommand}"
+      >Generate trophies specification</cc:ImpButton>
+      
+      <cc:ImpButton
+        DockPanel.Dock="Top"
+        Style="{StaticResource HelpButton}"
+        Margin="2"
+        Width="240"
+        Command="{Binding TallyResult.GenerateTrophiesCoreTemplateCommand}"
+      >Generate trophies core</cc:ImpButton>
 
       <cc:ImpButton
         DockPanel.Dock="Top"
         Style="{StaticResource HelpButton}"
         Margin="2"
-        Width="216"
+        Width="240"
+        Command="{Binding TallyResult.GenerateTrophiesEntriesTemplateCommand}"
+      >Make entries template</cc:ImpButton>
+
+      <cc:ImpButton
+        DockPanel.Dock="Top"
+        Style="{StaticResource HelpButton}"
+        Margin="2"
+        Width="240"
+        Command="{Binding TallyResult.CompileTrophiesCommand}"
+      >Compile trophies</cc:ImpButton>
+
+      <cc:ImpButton
+        DockPanel.Dock="Top"
+        Style="{StaticResource HelpButton}"
+        Margin="2"
+        Width="240"
         Command="{Binding TallyResult.ExportTrophiesCommand}"
       >Export trophies</cc:ImpButton>
 

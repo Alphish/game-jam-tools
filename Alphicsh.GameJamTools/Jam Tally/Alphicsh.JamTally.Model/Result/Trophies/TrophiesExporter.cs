@@ -30,7 +30,7 @@ namespace Alphicsh.JamTally.Model.Result.Trophies
             Document = XDocument.Load(svgPath.Value);
             Layers = ExtractLayers(Document);
 
-            MassExportElements = GetElementsToExport(Layers["MassExport"]);
+            MassExportElements = GetElementsToExport(Layers["Mass Export"]);
             IndividualExportElements = GetElementsToExport(Layers["Export"]);
             ExportedCount = 0;
         }
