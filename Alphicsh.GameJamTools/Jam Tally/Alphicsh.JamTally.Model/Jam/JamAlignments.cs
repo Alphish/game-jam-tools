@@ -40,7 +40,7 @@ namespace Alphicsh.JamTally.Model.Jam
                 return null;
 
             if (!Lookup.ContainsKey(name))
-                throw new InvalidOperationException($"Cannot resolve alignment for name '{name}'.");
+                return null;
 
             return Lookup[name];
         }

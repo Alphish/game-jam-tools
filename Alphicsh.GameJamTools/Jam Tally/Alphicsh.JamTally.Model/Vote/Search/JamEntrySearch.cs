@@ -73,7 +73,7 @@ namespace Alphicsh.JamTally.Model.Vote.Search
             if (unprefixedLine == null)
                 return null;
 
-            var byUnprefixedLine = EntriesByLine.TryGetValue(line, out var unprefixedLineEntry) ? unprefixedLineEntry : null;
+            var byUnprefixedLine = EntriesByLine.TryGetValue(unprefixedLine, out var unprefixedLineEntry) ? unprefixedLineEntry : null;
             return byUnprefixedLine;
         }
 

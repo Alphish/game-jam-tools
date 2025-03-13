@@ -35,7 +35,7 @@
       HorizontalAlignment="Left"
       VerticalAlignment="Bottom"
       Margin="2"
-      Text="{Binding Voter}"
+      Text="{Binding DisplayVoter}"
     />
 
   </Grid>

@@ -107,6 +107,7 @@ namespace Alphicsh.JamTally.Model.Jam
             new JamReactionType { Name = "Best", Value = 5, IsPrimary = true },
 
             new JamReactionType { Name = "Laugh", Value = 1, IsPrimary = false },
+            new JamReactionType { Name = "Haha", Value = 1, IsPrimary = false },
         };
 
         // ------

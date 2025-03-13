@@ -55,10 +55,10 @@ namespace Alphicsh.JamTally.Model.Result.Spreadsheets.Votes
             AwardsFirstRow = EntriesLastRow + 1;
             AwardRows = MakeAwardRows();
 
-            UnjudgedCount = TallyResult.Votes.Max(vote => vote.Unjudged.Count);
+            UnjudgedCount = TallyResult.Votes.Max(vote => vote.Authored.Union(vote.Unjudged).Count());
             UnjudgedFirstRow = AwardsLastRow + 1;
 
-            ReactionsCount = TallyResult.Votes.Max(vote => vote.Reactions.Count);
+            ReactionsCount = TallyResult.Votes.Max(vote => vote.AggregateReactions.Count);
             ReactionsFirstRow = UnjudgedLastRow + 1;
 
             ExpandTo(TotalWidth, TotalHeight);

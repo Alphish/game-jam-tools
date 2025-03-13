@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Alphicsh.JamTools.Common.IO.Jam;
-using Alphicsh.JamTools.Common.IO.Serialization;
 using Alphicsh.JamTools.Common.IO;
+using Alphicsh.JamTools.Common.IO.Serialization;
 
 namespace Alphicsh.JamTally.Model.Jam.Loading
 {

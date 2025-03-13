@@ -36,13 +36,13 @@ namespace Alphicsh.JamTally.Model.Result.Spreadsheets.Votes
             }
 
             Cursor.MoveTo(Left, Sheet.UnjudgedFirstRow);
-            foreach (var entry in Vote.Unjudged)
+            foreach (var entry in Vote.Authored.Union(Vote.Unjudged))
             {
                 AddEntryRow(entry, entriesRange);
             }
 
             Cursor.MoveTo(Left, Sheet.ReactionsFirstRow);
-            foreach (var reaction in Vote.Reactions)
+            foreach (var reaction in Vote.AggregateReactions)
             {
                 AddReactionRow(reaction);
             }
