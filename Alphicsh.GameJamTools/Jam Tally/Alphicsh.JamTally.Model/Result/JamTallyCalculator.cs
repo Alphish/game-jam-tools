@@ -43,7 +43,7 @@ namespace Alphicsh.JamTally.Model.Result
         // Calculating results
         // -------------------
 
-        private IReadOnlyCollection<JamTallyEntryScore> CalculateFinalRanking(JamOverview jam, IReadOnlyCollection<JamVote> votes)
+        internal IReadOnlyCollection<JamTallyEntryScore> CalculateFinalRanking(JamOverview jam, IReadOnlyCollection<JamVote> votes)
         {
             var entryScores = jam.Entries.ToDictionary(
                 entry => entry,
@@ -59,7 +59,8 @@ namespace Alphicsh.JamTally.Model.Result
                     rank++;
                 }
 
-                foreach (var entry in vote.Unjudged)
+                var totalUnjudged = vote.Unjudged.Union(vote.Authored);
+                foreach (var entry in totalUnjudged)
                 {
                     entryScores[entry].MarkUnjudged();
                 }

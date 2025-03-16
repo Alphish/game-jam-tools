@@ -1,14 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-	<Nullable>enable</Nullable>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.104.2" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.IO\Alphicsh.JamTools.Common.IO.csproj" />
     <ProjectReference Include="..\Alphicsh.JamTally.Model.Core\Alphicsh.JamTally.Model.Core.csproj" />
-    <ProjectReference Include="..\Alphicsh.JamTally.Spreadsheets\Alphicsh.JamTally.Spreadsheets.csproj" />
   </ItemGroup>
 
 </Project>

@@ -44,11 +44,15 @@ namespace Alphicsh.JamTally.ViewModel.Result
         public ICommand GenerateTallySheetsCommand { get; }
         private void GenerateTallySheets()
         {
-            var directoryPath = FileQuery.OpenDirectory().GetPath();
-            if (directoryPath == null)
+            var exportPath = FileQuery.SaveFile()
+                .WithFileType("*.xlsx", "Microsoft Excel Spreadsheet")
+                .WithDefaultName("Results.xlsx")
+                .GetPath();
+
+            if (exportPath == null)
                 return;
 
-            Model.GenerateTallySheets(directoryPath.Value);
+            Model.GenerateTallySheets(exportPath.Value);
         }
 
         public string ResultsPostText { get; private set; } = string.Empty;

@@ -2,9 +2,9 @@
 using System.Linq;
 using Alphicsh.JamTally.Model.Jam;
 using Alphicsh.JamTally.Model.Result.Alignments;
-using Alphicsh.JamTally.Model.Result.Spreadsheets;
 using Alphicsh.JamTally.Model.Result.Trophies.Image;
 using Alphicsh.JamTally.Model.Vote;
+using Alphicsh.JamTally.Spreadsheets;
 using Alphicsh.JamTools.Common.IO;
 
 namespace Alphicsh.JamTally.Model.Result
@@ -21,6 +21,8 @@ namespace Alphicsh.JamTally.Model.Result
         public int ReactionsMaxCount { get; init; }
 
         public JamAlignmentTally? AlignmentTally { get; init; }
+
+        public JamVoteCollection VoteCollection { get; set; } = default!;
 
         // -------
         // Ranking
@@ -54,14 +56,14 @@ namespace Alphicsh.JamTally.Model.Result
         // Generators
         // ----------
 
-        private static ResultsPostGenerator ResultsPostGenerator { get; } = new ResultsPostGenerator();
+        private static TallySpreadsheetExporter TallySpreadsheetExporter { get; } = new TallySpreadsheetExporter();
 
-        public void GenerateTallySheets(FilePath directoryPath)
+        public void GenerateTallySheets(FilePath exportPath)
         {
-            var workbook = new TallyWorkbook(JamTallyModel.Current.Jam!, this, AlignmentTally);
-            workbook.Populate();
-            workbook.Save(directoryPath);
+            TallySpreadsheetExporter.Export(exportPath, VoteCollection.NewTallyResult!);
         }
+
+        private static ResultsPostGenerator ResultsPostGenerator { get; } = new ResultsPostGenerator();
 
         public string GenerateResultsPost()
             => ResultsPostGenerator.Generate(this);

@@ -47,13 +47,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamPackager.Contro
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jam Tally", "Jam Tally", "{DC1689DE-6189-4528-AC1A-15049B8027C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamTally.App", "Jam Tally\Alphicsh.JamTally.App\Alphicsh.JamTally.App.csproj", "{E7E3D558-3F2D-4B21-B48D-502FE436F615}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTally.App", "Jam Tally\Alphicsh.JamTally.App\Alphicsh.JamTally.App.csproj", "{E7E3D558-3F2D-4B21-B48D-502FE436F615}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamTally.Model", "Jam Tally\Alphicsh.JamTally.Model\Alphicsh.JamTally.Model.csproj", "{1155488E-36BC-4BF8-981C-6D1C48BB1805}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTally.Model", "Jam Tally\Alphicsh.JamTally.Model\Alphicsh.JamTally.Model.csproj", "{1155488E-36BC-4BF8-981C-6D1C48BB1805}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamTally.ViewModel", "Jam Tally\Alphicsh.JamTally.ViewModel\Alphicsh.JamTally.ViewModel.csproj", "{62435F13-4CDE-4782-B269-1D12217C50B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTally.ViewModel", "Jam Tally\Alphicsh.JamTally.ViewModel\Alphicsh.JamTally.ViewModel.csproj", "{62435F13-4CDE-4782-B269-1D12217C50B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamTally.Controls", "Alphicsh.JamTally.Controls\Alphicsh.JamTally.Controls.csproj", "{4BED972C-01BA-4235-B501-B3372CEF0A2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTally.Controls", "Alphicsh.JamTally.Controls\Alphicsh.JamTally.Controls.csproj", "{4BED972C-01BA-4235-B501-B3372CEF0A2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamTally.Spreadsheets", "Jam Tally\Alphicsh.JamTally.Spreadsheets\Alphicsh.JamTally.Spreadsheets.csproj", "{A47A66BF-C57C-4AA7-8203-E728544FFBF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamTally.Model.Core", "Jam Tally\Alphicsh.JamTally.Model.Core\Alphicsh.JamTally.Model.Core.csproj", "{6E3D4A2C-4C55-44C0-8954-05AFC05C5282}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +149,14 @@ Global
 		{4BED972C-01BA-4235-B501-B3372CEF0A2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BED972C-01BA-4235-B501-B3372CEF0A2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BED972C-01BA-4235-B501-B3372CEF0A2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A47A66BF-C57C-4AA7-8203-E728544FFBF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A47A66BF-C57C-4AA7-8203-E728544FFBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A47A66BF-C57C-4AA7-8203-E728544FFBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A47A66BF-C57C-4AA7-8203-E728544FFBF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E3D4A2C-4C55-44C0-8954-05AFC05C5282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E3D4A2C-4C55-44C0-8954-05AFC05C5282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E3D4A2C-4C55-44C0-8954-05AFC05C5282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E3D4A2C-4C55-44C0-8954-05AFC05C5282}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,6 +183,8 @@ Global
 		{1155488E-36BC-4BF8-981C-6D1C48BB1805} = {DC1689DE-6189-4528-AC1A-15049B8027C2}
 		{62435F13-4CDE-4782-B269-1D12217C50B9} = {DC1689DE-6189-4528-AC1A-15049B8027C2}
 		{4BED972C-01BA-4235-B501-B3372CEF0A2A} = {DC1689DE-6189-4528-AC1A-15049B8027C2}
+		{A47A66BF-C57C-4AA7-8203-E728544FFBF0} = {DC1689DE-6189-4528-AC1A-15049B8027C2}
+		{6E3D4A2C-4C55-44C0-8954-05AFC05C5282} = {DC1689DE-6189-4528-AC1A-15049B8027C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DF6235F-0198-4921-B6F6-CC96A4448F90}

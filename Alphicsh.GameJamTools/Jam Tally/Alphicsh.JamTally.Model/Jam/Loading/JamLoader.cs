@@ -11,37 +11,59 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
         private static JsonFileLoader<JamInfo> InfoLoader { get; } = new JsonFileLoader<JamInfo>();
         private static JamEntryLoader EntryLoader { get; } = new JamEntryLoader();
 
+        private static JsonFileLoader<JamOverrides> OverridesLoader { get; } = new JsonFileLoader<JamOverrides>();
+        private static JsonFileSaver<JamOverrides> OverridesSaver { get; } = new JsonFileSaver<JamOverrides>();
+
         public JamOverview? LoadFromDirectory(FilePath directoryPath)
         {
             var jamInfoPath = directoryPath.Append("jam.jaminfo");
             var jamInfo = InfoLoader.TryLoad(jamInfoPath);
-            return jamInfo != null ? MapJam(directoryPath, jamInfo) : null;
+
+            var jamOverridesPath = directoryPath.Append(".jamtally/overrides.jamoverrides");
+            var loadedOverrides = OverridesLoader.TryLoad(jamOverridesPath);
+            var jamOverrides = loadedOverrides ?? new JamOverrides { Entries = new List<JamEntryOverride>() };
+
+            var result = jamInfo != null ? MapJam(directoryPath, jamInfo, jamOverrides) : null;
+            if (loadedOverrides == null && result != null)
+                GenerateOverrides(jamOverridesPath, result);
+
+            return result;
         }
 
         // -------
         // Mapping
         // -------
 
-        private JamOverview MapJam(FilePath directoryPath, JamInfo jamInfo)
+        private JamOverview MapJam(FilePath directoryPath, JamInfo jamInfo, JamOverrides overrides)
         {
             var entriesPath = directoryPath.Append(jamInfo.EntriesSubpath);
+            var awardCriteria = jamInfo.AwardCriteria
+                .Select(criterion => MapAwardCriterion(criterion, overrides.GetAward(criterion.Id)))
+                .ToList();
+
             var alignments = MapAlignments(jamInfo.Alignments);
             var jam = new JamOverview
             {
-                AwardCriteria = jamInfo.AwardCriteria.Select(MapAwardCriterion).ToList(),
+                AwardCriteria = awardCriteria,
                 Alignments = alignments,
-                Entries = MapEntries(entriesPath, jamInfo.Entries, alignments),
+                Entries = MapEntries(entriesPath, jamInfo.Entries, alignments, overrides),
             };
             jam.Search = new Vote.Search.JamSearch(jam);
             return jam;
         }
 
-        private JamAwardCriterion MapAwardCriterion(JamAwardInfo awardInfo)
+        private JamAwardCriterion MapAwardCriterion(JamAwardInfo awardInfo, JamAwardOverride? awardOverride)
         {
+            var defaultAbbreviation = awardInfo.Id.Length > 3
+                ? awardInfo.Id.Remove(3).ToUpperInvariant()
+                : awardInfo.Id.ToUpperInvariant();
+
             return new JamAwardCriterion
             {
                 Id = awardInfo.Id,
                 Name = awardInfo.FixedName,
+                TallyName = awardOverride?.Name ?? awardInfo.FixedName,
+                Abbreviation = awardOverride?.Abbreviation ?? defaultAbbreviation,
             };
         }
 
@@ -64,23 +86,49 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
             };
         }
 
-        private IReadOnlyCollection<JamEntry> MapEntries(FilePath entriesPath, IEnumerable<JamEntryStub> stubs, JamAlignments? alignments)
+        private IReadOnlyCollection<JamEntry> MapEntries(FilePath entriesPath, IEnumerable<JamEntryStub> stubs, JamAlignments? alignments, JamOverrides overrides)
         {
             var result = new List<JamEntry>();
             foreach (var stub in stubs)
             {
-                var entry = TryLoadEntry(entriesPath, stub, alignments);
+                var entry = TryLoadEntry(entriesPath, stub, alignments, overrides.GetEntry(stub.Id));
                 if (entry != null)
                     result.Add(entry);
             }
             return result;
         }
 
-        private JamEntry? TryLoadEntry(FilePath entriesPath, JamEntryStub stub, JamAlignments? alignments)
+        private JamEntry? TryLoadEntry(FilePath entriesPath, JamEntryStub stub, JamAlignments? alignments, JamEntryOverride? entryOverride)
         {
             var id = stub.Id;
             var directoryPath = entriesPath.Append(stub.EntrySubpath);
-            return EntryLoader.ReadFromDirectory(id, directoryPath, alignments);
+            return EntryLoader.ReadFromDirectory(id, directoryPath, alignments, entryOverride);
+        }
+
+        // ---------
+        // Overrides
+        // ---------
+
+        private void GenerateOverrides(FilePath overridesPath, JamOverview jam)
+        {
+            var awardOverrides = jam.AwardCriteria.Select(criterion => new JamAwardOverride
+            {
+                Id = criterion.Id,
+                Name = criterion.TallyName,
+                Abbreviation = criterion.Abbreviation,
+            }).ToList();
+
+            var entryOverrides = jam.Entries.Select(entry => new JamEntryOverride
+            {
+                EntryId = entry.Id,
+                TallyCode = entry.TallyCode,
+                TallyTitle = entry.TallyTitle,
+                TallyAuthors = entry.TallyAuthors,
+            }).ToList();
+
+            var jamOverrides = new JamOverrides { Awards = awardOverrides, Entries = entryOverrides };
+
+            OverridesSaver.Save(overridesPath, jamOverrides);
         }
     }
 }
