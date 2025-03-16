@@ -47,18 +47,5 @@ namespace Alphicsh.JamTally.Model.Vote.Search
             var entryPart = line.Substring(separatorIdx + 1).Trim();
             return EntrySearch.FindEntry(entryPart, unprefixRanking: false);
         }
-
-        public JamVoteAward? FindAward(string line)
-        {
-            if (!IsAwardWellFormed(line))
-                return null;
-
-            var criterion = FindAwardCriterion(line);
-            var entry = FindAwardEntry(line);
-            if (criterion == null || entry == null)
-                return null;
-
-            return new JamVoteAward { Criterion = criterion, Entry = entry };
-        }
     }
 }

@@ -114,6 +114,6 @@ namespace Alphicsh.JamTally.Model.Jam
         // Search
         // ------
 
-        internal JamSearch? Search { get; set; }
+        public JamSearch? Search { get; set; }
     }
 }

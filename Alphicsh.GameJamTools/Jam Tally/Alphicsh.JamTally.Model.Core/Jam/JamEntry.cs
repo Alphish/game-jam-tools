@@ -16,6 +16,10 @@ namespace Alphicsh.JamTally.Model.Jam
         public string Line => $"{Title} by {Team}";
         public string FullLine => $"{FullTitle} by {Team}";
 
+        public string TallyCode { get; init; } = default!;
+        public string TallyTitle { get; init; } = default!;
+        public string TallyAuthors { get; init; } = default!;
+
         public override string ToString()
             => Line;
     }

@@ -71,18 +71,5 @@ namespace Alphicsh.JamTally.Model.Vote.Search
             var userPart = line.Substring(spaceIdx).Trim();
             return userPart;
         }
-
-        public JamVoteReaction? FindReaction(string line)
-        {
-            if (!IsReactionWellFormed(line))
-                return null;
-
-            var reactionType = FindReactionType(line);
-            var user = FindReactionUser(line);
-            if (reactionType == null || user == null)
-                return null;
-
-            return new JamVoteReaction { Type = reactionType, User = user };
-        }
     }
 }

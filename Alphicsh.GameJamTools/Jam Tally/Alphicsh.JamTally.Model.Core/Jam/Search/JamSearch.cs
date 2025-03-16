@@ -3,7 +3,7 @@ using Alphicsh.JamTally.Model.Jam;
 
 namespace Alphicsh.JamTally.Model.Vote.Search
 {
-    internal class JamSearch
+    public class JamSearch
     {
         private JamAlignmentSearch AlignmentSearch { get; }
         private JamEntrySearch EntrySearch { get; }
@@ -23,7 +23,7 @@ namespace Alphicsh.JamTally.Model.Vote.Search
         // ----------
 
         public bool AlignmentsEnabled => AlignmentSearch.AlignmentsEnabled;
-        
+
         public bool IsAlignmentValid(string line)
             => AlignmentSearch.IsAlignmentValid(line);
 
@@ -53,9 +53,6 @@ namespace Alphicsh.JamTally.Model.Vote.Search
         public JamEntry? FindAwardEntry(string line)
             => AwardSearch.FindAwardEntry(line);
 
-        public JamVoteAward? FindAward(string line)
-            => AwardSearch.FindAward(line);
-
         // ---------
         // Reactions
         // ---------
@@ -68,8 +65,5 @@ namespace Alphicsh.JamTally.Model.Vote.Search
 
         public string? FindReactionUser(string line)
             => ReactionSearch.FindReactionUser(line);
-
-        public JamVoteReaction? FindReaction(string line)
-            => ReactionSearch.FindReaction(line);
     }
 }
