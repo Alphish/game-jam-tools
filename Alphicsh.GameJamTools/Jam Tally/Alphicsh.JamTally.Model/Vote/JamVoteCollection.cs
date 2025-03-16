@@ -37,8 +37,9 @@ namespace Alphicsh.JamTally.Model.Vote
         public void TallyVotes()
         {
             TallyResult = TallyCalculator.CalculateResults(this);
+            TallyResult.VoteCollection = this;
+
             NewTallyResult = NewCalculator.Calculate(JamTallyModel.Current.Jam!, this);
-            TallyResult.NewResult = NewTallyResult;
         }
     }
 }
