@@ -55,9 +55,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTally.ViewModel
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTally.Controls", "Alphicsh.JamTally.Controls\Alphicsh.JamTally.Controls.csproj", "{4BED972C-01BA-4235-B501-B3372CEF0A2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamTally.Spreadsheets", "Jam Tally\Alphicsh.JamTally.Spreadsheets\Alphicsh.JamTally.Spreadsheets.csproj", "{A47A66BF-C57C-4AA7-8203-E728544FFBF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTally.Spreadsheets", "Jam Tally\Alphicsh.JamTally.Spreadsheets\Alphicsh.JamTally.Spreadsheets.csproj", "{A47A66BF-C57C-4AA7-8203-E728544FFBF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamTally.Model.Core", "Jam Tally\Alphicsh.JamTally.Model.Core\Alphicsh.JamTally.Model.Core.csproj", "{6E3D4A2C-4C55-44C0-8954-05AFC05C5282}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTally.Model.Core", "Jam Tally\Alphicsh.JamTally.Model.Core\Alphicsh.JamTally.Model.Core.csproj", "{6E3D4A2C-4C55-44C0-8954-05AFC05C5282}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamTally.Trophies", "Jam Tally\Alphicsh.JamTally.Trophies\Alphicsh.JamTally.Trophies.csproj", "{CA300C64-12FA-4D84-9D99-818D699525A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,6 +159,10 @@ Global
 		{6E3D4A2C-4C55-44C0-8954-05AFC05C5282}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E3D4A2C-4C55-44C0-8954-05AFC05C5282}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E3D4A2C-4C55-44C0-8954-05AFC05C5282}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA300C64-12FA-4D84-9D99-818D699525A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA300C64-12FA-4D84-9D99-818D699525A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA300C64-12FA-4D84-9D99-818D699525A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA300C64-12FA-4D84-9D99-818D699525A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -185,6 +191,7 @@ Global
 		{4BED972C-01BA-4235-B501-B3372CEF0A2A} = {DC1689DE-6189-4528-AC1A-15049B8027C2}
 		{A47A66BF-C57C-4AA7-8203-E728544FFBF0} = {DC1689DE-6189-4528-AC1A-15049B8027C2}
 		{6E3D4A2C-4C55-44C0-8954-05AFC05C5282} = {DC1689DE-6189-4528-AC1A-15049B8027C2}
+		{CA300C64-12FA-4D84-9D99-818D699525A9} = {DC1689DE-6189-4528-AC1A-15049B8027C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DF6235F-0198-4921-B6F6-CC96A4448F90}
