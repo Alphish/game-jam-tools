@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Alphicsh.JamTally.Model.Vote.Search;
+using Alphicsh.JamTools.Common.IO;
 
 namespace Alphicsh.JamTally.Model.Jam
 {
     public class JamOverview
     {
+        public FilePath DirectoryPath { get; init; }
+
         // ------
         // Awards
         // ------

@@ -70,8 +70,8 @@ namespace Alphicsh.JamTally.Model.Result
 
         private static TrophiesImageGenerator TrophiesImageGenerator { get; } = new TrophiesImageGenerator();
 
-        public void GenerateTrophiesCoreTemplate(FilePath sourcePath, FilePath destinationPath)
-            => TrophiesImageGenerator.GenerateCoreTemplate(sourcePath, destinationPath);
+        public void GenerateTrophiesCoreTemplate(FilePath destinationPath)
+            => TrophiesImageGenerator.GenerateCoreTemplate(destinationPath);
 
         public void GenerateTrophiesEntriesTemplate(FilePath sourcePath, FilePath destinationPath)
             => TrophiesImageGenerator.GenerateEntriesTemplate(sourcePath, destinationPath);

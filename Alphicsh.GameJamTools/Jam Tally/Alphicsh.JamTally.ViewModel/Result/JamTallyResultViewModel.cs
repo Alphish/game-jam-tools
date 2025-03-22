@@ -22,7 +22,7 @@ namespace Alphicsh.JamTally.ViewModel.Result
 
             GenerateTrophiesSpecificationCommand = SimpleCommand.From(TrophiesInput.Generate);
             GenerateTrophiesCoreTemplateCommand = SimpleCommand
-                .From(() => PerformTrophiesImageOperation(Model.GenerateTrophiesCoreTemplate));
+                .From(() => PerformTrophiesSaveOperation(Model.GenerateTrophiesCoreTemplate));
             GenerateTrophiesEntriesTemplateCommand = SimpleCommand
                 .From(() => PerformTrophiesImageOperation(Model.GenerateTrophiesEntriesTemplate));
             CompileTrophiesCommand = SimpleCommand
@@ -69,6 +69,22 @@ namespace Alphicsh.JamTally.ViewModel.Result
         public ICommand GenerateTrophiesCoreTemplateCommand { get; }
         public ICommand GenerateTrophiesEntriesTemplateCommand { get; }
         public ICommand CompileTrophiesCommand { get; }
+
+        private void PerformTrophiesSaveOperation(Action<FilePath> action)
+        {
+            var jamDirectory = JamTallyViewModel.Current.Jam!.Model.DirectoryPath;
+            var defaultFilename = $"{jamDirectory.GetLastSegmentName()} Trophies.core.svg";
+
+            var destinationPath = FileQuery.SaveFile()
+                .WithFileType("*.svg", "Scalable Vector Graphics")
+                .WithDefaultName(defaultFilename)
+                .GetPath();
+
+            if (destinationPath == null)
+                return;
+
+            action(destinationPath.Value);
+        }
 
         private void PerformTrophiesImageOperation(Action<FilePath, FilePath> action)
         {

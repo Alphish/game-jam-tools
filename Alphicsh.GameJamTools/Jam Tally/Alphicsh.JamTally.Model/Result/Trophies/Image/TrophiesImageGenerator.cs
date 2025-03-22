@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Alphicsh.JamTally.Model.Result.Trophies.Data;
+using Alphicsh.JamTally.Trophies.Image.Generators;
 using Alphicsh.JamTools.Common.IO;
 
 namespace Alphicsh.JamTally.Model.Result.Trophies.Image
@@ -15,12 +16,16 @@ namespace Alphicsh.JamTally.Model.Result.Trophies.Image
         // Core
         // ----
 
-        public void GenerateCoreTemplate(FilePath sourcePath, FilePath destinationPath)
+        public void GenerateCoreTemplate(FilePath destinationPath)
         {
-            EnsureDifferentSavePath(sourcePath, destinationPath);
-            var document = LoadImageDocument(sourcePath);
-            var image = TrophiesImageLoader.CreateCoreTemplate(document);
-            SaveImage(image, destinationPath);
+            var generator = new TrophiesCoreGenerator();
+            var settings = new TrophiesCoreSettings { TrophyWidth = 540, TrophyHeight = 120, ColumnWidth = 600, RowHeight = 140 };
+            var image = generator.Generate(settings);
+
+            var content = image.Document.ToString();
+            content = Regex.Replace(content, "\\s*<tspan", "<tspan");
+            content = Regex.Replace(content, "</tspan>\\s*", "</tspan>");
+            File.WriteAllText(destinationPath.Value, content);
         }
 
         // -------
