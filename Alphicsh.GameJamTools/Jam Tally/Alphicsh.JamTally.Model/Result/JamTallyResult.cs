@@ -74,7 +74,7 @@ namespace Alphicsh.JamTally.Model.Result
             => TrophiesImageGenerator.GenerateCoreTemplate(destinationPath);
 
         public void GenerateTrophiesEntriesTemplate(FilePath sourcePath, FilePath destinationPath)
-            => TrophiesImageGenerator.GenerateEntriesTemplate(sourcePath, destinationPath);
+            => TrophiesImageGenerator.GenerateEntriesTemplate(sourcePath, VoteCollection.NewTallyResult!, destinationPath);
 
         public void CompileTrophies(FilePath sourcePath, FilePath destinationPath)
             => TrophiesImageGenerator.CompileTrophies(tallyResult: this, sourcePath, destinationPath);

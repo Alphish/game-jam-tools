@@ -32,17 +32,19 @@ namespace Alphicsh.JamTally.Model.Result.Trophies.Image
         // Entries
         // -------
 
-        public void GenerateEntriesTemplate(FilePath sourcePath, FilePath destinationPath)
+        public void GenerateEntriesTemplate(FilePath sourcePath, JamTallyNewResult result, FilePath destinationPath)
         {
             EnsureDifferentSavePath(sourcePath, destinationPath);
-            var document = LoadImageDocument(sourcePath);
-            var input = TrophiesInput.Parse();
+            var generator = new TrophiesEntriesGenerator();
+            var settings = new TrophiesImageSettings { TrophyWidth = 540, TrophyHeight = 120, ColumnWidth = 600, RowHeight = 140 };
+            var document = XDocument.Load(sourcePath.Value);
 
-            var image = TrophiesImageLoader.CreateEntriesTemplate(document, input);
-            foreach (var entry in input.Entries)
-                AddEntryBase(image, entry);
+            var image = generator.Generate(document, settings, result);
 
-            SaveImage(image, destinationPath);
+            var content = image.Document.ToString();
+            content = Regex.Replace(content, "\\s*<tspan", "<tspan");
+            content = Regex.Replace(content, "</tspan>\\s*", "</tspan>");
+            File.WriteAllText(destinationPath.Value, content);
         }
 
         private void AddEntryBase(TrophiesImage image, JamTrophyEntry entry)
