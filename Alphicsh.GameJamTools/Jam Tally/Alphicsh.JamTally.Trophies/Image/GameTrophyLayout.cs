@@ -26,9 +26,10 @@ namespace Alphicsh.JamTally.Trophies.Image
             JamLabelArea = new Rectangle(X, Y, 20, Height);
             MedalArea = new Rectangle(JamLabelArea.Right, Y, 120, 120);
 
-            AuthorsArea = new Rectangle(MedalArea.Right, Y, Width - MedalArea.Right, 30);
-            TitleArea = new Rectangle(MedalArea.Right, AuthorsArea.Bottom, Width - MedalArea.Right, 60);
-            DescriptionArea = new Rectangle(MedalArea.Right, TitleArea.Bottom, Width - MedalArea.Right, 30);
+            var preTextWidth = JamLabelArea.Width + MedalArea.Width;
+            AuthorsArea = new Rectangle(MedalArea.Right, Y, Width - preTextWidth, 30);
+            TitleArea = new Rectangle(MedalArea.Right, AuthorsArea.Bottom, Width - preTextWidth, 60);
+            DescriptionArea = new Rectangle(MedalArea.Right, TitleArea.Bottom, Width - preTextWidth, 30);
         }
     }
 }

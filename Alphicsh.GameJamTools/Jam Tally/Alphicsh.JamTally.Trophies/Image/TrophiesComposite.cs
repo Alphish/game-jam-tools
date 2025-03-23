@@ -30,13 +30,22 @@ namespace Alphicsh.JamTally.Trophies.Image
 
         public TrophiesComposite WithGuide(TrophiesLayer layer, string role, Rectangle area, string fill, decimal opacity = 0.1m)
         {
-            var guide = TrophiesGuide.Create(layer, this, role, area, fill, opacity);
+            var guide = TrophiesGuide.FindOrCreate(layer, this, role, area, fill, opacity);
             GuidesList.Add(guide);
             GuidesByRole.Add(guide.Role, guide);
             return this;
         }
 
-        public TrophiesGuide FindGuideByRole(string role)
-            => GuidesByRole[role];
+        public TrophiesComposite CloneTo(string role, int x, int y)
+        {
+            GuidesByRole[role].CloneTo(x, y);
+            return this;
+        }
+
+        public TrophiesComposite CloneWithText(string role, int x, int y, string text)
+        {
+            GuidesByRole[role].CloneWithText(x, y, text);
+            return this;
+        }
     }
 }

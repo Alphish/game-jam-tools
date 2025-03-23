@@ -2,9 +2,9 @@
 {
     public class TrophiesCoreGenerator
     {
-        public TrophiesImage Generate(TrophiesCoreSettings coreSettings)
+        public TrophiesImage Generate(TrophiesImageSettings imageSettings)
         {
-            var image = TrophiesImage.CreateBlank(coreSettings.TrophyWidth, coreSettings.TrophyHeight, coreSettings.ColumnWidth, coreSettings.RowHeight)
+            var image = TrophiesImage.CreateStub(imageSettings)
                 .WithLayer("medals_back", "Medals Back")
                 .WithLayer("medals_rim", "Medals Rim")
                 .WithLayer("medals_sheen", "Medals Sheen")

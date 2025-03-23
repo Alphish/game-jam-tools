@@ -19,7 +19,7 @@ namespace Alphicsh.JamTally.Model.Result.Trophies.Image
         public void GenerateCoreTemplate(FilePath destinationPath)
         {
             var generator = new TrophiesCoreGenerator();
-            var settings = new TrophiesCoreSettings { TrophyWidth = 540, TrophyHeight = 120, ColumnWidth = 600, RowHeight = 140 };
+            var settings = new TrophiesImageSettings { TrophyWidth = 540, TrophyHeight = 120, ColumnWidth = 600, RowHeight = 140 };
             var image = generator.Generate(settings);
 
             var content = image.Document.ToString();

@@ -1,9 +1,11 @@
-﻿namespace Alphicsh.JamTally.Trophies.Image
+﻿using Alphicsh.JamTally.Model.Result;
+
+namespace Alphicsh.JamTally.Trophies.Image
 {
-    public class MedalSection
+    public class EntrySection
     {
         public TrophiesImage Image { get; init; } = default!;
-        public string MedalType { get; init; } = default!;
+        public JamTallyEntry Entry { get; init; } = default!;
 
         public int Row { get; init; }
         public int Column { get; init; }
@@ -15,19 +17,18 @@
         public TrophiesComposite MedalComposite { get; init; } = default!;
         public TrophiesComposite TextComposite { get; init; } = default!;
 
-        public static MedalSection Create(TrophiesImage image, string medalType, int row, int column)
+        public static EntrySection Create(TrophiesImage image, JamTallyEntry tallyEntry, int row, int column)
         {
             var x = column * image.ColumnWidth;
             var y = row * image.RowHeight;
             var layout = new GameTrophyLayout(x, y, image.TrophyWidth, image.TrophyHeight);
+            var code = tallyEntry.Code;
 
-            var medalComposite = image.DefineComposite($"medal_{medalType}", layout)
-                .WithGuide(layer: "medals_back", role: "medal_back", layout.MedalArea, "302010")
-                .WithGuide(layer: "medals_rim", role: "medal_rim", layout.MedalArea, "302010")
-                .WithGuide(layer: "medals_sheen", role: "medal_sheen", layout.MedalArea, "302010");
+            var medalComposite = image.DefineComposite($"entry_{code}", layout)
+                .WithGuide(layer: "medals_inner", role: "medal_inner", layout.MedalArea, "302010")
+                .WithGuide(layer: "medals_outer", role: "medal_outer", layout.MedalArea, "302010");
 
-            var textComposite = image.DefineComposite($"medaltext_{medalType}", layout)
-                .WithGuide(layer: "text_fill", role: "jam_label", layout.JamLabelArea, "000000")
+            var textComposite = image.DefineComposite($"entrytext_{code}", layout)
                 .WithGuide(layer: "text_stroke", role: "authors_stroke", layout.AuthorsArea, "000000")
                 .WithGuide(layer: "text_fill", role: "authors_fill", layout.AuthorsArea, "000000")
                 .WithGuide(layer: "text_stroke", role: "title_stroke", layout.TitleArea, "102030")
@@ -35,10 +36,10 @@
                 .WithGuide(layer: "text_stroke", role: "desc_stroke", layout.DescriptionArea, "000000")
                 .WithGuide(layer: "text_fill", role: "desc_fill", layout.DescriptionArea, "000000");
 
-            return new MedalSection
+            return new EntrySection
             {
                 Image = image,
-                MedalType = medalType,
+                Entry = tallyEntry,
                 Row = row,
                 Column = column,
                 X = x,

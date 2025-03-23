@@ -1,6 +1,6 @@
 ﻿namespace Alphicsh.JamTally.Trophies.Image.Generators
 {
-    public class TrophiesCoreSettings
+    public class TrophiesImageSettings
     {
         public int TrophyWidth { get; init; }
         public int TrophyHeight { get; init; }

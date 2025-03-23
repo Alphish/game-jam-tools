@@ -4,15 +4,6 @@ namespace Alphicsh.JamTally.Trophies.Image
 {
     public static class InkElements
     {
-        public static XElement CreateLayer(string id, string label)
-        {
-            var layer = new XElement(InkNames.ForSvg("g"));
-            layer.SetPlainAttribute("id", id);
-            layer.SetInkAttribute("groupmode", "layer");
-            layer.SetInkAttribute("label", label);
-            return layer;
-        }
-
         public static XElement CreateBox(int x, int y, int width, int height, string fill, decimal opacity = 0.2m)
         {
             var box = new XElement(InkNames.ForSvg("rect"));
