@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
 using Alphicsh.JamTally.Model.Result;
-using Alphicsh.JamTally.Model.Result.Trophies.Data;
 using Alphicsh.JamTally.Trophies.Export;
 using Alphicsh.JamTools.Common.Controls.Files;
 using Alphicsh.JamTools.Common.IO;
@@ -20,7 +19,6 @@ namespace Alphicsh.JamTally.ViewModel.Result
             GenerateTallySheetsCommand = SimpleCommand.From(GenerateTallySheets);
             GenerateResultsPostCommand = SimpleCommand.From(GenerateResultsPost);
 
-            GenerateTrophiesSpecificationCommand = SimpleCommand.From(TrophiesInput.Generate);
             GenerateTrophiesCoreTemplateCommand = SimpleCommand
                 .From(() => PerformTrophiesSaveOperation(Model.GenerateTrophiesCoreTemplate));
             GenerateTrophiesEntriesTemplateCommand = SimpleCommand
@@ -37,8 +35,6 @@ namespace Alphicsh.JamTally.ViewModel.Result
         // ---------------
         // Text generators
         // ---------------
-
-        public ICommand GenerateTrophiesSpecificationCommand { get; }
 
         public ICommand GenerateTallySheetsCommand { get; }
         private void GenerateTallySheets()
