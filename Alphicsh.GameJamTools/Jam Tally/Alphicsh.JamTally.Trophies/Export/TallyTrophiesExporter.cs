@@ -78,10 +78,13 @@ namespace Alphicsh.JamTally.Trophies.Export
                 if (exportFilename == null)
                     throw new ArgumentException($"Cannot find 'inkscape:export-filename' attribute for element '{elementId}'.");
 
+                exportFilename = exportFilename.Replace(":", "");
+
+                var exportDpi = int.Parse(element.InkAttribute("export-xdpi")?.Value ?? "96");
                 var subdirectoryPath = exportDirectory.Append("Overall");
 
                 var exportPath = subdirectoryPath.Append(exportFilename);
-                SvgToPngExporter.ExportPng(documentPath, exportPath, elementId, elementId == "top3_export" ? 192 : 96);
+                SvgToPngExporter.ExportPng(documentPath, exportPath, elementId, exportDpi);
                 return $"Element '{elementId}' exported!";
             }
             catch (Exception e)
@@ -102,6 +105,8 @@ namespace Alphicsh.JamTally.Trophies.Export
                 var exportFilename = element.InkAttribute("export-filename")?.Value;
                 if (exportFilename == null)
                     throw new ArgumentException($"Cannot find 'inkscape:export-filename' attribute for element '{elementId}'.");
+
+                exportFilename = exportFilename.Replace(":", "");
 
                 var subdirectoryPath = exportDirectory.Append(Path.GetFileNameWithoutExtension(exportFilename));
                 var filenameRoot = elementId.Remove(elementId.Length - "_export".Length);
