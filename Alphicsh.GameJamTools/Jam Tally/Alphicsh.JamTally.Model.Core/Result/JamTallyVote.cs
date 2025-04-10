@@ -7,6 +7,8 @@ namespace Alphicsh.JamTally.Model.Result
     public class JamTallyVote
     {
         public string Voter { get; init; } = default!;
+        public string VoterCode { get; init; } = default!;
+
         public JamAlignmentOption? VoterAlignment { get; init; }
 
         public IReadOnlyList<JamEntry> Ranking { get; init; } = default!;

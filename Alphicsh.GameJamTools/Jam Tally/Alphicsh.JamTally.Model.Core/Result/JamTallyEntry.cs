@@ -5,7 +5,7 @@ namespace Alphicsh.JamTally.Model.Result
 {
     public class JamTallyEntry
     {
-        public JamEntry Entry { get; init; }
+        public JamEntry Entry { get; init; } = default!;
 
         public string EntryId => Entry.Id;
         public string EntryLine => Entry.Line;
@@ -21,6 +21,9 @@ namespace Alphicsh.JamTally.Model.Result
         public decimal TotalScore { get; init; }
 
         public IReadOnlyCollection<JamTallyNewAwardScore> AwardScores { get; init; } = default!;
+
+        public int Rank { get; set; }
+        public IList<JamAwardCriterion> Awards { get; init; } = new List<JamAwardCriterion>();
 
         public override string ToString()
             => $"{EntryLine}: {TotalScore:F3} ({BaseScore:F3} over {JudgedCount}/{TotalVotesCount})";
