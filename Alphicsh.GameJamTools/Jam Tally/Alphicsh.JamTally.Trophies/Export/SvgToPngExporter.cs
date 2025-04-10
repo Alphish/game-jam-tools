@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using Alphicsh.JamTools.Common.IO;
 
-namespace Alphicsh.JamTally.Model.Result.Trophies
+namespace Alphicsh.JamTally.Trophies.Export
 {
     internal class SvgToPngExporter
     {

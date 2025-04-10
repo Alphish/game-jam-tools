@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Alphicsh.JamTally.Model.Result;
-using Alphicsh.JamTally.Model.Result.Trophies;
-using Alphicsh.JamTally.Model.Result.Trophies.Data;
+using Alphicsh.JamTally.Trophies.Export;
 using Alphicsh.JamTools.Common.Controls.Files;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.Mvvm;
@@ -21,9 +19,8 @@ namespace Alphicsh.JamTally.ViewModel.Result
             GenerateTallySheetsCommand = SimpleCommand.From(GenerateTallySheets);
             GenerateResultsPostCommand = SimpleCommand.From(GenerateResultsPost);
 
-            GenerateTrophiesSpecificationCommand = SimpleCommand.From(TrophiesInput.Generate);
             GenerateTrophiesCoreTemplateCommand = SimpleCommand
-                .From(() => PerformTrophiesImageOperation(Model.GenerateTrophiesCoreTemplate));
+                .From(() => PerformTrophiesSaveOperation(Model.GenerateTrophiesCoreTemplate));
             GenerateTrophiesEntriesTemplateCommand = SimpleCommand
                 .From(() => PerformTrophiesImageOperation(Model.GenerateTrophiesEntriesTemplate));
             CompileTrophiesCommand = SimpleCommand
@@ -38,8 +35,6 @@ namespace Alphicsh.JamTally.ViewModel.Result
         // ---------------
         // Text generators
         // ---------------
-
-        public ICommand GenerateTrophiesSpecificationCommand { get; }
 
         public ICommand GenerateTallySheetsCommand { get; }
         private void GenerateTallySheets()
@@ -71,6 +66,22 @@ namespace Alphicsh.JamTally.ViewModel.Result
         public ICommand GenerateTrophiesEntriesTemplateCommand { get; }
         public ICommand CompileTrophiesCommand { get; }
 
+        private void PerformTrophiesSaveOperation(Action<FilePath> action)
+        {
+            var jamDirectory = JamTallyViewModel.Current.Jam!.Model.DirectoryPath;
+            var defaultFilename = $"{jamDirectory.GetLastSegmentName()} Trophies.core.svg";
+
+            var destinationPath = FileQuery.SaveFile()
+                .WithFileType("*.svg", "Scalable Vector Graphics")
+                .WithDefaultName(defaultFilename)
+                .GetPath();
+
+            if (destinationPath == null)
+                return;
+
+            action(destinationPath.Value);
+        }
+
         private void PerformTrophiesImageOperation(Action<FilePath, FilePath> action)
         {
             var sourcePath = FileQuery.OpenFile()
@@ -91,8 +102,10 @@ namespace Alphicsh.JamTally.ViewModel.Result
             action(sourcePath.Value, destinationPath.Value);
         }
 
+        private static TallyTrophiesExporter TrophiesExporter { get; } = new TallyTrophiesExporter();
+
         public ICommand ExportTrophiesCommand { get; }
-        private void ExportTrophies()
+        private async void ExportTrophies()
         {
             var sourcePath = FileQuery.OpenFile()
                 .WithFileType("*.svg", "Scalable Vector Graphics")
@@ -102,13 +115,15 @@ namespace Alphicsh.JamTally.ViewModel.Result
                 return;
 
             ExportProgressText = "";
-            var trophiesExporter = new TrophiesExporter(sourcePath.Value);
-            trophiesExporter.ExportProgress += OnExportProgress;
-            Task.Run(trophiesExporter.Export);
+
+            var exportDirectory = sourcePath.Value.GetParentDirectoryPath().Append(sourcePath.Value.GetNameWithoutExtension());
+            var progress = new Progress<TrophiesExportProgress>();
+            progress.ProgressChanged += OnExportProgress;
+            await TrophiesExporter.Export(sourcePath.Value, exportDirectory, progress);
         }
 
         public string ExportProgressText { get; private set; } = string.Empty;
-        private void OnExportProgress(object? sender, TrophiesExportProgressEvent e)
+        private void OnExportProgress(object? sender, TrophiesExportProgress e)
         {
             var previousDetails = ExportProgressText != "" ? ExportProgressText.Substring(ExportProgressText.IndexOf("\n")) : "";
             ExportProgressText = $"Exported items: {e.ExportedItems}/{e.TotalItems}\n" + e.Message + previousDetails;

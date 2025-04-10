@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace Alphicsh.JamTally.Model.Result.Trophies
+namespace Alphicsh.JamTally.Trophies
 {
     public static class InkNames
     {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Alphicsh.JamTally.Model.Jam;
 using Alphicsh.JamTally.Model.Vote;
 
@@ -11,9 +12,17 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
         {
             var tallyVotes = GetTallyVotes(votes);
             var ranking = TallyRanking(jam.Entries, tallyVotes);
+            var rankingByEntry = ranking.ToDictionary(tallyEntry => tallyEntry.Entry);
 
             var topScores = GetAwardTopScores(ranking);
             var awardEntries = GetAwardEntries(topScores, ranking);
+            foreach (var criterion in jam.AwardCriteria)
+            {
+                foreach (var awardedEntry in awardEntries[criterion])
+                {
+                    rankingByEntry[awardedEntry].Awards.Add(criterion);
+                }
+            }
 
             var topReviewScore = GetTopReviewScore(tallyVotes);
             var topReviewers = GetTopReviewers(topReviewScore, tallyVotes);
@@ -45,6 +54,7 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
             return new JamTallyVote
             {
                 Voter = originalVote.Voter,
+                VoterCode = ExtractVoterCode(originalVote.Voter),
                 VoterAlignment = originalVote.Alignment,
                 Ranking = originalVote.Ranking.ToList(),
                 Unjudged = originalVote.Unjudged.Union(originalVote.Authored).ToList(),
@@ -52,6 +62,22 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
                 Reactions = reactions,
                 ReviewScore = reactions.Sum(reaction => reaction.Value),
             };
+        }
+
+        private string ExtractVoterCode(string title)
+        {
+            var codeBuilder = new StringBuilder();
+            foreach (char c in title)
+            {
+                if (c >= 128)
+                    continue;
+
+                if (char.IsLetterOrDigit(c))
+                    codeBuilder.Append(c);
+                else if (codeBuilder.Length > 0 && codeBuilder[^1] != '_')
+                    codeBuilder.Append('_');
+            }
+            return codeBuilder.ToString().ToLowerInvariant();
         }
 
         // -------
@@ -88,10 +114,17 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
                 }
             }
 
-            return entryCounters.Values
+            var fullRanking = entryCounters.Values
                 .Select(counter => counter.CompleteTally())
                 .OrderByDescending(tally => tally.TotalScore)
                 .ToList();
+
+            for (var i = 0; i < fullRanking.Count; i++)
+            {
+                fullRanking[i].Rank = i + 1;
+            }
+
+            return fullRanking;
         }
 
         // ------

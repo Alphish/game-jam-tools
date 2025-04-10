@@ -9,6 +9,7 @@
     <ProjectReference Include="..\..\Common\Alphicsh.JamTools.Common.IO\Alphicsh.JamTools.Common.IO.csproj" />
     <ProjectReference Include="..\Alphicsh.JamTally.Model.Core\Alphicsh.JamTally.Model.Core.csproj" />
     <ProjectReference Include="..\Alphicsh.JamTally.Spreadsheets\Alphicsh.JamTally.Spreadsheets.csproj" />
+    <ProjectReference Include="..\Alphicsh.JamTally.Trophies\Alphicsh.JamTally.Trophies.csproj" />
   </ItemGroup>
 
 </Project>

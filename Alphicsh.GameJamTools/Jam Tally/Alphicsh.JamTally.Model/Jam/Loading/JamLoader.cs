@@ -44,6 +44,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
             var alignments = MapAlignments(jamInfo.Alignments);
             var jam = new JamOverview
             {
+                DirectoryPath = directoryPath,
                 AwardCriteria = awardCriteria,
                 Alignments = alignments,
                 Entries = MapEntries(entriesPath, jamInfo.Entries, alignments, overrides),

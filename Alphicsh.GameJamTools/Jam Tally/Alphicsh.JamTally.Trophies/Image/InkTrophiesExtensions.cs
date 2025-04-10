@@ -1,15 +1,26 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
-namespace Alphicsh.JamTally.Model.Result.Trophies
+namespace Alphicsh.JamTally.Trophies.Image
 {
-    internal static class InkExtensions
+    internal static class InkTrophiesExtensions
     {
-        public static bool HasAttribute(this XElement element, string name)
-            => element.Attribute(name) != null;
-
         public static void SetPlainAttribute(this XElement element, string name, object? value)
             => element.SetAttributeValue(name, value);
+
+        public static void ReplaceStyle(this XElement element, Regex stylePattern, string value)
+        {
+            var styleAttribute = element.Attribute("style")!;
+            var replacement = stylePattern.Replace(styleAttribute.Value, value);
+            styleAttribute.SetValue(replacement);
+        }
+
+        public static void SetMainNamespace(this XElement element, string uri)
+            => element.SetAttributeValue("xmlns", uri);
+
+        public static void SetNamespace(this XElement element, string identifier, string uri)
+            => element.SetAttributeValue(XNamespace.Xmlns + identifier, uri);
 
         // ----
         // Data
@@ -23,19 +34,6 @@ namespace Alphicsh.JamTally.Model.Result.Trophies
 
         public static void SetDataAttribute(this XElement element, string name, object? value)
             => element.SetAttributeValue("data-" + name, value);
-
-        // --------
-        // Inkscape
-        // --------
-
-        public static bool HasInkAttribute(this XElement element, string name)
-            => element.InkAttribute(name) != null;
-
-        public static XAttribute? InkAttribute(this XElement element, string name)
-            => element.Attribute(InkNames.ForInkscape(name));
-
-        public static void SetInkAttribute(this XElement element, string name, object? value)
-            => element.SetAttributeValue(InkNames.ForInkscape(name), value);
 
         // -------------
         // Element types

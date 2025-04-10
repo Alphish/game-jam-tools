@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 using Alphicsh.JamTally.Model.Jam;
 using Alphicsh.JamTally.Model.Result.Alignments;
-using Alphicsh.JamTally.Model.Result.Trophies.Image;
 using Alphicsh.JamTally.Model.Vote;
 using Alphicsh.JamTally.Spreadsheets;
+using Alphicsh.JamTally.Trophies.Image.Generators;
 using Alphicsh.JamTools.Common.IO;
 
 namespace Alphicsh.JamTally.Model.Result
@@ -68,15 +71,40 @@ namespace Alphicsh.JamTally.Model.Result
         public string GenerateResultsPost()
             => ResultsPostGenerator.Generate(this);
 
-        private static TrophiesImageGenerator TrophiesImageGenerator { get; } = new TrophiesImageGenerator();
-
-        public void GenerateTrophiesCoreTemplate(FilePath sourcePath, FilePath destinationPath)
-            => TrophiesImageGenerator.GenerateCoreTemplate(sourcePath, destinationPath);
+        public void GenerateTrophiesCoreTemplate(FilePath destinationPath)
+        {
+            var generator = new TrophiesCoreGenerator();
+            var settings = new TrophiesImageSettings { TrophyWidth = 540, TrophyHeight = 120, ColumnWidth = 600, RowHeight = 140 };
+            var image = generator.Generate(settings);
+            File.WriteAllText(destinationPath.Value, image.Format());
+        }
 
         public void GenerateTrophiesEntriesTemplate(FilePath sourcePath, FilePath destinationPath)
-            => TrophiesImageGenerator.GenerateEntriesTemplate(sourcePath, destinationPath);
+        {
+            EnsureDifferentSavePath(sourcePath, destinationPath);
+            var generator = new TrophiesEntriesGenerator();
+            var settings = new TrophiesImageSettings { TrophyWidth = 540, TrophyHeight = 120, ColumnWidth = 600, RowHeight = 140 };
+            var document = XDocument.Load(sourcePath.Value);
+
+            var image = generator.Generate(document, settings, VoteCollection.NewTallyResult!);
+            File.WriteAllText(destinationPath.Value, image.Format());
+        }
 
         public void CompileTrophies(FilePath sourcePath, FilePath destinationPath)
-            => TrophiesImageGenerator.CompileTrophies(tallyResult: this, sourcePath, destinationPath);
+        {
+            EnsureDifferentSavePath(sourcePath, destinationPath);
+            var generator = new TrophiesAssembler();
+            var settings = new TrophiesImageSettings { TrophyWidth = 540, TrophyHeight = 120, ColumnWidth = 600, RowHeight = 140 };
+            var document = XDocument.Load(sourcePath.Value);
+
+            var image = generator.AssembleTrophies(document, settings, VoteCollection.NewTallyResult!);
+            File.WriteAllText(destinationPath.Value, image.Format());
+        }
+
+        private void EnsureDifferentSavePath(FilePath sourcePath, FilePath destinationPath)
+        {
+            if (sourcePath == destinationPath)
+                throw new InvalidOperationException("The source file path must be different than the destination path.");
+        }
     }
 }
