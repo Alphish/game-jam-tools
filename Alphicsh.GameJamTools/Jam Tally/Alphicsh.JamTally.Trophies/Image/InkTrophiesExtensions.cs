@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace Alphicsh.JamTally.Trophies.Image
@@ -7,6 +8,13 @@ namespace Alphicsh.JamTally.Trophies.Image
     {
         public static void SetPlainAttribute(this XElement element, string name, object? value)
             => element.SetAttributeValue(name, value);
+
+        public static void ReplaceStyle(this XElement element, Regex stylePattern, string value)
+        {
+            var styleAttribute = element.Attribute("style")!;
+            var replacement = stylePattern.Replace(styleAttribute.Value, value);
+            styleAttribute.SetValue(replacement);
+        }
 
         public static void SetMainNamespace(this XElement element, string uri)
             => element.SetAttributeValue("xmlns", uri);

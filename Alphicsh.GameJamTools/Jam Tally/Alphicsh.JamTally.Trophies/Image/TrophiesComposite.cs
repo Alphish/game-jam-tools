@@ -36,15 +36,17 @@ namespace Alphicsh.JamTally.Trophies.Image
             return this;
         }
 
-        public TrophiesComposite CloneTo(string role, int x, int y)
+        public TrophiesGuide GetGuide(string role) => GuidesByRole[role];
+
+        public TrophiesComposite CloneTo(string role, int x, int y, string? fill = null, string? stroke = null)
         {
-            GuidesByRole[role].CloneTo(x, y);
+            GuidesByRole[role].CloneTo(x, y, fill, stroke);
             return this;
         }
 
-        public TrophiesComposite CloneWithText(string role, int x, int y, string text)
+        public TrophiesComposite CloneWithText(string role, int x, int y, string text, string? fill = null, string? stroke = null)
         {
-            GuidesByRole[role].CloneWithText(x, y, text);
+            GuidesByRole[role].CloneWithText(x, y, text, fill, stroke);
             return this;
         }
     }

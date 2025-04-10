@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Alphicsh.JamTally.Model.Result;
 using Alphicsh.JamTally.Trophies.Image.Generators;
@@ -47,6 +48,18 @@ namespace Alphicsh.JamTally.Trophies.Image
         }
 
         // ------
+        // Saving
+        // ------
+
+        public string Format()
+        {
+            var content = Document.ToString();
+            content = Regex.Replace(content, "\\s*<tspan", "<tspan");
+            content = Regex.Replace(content, "</tspan>\\s*", "</tspan>");
+            return content;
+        }
+
+        // ------
         // Layers
         // ------
 
@@ -55,11 +68,11 @@ namespace Alphicsh.JamTally.Trophies.Image
         private Dictionary<string, TrophiesLayer> LayersById { get; } = new Dictionary<string, TrophiesLayer>();
         private Dictionary<XElement, TrophiesLayer> LayersByElement { get; } = new Dictionary<XElement, TrophiesLayer>();
 
-        public TrophiesImage WithLayer(string id, string label, string? after = null)
+        public TrophiesImage WithLayer(string id, string label, string? before = null)
         {
             var layer = TrophiesLayer.FindOrCreate(this, id, label);
-            if (after != null)
-                PlaceLayerAfter(layer, after);
+            if (before != null)
+                PlaceLayerBefore(layer, before);
 
             LayersList.Add(layer);
             LayersById.Add(layer.Id, layer);
@@ -67,14 +80,14 @@ namespace Alphicsh.JamTally.Trophies.Image
             return this;
         }
 
-        private void PlaceLayerAfter(TrophiesLayer layer, string after)
+        private void PlaceLayerBefore(TrophiesLayer layer, string before)
         {
-            var previousSibling = LayersById[after].Element;
-            if (layer.Element.PreviousNode == previousSibling)
+            var nextSibling = LayersById[before].Element;
+            if (layer.Element.NextNode == nextSibling)
                 return;
 
             layer.Element.Remove();
-            previousSibling.AddAfterSelf(layer.Element);
+            nextSibling.AddBeforeSelf(layer.Element);
         }
 
         public TrophiesLayer FindLayer(string id)
@@ -134,8 +147,10 @@ namespace Alphicsh.JamTally.Trophies.Image
         // Sections
         // --------
 
+        // Medals
+
         private Dictionary<string, MedalSection> MedalSectionsById { get; } = new Dictionary<string, MedalSection>();
-        private Dictionary<string, EntrySection> EntrySectionsById { get; } = new Dictionary<string, EntrySection>();
+        public MedalSection FindMedalSection(string id) => MedalSectionsById[id];
 
         public TrophiesImage WithMedalSection(string medalType, int row, int column)
         {
@@ -144,17 +159,41 @@ namespace Alphicsh.JamTally.Trophies.Image
             return this;
         }
 
-        public MedalSection FindMedalSection(string id)
-            => MedalSectionsById[id];
+        // Entries
+
+        private Dictionary<string, EntrySection> EntrySectionsByCode { get; } = new Dictionary<string, EntrySection>();
+        public IEnumerable<EntrySection> GetEntrySections() => EntrySectionsByCode.Values;
+        public EntrySection FindEntrySection(JamTallyEntry entry) => EntrySectionsByCode[entry.Code];
 
         public TrophiesImage AddEntrySection(JamTallyEntry tallyEntry, int row, int column)
         {
             var entrySection = EntrySection.Create(this, tallyEntry, row, column);
-            EntrySectionsById.Add(tallyEntry.Code, entrySection);
+            EntrySectionsByCode.Add(tallyEntry.Code, entrySection);
             return this;
         }
 
-        public IEnumerable<EntrySection> GetEntrySections()
-            => EntrySectionsById.Values;
+        // Trophies
+
+        private List<TrophySection> TrophySections { get; } = new List<TrophySection>();
+        public IEnumerable<TrophySection> GetTrophySections() => TrophySections;
+
+        public TrophiesImage AddTrophySection(JamTallyEntry tallyEntry, string trophyType, int row, int column)
+        {
+            var trophySection = TrophySection.Create(this, tallyEntry, trophyType, row, column);
+            TrophySections.Add(trophySection);
+            return this;
+        }
+
+        // Reviewers
+
+        private List<ReviewerSection> ReviewerSections { get; } = new List<ReviewerSection>();
+        public IEnumerable<ReviewerSection> GetReviewerSections() => ReviewerSections;
+
+        public TrophiesImage AddReviewerSection(JamTallyVote tallyVote, int row, int column)
+        {
+            var reviewerSection = ReviewerSection.Create(this, tallyVote, row, column);
+            ReviewerSections.Add(reviewerSection);
+            return this;
+        }
     }
 }
