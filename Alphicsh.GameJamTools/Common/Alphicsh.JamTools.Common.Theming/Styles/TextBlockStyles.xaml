@@ -7,8 +7,24 @@
     <Setter Property="FontFamily" Value="Segoe UI"/>
   </Style>
 
+  <Style TargetType="TextBlock" x:Key="GameTitle" BasedOn="{StaticResource {x:Type TextBlock}}">
+    <Setter Property="Foreground" Value="{DynamicResource HighlightText}"/>
+    <Setter Property="FontSize" Value="16"/>
+    <Setter Property="FontWeight" Value="Bold"/>
+  </Style>
+
   <Style TargetType="TextBlock" x:Key="TeamDescription" BasedOn="{StaticResource {x:Type TextBlock}}">
     <Setter Property="FontSize" Value="15"/>
+  </Style>
+
+  <Style TargetType="TextBlock" x:Key="TeamDescriptionSmall" BasedOn="{StaticResource {x:Type TextBlock}}">
+    <Setter Property="Foreground" Value="{DynamicResource DimText}"/>
+    <Setter Property="FontSize" Value="13"/>
+  </Style>
+
+  <Style TargetType="TextBlock" x:Key="AsideNote" BasedOn="{StaticResource {x:Type TextBlock}}">
+    <Setter Property="Foreground" Value="{DynamicResource DimText}"/>
+    <Setter Property="FontSize" Value="11"/>
   </Style>
 
   <Style TargetType="TextBlock" x:Key="FormComment" BasedOn="{StaticResource {x:Type TextBlock}}">

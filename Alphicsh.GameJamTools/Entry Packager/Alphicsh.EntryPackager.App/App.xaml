@@ -14,13 +14,13 @@
 
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/BorderStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ImageBoxStyles.xaml"/>
-        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/TextBlockStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/TextBlockStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/LabelStyles.xaml"/>
 
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ButtonStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/TextBoxStyles.xaml"/>
 
-        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/GroupBoxStyles.xaml"/>
+        <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/GroupBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ScrollViewerStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/ListBoxStyles.xaml"/>
         <ResourceDictionary Source="/Alphicsh.JamTools.Common.Theming;component/Styles/CheckBoxStyles.xaml"/>
