@@ -42,6 +42,7 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
             RemoveAwardCommand = SimpleCommand.WithParameter<JamAwardEditableViewModel>(RemoveAward);
 
             Entries = Model.Entries.Select(model => new JamEntryEditableViewModel(model)).ToList();
+            SelectedEntryProperty = MutableProperty.Create(this, nameof(SelectedEntry), initialValue: (JamEntryEditableViewModel?)null);
         }
 
         // -----------
@@ -49,7 +50,7 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
         // -----------
 
         public string DirectoryPath => Model.DirectoryPath.Value;
-        
+
         public ICommand OpenDirectoryCommand { get; }
         private void OpenDirectory()
         {
@@ -81,7 +82,7 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
 
         public ImageSourceProperty<JamEditableViewModel> LogoProperty { get; }
         public BitmapSource? Logo => LogoProperty.ImageSource as BitmapSource;
-        
+
         public NotifiableProperty LogoWidthProperty { get; }
         public double LogoWidth => Logo?.PixelWidth ?? 120d;
 
@@ -150,5 +151,8 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
         // -------
 
         public IReadOnlyCollection<JamEntryEditableViewModel> Entries { get; private set; }
+
+        public MutableProperty<JamEntryEditableViewModel?> SelectedEntryProperty { get; }
+        public JamEntryEditableViewModel? SelectedEntry { get => SelectedEntryProperty.Value; set => SelectedEntryProperty.Value = value; }
     }
 }

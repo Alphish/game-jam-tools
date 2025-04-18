@@ -42,20 +42,13 @@
 
     <StackPanel Grid.Column="4" VerticalAlignment="Center">
       <!-- Game title -->
-      <TextBlock
-        Foreground="{DynamicResource HighlightText}"
-        FontSize="16"
-        FontWeight="Bold"
-        Text="{Binding JamEntry.Title, Mode=OneWay}"
-        d:Text="Test game"
-      ></TextBlock>
+      <TextBlock Style="{StaticResource GameTitle}" Text="{Binding JamEntry.Title, Mode=OneWay}" d:Text="Test game"/>
 
       <!-- Game authors -->
       <TextBlock
+        Style="{StaticResource TeamDescriptionSmall}"
         HorizontalAlignment="Left"
         VerticalAlignment="Center"
-        Foreground="{DynamicResource DimText}"
-        FontSize="13"
       >
         <Run Text="by"></Run>
         <Run Text="{Binding JamEntry.Team.ShortDescription, Mode=OneWay}" d:Text="Team Testers"/>
