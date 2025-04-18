@@ -24,6 +24,8 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
 
             Files = new JamFilesEditableViewModel(model.Files);
 
+            HasLauncherProperty = NotifiableProperty.Create(this, nameof(HasLauncher))
+                .DependingOn(Files.Launchers.HasLaunchersProperty);
             HasRequiredReadmeProperty = NotifiableProperty.Create(this, nameof(HasRequiredReadme))
                 .DependingOn(Files.Readme.LocationProperty, Files.Readme.IsRequiredProperty);
             HasRegularReadmeProperty = NotifiableProperty.Create(this, nameof(HasRegularReadme))
@@ -60,6 +62,8 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
 
         // Readme & Afterword
 
+        public NotifiableProperty HasLauncherProperty { get; }
+        public bool HasLauncher => Files.Launchers.HasLaunchers;
         public NotifiableProperty HasRequiredReadmeProperty { get; }
         public bool HasRequiredReadme => Files.Readme.Model.CanOpen && Files.Readme.IsRequired;
         public NotifiableProperty HasRegularReadmeProperty { get; }

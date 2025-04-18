@@ -6,68 +6,115 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
   xmlns:local="clr-namespace:Alphicsh.JamPackager.Controls.Entries"
   xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
-  xmlns:entryPreview="clr-namespace:Alphicsh.EntryPackager.Controls.Preview;assembly=Alphicsh.EntryPackager.Controls"
   mc:Ignorable="d" 
   d:DesignWidth="960"
 >
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="Auto"/>
-      <ColumnDefinition Width="Auto"/>
-      <ColumnDefinition Width="1*"/>
-      <ColumnDefinition Width="1*"/>
-    </Grid.ColumnDefinitions>
-
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-
+  <DockPanel>
     <!-- Thumbnails -->
     <cc:ImageBox
-      Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+      DockPanel.Dock="Left"
       Style="{StaticResource EntryThumbnailSmall}"
       Source="{Binding Files.Thumbnails.ThumbnailSmall}"
       Margin="2"
     />
-
-    <cc:ImageBox
-      Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"
-      Style="{StaticResource EntryThumbnailSmall}"
-      Source="{Binding Files.Thumbnails.Thumbnail}"
-      Margin="2"
-    />
-
-    <!-- Entry information -->
-    <cc:ImpTextBox Grid.Column="2" Grid.Row="0" Margin="2" Text="{Binding Title}" ToolTip="The game title" Placeholder="&lt;enter title here&gt;"/>
-    <cc:ImpTextBox Grid.Column="3" Grid.Row="0" Margin="2" Text="{Binding ShortTitle}" ToolTip="The alternative shorter title" Placeholder="&lt;same as title&gt;"/>
-    <cc:ImpTextBox Grid.Column="2" Grid.Row="1" Margin="2" Text="{Binding Team.Name}" ToolTip="The name of the team, if any" Placeholder="&lt;enter team name here&gt;"/>
-    <cc:ImpTextBox Grid.Column="3" Grid.Row="1" Margin="2" Text="{Binding Team.AuthorsString}" ToolTip="The names of individual authors" Placeholder="&lt;enter authors here&gt;"/>
     
-    <!-- Entry actions -->
-    <DockPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3">
-      <cc:ImpButton
-        DockPanel.Dock="Right"
-        Style="{StaticResource HelpButton}"
-        Margin="2"
-        Width="128"
-        Command="{Binding Files.RediscoverFilesCommand}"
-        ToolTip="Automatically searches for missing launchers, text files and thumbnails"
-      >Rediscover files</cc:ImpButton>
+    <!-- Entry information -->
+    <StackPanel VerticalAlignment="Center">
+      <!-- Title -->
+      <TextBlock Style="{StaticResource GameTitle}" Text="{Binding DisplayShortTitle, Mode=OneWay}" d:Text="Test game"/>
       
-      <cc:ImpButton
-        DockPanel.Dock="Right"
-        Style="{StaticResource HelpButton}"
-        Margin="2"
-        Width="128"
-        Command="{Binding Files.Thumbnails.MakeThumbnailCommand}"
-        ToolTip="Makes your own thumbnail"
-      >Make thumbnails</cc:ImpButton>
-      
-      <WrapPanel Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="0" Margin="2,0,0,0">
-        <entryPreview:EntryPreviewActionBar/>
+      <!-- Team -->
+      <WrapPanel>
+        <TextBlock Style="{StaticResource TeamDescriptionSmall}" Text="{Binding Team.DisplayName}" d:Text="Test team"/>
+        <TextBlock Style="{StaticResource TeamDescriptionSmall}" Margin="4,0,0,0" Visibility="{Binding Team.Name, Converter={StaticResource NullVisibilityConverter}}">
+          <Run>(</Run>
+          <Run Text="{Binding Team.AuthorsString}" d:Text="Lorem, Ipsum"/>
+          <Run>)</Run>
+        </TextBlock>
       </WrapPanel>
-    </DockPanel>
-  </Grid>
+      
+      <!-- Files -->
+      <WrapPanel>
+        <WrapPanel Visibility="{Binding HasRequiredReadme, Converter={StaticResource ShowTrueVisibilityConverter}}">
+          <cc:ImageBox
+            Style="{StaticResource MaskImageBox}"
+            Width="16"
+            Height="16"
+            Source="{DynamicResource IconCheckSource}"
+            Background="{StaticResource HighlightText}"
+          />
+          <TextBlock
+            Style="{StaticResource AsideNote}"
+            Foreground="{StaticResource HighlightText}"
+            VerticalAlignment="Center"
+            Text="Readme"
+          />
+        </WrapPanel>
+
+        <WrapPanel Visibility="{Binding HasLauncher, Converter={StaticResource ShowTrueVisibilityConverter}}">
+          <cc:ImageBox
+            Style="{StaticResource MaskImageBox}"
+            Width="16"
+            Height="16"
+            Source="{DynamicResource IconCheckSource}"
+            Background="{StaticResource HighlightText}"
+          />
+          <TextBlock
+            Style="{StaticResource AsideNote}"
+            Foreground="{StaticResource HighlightText}"
+            VerticalAlignment="Center"
+            Text="Play"
+          />
+        </WrapPanel>
+
+        <WrapPanel Visibility="{Binding HasLauncher, Converter={StaticResource ShowFalseVisibilityConverter}}">
+          <cc:ImageBox
+            Style="{StaticResource MaskImageBox}"
+            Width="16"
+            Height="16"
+            Source="{DynamicResource IconCrossSource}"
+            Background="{StaticResource ErrorText}"
+          />
+          <TextBlock
+            Style="{StaticResource AsideNote}"
+            Foreground="{StaticResource ErrorText}"
+            VerticalAlignment="Center"
+            Text="No Play"
+          />
+        </WrapPanel>
+
+        <WrapPanel Visibility="{Binding HasRegularReadme, Converter={StaticResource ShowTrueVisibilityConverter}}">
+          <cc:ImageBox
+            Style="{StaticResource MaskImageBox}"
+            Width="16"
+            Height="16"
+            Source="{DynamicResource IconCheckSource}"
+            Background="{StaticResource BasicText}"
+          />
+          <TextBlock
+            Style="{StaticResource AsideNote}"
+            Foreground="{StaticResource BasicText}"
+            VerticalAlignment="Center"
+            Text="Readme"
+          />
+        </WrapPanel>
+
+        <WrapPanel Visibility="{Binding HasAfterword, Converter={StaticResource ShowTrueVisibilityConverter}}">
+          <cc:ImageBox
+            Style="{StaticResource MaskImageBox}"
+            Width="16"
+            Height="16"
+            Source="{DynamicResource IconCheckSource}"
+            Background="{StaticResource BasicText}"
+          />
+          <TextBlock
+            Style="{StaticResource AsideNote}"
+            Foreground="{StaticResource BasicText}"
+            VerticalAlignment="Center"
+            Text="Afterword"
+          />
+        </WrapPanel>
+      </WrapPanel>
+    </StackPanel>
+  </DockPanel>
 </UserControl>
