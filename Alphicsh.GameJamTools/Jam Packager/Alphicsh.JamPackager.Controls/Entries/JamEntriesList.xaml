@@ -12,6 +12,7 @@
   <GroupBox Header="Entries">
     <ListBox
       ItemsSource="{Binding Entries}"
+      SelectedItem="{Binding SelectedEntry}"
       HorizontalContentAlignment="Stretch"
       ScrollViewer.VerticalScrollBarVisibility="Visible"
     >

@@ -45,7 +45,7 @@
             <cc:ImageBox Style="{StaticResource MenuIconBox}" Source="{DynamicResource MenuSummaryIconSource}" ToolTip="Entries"/>
           </TabItem.Header>
 
-          <appEntries:JamEntriesList DataContext="{Binding Jam}"/>
+          <appEntries:JamEntriesTab DataContext="{Binding Jam}"/>
         </TabItem>
         
       </TabControl>
