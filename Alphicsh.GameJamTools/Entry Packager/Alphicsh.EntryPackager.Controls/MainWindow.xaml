@@ -21,7 +21,7 @@
     <local:EntrySelectionPanel Visibility="{Binding HasEntry, Converter={StaticResource ShowFalseVisibilityConverter}}"/>
 
     <Grid Visibility="{Binding HasEntry, Converter={StaticResource ShowTrueVisibilityConverter}}">
-      <TabControl Style="{StaticResource MenuTabControl}">
+      <TabControl Style="{StaticResource MenuTabControl}" SelectionChanged="OnTabChanged">
         <!-- Preview tab -->
         <TabItem>
           <TabItem.Header>

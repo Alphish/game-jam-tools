@@ -5,6 +5,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
   xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.Export"
+  xmlns:checklists="clr-namespace:Alphicsh.JamTools.Common.Layouts.Checklists;assembly=Alphicsh.JamTools.Common.Layouts"
   mc:Ignorable="d"
   d:DesignHeight="540" d:DesignWidth="900"
 >
@@ -21,9 +22,13 @@
       <ColumnDefinition Width="1*"/>
     </Grid.ColumnDefinitions>
 
-    <local:EntryExportChecklistSection Grid.Row="0" Grid.Column="0" DataContext="{Binding Checklist}"/>
+    <GroupBox Header="Entry status" Grid.Row="0" Grid.Column="0">
+      <checklists:CheckResultsSection DataContext="{Binding Checklist}"/>
+    </GroupBox>
 
-    <local:EntryExportRemindersSection Grid.Row="0" Grid.Column="2" DataContext="{Binding Checklist}"/>
+    <GroupBox Header="Reminders" Grid.Row="0" Grid.Column="2">
+      <checklists:CheckConfirmationsSection DataContext="{Binding Checklist}"/>
+    </GroupBox>
 
     <local:EntryExportActionBar Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
   </Grid>

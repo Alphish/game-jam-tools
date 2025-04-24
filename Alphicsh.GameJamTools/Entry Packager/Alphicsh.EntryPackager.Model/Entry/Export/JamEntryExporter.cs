@@ -22,12 +22,12 @@ namespace Alphicsh.EntryPackager.Model.Entry.Export
 
         public bool CanExport()
         {
-            return Checklist.IsEntryReady();
+            return Checklist.IsReady;
         }
 
         public void ExportTo(FilePath zipPath)
         {
-            if (!Checklist.IsEntryReady())
+            if (!Checklist.IsReady)
                 return;
 
             SaveModel.Save(EntryData);

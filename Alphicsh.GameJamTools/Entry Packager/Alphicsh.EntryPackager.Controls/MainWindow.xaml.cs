@@ -26,5 +26,13 @@ namespace Alphicsh.EntryPackager.Controls
 
             base.OnClosing(e);
         }
+
+        private void OnTabChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (EntryPackagerViewModel.Current.ExportSystem == null)
+                return;
+
+            EntryPackagerViewModel.Current.ExportSystem.RefreshChecklist();
+        }
     }
 }

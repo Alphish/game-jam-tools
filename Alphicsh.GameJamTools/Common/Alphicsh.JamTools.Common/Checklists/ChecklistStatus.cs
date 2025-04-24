@@ -1,4 +1,4 @@
-﻿namespace Alphicsh.EntryPackager.Model.Entry.Export
+﻿namespace Alphicsh.JamTools.Common.Checklists
 {
     public enum ChecklistStatus
     {
