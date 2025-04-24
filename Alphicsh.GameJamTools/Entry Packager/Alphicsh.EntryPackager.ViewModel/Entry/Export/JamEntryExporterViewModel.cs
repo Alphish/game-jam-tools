@@ -3,6 +3,7 @@ using Alphicsh.JamTools.Common.Controls.Files;
 using Alphicsh.JamTools.Common.Mvvm;
 using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
+using Alphicsh.JamTools.Common.ViewModel.Checklists;
 
 namespace Alphicsh.EntryPackager.ViewModel.Entry.Export
 {
@@ -10,20 +11,13 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Export
     {
         public JamEntryExporterViewModel(JamEntryExporter model) : base(model)
         {
-            Checklist = new JamEntryChecklistViewModel(model.Checklist);
+            Checklist = new ChecklistViewModel(model.Checklist);
 
             ExportCommand = ConditionalCommand.From(CanExport, Export);
-            foreach (var statusItem in Checklist.Statuses)
-            {
-                ExportCommand.ExecutionDependingOn(statusItem.StatusIconProperty);
-            }
-            foreach (var reminder in Checklist.Reminders)
-            {
-                ExportCommand.ExecutionDependingOn(reminder.IsCheckedProperty);
-            }
+            ExportCommand.ExecutionDependingOn(Checklist.IsReadyProperty);
         }
 
-        public JamEntryChecklistViewModel Checklist { get; }
+        public ChecklistViewModel Checklist { get; }
 
         public IConditionalCommand ExportCommand { get; }
         private bool CanExport() => Model.CanExport();
@@ -40,6 +34,12 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry.Export
                 return;
 
             Model.ExportTo(zipPath.Value);
+        }
+
+        public void RefreshChecklist()
+        {
+            Checklist.Recheck();
+            ExportCommand.RaiseCanExecuteChanged();
         }
     }
 }
