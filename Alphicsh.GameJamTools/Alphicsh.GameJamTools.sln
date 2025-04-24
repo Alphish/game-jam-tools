@@ -65,6 +65,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTools.Common", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTools.Common.ViewModel", "Common\Alphicsh.JamTools.Common.ViewModel\Alphicsh.JamTools.Common.ViewModel.csproj", "{03420E74-DB4F-4128-B0D8-B081D4892F6E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphicsh.JamTools.Common.Layouts", "Common\Alphicsh.JamTools.Common.Layouts\Alphicsh.JamTools.Common.Layouts.csproj", "{7C77251E-716F-4563-A949-AB0CA85125B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,6 +177,10 @@ Global
 		{03420E74-DB4F-4128-B0D8-B081D4892F6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03420E74-DB4F-4128-B0D8-B081D4892F6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03420E74-DB4F-4128-B0D8-B081D4892F6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C77251E-716F-4563-A949-AB0CA85125B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C77251E-716F-4563-A949-AB0CA85125B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C77251E-716F-4563-A949-AB0CA85125B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C77251E-716F-4563-A949-AB0CA85125B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -206,6 +212,7 @@ Global
 		{CA300C64-12FA-4D84-9D99-818D699525A9} = {DC1689DE-6189-4528-AC1A-15049B8027C2}
 		{42D938EE-7AFB-4815-BAEE-4757A9CFED1C} = {2F663BFC-12CD-422C-B0E2-F65B401B0CD4}
 		{03420E74-DB4F-4128-B0D8-B081D4892F6E} = {2F663BFC-12CD-422C-B0E2-F65B401B0CD4}
+		{7C77251E-716F-4563-A949-AB0CA85125B8} = {2F663BFC-12CD-422C-B0E2-F65B401B0CD4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DF6235F-0198-4921-B6F6-CC96A4448F90}
