@@ -1,7 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using Alphicsh.JamPlayer.Controls;
 using Alphicsh.JamPlayer.Model;
 using Alphicsh.JamPlayer.ViewModel;
@@ -26,6 +29,7 @@ namespace Alphicsh.JamPlayer.App
 
             var model = new AppModel();
             ViewModel = JamPlayerViewModel.Create(model);
+            DispatcherUnhandledException += OnDispatcherUnhandledException;
         }
 
         protected override async void OnStartup(StartupEventArgs e)
@@ -66,6 +70,20 @@ namespace Alphicsh.JamPlayer.App
             // because jamInfoPaths is a collection of non-nullable FilePaths
             // so it would return a default FilePath instead
             return jamInfoPaths.Any() ? jamInfoPaths.First() : null;
+        }
+
+        private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            if (ViewModel.Jam == null)
+                return;
+
+            var filePath = ViewModel.Jam.Model.DirectoryPath
+                .Append(".crashes")
+                .Append(DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt")
+                .Value;
+
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+            File.WriteAllText(filePath, e.Exception.ToString());
         }
     }
 }

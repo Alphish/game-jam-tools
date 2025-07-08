@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Alphicsh.JamTools.Common.IO.Execution
@@ -12,7 +13,15 @@ namespace Alphicsh.JamTools.Common.IO.Execution
                 WorkingDirectory = filePath.GetParentDirectoryPath().Value,
                 UseShellExecute = true
             };
-            Process.Start(processStartInfo);
+
+            try
+            {
+                Process.Start(processStartInfo);
+            }
+            catch (Win32Exception)
+            {
+                // prevent crashing when user refuses to open the application
+            }
         }
 
         public void OpenDirectory(FilePath filePath)
