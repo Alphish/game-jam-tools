@@ -69,7 +69,7 @@ namespace Alphicsh.JamTally.Model.Result
         private static ResultsPostGenerator ResultsPostGenerator { get; } = new ResultsPostGenerator();
 
         public string GenerateResultsPost()
-            => ResultsPostGenerator.Generate(this);
+            => ResultsPostGenerator.Generate(VoteCollection.NewTallyResult!);
 
         public void GenerateTrophiesCoreTemplate(FilePath destinationPath)
         {

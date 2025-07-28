@@ -1,11 +1,12 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using Alphicsh.JamTally.Model.Jam;
 
 namespace Alphicsh.JamTally.Model.Result
 {
     internal class ResultsPostGenerator
     {
-        public string Generate(JamTallyResult result)
+        public string Generate(JamTallyNewResult result)
         {
             var sb = new StringBuilder();
 
@@ -37,6 +38,8 @@ namespace Alphicsh.JamTally.Model.Result
             sb.AppendLine("[IMG]<BEST AUDIO URL>[/IMG]");
             sb.AppendLine("");
             sb.AppendLine("[IMG]<BEST UX URL>[/IMG]");
+            sb.AppendLine("");
+            sb.AppendLine("[IMG]<BEST REVIEWER URL>[/IMG]");
             sb.AppendLine("___________");
             sb.AppendLine("");
             sb.AppendLine("[SIZE=6]All medals for all participants are available [URL='<MEDALS ZIP URL>']HERE[/URL].[/SIZE]");
@@ -46,14 +49,14 @@ namespace Alphicsh.JamTally.Model.Result
             sb.AppendLine("");
         }
 
-        private void GenerateRanking(JamTallyResult result, StringBuilder sb)
+        private void GenerateRanking(JamTallyNewResult result, StringBuilder sb)
         {
             sb.AppendLine("[SIZE=7]Full Rankings[/SIZE]");
             sb.AppendLine("");
             sb.AppendLine("[SPOILER=Images Ranking][IMG]<FULL RANKING URL>[/IMG][/SPOILER]");
             sb.AppendLine("");
             sb.AppendLine("[LIST=1]");
-            foreach (var entryScore in result.FinalRanking)
+            foreach (var entryScore in result.Ranking)
             {
                 sb.Append("[*]");
                 PrintEntry(entryScore.Entry, sb);
@@ -62,22 +65,31 @@ namespace Alphicsh.JamTally.Model.Result
             sb.AppendLine("");
         }
 
-        private void GenerateAwards(JamTallyResult result, StringBuilder sb)
+        private void GenerateAwards(JamTallyNewResult result, StringBuilder sb)
         {
             sb.AppendLine("[SIZE=7]Awards[/SIZE]");
             sb.AppendLine("");
-            foreach (var awardRanking in result.AwardRankings)
+            foreach (var kvp in result.AwardEntries)
             {
-                GenerateAwardWinners(awardRanking, sb);
+                var awardCriterion = kvp.Key;
+                var winners = kvp.Value;
+                GenerateAwardWinners(awardCriterion, winners, sb);
             }
+
+            sb.AppendLine($"[SIZE=6]Best Reviewer:[/SIZE]");
+            foreach (var reviewer in result.TopReviewers)
+            {
+                sb.AppendLine($"[B]{reviewer}[/B]");
+            }
+            sb.AppendLine($"");
         }
 
-        private void GenerateAwardWinners(JamTallyAwardRanking awardRanking, StringBuilder sb)
+        private void GenerateAwardWinners(JamAwardCriterion awardCriterion, IEnumerable<JamEntry> winners, StringBuilder sb)
         {
-            sb.AppendLine($"[SIZE=6]{awardRanking.Award.Name}:[/SIZE]");
-            foreach (var winner in awardRanking.GetWinners())
+            sb.AppendLine($"[SIZE=6]{awardCriterion.Name}:[/SIZE]");
+            foreach (var winner in winners)
             {
-                PrintEntry(winner.Entry, sb);
+                PrintEntry(winner, sb);
             }
             sb.AppendLine($"");
         }
