@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Linq;
+using System.Windows.Input;
 using Alphicsh.JamTally.Model.Vote;
 using Alphicsh.JamTally.ViewModel.Result;
 using Alphicsh.JamTools.Common.Mvvm;
@@ -34,6 +35,7 @@ namespace Alphicsh.JamTally.ViewModel.Vote
             Model.AddVote();
             Votes.SynchronizeWithModels();
             Votes.CompleteChanges();
+            SelectedVote = Votes.Last();
         }
 
         public ICommand RemoveVoteCommand { get; }
