@@ -1,4 +1,4 @@
-﻿using Alphicsh.JamTools.Common.IO.Jam.New.Entries;
+﻿using Alphicsh.JamTools.Common.IO.Jam.Entries;
 using Alphicsh.JamTools.Common.IO.Saving;
 using Alphicsh.JamTools.Common.IO.Serialization;
 
@@ -6,7 +6,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
 {
     public class JamEntrySaveDataLoader : ISaveDataLoader<JamEntryEditable, JamEntrySaveData>
     {
-        private JsonFileLoader<NewJamEntryInfo> EntryLoader { get; } = new JsonFileLoader<NewJamEntryInfo>();
+        private JsonFileLoader<JamEntryInfo> EntryLoader { get; } = new JsonFileLoader<JamEntryInfo>();
 
         public JamEntrySaveData? Load(JamEntryEditable model)
         {

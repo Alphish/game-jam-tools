@@ -2,15 +2,15 @@
 using Alphicsh.JamPlayer.Model.Jam.Files;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.IO.Execution;
-using Alphicsh.JamTools.Common.IO.Jam.New;
-using Alphicsh.JamTools.Common.IO.Jam.New.Entries;
+using Alphicsh.JamTools.Common.IO.Jam;
+using Alphicsh.JamTools.Common.IO.Jam.Entries;
 using Alphicsh.JamTools.Common.IO.Storage;
 
 namespace Alphicsh.JamPlayer.Model.Jam.Loading
 {
-    public class JamInfoToOverviewMapper : IMapper<NewJamInfo, JamOverview>
+    public class JamInfoToOverviewMapper : IMapper<JamInfo, JamOverview>
     {
-        public JamOverview Map(NewJamInfo info)
+        public JamOverview Map(JamInfo info)
         {
             var directoryPath = info.Location.GetParentDirectoryPath();
             var logoPath = directoryPath.AppendNullable(info.LogoFileName);
@@ -28,7 +28,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
             };
         }
 
-        private JamAwardCriterion MapAwardCriterion(NewJamAwardInfo awardInfo)
+        private JamAwardCriterion MapAwardCriterion(JamAwardInfo awardInfo)
         {
             return new JamAwardCriterion
             {
@@ -38,7 +38,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
             };
         }
 
-        private JamEntry MapEntry(NewJamEntryInfo entryInfo)
+        private JamEntry MapEntry(JamEntryInfo entryInfo)
         {
             var entryDirectory = entryInfo.Location.GetParentDirectoryPath();
             return new JamEntry
@@ -55,7 +55,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
         // Team
         // ----
 
-        private JamTeam MapTeam(NewJamTeamInfo teamInfo)
+        private JamTeam MapTeam(JamTeamInfo teamInfo)
         {
             var authors = teamInfo.Authors.Select(MapAuthor).ToList();
             return new JamTeam
@@ -65,7 +65,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
             };
         }
 
-        private JamAuthor MapAuthor(NewJamAuthorInfo authorInfo)
+        private JamAuthor MapAuthor(JamAuthorInfo authorInfo)
         {
             return new JamAuthor
             {
@@ -79,7 +79,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
         // Files
         // -----
 
-        private JamFiles MapFiles(NewJamFilesInfo filesInfo, FilePath entryDirectory)
+        private JamFiles MapFiles(JamFilesInfo filesInfo, FilePath entryDirectory)
         {
             var launchers = filesInfo.Launchers
                 .Select(launcherInfo => MapLauncher(launcherInfo, entryDirectory))
@@ -95,7 +95,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
             };
         }
 
-        private LaunchData MapLauncher(NewJamLauncherInfo launcherInfo, FilePath entryDirectory)
+        private LaunchData MapLauncher(JamLauncherInfo launcherInfo, FilePath entryDirectory)
         {
             var launchType = (LaunchType)launcherInfo.Type;
             var location = launchType == LaunchType.WindowsExe
@@ -104,7 +104,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
             return new LaunchData(launcherInfo.Name, launcherInfo.Description, launchType, location);
         }
 
-        private JamThumbnails MapThumbnails(NewJamThumbnailsInfo thumbnailsInfo, FilePath entryDirectory)
+        private JamThumbnails MapThumbnails(JamThumbnailsInfo thumbnailsInfo, FilePath entryDirectory)
         {
             return new JamThumbnails
             {
@@ -113,7 +113,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
             };
         }
 
-        private JamReadme MapReadme(NewJamReadmeInfo readmeInfo, FilePath entryDirectory)
+        private JamReadme MapReadme(JamReadmeInfo readmeInfo, FilePath entryDirectory)
         {
             return new JamReadme
             {
@@ -122,7 +122,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
             };
         }
 
-        private JamAfterword MapAfterword(NewJamAfterwordInfo afterwordInfo, FilePath entryDirectory)
+        private JamAfterword MapAfterword(JamAfterwordInfo afterwordInfo, FilePath entryDirectory)
         {
             return new JamAfterword
             {

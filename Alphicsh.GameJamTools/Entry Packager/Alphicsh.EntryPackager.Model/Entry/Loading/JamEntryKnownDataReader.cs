@@ -2,7 +2,7 @@
 using Alphicsh.EntryPackager.Model.Entry.Files;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.IO.Execution;
-using Alphicsh.JamTools.Common.IO.Jam.New.Entries;
+using Alphicsh.JamTools.Common.IO.Jam.Entries;
 using Alphicsh.JamTools.Common.IO.Search;
 using Alphicsh.JamTools.Common.IO.Serialization;
 
@@ -10,7 +10,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
 {
     internal class JamEntryKnownDataReader
     {
-        private static JsonFileLoader<NewJamEntryInfo> Loader { get; } = new JsonFileLoader<NewJamEntryInfo>();
+        private static JsonFileLoader<JamEntryInfo> Loader { get; } = new JsonFileLoader<JamEntryInfo>();
 
         public JamEntryEditable? TryReadFromDirectory(FilePath directoryPath)
         {
@@ -28,7 +28,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
         // Finding info
         // ------------
 
-        private NewJamEntryInfo? FindEntryInfoForDirectory(FilePath directoryPath)
+        private JamEntryInfo? FindEntryInfoForDirectory(FilePath directoryPath)
         {
             var entryInfoPath = FindEntryInfoPath(directoryPath);
             return entryInfoPath != null ? ReadEntryInfo(entryInfoPath.Value) : null;
@@ -42,7 +42,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
                 .FirstOrDefault();
         }
 
-        private NewJamEntryInfo? ReadEntryInfo(FilePath entryInfoPath)
+        private JamEntryInfo? ReadEntryInfo(FilePath entryInfoPath)
         {
             return Loader.TryLoad(entryInfoPath)?.FromLegacyFormat();
         }
@@ -51,7 +51,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
         // Populating entry
         // ----------------
 
-        public JamEntryEditable CreateEntryForInfo(FilePath directoryPath, NewJamEntryInfo entryInfo)
+        public JamEntryEditable CreateEntryForInfo(FilePath directoryPath, JamEntryInfo entryInfo)
         {
             var entryEditable = new JamEntryEditable();
             entryEditable.Files.SetDirectoryPath(directoryPath);
@@ -59,7 +59,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
             return entryEditable;
         }
 
-        private void ApplyEntryInfo(JamEntryEditable entryEditable, NewJamEntryInfo entryInfo)
+        private void ApplyEntryInfo(JamEntryEditable entryEditable, JamEntryInfo entryInfo)
         {
             entryEditable.WrittenBy = entryInfo.WrittenBy;
             entryEditable.Title = entryInfo.Title;
@@ -69,7 +69,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
             ApplyFilesInfo(entryEditable.Files, entryInfo.Files);
         }
 
-        private void ApplyTeamInfo(JamTeamEditable teamEditable, NewJamTeamInfo teamInfo)
+        private void ApplyTeamInfo(JamTeamEditable teamEditable, JamTeamInfo teamInfo)
         {
             teamEditable.Name = teamInfo.Name;
 
@@ -86,7 +86,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
             }
         }
 
-        private void ApplyFilesInfo(JamFilesEditable filesEditable, NewJamFilesInfo filesInfo)
+        private void ApplyFilesInfo(JamFilesEditable filesEditable, JamFilesInfo filesInfo)
         {
             foreach (var launcher in filesInfo.Launchers)
             {
@@ -102,7 +102,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
             filesEditable.Thumbnails.ThumbnailSmallLocation = filesInfo.Thumbnails?.ThumbnailSmallLocation;
         }
 
-        private void ApplyLauncher(JamFilesEditable files, NewJamLauncherInfo launcherInfo)
+        private void ApplyLauncher(JamFilesEditable files, JamLauncherInfo launcherInfo)
         {
             var launcherEditable = files.AddLauncher();
             launcherEditable.SetName(launcherInfo.Name);

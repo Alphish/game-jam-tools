@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.IO.Jam.New;
+using Alphicsh.JamTools.Common.IO.Jam;
 using Alphicsh.JamTools.Common.IO.Serialization;
 
 namespace Alphicsh.JamTally.Model.Jam.Loading
 {
     public class JamLoader
     {
-        private static JsonFileLoader<NewJamCore> InfoLoader { get; } = new JsonFileLoader<NewJamCore>();
+        private static JsonFileLoader<JamCore> InfoLoader { get; } = new JsonFileLoader<JamCore>();
         private static JamEntryLoader EntryLoader { get; } = new JamEntryLoader();
 
         private static JsonFileLoader<JamOverrides> OverridesLoader { get; } = new JsonFileLoader<JamOverrides>();
@@ -34,7 +34,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
         // Mapping
         // -------
 
-        private JamOverview MapJam(FilePath directoryPath, NewJamCore jamInfo, JamOverrides overrides)
+        private JamOverview MapJam(FilePath directoryPath, JamCore jamInfo, JamOverrides overrides)
         {
             var entriesPath = directoryPath.Append(jamInfo.EntriesSubpath);
             var awardCriteria = jamInfo.AwardCriteria
@@ -53,7 +53,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
             return jam;
         }
 
-        private JamAwardCriterion MapAwardCriterion(NewJamAwardInfo awardInfo, JamAwardOverride? awardOverride)
+        private JamAwardCriterion MapAwardCriterion(JamAwardInfo awardInfo, JamAwardOverride? awardOverride)
         {
             var defaultAbbreviation = awardInfo.Id.Length > 3
                 ? awardInfo.Id.Remove(3).ToUpperInvariant()
@@ -68,7 +68,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
             };
         }
 
-        private JamAlignments? MapAlignments(NewJamAlignmentInfo? alignments)
+        private JamAlignments? MapAlignments(JamAlignmentInfo? alignments)
         {
             if (alignments == null)
                 return null;
@@ -78,7 +78,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
             return new JamAlignments(neitherTitle, options);
         }
 
-        private JamAlignmentOption MapAlignmentOption(NewJamAlignmentOptionInfo optionInfo)
+        private JamAlignmentOption MapAlignmentOption(JamAlignmentOptionInfo optionInfo)
         {
             return new JamAlignmentOption
             {
@@ -87,7 +87,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
             };
         }
 
-        private IReadOnlyCollection<JamEntry> MapEntries(FilePath entriesPath, IEnumerable<NewJamEntryStub> stubs, JamAlignments? alignments, JamOverrides overrides)
+        private IReadOnlyCollection<JamEntry> MapEntries(FilePath entriesPath, IEnumerable<JamEntryStub> stubs, JamAlignments? alignments, JamOverrides overrides)
         {
             var result = new List<JamEntry>();
             foreach (var stub in stubs)
@@ -99,7 +99,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
             return result;
         }
 
-        private JamEntry? TryLoadEntry(FilePath entriesPath, NewJamEntryStub stub, JamAlignments? alignments, JamEntryOverride? entryOverride)
+        private JamEntry? TryLoadEntry(FilePath entriesPath, JamEntryStub stub, JamAlignments? alignments, JamEntryOverride? entryOverride)
         {
             var id = stub.Id;
             var directoryPath = entriesPath.Append(stub.EntrySubpath);

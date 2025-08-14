@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Alphicsh.JamTools.Common.IO.Jam.New.Entries;
+using Alphicsh.JamTools.Common.IO.Jam.Entries;
 
-namespace Alphicsh.JamTools.Common.IO.Jam.New
+namespace Alphicsh.JamTools.Common.IO.Jam
 {
-    public class NewJamInfo
+    public class JamInfo
     {
         public FilePath Location { get; internal set; } = default!;
-        
+
         public string Version { get; init; } = default!;
 
         // -------------------
@@ -17,21 +17,21 @@ namespace Alphicsh.JamTools.Common.IO.Jam.New
         public string? Title { get; init; } = default!;
         public string? LogoFileName { get; set; } = default!;
         public string? Theme { get; init; } = default!;
-        public IReadOnlyCollection<NewJamAwardInfo> AwardCriteria { get; init; } = default!;
-        public NewJamAlignmentInfo? Alignments { get; init; } = default!;
+        public IReadOnlyCollection<JamAwardInfo> AwardCriteria { get; init; } = default!;
+        public JamAlignmentInfo? Alignments { get; init; } = default!;
 
         // -------
         // Entries
         // -------
 
         public string EntriesSubpath { get; init; } = default!;
-        public IReadOnlyCollection<NewJamEntryInfo> Entries { get; init; } = default!;
+        public IReadOnlyCollection<JamEntryInfo> Entries { get; init; } = default!;
 
-        public NewJamInfo()
+        public JamInfo()
         {
         }
 
-        public NewJamInfo(NewJamCore core, IEnumerable<NewJamEntryInfo> entries)
+        public JamInfo(JamCore core, IEnumerable<JamEntryInfo> entries)
         {
             Location = core.Location;
             Version = core.Version;

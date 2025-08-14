@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Alphicsh.EntryPackager.Model.Entry.Saving;
 using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.IO.Jam.New;
-using Alphicsh.JamTools.Common.IO.Jam.New.Entries;
+using Alphicsh.JamTools.Common.IO.Jam;
+using Alphicsh.JamTools.Common.IO.Jam.Entries;
 using Alphicsh.JamTools.Common.IO.Saving;
 using Alphicsh.JamTools.Common.IO.Serialization;
 
@@ -10,8 +10,8 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
 {
     public class JamSaveDataLoader : ISaveDataLoader<JamEditable, JamSaveData>
     {
-        private static JsonFileLoader<NewJamCore> JamInfoLoader { get; } = new JsonFileLoader<NewJamCore>();
-        private JsonFileLoader<NewJamEntryInfo> EntryLoader { get; } = new JsonFileLoader<NewJamEntryInfo>();
+        private static JsonFileLoader<JamCore> JamInfoLoader { get; } = new JsonFileLoader<JamCore>();
+        private JsonFileLoader<JamEntryInfo> EntryLoader { get; } = new JsonFileLoader<JamEntryInfo>();
 
         public JamSaveData? Load(JamEditable model)
         {
@@ -32,7 +32,7 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
             return new JamSaveData { DirectoryPath = model.DirectoryPath, JamInfo = jamInfo, EntriesData = entriesData };
         }
 
-        private JamEntrySaveData? LoadEntryData(FilePath entriesPath, NewJamEntryStub stub)
+        private JamEntrySaveData? LoadEntryData(FilePath entriesPath, JamEntryStub stub)
         {
             var directoryPath = entriesPath.Append(stub.EntrySubpath);
             var entryInfoPath = directoryPath.Append("entry.jamentry");

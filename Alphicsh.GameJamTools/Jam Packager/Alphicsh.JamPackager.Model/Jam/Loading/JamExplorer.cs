@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.IO.Jam.New;
-using Alphicsh.JamTools.Common.IO.Jam.New.Loading;
+using Alphicsh.JamTools.Common.IO.Jam;
+using Alphicsh.JamTools.Common.IO.Jam.Loading;
 using Alphicsh.JamTools.Common.IO.Search;
 
 namespace Alphicsh.JamPackager.Model.Jam.Loading
@@ -23,13 +23,13 @@ namespace Alphicsh.JamPackager.Model.Jam.Loading
             return result;
         }
 
-        private async Task<NewJamInfo?> TryReadJamInfo(FilePath directoryPath)
+        private async Task<JamInfo?> TryReadJamInfo(FilePath directoryPath)
         {
             var jamInfoPath = directoryPath.Append("jam.jaminfo");
             return await JamInfoReader.LoadModelInfo(jamInfoPath, fixBeforeLoading: true);
         }
 
-        private void ApplyJamInfo(JamEditable jamEditable, NewJamInfo jamInfo)
+        private void ApplyJamInfo(JamEditable jamEditable, JamInfo jamInfo)
         {
             jamEditable.Title = jamInfo.Title;
             jamEditable.Theme = jamInfo.Theme;

@@ -1,6 +1,6 @@
-﻿namespace Alphicsh.JamTools.Common.IO.Jam.New
+﻿namespace Alphicsh.JamTools.Common.IO.Jam
 {
-    public class NewJamEntryStub
+    public class JamEntryStub
     {
         public string Id { get; init; } = default!;
         public string EntrySubpath { get; init; } = default!;

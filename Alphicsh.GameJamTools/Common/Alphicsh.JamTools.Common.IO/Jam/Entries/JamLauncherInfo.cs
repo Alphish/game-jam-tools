@@ -1,6 +1,6 @@
-﻿namespace Alphicsh.JamTools.Common.IO.Jam.New.Entries
+﻿namespace Alphicsh.JamTools.Common.IO.Jam.Entries
 {
-    public class NewJamLauncherInfo
+    public class JamLauncherInfo
     {
         public string Name { get; init; } = default!;
         public string? Description { get; init; }

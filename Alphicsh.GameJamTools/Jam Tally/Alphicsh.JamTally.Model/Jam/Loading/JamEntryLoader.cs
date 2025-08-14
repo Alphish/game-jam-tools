@@ -1,14 +1,14 @@
 ﻿using System.Linq;
 using System.Text;
 using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.IO.Jam.New.Entries;
+using Alphicsh.JamTools.Common.IO.Jam.Entries;
 using Alphicsh.JamTools.Common.IO.Serialization;
 
 namespace Alphicsh.JamTally.Model.Jam.Loading
 {
     public class JamEntryLoader
     {
-        private static JsonFileLoader<NewJamEntryInfo> Loader { get; } = new JsonFileLoader<NewJamEntryInfo>();
+        private static JsonFileLoader<JamEntryInfo> Loader { get; } = new JsonFileLoader<JamEntryInfo>();
 
         public JamEntry? ReadFromDirectory(string id, FilePath directoryPath, JamAlignments? alignments, JamEntryOverride? entryOverride)
         {
@@ -21,7 +21,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
         // Mapping
         // -------
 
-        private JamEntry MapEntry(string id, NewJamEntryInfo entryInfo, JamAlignments? alignments, JamEntryOverride? entryOverride)
+        private JamEntry MapEntry(string id, JamEntryInfo entryInfo, JamAlignments? alignments, JamEntryOverride? entryOverride)
         {
             var authorNames = entryInfo.Team.Authors.Select(author => author.Name).ToList();
             var title = entryInfo.ShortTitle ?? entryInfo.Title;

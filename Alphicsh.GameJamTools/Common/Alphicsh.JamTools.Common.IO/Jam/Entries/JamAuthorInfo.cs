@@ -1,6 +1,6 @@
-﻿namespace Alphicsh.JamTools.Common.IO.Jam.New.Entries
+﻿namespace Alphicsh.JamTools.Common.IO.Jam.Entries
 {
-    public class NewJamAuthorInfo
+    public class JamAuthorInfo
     {
         public string Name { get; init; } = default!;
         public string? CommunityId { get; init; }

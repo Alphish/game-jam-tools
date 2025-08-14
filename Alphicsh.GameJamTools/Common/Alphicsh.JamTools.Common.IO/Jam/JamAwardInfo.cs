@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Alphicsh.JamTools.Common.IO.Jam.New
+namespace Alphicsh.JamTools.Common.IO.Jam
 {
-    public class NewJamAwardInfo
+    public class JamAwardInfo
     {
         public string Id { get; init; } = default!;
         public string Name { get; init; } = default!;

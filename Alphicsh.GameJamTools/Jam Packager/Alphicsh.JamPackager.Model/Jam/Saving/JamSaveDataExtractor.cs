@@ -2,7 +2,7 @@
 using Alphicsh.EntryPackager.Model.Entry;
 using Alphicsh.EntryPackager.Model.Entry.Saving;
 using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.IO.Jam.New;
+using Alphicsh.JamTools.Common.IO.Jam;
 using Alphicsh.JamTools.Common.IO.Saving;
 
 namespace Alphicsh.JamPackager.Model.Jam.Saving
@@ -25,11 +25,11 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
         // Mapping jam
         // -----------
 
-        private NewJamCore MapJam(JamEditable jamEditable)
+        private JamCore MapJam(JamEditable jamEditable)
         {
             var entriesPath = jamEditable.DirectoryPath.Append(jamEditable.EntriesLocation);
 
-            return new NewJamCore
+            return new JamCore
             {
                 Title = jamEditable.Title,
                 Theme = jamEditable.Theme,
@@ -40,9 +40,9 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
             };
         }
 
-        private NewJamAwardInfo MapAward(JamAwardEditable awardEditable)
+        private JamAwardInfo MapAward(JamAwardEditable awardEditable)
         {
-            return new NewJamAwardInfo
+            return new JamAwardInfo
             {
                 Id = awardEditable.Id,
                 Name = awardEditable.Name,
@@ -50,9 +50,9 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
             };
         }
 
-        private NewJamEntryStub MapEntryToStub(FilePath entriesPath, JamEntryEditable entryEditable)
+        private JamEntryStub MapEntryToStub(FilePath entriesPath, JamEntryEditable entryEditable)
         {
-            return new NewJamEntryStub
+            return new JamEntryStub
             {
                 Id = entryEditable.DisplayShortTitle + " by " + entryEditable.Team.DisplayName,
                 EntrySubpath = entryEditable.Files.DirectoryPath.AsRelativeTo(entriesPath).Value,

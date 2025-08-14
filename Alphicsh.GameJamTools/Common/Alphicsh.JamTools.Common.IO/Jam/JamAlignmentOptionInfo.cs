@@ -1,6 +1,6 @@
-﻿namespace Alphicsh.JamTools.Common.IO.Jam.New
+﻿namespace Alphicsh.JamTools.Common.IO.Jam
 {
-    public class NewJamAlignmentOptionInfo
+    public class JamAlignmentOptionInfo
     {
         public string Title { get; init; } = default!;
         public string ShortTitle { get; init; } = default!;
