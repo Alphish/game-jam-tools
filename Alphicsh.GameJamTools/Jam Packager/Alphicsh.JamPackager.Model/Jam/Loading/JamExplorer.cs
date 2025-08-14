@@ -1,19 +1,20 @@
-﻿using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.IO.Serialization;
-using Alphicsh.JamTools.Common.IO.Jam;
+﻿using System.Threading.Tasks;
+using Alphicsh.JamTools.Common.IO;
+using Alphicsh.JamTools.Common.IO.Jam.New;
+using Alphicsh.JamTools.Common.IO.Jam.New.Loading;
 using Alphicsh.JamTools.Common.IO.Search;
 
 namespace Alphicsh.JamPackager.Model.Jam.Loading
 {
     public class JamExplorer
     {
-        private static JsonFileLoader<JamInfo> JamInfoLoader { get; } = new JsonFileLoader<JamInfo>();
+        private static JamInfoReader JamInfoReader { get; } = new JamInfoReader();
 
-        public JamEditable LoadFromDirectory(FilePath directoryPath)
+        public async Task<JamEditable> LoadFromDirectory(FilePath directoryPath)
         {
             var result = new JamEditable { DirectoryPath = directoryPath };
 
-            var jamInfo = TryReadJamInfo(directoryPath);
+            var jamInfo = await TryReadJamInfo(directoryPath);
             if (jamInfo != null)
                 ApplyJamInfo(result, jamInfo);
             else
@@ -22,13 +23,13 @@ namespace Alphicsh.JamPackager.Model.Jam.Loading
             return result;
         }
 
-        private JamInfo? TryReadJamInfo(FilePath directoryPath)
+        private async Task<NewJamInfo?> TryReadJamInfo(FilePath directoryPath)
         {
             var jamInfoPath = directoryPath.Append("jam.jaminfo");
-            return JamInfoLoader.TryLoad(jamInfoPath);
+            return await JamInfoReader.LoadModelInfo(jamInfoPath, fixBeforeLoading: true);
         }
 
-        private void ApplyJamInfo(JamEditable jamEditable, JamInfo jamInfo)
+        private void ApplyJamInfo(JamEditable jamEditable, NewJamInfo jamInfo)
         {
             jamEditable.Title = jamInfo.Title;
             jamEditable.Theme = jamInfo.Theme;

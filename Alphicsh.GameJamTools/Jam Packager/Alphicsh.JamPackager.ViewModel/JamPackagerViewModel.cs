@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
 using Alphicsh.JamPackager.Model;
 using Alphicsh.JamPackager.ViewModel.Jam;
 using Alphicsh.JamPackager.ViewModel.Saving;
@@ -37,18 +38,18 @@ namespace Alphicsh.JamPackager.ViewModel
         // -------
 
         public ICommand OpenJamDirectoryCommand { get; }
-        private void OpenJamDirectory()
+        private async void OpenJamDirectory()
         {
             var directoryPath = FileQuery.OpenDirectory().GetPath();
             if (directoryPath == null)
                 return;
 
-            LoadJamDirectory(directoryPath.Value);
+            await LoadJamDirectory(directoryPath.Value);
         }
 
-        public void LoadJamDirectory(FilePath directoryPath)
+        public async Task LoadJamDirectory(FilePath directoryPath)
         {
-            Model.LoadDirectory(directoryPath);
+            await Model.LoadDirectory(directoryPath);
             UpdateJamViewModel();
         }
 
