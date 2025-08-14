@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Alphicsh.EntryPackager.Model.Entry.Files;
-using Alphicsh.JamTools.Common.IO.Jam;
-using Alphicsh.JamTools.Common.IO.Jam.Files;
+using Alphicsh.JamTools.Common.IO.Jam.New.Entries;
 using Alphicsh.JamTools.Common.IO.Saving;
 
 namespace Alphicsh.EntryPackager.Model.Entry.Saving
@@ -26,9 +25,9 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
             };
         }
 
-        private JamEntryInfo MapEntry(JamEntryEditable entryEditable)
+        private NewJamEntryInfo MapEntry(JamEntryEditable entryEditable)
         {
-            return new JamEntryInfo
+            return new NewJamEntryInfo
             {
                 Version = SavedVersion,
                 WrittenBy = IsFromEntryPackager ? "EntryPackager" : (entryEditable.WrittenBy ?? "JamPackager"),
@@ -44,18 +43,18 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
         // Team
         // ----
 
-        private JamTeamInfo MapTeam(JamTeamEditable teamEditable)
+        private NewJamTeamInfo MapTeam(JamTeamEditable teamEditable)
         {
-            return new JamTeamInfo
+            return new NewJamTeamInfo
             {
                 Name = ToNullIfEmpty(teamEditable.Name),
                 Authors = teamEditable.Authors.Select(MapAuthor).ToList(),
             };
         }
 
-        private JamAuthorInfo MapAuthor(JamAuthorEditable authorEditable)
+        private NewJamAuthorInfo MapAuthor(JamAuthorEditable authorEditable)
         {
-            return new JamAuthorInfo
+            return new NewJamAuthorInfo
             {
                 Name = ToNullIfEmpty(authorEditable.Name) ?? string.Empty,
                 CommunityId = ToNullIfEmpty(authorEditable.CommunityId),
@@ -67,9 +66,9 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
         // Files
         // -----
 
-        private JamFilesInfo MapFiles(JamFilesEditable filesEditable)
+        private NewJamFilesInfo MapFiles(JamFilesEditable filesEditable)
         {
-            return new JamFilesInfo
+            return new NewJamFilesInfo
             {
                 Launchers = filesEditable.Launchers.Select(MapLauncher).ToList(),
                 Readme = MapReadme(filesEditable.Readme),
@@ -78,9 +77,9 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
             };
         }
 
-        private JamLauncherInfo MapLauncher(JamLauncherEditable launcherEditable)
+        private NewJamLauncherInfo MapLauncher(JamLauncherEditable launcherEditable)
         {
-            return new JamLauncherInfo
+            return new NewJamLauncherInfo
             {
                 Name = ToNullIfEmpty(launcherEditable.Name) ?? string.Empty,
                 Description = ToNullIfEmpty(launcherEditable.Description),
@@ -89,28 +88,28 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
             };
         }
 
-        private JamReadmeInfo? MapReadme(JamReadmeEditable readmeEditable)
+        private NewJamReadmeInfo? MapReadme(JamReadmeEditable readmeEditable)
         {
             if (readmeEditable.IsEmpty)
                 return null;
 
-            return new JamReadmeInfo { Location = readmeEditable.Location!, IsRequired = readmeEditable.IsRequired };
+            return new NewJamReadmeInfo { Location = readmeEditable.Location!, IsRequired = readmeEditable.IsRequired };
         }
 
-        private JamAfterwordInfo? MapAfterword(JamAfterwordEditable afterwordEditable)
+        private NewJamAfterwordInfo? MapAfterword(JamAfterwordEditable afterwordEditable)
         {
             if (afterwordEditable.IsEmpty)
                 return null;
 
-            return new JamAfterwordInfo { Location = afterwordEditable.Location! };
+            return new NewJamAfterwordInfo { Location = afterwordEditable.Location! };
         }
 
-        private JamThumbnailsInfo? MapThumbnails(JamThumbnailsEditable thumbnailsEditable)
+        private NewJamThumbnailsInfo? MapThumbnails(JamThumbnailsEditable thumbnailsEditable)
         {
             if (thumbnailsEditable.IsEmpty)
                 return null;
 
-            return new JamThumbnailsInfo
+            return new NewJamThumbnailsInfo
             {
                 ThumbnailLocation = ToNullIfEmpty(thumbnailsEditable.ThumbnailLocation),
                 ThumbnailSmallLocation = ToNullIfEmpty(thumbnailsEditable.ThumbnailSmallLocation),

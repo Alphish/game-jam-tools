@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.IO.Jam;
+using Alphicsh.JamTools.Common.IO.Jam.New.Entries;
 
 namespace Alphicsh.EntryPackager.Model.Entry.Saving
 {
     public class JamEntrySaveData
     {
         public FilePath DirectoryPath { get; init; }
-        public JamEntryInfo EntryInfo { get; init; } = default!;
+        public NewJamEntryInfo EntryInfo { get; init; } = default!;
 
         // --------
         // Equality
@@ -18,7 +18,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
         {
             return obj is JamEntrySaveData data &&
                    DirectoryPath.Equals(data.DirectoryPath) &&
-                   EqualityComparer<JamEntryInfo>.Default.Equals(EntryInfo, data.EntryInfo);
+                   EqualityComparer<NewJamEntryInfo>.Default.Equals(EntryInfo, data.EntryInfo);
         }
 
         public override int GetHashCode()
