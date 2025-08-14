@@ -2,9 +2,9 @@
 using System.Text.Json.Serialization;
 using Alphicsh.JamTools.Common.IO.Execution;
 
-namespace Alphicsh.JamTools.Common.IO.Jam.New.Entries
+namespace Alphicsh.JamTools.Common.IO.Jam.Entries
 {
-    public class NewJamEntryInfo
+    public class JamEntryInfo
     {
         [JsonIgnore] public FilePath Location { get; internal set; }
 
@@ -16,8 +16,8 @@ namespace Alphicsh.JamTools.Common.IO.Jam.New.Entries
         public string Title { get; init; } = default!;
         public string? ShortTitle { get; init; }
         public string? Alignment { get; init; }
-        public NewJamTeamInfo Team { get; init; } = default!;
-        public NewJamFilesInfo Files { get; init; } = default!;
+        public JamTeamInfo Team { get; init; } = default!;
+        public JamFilesInfo Files { get; init; } = default!;
 
         // -----------------
         // Legacy properties
@@ -31,21 +31,21 @@ namespace Alphicsh.JamTools.Common.IO.Jam.New.Entries
         public bool? IsReadmePlease { get; init; }
         public string? AfterwordFileName { get; init; }
 
-        public NewJamEntryInfo FromLegacyFormat()
+        public JamEntryInfo FromLegacyFormat()
         {
             if (Files != null)
                 return this;
 
             var files = GetFilesFromLegacyFormat();
-            return new NewJamEntryInfo { Title = Title, ShortTitle = ShortTitle, Team = Team, Files = files };
+            return new JamEntryInfo { Title = Title, ShortTitle = ShortTitle, Team = Team, Files = files };
         }
 
-        private NewJamFilesInfo GetFilesFromLegacyFormat()
+        private JamFilesInfo GetFilesFromLegacyFormat()
         {
-            var launchers = new List<NewJamLauncherInfo>();
+            var launchers = new List<JamLauncherInfo>();
             if (GameFileName != null)
             {
-                var launcher = new NewJamLauncherInfo()
+                var launcher = new JamLauncherInfo()
                 {
                     Name = "Windows Executable",
                     Description = null,
@@ -55,18 +55,18 @@ namespace Alphicsh.JamTools.Common.IO.Jam.New.Entries
                 launchers.Add(launcher);
             }
 
-            var readme = ReadmeFileName != null ? new NewJamReadmeInfo
+            var readme = ReadmeFileName != null ? new JamReadmeInfo
             {
                 Location = ReadmeFileName,
                 IsRequired = IsReadmePlease ?? false,
             } : null;
 
-            var afterword = AfterwordFileName != null ? new NewJamAfterwordInfo { Location = AfterwordFileName } : null;
+            var afterword = AfterwordFileName != null ? new JamAfterwordInfo { Location = AfterwordFileName } : null;
             var thumbnails = ThumbnailFileName != null || ThumbnailSmallFileName != null
-                ? new NewJamThumbnailsInfo { ThumbnailLocation = ThumbnailFileName, ThumbnailSmallLocation = ThumbnailSmallFileName }
+                ? new JamThumbnailsInfo { ThumbnailLocation = ThumbnailFileName, ThumbnailSmallLocation = ThumbnailSmallFileName }
                 : null;
 
-            return new NewJamFilesInfo
+            return new JamFilesInfo
             {
                 Launchers = launchers,
                 Readme = readme,

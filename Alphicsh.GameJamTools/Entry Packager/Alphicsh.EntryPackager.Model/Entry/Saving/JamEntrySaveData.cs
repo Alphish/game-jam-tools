@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamTools.Common.IO.Jam;
+using Alphicsh.JamTools.Common.IO.Jam.Entries;
 
 namespace Alphicsh.EntryPackager.Model.Entry.Saving
 {

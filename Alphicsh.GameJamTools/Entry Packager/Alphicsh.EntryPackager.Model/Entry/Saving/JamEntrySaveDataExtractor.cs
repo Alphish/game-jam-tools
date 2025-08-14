@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Alphicsh.EntryPackager.Model.Entry.Files;
-using Alphicsh.JamTools.Common.IO.Jam;
-using Alphicsh.JamTools.Common.IO.Jam.Files;
+using Alphicsh.JamTools.Common.IO.Jam.Entries;
 using Alphicsh.JamTools.Common.IO.Saving;
 
 namespace Alphicsh.EntryPackager.Model.Entry.Saving

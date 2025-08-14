@@ -25,11 +25,11 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
         // Mapping jam
         // -----------
 
-        private JamInfo MapJam(JamEditable jamEditable)
+        private JamCore MapJam(JamEditable jamEditable)
         {
             var entriesPath = jamEditable.DirectoryPath.Append(jamEditable.EntriesLocation);
 
-            return new JamInfo
+            return new JamCore
             {
                 Title = jamEditable.Title,
                 Theme = jamEditable.Theme,

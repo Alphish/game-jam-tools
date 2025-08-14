@@ -8,7 +8,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
 {
     public class JamLoader
     {
-        private static JsonFileLoader<JamInfo> InfoLoader { get; } = new JsonFileLoader<JamInfo>();
+        private static JsonFileLoader<JamCore> InfoLoader { get; } = new JsonFileLoader<JamCore>();
         private static JamEntryLoader EntryLoader { get; } = new JamEntryLoader();
 
         private static JsonFileLoader<JamOverrides> OverridesLoader { get; } = new JsonFileLoader<JamOverrides>();
@@ -34,7 +34,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
         // Mapping
         // -------
 
-        private JamOverview MapJam(FilePath directoryPath, JamInfo jamInfo, JamOverrides overrides)
+        private JamOverview MapJam(FilePath directoryPath, JamCore jamInfo, JamOverrides overrides)
         {
             var entriesPath = directoryPath.Append(jamInfo.EntriesSubpath);
             var awardCriteria = jamInfo.AwardCriteria

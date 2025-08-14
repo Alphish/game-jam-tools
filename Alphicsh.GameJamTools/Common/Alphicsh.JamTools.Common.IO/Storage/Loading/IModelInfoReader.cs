@@ -1,17 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 
 namespace Alphicsh.JamTools.Common.IO.Storage.Loading
 {
-    public interface IModelInfoReader<TInfo, TCore>
+    public interface IModelInfoReader<TInfo>
         where TInfo : class
-        where TCore : class
     {
-        FilePath? LocateCore(FilePath dataLocation);
-        TCore? DeserializeCore(FileData coreFile);
-
-        IEnumerable<FilePath> LocateAuxiliaryFiles(TCore coreData);
-        TInfo? DeserializeModelInfo(FileBatch fileBatch, TCore coreData);
-
-        TInfo? GetFallbackInfo(FilePath dataLocation);
+        Task<TInfo?> LoadModelInfo(FilePath location, bool fixBeforeLoading);
     }
 }

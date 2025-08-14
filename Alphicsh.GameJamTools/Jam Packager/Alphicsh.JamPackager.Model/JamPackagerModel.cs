@@ -1,7 +1,8 @@
-﻿using Alphicsh.JamTools.Common.IO;
-using Alphicsh.JamPackager.Model.Jam.Loading;
+﻿using System.Threading.Tasks;
 using Alphicsh.JamPackager.Model.Jam;
 using Alphicsh.JamPackager.Model.Jam.Compatibility;
+using Alphicsh.JamPackager.Model.Jam.Loading;
+using Alphicsh.JamTools.Common.IO;
 
 namespace Alphicsh.JamPackager.Model
 {
@@ -14,8 +15,8 @@ namespace Alphicsh.JamPackager.Model
         public JamEditable? Jam { get; private set; }
         public bool HasJam => Jam != null;
 
-        public void LoadDirectory(FilePath directoryPath)
-            => Jam = JamExplorer.LoadFromDirectory(directoryPath);
+        public async Task LoadDirectory(FilePath directoryPath)
+            => Jam = await JamExplorer.LoadFromDirectory(directoryPath);
 
         public void CloseJam()
             => Jam = null;

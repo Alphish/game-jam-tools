@@ -1,4 +1,4 @@
-﻿using Alphicsh.JamTools.Common.IO.Jam;
+﻿using Alphicsh.JamTools.Common.IO.Jam.Entries;
 using Alphicsh.JamTools.Common.IO.Saving;
 using Alphicsh.JamTools.Common.IO.Serialization;
 
