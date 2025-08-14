@@ -15,7 +15,7 @@ namespace Alphicsh.JamPlayer.IO.Feedback.Storage
 
         private const string JamPlayerDirectory = ".jamplayer";
 
-        public override FilePath? LocateCore(FilePath dataLocation)
+        protected override FilePath? LocateCore(FilePath dataLocation)
         {
             var playerDirectory = dataLocation.Append(JamPlayerDirectory);
             var newFormatLocation = playerDirectory.Append(FeedbackInfo.Filename);
@@ -29,7 +29,7 @@ namespace Alphicsh.JamPlayer.IO.Feedback.Storage
             return null;
         }
 
-        public override FeedbackInfo? DeserializeCore(FileData coreFile)
+        protected override FeedbackInfo? DeserializeCore(FileData coreFile)
         {
             var info = DeserializeInfo(coreFile);
             if (info == null)
@@ -50,7 +50,7 @@ namespace Alphicsh.JamPlayer.IO.Feedback.Storage
             return null;
         }
 
-        public override FeedbackInfo GetFallbackInfo(FilePath dataLocation)
+        protected override FeedbackInfo GetFallbackInfo(FilePath dataLocation)
         {
             var coreLocation = dataLocation.Append(JamPlayerDirectory).Append(FeedbackInfo.Filename);
 

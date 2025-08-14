@@ -12,7 +12,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.New.Loading
         private static JsonFormatter<NewJamCore> JamCoreFormatter { get; } = new JsonFormatter<NewJamCore>();
         private static JsonFormatter<NewJamEntryInfo> JamEntryFormatter { get; } = new JsonFormatter<NewJamEntryInfo>();
 
-        public override FilePath? LocateCore(FilePath dataLocation)
+        protected override FilePath? LocateCore(FilePath dataLocation)
         {
             if (dataLocation.HasDirectory())
                 dataLocation = dataLocation.Append("jam.jaminfo");
@@ -23,7 +23,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.New.Loading
             return null;
         }
 
-        public override NewJamCore? DeserializeCore(FileData coreFile)
+        protected override NewJamCore? DeserializeCore(FileData coreFile)
         {
             var core = JamCoreFormatter.ParseFromFile(coreFile);
             if (core != null)
@@ -32,7 +32,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.New.Loading
             return core;
         }
 
-        public override IEnumerable<FilePath> LocateAuxiliaryFiles(NewJamCore coreData)
+        protected override IEnumerable<FilePath> LocateAuxiliaryFiles(NewJamCore coreData)
         {
             var entriesPath = coreData.Directory.Append(coreData.EntriesSubpath);
             foreach (var stub in coreData.Entries)
@@ -41,7 +41,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.New.Loading
             }
         }
 
-        public override NewJamInfo DeserializeModelInfo(FileBatch fileBatch, NewJamCore coreData)
+        protected override NewJamInfo DeserializeModelInfo(FileBatch fileBatch, NewJamCore coreData)
         {
             List<NewJamEntryInfo> entries = new List<NewJamEntryInfo>();
 
