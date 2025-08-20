@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.IO.Jam;
 using Alphicsh.JamTools.Common.IO.Jam.Loading;
@@ -34,6 +35,11 @@ namespace Alphicsh.JamPackager.Model.Jam.Loading
             jamEditable.Title = jamInfo.Title;
             jamEditable.Theme = jamInfo.Theme;
             jamEditable.LogoLocation = jamInfo.LogoFileName;
+
+            jamEditable.StartTime = jamInfo.StartTime;
+            jamEditable.EndTime = jamInfo.EndTime;
+            jamEditable.Hosts = jamInfo.Hosts.ToList();
+            jamEditable.Links = jamInfo.Links.Select(link => new JamLinkEditable { Title = link.Title, Url = link.Url }).ToList();
 
             foreach (var award in jamInfo.AwardCriteria)
             {

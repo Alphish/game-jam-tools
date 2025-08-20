@@ -15,8 +15,13 @@ namespace Alphicsh.JamTools.Common.IO.Jam
         // -------------------
 
         public string? Title { get; init; } = default!;
-        public string? LogoFileName { get; set; } = default!;
+        public string? LogoFileName { get; init; } = default!;
         public string? Theme { get; init; } = default!;
+        public string? StartTime { get; init; } = default!;
+        public string? EndTime { get; init; } = default!;
+        public IReadOnlyCollection<string> Hosts { get; init; } = new List<string>();
+        public IReadOnlyCollection<JamLink> Links { get; init; } = new List<JamLink>();
+
         public IReadOnlyCollection<JamAwardInfo> AwardCriteria { get; init; } = default!;
         public JamAlignmentInfo? Alignments { get; init; } = default!;
 
