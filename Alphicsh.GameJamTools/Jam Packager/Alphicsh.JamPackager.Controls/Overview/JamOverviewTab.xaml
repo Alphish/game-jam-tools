@@ -23,13 +23,15 @@
       </Grid.RowDefinitions>
 
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="144"/>
+        <ColumnDefinition Width="1*"/>
+        <ColumnDefinition Width="144"/>
         <ColumnDefinition Width="1*"/>
       </Grid.ColumnDefinitions>
 
       <!-- Jam directory -->
       <Label Grid.Row="0" Grid.Column="0">Jam directory:</Label>
-      <DockPanel Grid.Row="0" Grid.Column="1" Margin="2">
+      <DockPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="2">
         <cc:ImpButton
             DockPanel.Dock="Right"
             Style="{StaticResource HelpButton}"
@@ -43,7 +45,7 @@
 
       <!-- Entries subpath -->
       <Label Grid.Row="1" Grid.Column="0">Entries subpath:</Label>
-      <DockPanel Grid.Row="1" Grid.Column="1" Margin="2">
+      <DockPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="2">
         <cc:ImpButton
             DockPanel.Dock="Right"
             Style="{StaticResource HelpButton}"
@@ -57,7 +59,7 @@
 
       <!-- Logo -->
       <Label Grid.Row="2" Grid.Column="0">Logo filename:</Label>
-      <DockPanel Grid.Row="2" Grid.Column="1" Margin="2">
+      <DockPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="2">
         <cc:ImpButton
             DockPanel.Dock="Right"
             Style="{StaticResource HelpButton}"
@@ -72,6 +74,7 @@
       <cc:ImageBox
         Grid.Row="3"
         Grid.Column="1"
+        Grid.ColumnSpan="3"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Width="{Binding Jam.LogoWidth}"
@@ -84,12 +87,25 @@
       <Label Grid.Row="4" Grid.Column="0">Title:</Label>
       <cc:ImpTextBox Grid.Row="4" Grid.Column="1" Margin="2" Text="{Binding Jam.Title}" Placeholder="&lt;enter title&gt;"/>
 
-      <Label Grid.Row="5" Grid.Column="0">Theme:</Label>
-      <cc:ImpTextBox Grid.Row="5" Grid.Column="1" Margin="2" Text="{Binding Jam.Theme}" Placeholder="&lt;enter theme&gt;"/>
+      <Label Grid.Row="4" Grid.Column="2">Theme:</Label>
+      <cc:ImpTextBox Grid.Row="4" Grid.Column="3" Margin="2" Text="{Binding Jam.Theme}" Placeholder="&lt;enter theme&gt;"/>
 
-      <Separator Grid.Row="6" Grid.ColumnSpan="2"/>
+      <Label Grid.Row="5" Grid.Column="0">Hosts:</Label>
+      <cc:ImpTextBox Grid.Row="5" Grid.Column="1" Margin="2" Text="{Binding Jam.Hosts}" Placeholder="&lt;enter hosts&gt;"/>
 
-      <WrapPanel Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Label Grid.Row="5" Grid.Column="2">Timeframe:</Label>
+      <Grid Grid.Row="5" Grid.Column="3">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="1*"/>
+          <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <cc:ImpTextBox Grid.Column="0" Margin="2" Text="{Binding Jam.StartTime}" Placeholder="&lt;enter start time&gt;"/>
+        <cc:ImpTextBox Grid.Column="1" Margin="2" Text="{Binding Jam.EndTime}" Placeholder="&lt;enter end time&gt;"/>
+      </Grid>
+
+      <Separator Grid.Row="6" Grid.ColumnSpan="4"/>
+
+      <WrapPanel Grid.Row="7" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
         <cc:ImpButton
           Style="{StaticResource DangerButton}"
           Margin="2"
