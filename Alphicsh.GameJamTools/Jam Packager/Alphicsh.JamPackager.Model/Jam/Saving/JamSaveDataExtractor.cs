@@ -34,6 +34,12 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
                 Title = jamEditable.Title,
                 Theme = jamEditable.Theme,
                 LogoFileName = jamEditable.LogoLocation,
+
+                StartTime = jamEditable.StartTime,
+                EndTime = jamEditable.EndTime,
+                Hosts = jamEditable.Hosts.ToList(),
+                Links = jamEditable.Links.Select(link => new JamLink { Title = link.Title, Url = link.Url }).ToList(),
+
                 AwardCriteria = jamEditable.Awards.Select(MapAward).ToList(),
                 EntriesSubpath = jamEditable.EntriesLocation,
                 Entries = jamEditable.Entries.Select(entry => MapEntryToStub(entriesPath, entry)).ToList(),

@@ -8,19 +8,47 @@
   xmlns:jamVm="clr-namespace:Alphicsh.JamPackager.ViewModel.Jam;assembly=Alphicsh.JamPackager.ViewModel"
   mc:Ignorable="d"
 >
-  <GroupBox Header="Awards">
-    <ScrollViewer VerticalScrollBarVisibility="Visible">
-      <StackPanel>
-        <local:JamAwardsHeader/>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="1*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="1*"/>
+    </Grid.RowDefinitions>
+    
+    <!-- Awards -->
+    <GroupBox Header="Awards" Grid.Row="0" Margin="2">
+      <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <StackPanel>
+          <local:JamAwardsHeader/>
 
-        <ItemsControl ItemsSource="{Binding Awards}">
-          <ItemsControl.Resources>
-            <DataTemplate DataType="{x:Type jamVm:JamAwardEditableViewModel}">
-              <local:JamAwardsItem DataContext="{Binding}"/>
-            </DataTemplate>
-          </ItemsControl.Resources>
-        </ItemsControl>
-      </StackPanel>
-    </ScrollViewer>
-  </GroupBox>
+          <ItemsControl ItemsSource="{Binding Awards}">
+            <ItemsControl.Resources>
+              <DataTemplate DataType="{x:Type jamVm:JamAwardEditableViewModel}">
+                <local:JamAwardsItem DataContext="{Binding}"/>
+              </DataTemplate>
+            </ItemsControl.Resources>
+          </ItemsControl>
+        </StackPanel>
+      </ScrollViewer>
+    </GroupBox>
+
+    <Separator Grid.Row="1" Margin="2"/>
+
+    <!-- Links -->
+    <GroupBox Header="Links" Grid.Row="2" Margin="2">
+      <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <StackPanel>
+          <local:JamLinksHeader/>
+
+          <ItemsControl ItemsSource="{Binding Links}">
+            <ItemsControl.Resources>
+              <DataTemplate DataType="{x:Type jamVm:JamLinkEditableViewModel}">
+                <local:JamLinksItem DataContext="{Binding}"/>
+              </DataTemplate>
+            </ItemsControl.Resources>
+          </ItemsControl>
+        </StackPanel>
+      </ScrollViewer>
+    </GroupBox>
+  </Grid>
 </UserControl>

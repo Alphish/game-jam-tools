@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
@@ -36,6 +37,15 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
 
             TitleProperty = WrapperProperty.ForMember(this, vm => vm.Model.Title);
             ThemeProperty = WrapperProperty.ForMember(this, vm => vm.Model.Theme);
+
+            StartTimeProperty = WrapperProperty.ForMember(this, vm => vm.Model.StartTime);
+            EndTimeProperty = WrapperProperty.ForMember(this, vm => vm.Model.EndTime);
+            HostsProperty = WrapperProperty.Create(this, nameof(Hosts), vm => vm.Model.GetHostsString(), (vm, value) => vm.Model.SetHostsString(value));
+
+            Links = CollectionViewModel.CreateMutable(Model.Links, JamLinkEditableViewModel.CollectionStub);
+            AddLinkCommand = SimpleCommand.From(AddLink);
+            RemoveLinkCommand = SimpleCommand.WithParameter<JamLinkEditableViewModel>(RemoveLink);
+            OpenLinkCommand = SimpleCommand.WithParameter<JamLinkEditableViewModel>(OpenLink);
 
             Awards = CollectionViewModel.CreateMutable(Model.Awards, JamAwardEditableViewModel.CollectionStub);
             AddAwardCommand = SimpleCommand.From(AddAward);
@@ -123,6 +133,48 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
 
         public WrapperProperty<JamEditableViewModel, string?> ThemeProperty { get; }
         public string? Theme { get => ThemeProperty.Value; set => ThemeProperty.Value = value; }
+
+        public WrapperProperty<JamEditableViewModel, string?> StartTimeProperty { get; }
+        public string? StartTime { get => StartTimeProperty.Value; set => StartTimeProperty.Value = value; }
+
+        public WrapperProperty<JamEditableViewModel, string?> EndTimeProperty { get; }
+        public string? EndTime { get => EndTimeProperty.Value; set => EndTimeProperty.Value = value; }
+
+        public WrapperProperty<JamEditableViewModel, string?> HostsProperty { get; }
+        public string? Hosts { get => HostsProperty.Value; set => HostsProperty.Value = value; }
+
+        // -----
+        // Links
+        // -----
+
+        public CollectionViewModel<JamLinkEditable, JamLinkEditableViewModel> Links { get; }
+
+        public ICommand AddLinkCommand { get; }
+        private void AddLink()
+        {
+            var linkModel = new JamLinkEditable { Title = "Example", Url = "http://example.com/" };
+            var linkVm = new JamLinkEditableViewModel(linkModel);
+            Links.Add(linkVm);
+            Links.CompleteChanges();
+        }
+
+        public ICommand RemoveLinkCommand { get; }
+        private void RemoveLink(JamLinkEditableViewModel linkVm)
+        {
+            Links.Remove(linkVm);
+            Links.CompleteChanges();
+        }
+
+        private static WebsiteLauncher LinkLauncher { get; } = new WebsiteLauncher();
+
+        public ICommand OpenLinkCommand { get; }
+        private void OpenLink(JamLinkEditableViewModel linkVm)
+        {
+            if (!Uri.TryCreate(linkVm.Url, UriKind.Absolute, out var uri))
+                return;
+
+            LinkLauncher.LaunchFrom(uri);
+        }
 
         // ------
         // Awards
