@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Alphicsh.JamTally.Model.Jam;
 using Alphicsh.JamTally.Model.Result.Alignments;
+using Alphicsh.JamTally.Model.Result.Export;
 using Alphicsh.JamTally.Model.Vote;
 using Alphicsh.JamTally.Spreadsheets;
 using Alphicsh.JamTally.Trophies.Image.Generators;
@@ -58,6 +59,13 @@ namespace Alphicsh.JamTally.Model.Result
         // ----------
         // Generators
         // ----------
+
+        private static JamTallyResultExporter ResultsJsonExporter { get; } = new JamTallyResultExporter();
+
+        public void ExportResultsJson(FilePath directoryPath)
+        {
+            ResultsJsonExporter.ExportResult(directoryPath, VoteCollection.NewTallyResult!);
+        }
 
         private static TallySpreadsheetExporter TallySpreadsheetExporter { get; } = new TallySpreadsheetExporter();
 
