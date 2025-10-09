@@ -48,6 +48,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
                 ShortTitle = entryInfo.ShortTitle ?? entryInfo.Title,
                 Team = MapTeam(entryInfo.Team),
                 Files = MapFiles(entryInfo.Files, entryDirectory),
+                PageUrl = entryInfo.PageUrl,
             };
         }
 
