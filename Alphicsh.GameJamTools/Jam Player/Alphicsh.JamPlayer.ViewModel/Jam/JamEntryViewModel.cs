@@ -1,8 +1,11 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using System.Windows.Media;
 using Alphicsh.JamPlayer.Model.Jam;
 using Alphicsh.JamPlayer.ViewModel.Jam.Files;
+using Alphicsh.JamTools.Common.IO.Execution;
 using Alphicsh.JamTools.Common.Mvvm;
+using Alphicsh.JamTools.Common.Mvvm.Commands;
 
 namespace Alphicsh.JamPlayer.ViewModel.Jam
 {
@@ -11,16 +14,31 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
         public static CollectionViewModelStub<JamEntry, JamEntryViewModel> CollectionStub { get; }
             = CollectionViewModelStub.Create((JamEntry model) => new JamEntryViewModel(model));
 
+        private static ProcessLauncher ProcessLauncher { get; } = new ProcessLauncher();
+
         public JamEntryViewModel(JamEntry model)
             : base(model)
         {
             Team = new JamTeamViewModel(model.Team);
             Files = new JamFilesViewModel(model.Files);
+
+            OpenPageCommand = SimpleCommand.From(OpenPage);
         }
 
         public string Title => Model.Title;
         public JamTeamViewModel Team { get; }
         public JamFilesViewModel Files { get; }
+
+        public string? PageUrl => Model.PageUrl;
+        public bool HasPageUrl => !string.IsNullOrWhiteSpace(PageUrl) && Uri.TryCreate(PageUrl, UriKind.Absolute, out var pageUri);
+        public ICommand OpenPageCommand { get; }
+        private void OpenPage()
+        {
+            if (string.IsNullOrWhiteSpace(PageUrl) || !Uri.TryCreate(PageUrl, UriKind.Absolute, out var pageUri))
+                return;
+
+            ProcessLauncher.OpenWebsite(pageUri);
+        }
 
         // ------
         // Images

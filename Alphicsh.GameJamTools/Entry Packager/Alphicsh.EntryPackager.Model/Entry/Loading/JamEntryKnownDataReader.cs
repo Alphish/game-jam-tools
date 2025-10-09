@@ -67,6 +67,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
             entryEditable.Alignment = entryInfo.Alignment;
             ApplyTeamInfo(entryEditable.Team, entryInfo.Team);
             ApplyFilesInfo(entryEditable.Files, entryInfo.Files);
+            entryEditable.PageUrl = entryInfo.PageUrl;
         }
 
         private void ApplyTeamInfo(JamTeamEditable teamEditable, JamTeamInfo teamInfo)

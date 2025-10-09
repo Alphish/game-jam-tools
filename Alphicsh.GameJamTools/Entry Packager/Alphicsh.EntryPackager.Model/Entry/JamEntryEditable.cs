@@ -13,5 +13,6 @@ namespace Alphicsh.EntryPackager.Model.Entry
 
         public JamTeamEditable Team { get; } = new JamTeamEditable();
         public JamFilesEditable Files { get; } = new JamFilesEditable();
+        public string? PageUrl { get; set; }
     }
 }

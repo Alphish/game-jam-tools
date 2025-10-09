@@ -77,7 +77,16 @@
           Command="{Binding JamEntry.OpenAfterwordCommand}"
           Visibility="{Binding JamEntry.HasAfterword, Converter={StaticResource ShowTrueVisibilityConverter}}"
         >Afterword</cc:ImpButton>
-        
+
+        <!-- Page -->
+        <cc:ImpButton
+          Style="{StaticResource HelpButton}"
+          Margin="0,4,8,4"
+          Width="96"
+          Command="{Binding JamEntry.OpenPageCommand}"
+          Visibility="{Binding JamEntry.HasPageUrl, Converter={StaticResource ShowTrueVisibilityConverter}}"
+        >Page</cc:ImpButton>
+
         <!-- Directory -->
         <cc:ImpButton
           Margin="0,4,8,4"

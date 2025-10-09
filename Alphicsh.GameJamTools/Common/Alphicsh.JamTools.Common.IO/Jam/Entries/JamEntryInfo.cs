@@ -30,6 +30,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Entries
         public string? ReadmeFileName { get; init; }
         public bool? IsReadmePlease { get; init; }
         public string? AfterwordFileName { get; init; }
+        public string? PageUrl { get; init; }
 
         public JamEntryInfo FromLegacyFormat()
         {
