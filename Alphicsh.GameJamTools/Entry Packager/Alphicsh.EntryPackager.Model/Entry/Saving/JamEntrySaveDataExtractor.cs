@@ -36,6 +36,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
                 Alignment = ToNullIfEmpty(entryEditable.Alignment),
                 Team = MapTeam(entryEditable.Team),
                 Files = MapFiles(entryEditable.Files),
+                PageUrl = ToNullIfEmpty(entryEditable.PageUrl),
             };
         }
 

@@ -48,6 +48,15 @@
       Command="{Binding OpenAfterwordCommand}"
     >Afterword</cc:ImpButton>
 
+    <!-- Page -->
+    <cc:ImpButton
+      Style="{StaticResource HelpButton}"
+      Visibility="{Binding HasPageUrl, Converter={StaticResource ShowTrueVisibilityConverter}}"
+      Margin="0,4,8,4"
+      Width="96"
+      Command="{Binding OpenPageCommand}"
+    >Page</cc:ImpButton>
+
     <!-- Directory -->
     <cc:ImpButton
       Margin="0,4,8,4"

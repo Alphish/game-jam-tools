@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using Alphicsh.EntryPackager.Model.Entry;
 using Alphicsh.EntryPackager.ViewModel.Entry.Files;
 using Alphicsh.JamTools.Common.IO.Execution;
@@ -32,6 +33,10 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
                 .DependingOn(Files.Readme.LocationProperty, Files.Readme.IsRequiredProperty);
             HasAfterwordProperty = NotifiableProperty.Create(this, nameof(HasAfterword))
                 .DependingOn(Files.Afterword.LocationProperty);
+
+            PageUrlProperty = WrapperProperty.ForMember(this, vm => vm.Model.PageUrl);
+            HasPageUrlProperty = NotifiableProperty.Create(this, nameof(HasPageUrl)).DependingOn(PageUrlProperty);
+            OpenPageCommand = ConditionalCommand.From(CanOpenPage, OpenPage).ExecutionDependingOn(PageUrlProperty);
 
             OpenDirectoryCommand = SimpleCommand.From(OpenDirectory);
         }
@@ -73,6 +78,32 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
         public NotifiableProperty HasAfterwordProperty { get; }
         public bool HasAfterword => Files.Afterword.Model.CanOpen;
         public ICommand OpenAfterwordCommand => Files.Afterword.OpenAfterwordCommand;
+
+        // Url
+
+        public WrapperProperty<JamEntryEditableViewModel, string?> PageUrlProperty { get; }
+        public string? PageUrl { get => PageUrlProperty.Value; set => PageUrlProperty.Value = value; }
+
+        public NotifiableProperty HasPageUrlProperty { get; }
+        public bool HasPageUrl => CanOpenPage();
+
+        public ICommand OpenPageCommand { get; }
+
+        private void OpenPage()
+        {
+            if (PageUrl == null)
+                return;
+
+            if (!Uri.TryCreate(PageUrl, UriKind.Absolute, out var pageUri))
+                return;
+
+            ProcessLauncher.OpenWebsite(pageUri);
+        }
+
+        private bool CanOpenPage()
+        {
+            return !string.IsNullOrWhiteSpace(PageUrl) && Uri.TryCreate(PageUrl, UriKind.Absolute, out var pageUri);
+        }
 
         // Directory
 
