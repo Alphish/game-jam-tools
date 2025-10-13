@@ -11,6 +11,9 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
 {
     public class JamEntryEditableViewModel : WrapperViewModel<JamEntryEditable>
     {
+        public static CollectionViewModelStub<JamEntryEditable, JamEntryEditableViewModel> CollectionStub
+            => CollectionViewModelStub.Create((JamEntryEditable model) => new JamEntryEditableViewModel(model));
+
         private static ProcessLauncher ProcessLauncher { get; } = new ProcessLauncher();
 
         public JamEntryEditableViewModel(JamEntryEditable model) : base(model)

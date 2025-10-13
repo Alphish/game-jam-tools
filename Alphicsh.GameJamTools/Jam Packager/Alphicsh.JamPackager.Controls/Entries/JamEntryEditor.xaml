@@ -31,6 +31,7 @@
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
@@ -76,16 +77,22 @@
         <Separator Grid.Row="1" Grid.ColumnSpan="2"/>
 
         <Label Grid.Row="2" Grid.Column="0">Title:</Label>
-        <cc:ImpTextBox Grid.Row="2" Grid.Column="1" Text="{Binding Title}"/>
+        <cc:ImpTextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding Title}"/>
 
         <Label Grid.Row="3" Grid.Column="0">Short title:</Label>
-        <cc:ImpTextBox Grid.Row="3" Grid.Column="1" Text="{Binding ShortTitle}" Placeholder="&lt;same as title&gt;"/>
+        <cc:ImpTextBox Grid.Row="3" Grid.Column="1" Margin="2" Text="{Binding ShortTitle}" Placeholder="&lt;same as title&gt;"/>
 
-        <Label Grid.Row="4" Grid.Column="0">Team name:</Label>
-        <cc:ImpTextBox Grid.Row="4" Grid.Column="1" Text="{Binding Team.Name}" Placeholder="&lt;same as authors&gt;"/>
+        <Label Grid.Row="4" Grid.Column="0">Page URL:</Label>
+        <DockPanel Grid.Row="4" Grid.Column="1" Margin="2">
+          <cc:ImpButton DockPanel.Dock="Right" Style="{DynamicResource HelpButton}" Width="64" BarPosition="End" Command="{Binding OpenPageCommand}">Open</cc:ImpButton>
+          <cc:ImpTextBox BarPosition="Start" Text="{Binding PageUrl}" Placeholder="&lt;no page URL given&gt;"/>
+        </DockPanel>
+
+        <Label Grid.Row="5" Grid.Column="0">Team name:</Label>
+        <cc:ImpTextBox Grid.Row="5" Grid.Column="1" Margin="2" Text="{Binding Team.Name}" Placeholder="&lt;same as authors&gt;"/>
         
-        <Label Grid.Row="5" Grid.Column="0">Authors:</Label>
-        <cc:ImpTextBox Grid.Row="5" Grid.Column="1" Text="{Binding Team.AuthorsString}" Placeholder="&lt;same as authors&gt;"/>
+        <Label Grid.Row="6" Grid.Column="0">Authors:</Label>
+        <cc:ImpTextBox Grid.Row="6" Grid.Column="1" Margin="2" Text="{Binding Team.AuthorsString}" Placeholder="&lt;same as authors&gt;"/>
       </Grid>
     </StackPanel>
   </GroupBox>

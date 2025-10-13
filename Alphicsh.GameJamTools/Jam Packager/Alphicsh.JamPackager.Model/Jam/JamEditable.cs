@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Alphicsh.EntryPackager.Model.Entry;
+using Alphicsh.EntryPackager.Model.Entry.Export;
 using Alphicsh.JamPackager.Model.Jam.Loading;
 using Alphicsh.JamTools.Common.IO;
+using Alphicsh.JamTools.Common.IO.Execution;
 
 namespace Alphicsh.JamPackager.Model.Jam
 {
     public class JamEditable
     {
         private static JamEntriesExplorer EntriesExplorer { get; } = new JamEntriesExplorer();
+        private static PackageNameFormatter EntryNameFormatter { get; } = new PackageNameFormatter();
 
         public FilePath DirectoryPath { get; init; }
         public string? Title { get; set; }
@@ -35,14 +39,38 @@ namespace Alphicsh.JamPackager.Model.Jam
         // Entries finding
 
         public string EntriesLocation { get; private set; } = default!;
-        public IReadOnlyCollection<JamEntryEditable> Entries { get; private set; } = default!;
+        public IList<JamEntryEditable> Entries { get; private set; } = default!;
         public void SetEntriesPath(FilePath entriesPath)
         {
             if (!entriesPath.IsSubpathOf(DirectoryPath))
                 return;
 
             EntriesLocation = entriesPath.AsRelativeTo(DirectoryPath).Value;
-            Entries = EntriesExplorer.FindEntries(entriesPath);
+            Entries = EntriesExplorer.FindEntries(entriesPath).ToList();
+        }
+
+        public JamEntryEditable AddWebEntry(string title, string? shortTitle, string? team, string authors, string url)
+        {
+            var entry = new JamEntryEditable { Title = title, ShortTitle = shortTitle };
+            if (team != null)
+                entry.Team.Name = team;
+
+            entry.Team.SetAuthorsString(authors);
+
+            var launcher = entry.Files.AddLauncher();
+            launcher.SetName("Web");
+            launcher.SetType(LaunchType.WebLink);
+            launcher.SetLocation(url);
+
+            var folderName = EntryNameFormatter.GetPackageName(entry.DisplayShortTitle, entry.Team.DisplayName);
+            var folderPath = DirectoryPath.Append(EntriesLocation).Append(folderName);
+            Directory.CreateDirectory(folderPath.Value);
+
+            entry.Files.SetDirectoryPath(folderPath);
+
+            Entries.Add(entry);
+
+            return entry;
         }
 
         // Logo handling
