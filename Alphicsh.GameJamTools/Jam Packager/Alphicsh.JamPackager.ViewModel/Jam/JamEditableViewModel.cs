@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using Alphicsh.EntryPackager.Model.Entry;
 using Alphicsh.EntryPackager.ViewModel.Entry;
 using Alphicsh.JamPackager.Model.Jam;
+using Alphicsh.JamPackager.ViewModel.Jam.Modals;
 using Alphicsh.JamTools.Common.Controls.Files;
 using Alphicsh.JamTools.Common.IO.Execution;
 using Alphicsh.JamTools.Common.Mvvm;
@@ -51,8 +51,9 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
             AddAwardCommand = SimpleCommand.From(AddAward);
             RemoveAwardCommand = SimpleCommand.WithParameter<JamAwardEditableViewModel>(RemoveAward);
 
-            Entries = Model.Entries.Select(model => new JamEntryEditableViewModel(model)).ToList();
+            Entries = CollectionViewModel.CreateMutable(Model.Entries, JamEntryEditableViewModel.CollectionStub);
             SelectedEntryProperty = MutableProperty.Create(this, nameof(SelectedEntry), initialValue: (JamEntryEditableViewModel?)null);
+            AddWebEntryCommand = SimpleCommand.From(AddWebEntry);
         }
 
         // -----------
@@ -82,7 +83,7 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
             }
 
             Model.SetEntriesPath(entriesPath.Value);
-            Entries = Model.Entries.Select(model => new JamEntryEditableViewModel(model)).ToList();
+            Entries.SynchronizeWithModels();
             RaisePropertyChanged(nameof(EntriesLocation), nameof(Entries));
         }
 
@@ -202,9 +203,13 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
         // Entries
         // -------
 
-        public IReadOnlyCollection<JamEntryEditableViewModel> Entries { get; private set; }
+        public CollectionViewModel<JamEntryEditable, JamEntryEditableViewModel> Entries { get; private set; }
 
         public MutableProperty<JamEntryEditableViewModel?> SelectedEntryProperty { get; }
         public JamEntryEditableViewModel? SelectedEntry { get => SelectedEntryProperty.Value; set => SelectedEntryProperty.Value = value; }
+
+        public ICommand AddWebEntryCommand { get; }
+        private void AddWebEntry()
+            => AddWebEntryViewModel.ShowModal(this);
     }
 }
