@@ -27,6 +27,8 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
 
         public string Title => Model.Title;
         public JamTeamViewModel Team { get; }
+        public string AttributionString => Model.Attribution.AttributionString;
+        public bool AttributionSpecified => JamPlayerViewModel.Current.Jam.AttributionSpecified;
         public JamFilesViewModel Files { get; }
 
         public string? PageUrl => Model.PageUrl;
