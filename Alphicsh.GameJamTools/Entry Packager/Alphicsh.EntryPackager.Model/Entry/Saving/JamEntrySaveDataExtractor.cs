@@ -35,6 +35,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
                 ShortTitle = ToNullIfEmpty(entryEditable.ShortTitle),
                 Alignment = ToNullIfEmpty(entryEditable.Alignment),
                 Team = MapTeam(entryEditable.Team),
+                Attribution = MapAttribution(entryEditable.Attribution),
                 Files = MapFiles(entryEditable.Files),
                 PageUrl = ToNullIfEmpty(entryEditable.PageUrl),
             };
@@ -50,6 +51,17 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
             {
                 Name = ToNullIfEmpty(teamEditable.Name),
                 Authors = teamEditable.Authors.Select(MapAuthor).ToList(),
+            };
+        }
+
+        private JamAttributionInfo MapAttribution(JamAttributionEditable creditsEditable)
+        {
+            return new JamAttributionInfo
+            {
+                Code = creditsEditable.Code.ToString(),
+                Visuals = creditsEditable.Visuals.ToString(),
+                Music = creditsEditable.Music.ToString(),
+                Sounds = creditsEditable.Sounds.ToString(),
             };
         }
 
