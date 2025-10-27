@@ -37,6 +37,7 @@
 
         <!-- Team and authors -->
         <local:EntryPreviewTeamDetails DataContext="{Binding Team}"/>
+        <TextBlock FontSize="13" Foreground="{StaticResource DimText}" Text="{Binding Attribution.AttributionString, Mode=OneWay}" d:Text="Mostly custom code"/>
 
         <Separator/>
 

@@ -17,6 +17,9 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
             MusicProperty = WrapperProperty.ForMember(this, vm => vm.Model.Music);
             SoundsProperty = WrapperProperty.ForMember(this, vm => vm.Model.Sounds);
 
+            AttributionStringProperty = NotifiableProperty.Create(this, nameof(AttributionStringProperty))
+                .DependingOn(CodeProperty, VisualsProperty, MusicProperty, SoundsProperty);
+
             OpenGuideCommand = SimpleCommand.From(OpenGuide);
         }
 
@@ -42,6 +45,10 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
             new ComponentAttributionEntry("Mostly Custom", ComponentAttribution.MostlyCustom),
             new ComponentAttributionEntry("Custom", ComponentAttribution.Custom),
         };
+
+        public NotifiableProperty AttributionStringProperty { get; }
+        public string AttributionString
+            => $"{AttributionModifiers[Code]} code | {AttributionModifiers[Visuals]} visuals | {AttributionModifiers[Music]} music | {AttributionModifiers[Sounds]} sounds";
 
         private static IReadOnlyDictionary<ComponentAttribution, string> AttributionModifiers { get; } = new Dictionary<ComponentAttribution, string>
         {
