@@ -124,6 +124,8 @@
               </DataTemplate>
             </ComboBox.ItemTemplate>
           </ComboBox>
+          <Separator/>
+          <cc:ImpButton Style="{StaticResource HelpButton}" Width="64" Margin="2" Command="{Binding OpenGuideCommand}">Help</cc:ImpButton>
         </StackPanel>
       </GroupBox>
     </Grid>

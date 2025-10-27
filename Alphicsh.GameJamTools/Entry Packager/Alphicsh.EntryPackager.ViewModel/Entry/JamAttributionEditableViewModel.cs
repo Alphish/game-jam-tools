@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Input;
 using Alphicsh.EntryPackager.Model.Entry;
 using Alphicsh.JamTools.Common.IO.Jam.Entries;
 using Alphicsh.JamTools.Common.Mvvm;
+using Alphicsh.JamTools.Common.Mvvm.Commands;
 using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 namespace Alphicsh.EntryPackager.ViewModel.Entry
@@ -14,6 +16,8 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
             VisualsProperty = WrapperProperty.ForMember(this, vm => vm.Model.Visuals);
             MusicProperty = WrapperProperty.ForMember(this, vm => vm.Model.Music);
             SoundsProperty = WrapperProperty.ForMember(this, vm => vm.Model.Sounds);
+
+            OpenGuideCommand = SimpleCommand.From(OpenGuide);
         }
 
         public WrapperProperty<JamAttributionEditableViewModel, ComponentAttribution> CodeProperty { get; }
@@ -49,5 +53,9 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
             [ComponentAttribution.MostlyCustom] = "Mostly custom",
             [ComponentAttribution.Custom] = "Custom",
         };
+
+        public ICommand OpenGuideCommand { get; }
+        private void OpenGuide()
+            => AttributionGuideViewModel.ShowModal();
     }
 }
