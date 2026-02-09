@@ -17,7 +17,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
             MusicProperty = WrapperProperty.ForMember(this, vm => vm.Model.Music);
             SoundsProperty = WrapperProperty.ForMember(this, vm => vm.Model.Sounds);
 
-            AttributionStringProperty = NotifiableProperty.Create(this, nameof(AttributionStringProperty))
+            AttributionStringProperty = NotifiableProperty.Create(this, nameof(AttributionString))
                 .DependingOn(CodeProperty, VisualsProperty, MusicProperty, SoundsProperty);
 
             OpenGuideCommand = SimpleCommand.From(OpenGuide);
@@ -35,7 +35,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
         public WrapperProperty<JamAttributionEditableViewModel, ComponentAttribution> SoundsProperty { get; }
         public ComponentAttribution Sounds { get => SoundsProperty.Value; set => SoundsProperty.Value = value; }
 
-        public IReadOnlyCollection<ComponentAttributionEntry> AvailableAttributionTypes { get; } = new List<ComponentAttributionEntry>()
+        public static IReadOnlyCollection<ComponentAttributionEntry> AvailableAttributionTypes { get; } = new List<ComponentAttributionEntry>()
         {
             new ComponentAttributionEntry("Unspecified", ComponentAttribution.Unspecified),
             new ComponentAttributionEntry("None", ComponentAttribution.None),
