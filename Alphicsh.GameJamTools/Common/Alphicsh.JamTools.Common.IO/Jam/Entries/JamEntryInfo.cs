@@ -17,6 +17,7 @@ namespace Alphicsh.JamTools.Common.IO.Jam.Entries
         public string? ShortTitle { get; init; }
         public string? Alignment { get; init; }
         public JamTeamInfo Team { get; init; } = default!;
+        public JamAttributionInfo? Attribution { get; init; } = default!;
         public JamFilesInfo Files { get; init; } = default!;
 
         // -----------------

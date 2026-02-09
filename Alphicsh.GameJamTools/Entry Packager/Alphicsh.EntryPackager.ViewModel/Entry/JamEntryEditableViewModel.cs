@@ -25,7 +25,7 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
                 .DependingOn(TitleProperty, ShortTitleProperty);
 
             Team = new JamTeamEditableViewModel(model.Team);
-
+            Attribution = new JamAttributionEditableViewModel(model.Attribution);
             Files = new JamFilesEditableViewModel(model.Files);
 
             HasLauncherProperty = NotifiableProperty.Create(this, nameof(HasLauncher))
@@ -61,6 +61,8 @@ namespace Alphicsh.EntryPackager.ViewModel.Entry
         public string DisplayShortTitle => Model.DisplayShortTitle;
 
         public JamTeamEditableViewModel Team { get; }
+
+        public JamAttributionEditableViewModel Attribution { get; }
 
         // -----
         // Files

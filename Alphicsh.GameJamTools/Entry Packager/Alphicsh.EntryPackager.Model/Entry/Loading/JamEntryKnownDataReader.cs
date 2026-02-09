@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Alphicsh.EntryPackager.Model.Entry.Files;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.IO.Execution;
@@ -66,6 +67,10 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
             entryEditable.ShortTitle = entryInfo.ShortTitle;
             entryEditable.Alignment = entryInfo.Alignment;
             ApplyTeamInfo(entryEditable.Team, entryInfo.Team);
+
+            if (entryInfo.Attribution != null)
+                ApplyAttributionInfo(entryEditable.Attribution, entryInfo.Attribution);
+            
             ApplyFilesInfo(entryEditable.Files, entryInfo.Files);
             entryEditable.PageUrl = entryInfo.PageUrl;
         }
@@ -85,6 +90,18 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
             {
                 teamEditable.Authors.Add(author);
             }
+        }
+
+        private void ApplyAttributionInfo(JamAttributionEditable attributionEditable, JamAttributionInfo attributionInfo)
+        {
+            if (Enum.TryParse<ComponentAttribution>(attributionInfo.Code, ignoreCase: true, out var codeAttribution))
+                attributionEditable.Code = codeAttribution;
+            if (Enum.TryParse<ComponentAttribution>(attributionInfo.Visuals, ignoreCase: true, out var visualsAttribution))
+                attributionEditable.Visuals = visualsAttribution;
+            if (Enum.TryParse<ComponentAttribution>(attributionInfo.Music, ignoreCase: true, out var musicAttribution))
+                attributionEditable.Music = musicAttribution;
+            if (Enum.TryParse<ComponentAttribution>(attributionInfo.Sounds, ignoreCase: true, out var soundsAttribution))
+                attributionEditable.Sounds = soundsAttribution;
         }
 
         private void ApplyFilesInfo(JamFilesEditable filesEditable, JamFilesInfo filesInfo)

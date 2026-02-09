@@ -8,6 +8,7 @@ namespace Alphicsh.JamPlayer.Model.Jam
         public string Title { get; init; } = default!;
         public string ShortTitle { get; init; } = default!;
         public JamTeam Team { get; init; } = default!;
+        public JamAttribution Attribution { get; init; } = default!;
         public JamFiles Files { get; init; } = default!;
         public string? PageUrl { get; init; } = default!;
     }

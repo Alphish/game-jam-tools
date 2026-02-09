@@ -32,7 +32,7 @@ namespace Alphicsh.JamPlayer.Model.Jam
                 _entriesById = value.ToDictionary(entry => entry.Id, StringComparer.OrdinalIgnoreCase);
             }
         }
-        
+
         public JamEntry? GetEntryById(string? entryId)
         {
             if (entryId == null)
@@ -40,5 +40,7 @@ namespace Alphicsh.JamPlayer.Model.Jam
 
             return _entriesById.TryGetValue(entryId, out var entry) ? entry : null;
         }
+
+        public bool AttributionSpecified { get; init; }
     }
 }

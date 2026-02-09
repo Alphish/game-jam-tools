@@ -39,7 +39,15 @@
       
       <!-- Team and authors -->
       <local:JamTeamDescription DataContext="{Binding JamEntry.Team}"></local:JamTeamDescription>
-      
+      <TextBlock
+        FontSize="13"
+        Margin="0,2"
+        Foreground="{StaticResource DimText}"
+        Text="{Binding JamEntry.AttributionString, Mode=OneWay}"
+        Visibility="{Binding JamEntry.AttributionSpecified, Converter={StaticResource ShowTrueVisibilityConverter}}"
+        d:Text="Mostly custom code"
+      />
+
       <WrapPanel>
         <!-- Readme Please -->
         <cc:ImpButton

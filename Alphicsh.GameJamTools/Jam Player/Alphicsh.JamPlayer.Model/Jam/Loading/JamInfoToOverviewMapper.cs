@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Alphicsh.JamPlayer.Model.Jam.Files;
 using Alphicsh.JamTools.Common.IO;
 using Alphicsh.JamTools.Common.IO.Execution;
@@ -25,6 +26,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
                 LogoPath = logoPath,
                 AwardCriteria = awardCriteria,
                 Entries = entries,
+                AttributionSpecified = entries.Any(entry => entry.Attribution.AnySpecified),
             };
         }
 
@@ -47,6 +49,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
                 Title = entryInfo.Title,
                 ShortTitle = entryInfo.ShortTitle ?? entryInfo.Title,
                 Team = MapTeam(entryInfo.Team),
+                Attribution = MapAttribution(entryInfo.Attribution),
                 Files = MapFiles(entryInfo.Files, entryDirectory),
                 PageUrl = entryInfo.PageUrl,
             };
@@ -73,6 +76,32 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
                 Name = authorInfo.Name,
                 Role = authorInfo.Role,
                 CommunityId = authorInfo.CommunityId,
+            };
+        }
+
+        // -----------
+        // Attribution
+        // -----------
+
+        private JamAttribution MapAttribution(JamAttributionInfo? attributionInfo)
+        {
+            if (attributionInfo == null)
+            {
+                return new JamAttribution
+                {
+                    Code = ComponentAttribution.Unspecified,
+                    Visuals = ComponentAttribution.Unspecified,
+                    Music = ComponentAttribution.Unspecified,
+                    Sounds = ComponentAttribution.Unspecified,
+                };
+            }
+
+            return new JamAttribution
+            {
+                Code = Enum.TryParse<ComponentAttribution>(attributionInfo.Code, ignoreCase: true, out var code) ? code : ComponentAttribution.Unspecified,
+                Visuals = Enum.TryParse<ComponentAttribution>(attributionInfo.Visuals, ignoreCase: true, out var visuals) ? visuals : ComponentAttribution.Unspecified,
+                Music = Enum.TryParse<ComponentAttribution>(attributionInfo.Music, ignoreCase: true, out var music) ? music : ComponentAttribution.Unspecified,
+                Sounds = Enum.TryParse<ComponentAttribution>(attributionInfo.Sounds, ignoreCase: true, out var sounds) ? sounds : ComponentAttribution.Unspecified,
             };
         }
 

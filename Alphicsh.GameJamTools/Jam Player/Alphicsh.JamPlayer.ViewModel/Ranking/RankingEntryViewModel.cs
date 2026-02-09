@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
-using Alphicsh.JamTools.Common.Mvvm;
-using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
-
 using Alphicsh.JamPlayer.Model.Ranking;
 using Alphicsh.JamPlayer.ViewModel.Jam;
 using Alphicsh.JamPlayer.ViewModel.Ratings;
+using Alphicsh.JamTools.Common.Mvvm;
+using Alphicsh.JamTools.Common.Mvvm.NotifiableProperties;
 
 namespace Alphicsh.JamPlayer.ViewModel.Ranking
 {

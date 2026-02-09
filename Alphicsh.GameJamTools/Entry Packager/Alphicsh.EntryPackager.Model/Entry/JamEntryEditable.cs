@@ -12,6 +12,7 @@ namespace Alphicsh.EntryPackager.Model.Entry
         public string DisplayShortTitle => !string.IsNullOrWhiteSpace(ShortTitle) ? ShortTitle : Title;
 
         public JamTeamEditable Team { get; } = new JamTeamEditable();
+        public JamAttributionEditable Attribution { get; } = new JamAttributionEditable();
         public JamFilesEditable Files { get; } = new JamFilesEditable();
         public string? PageUrl { get; set; }
     }

@@ -19,8 +19,10 @@
       <!-- Title -->
       <Grid>
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="Auto"/>
-          <ColumnDefinition/>
+          <ColumnDefinition Width="120"/>
+          <ColumnDefinition Width="1*"/>
+          <ColumnDefinition Width="120"/>
+          <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -32,9 +34,12 @@
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
+        <DockPanel Grid.Row="0" Grid.ColumnSpan="4">
           <cc:ImageBox
             DockPanel.Dock="Left"
             Style="{StaticResource EntryThumbnailSmall}"
@@ -74,25 +79,66 @@
           </StackPanel>
         </DockPanel>
 
-        <Separator Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Separator Grid.Row="1" Grid.ColumnSpan="4"/>
 
         <Label Grid.Row="2" Grid.Column="0">Title:</Label>
-        <cc:ImpTextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding Title}"/>
+        <cc:ImpTextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding Title}"/>
 
         <Label Grid.Row="3" Grid.Column="0">Short title:</Label>
-        <cc:ImpTextBox Grid.Row="3" Grid.Column="1" Margin="2" Text="{Binding ShortTitle}" Placeholder="&lt;same as title&gt;"/>
+        <cc:ImpTextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding ShortTitle}" Placeholder="&lt;same as title&gt;"/>
 
         <Label Grid.Row="4" Grid.Column="0">Page URL:</Label>
-        <DockPanel Grid.Row="4" Grid.Column="1" Margin="2">
+        <DockPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="2">
           <cc:ImpButton DockPanel.Dock="Right" Style="{DynamicResource HelpButton}" Width="64" BarPosition="End" Command="{Binding OpenPageCommand}">Open</cc:ImpButton>
           <cc:ImpTextBox BarPosition="Start" Text="{Binding PageUrl}" Placeholder="&lt;no page URL given&gt;"/>
         </DockPanel>
 
         <Label Grid.Row="5" Grid.Column="0">Team name:</Label>
-        <cc:ImpTextBox Grid.Row="5" Grid.Column="1" Margin="2" Text="{Binding Team.Name}" Placeholder="&lt;same as authors&gt;"/>
+        <cc:ImpTextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding Team.Name}" Placeholder="&lt;same as authors&gt;"/>
         
         <Label Grid.Row="6" Grid.Column="0">Authors:</Label>
-        <cc:ImpTextBox Grid.Row="6" Grid.Column="1" Margin="2" Text="{Binding Team.AuthorsString}" Placeholder="&lt;same as authors&gt;"/>
+        <cc:ImpTextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding Team.AuthorsString}" Placeholder="&lt;same as authors&gt;"/>
+
+        <Separator Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4"/>
+        
+        <!-- ATTRIBUTION -->
+
+        <Label Grid.Row="8" Grid.Column="0">Code:</Label>
+        <ComboBox Grid.Row="8" Grid.Column="1" Margin="2" SelectedValue="{Binding Attribution.Code}" ItemsSource="{Binding Attribution.AvailableAttributionTypes}" SelectedValuePath="Value">
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock FontFamily="Segoe UI" FontSize="13" Text="{Binding Description}"/>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label Grid.Row="8" Grid.Column="2">Visuals:</Label>
+        <ComboBox Grid.Row="8" Grid.Column="3" Margin="2" SelectedValue="{Binding Attribution.Visuals}" ItemsSource="{Binding Attribution.AvailableAttributionTypes}" SelectedValuePath="Value">
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock FontFamily="Segoe UI" FontSize="13" Text="{Binding Description}"/>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label Grid.Row="9" Grid.Column="0">Music:</Label>
+        <ComboBox Grid.Row="9" Grid.Column="1" Margin="2" SelectedValue="{Binding Attribution.Music}" ItemsSource="{Binding Attribution.AvailableAttributionTypes}" SelectedValuePath="Value">
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock FontFamily="Segoe UI" FontSize="13" Text="{Binding Description}"/>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label Grid.Row="9" Grid.Column="2">Sounds:</Label>
+        <ComboBox Grid.Row="9" Grid.Column="3" Margin="2" SelectedValue="{Binding Attribution.Sounds}" ItemsSource="{Binding Attribution.AvailableAttributionTypes}" SelectedValuePath="Value">
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock FontFamily="Segoe UI" FontSize="13" Text="{Binding Description}"/>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+
       </Grid>
     </StackPanel>
   </GroupBox>

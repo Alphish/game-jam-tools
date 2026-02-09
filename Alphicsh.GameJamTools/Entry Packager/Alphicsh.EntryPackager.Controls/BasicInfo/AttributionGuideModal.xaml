@@ -1,0 +1,158 @@
+﻿<Window
+  x:Class="Alphicsh.EntryPackager.Controls.BasicInfo.AttributionGuideModal"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:Alphicsh.EntryPackager.Controls.BasicInfo"
+  xmlns:cc="clr-namespace:Alphicsh.JamTools.Common.Controls;assembly=Alphicsh.JamTools.Common.Controls"
+  xmlns:modals="clr-namespace:Alphicsh.JamTools.Common.Controls.Modals;assembly=Alphicsh.JamTools.Common.Controls"
+  mc:Ignorable="d"
+  Style="{StaticResource ModalWindow}"
+  Height="600" Width="960"
+  >
+  <DockPanel>
+    <modals:ModalHeader DockPanel.Dock="Top"/>
+
+    <Border DockPanel.Dock="Bottom" Style="{StaticResource ModalToolbar}">
+      <cc:ImpButton Style="{StaticResource PrimaryButton}" Margin="2" Width="64" Command="{Binding CloseWindowCommand}">Ok</cc:ImpButton>
+    </Border>
+
+    <Border Style="{StaticResource ModalBody}" Background="{StaticResource MenuBackgroundBrush}">
+      <TabControl Background="{StaticResource SectionBackgroundBrush}" BorderThickness="0">
+        <!-- COMMON -->
+        <TabItem Header="Common" FontSize="20" Width="120">
+          <ScrollViewer>
+            <TextBlock Margin="4,0,4,0" TextWrapping="WrapWithOverflow" Foreground="{DynamicResource BasicText}" FontSize="16">
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">General notes</Run><LineBreak/>
+              • The attribution selection gives a general overview of how much of the entry mechanics and content was created specifically for the jam, and what comes from general resources (personal or public)<LineBreak/>
+              • The attribution selection makes it easier to quickly judge what aspects of the entry were premade, and factor these into rankings and best-of awards for reviewers who care about it<LineBreak/>
+              • <Bold>The attribution selection does not replace proper credits!</Bold> The entry credits should still state which portions are premade; likewise, participants should have the rights to all premade assets and follow the license terms<LineBreak/>
+              • Core or assets published during the jam timeframe but not made specifically for the jam still count as premade<LineBreak/>
+              • Code or assets made with generative AI (genAI) tools count as premade, even if they were made during the Jam timeframe<LineBreak/>
+              • A generic splash screen does not count towards premade assets; if all else in the given category is custom, the category can be attributed as fully custom<LineBreak/>
+              • If your case isn't covered by this guide, use common sense; if common sense is still not enough to determine the appropriate attribution, feel free to consult jam hosts<LineBreak/>
+              <LineBreak/>
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">How to credit premade assets</Run><LineBreak/>
+              • For personal assets, it's generally sufficient to state which assets were premade<LineBreak/>
+              • Public assets should be credited in a way another person can easily find and obtain them; e.g. page of a specific track rather than the page/channel of the author, or a page/name of a specific asset pack rather than an entire website for hosting asset packs<LineBreak/>
+              • If assets come from a paid pack that's available for sale, the asset pack store page should be linked<LineBreak/>
+              • For individual public domain sprites and sound effects it's acceptable not to credit them individually; credits should still contain a general source and explicitly mention public domain status (e.g. "public domain sounds from freesound.org")<LineBreak/>
+              • Technically it's legal not to specify the exact public domain soundtrack used, but for a reviewer it can be disappointing to hear a really cool music in an entry and not having an easy way to find it<LineBreak/>
+              <LineBreak/>
+            </TextBlock>
+          </ScrollViewer>
+        </TabItem>
+
+        <!-- CODE -->
+        <TabItem Header="Code" FontSize="20" Width="120">
+          <ScrollViewer>
+            <TextBlock Margin="4,0,4,0" TextWrapping="WrapWithOverflow" Foreground="{DynamicResource BasicText}" FontSize="16">
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">General notes</Run><LineBreak/>
+              • The code encompasses core gameplay, menus and other mechanics<LineBreak/>
+              • It does not include levels and data definitions (e.g. item, dialogue), whether they are defined in GML or not<LineBreak/>
+              • A small helpful snippet provided in programming help does not count towards premade code; a full pathfinding or procedural generation algorithm does<LineBreak/>
+              <LineBreak/>
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">Attributing individual pieces</Run><LineBreak/>
+              • <Bold>Custom</Bold> - code written from scratch during the jam<LineBreak/>
+              • <Bold>Mostly Premade</Bold> - a premade code edited and tweaked to better fit the game's needs<LineBreak/>
+              • <Bold>Premade</Bold> - a code library, personal package or large snippet made outside of the jam<LineBreak/>
+              <LineBreak/>
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">Attributing whole entry</Run><LineBreak/>
+              • <Bold>Custom</Bold> - all code is written from scratch<LineBreak/>
+              • <Bold>Mostly Custom</Bold> - general purpose libraries were used, but core gameplay mechanics were written during the jam<LineBreak/>
+              • <Bold>Partly Premade</Bold> - core game mechanics use a premade base specific to the genre, but the bulk of logic was still written during the jam<LineBreak/>
+              • <Bold>Mostly Premade</Bold> - core game mechanics run on a premade engine, with only additions being some specific features or auxiliary mechanics (menus, HUD, etc.)<LineBreak/>
+              • <Bold>Premade</Bold> - a fully featured premade engine was used and only content was added (levels, assets, data definitions)<LineBreak/>
+              • <Bold>None</Bold> - the entry has no interactions whatsoever (please don't do that)<LineBreak/>
+              <LineBreak/>
+            </TextBlock>
+          </ScrollViewer>
+        </TabItem>
+
+        <!-- VISUALS -->
+        <TabItem Header="Visuals" FontSize="20" Width="120">
+          <ScrollViewer>
+            <TextBlock Margin="4,0,4,0" TextWrapping="WrapWithOverflow" Foreground="{DynamicResource BasicText}" FontSize="16">
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">General notes</Run><LineBreak/>
+              • Visuals encompass art and animation, as well as drawing logic and visual effects like particles<LineBreak/>
+              • Trivial sprites (e.g. solid-coloured squares, circles, rounds, diamonds) don't count towards premade assets<LineBreak/>
+              • Built-in particle shapes don't count towards premade assets, but premade particle sprites do<LineBreak/>
+              • Transformations, shaders and other visual processing count as code; built-in Filters &amp; Effects don't count towards premade assets; personal and library shaders count towards premade code<LineBreak/>
+              • Premade fonts don't count towards premade assets, but custom fonts count towards custom assets<LineBreak/>
+              <LineBreak/>
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">Attributing individual pieces</Run><LineBreak/>
+              • <Bold>Custom</Bold> - art, animation or visual effect made entirely during the jam; completely redrawn genAI output<LineBreak/>
+              • <Bold>Partly Premade</Bold> - a heavily modified premade asset, so it no longer feels like a variation of the original<LineBreak/>
+              • <Bold>Mostly Premade</Bold> - a premade asset with a few tweaks (changing some pixels, swapping multiple colours); tweaked and/or traced genAI output<LineBreak/>
+              • <Bold>Premade</Bold> - a premade asset without significant modifications; raw genAI output<LineBreak/>
+              <LineBreak/>
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">Attributing whole entry</Run><LineBreak/>
+              • <Bold>Custom</Bold> - all visuals are custom-made<LineBreak/>
+              • <Bold>Mostly Custom</Bold> - a small amount of premade visuals was used (e.g. occasional characters, UI style, tried and tested particle effects)<LineBreak/>
+              • <Bold>Partly Premade</Bold> - core gameplay has similar amounts of premade and custom visuals (e.g. custom monsters and premade backgrounds or vice versa)<LineBreak/>
+              • <Bold>Mostly Premade</Bold> - all assets were premade, but some were modified; only a couple custom assets were added to the bulk of premade ones<LineBreak/>
+              • <Bold>Premade</Bold> - only premade assets were used, with no significant modifications<LineBreak/>
+              • <Bold>None</Bold> - the entry only displays a static background/image which doesn't respond to gameplay<LineBreak/>
+              <LineBreak/>
+            </TextBlock>
+          </ScrollViewer>
+        </TabItem>
+
+        <!-- MUSIC -->
+        <TabItem Header="Music" FontSize="20" Width="120">
+          <ScrollViewer>
+            <TextBlock Margin="4,0,4,0" TextWrapping="WrapWithOverflow" Foreground="{DynamicResource BasicText}" FontSize="16">
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">General notes</Run><LineBreak/>
+              • Music encompasses various soundtracks and songs used in the game<LineBreak/>
+              • Soundscapes count towards sound effects rather than music<LineBreak/>
+              • Premade soundfonts and individual samples don't count towards premade music; copying large chunks of melody does<LineBreak/>
+              <LineBreak/>
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">Attributing individual pieces</Run><LineBreak/>
+              • <Bold>Custom</Bold> - the track was composed entirely during the jam; the track is an arrangement of an existing track with a distinct melody and no reused lyrics<LineBreak/>
+              • <Bold>Mostly Custom</Bold> - the track uses synthesised vocals, but the melody and lyrics were composed during the jam<LineBreak/>
+              • <Bold>Partly Premade</Bold> - a significant portion of the track was made before the jam, but it was heavily expanded upon<LineBreak/>
+              • <Bold>Mostly Premade</Bold> - a premade track was modified (e.g. changing instruments, adding a custom backing track, adding custom vocals)<LineBreak/>
+              • <Bold>Premade</Bold> - a premade track without non-trivial modifications (e.g. changing volume or editing for better looping counts as trivial)<LineBreak/>
+              <LineBreak/>
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">Attributing whole entry</Run><LineBreak/>
+              • <Bold>Custom</Bold> - all music is custom-made<LineBreak/>
+              • <Bold>Mostly Custom</Bold> - premade music was used only outside core gameplay (e.g. menu); some mix of custom and partly premade tracks was used<LineBreak/>
+              • <Bold>Partly Premade</Bold> - a similar amount of premade and custom music was used in core gameplay<LineBreak/>
+              • <Bold>Mostly Premade</Bold> - all music was premade, but some was modified; only a small portion of music is custom-made<LineBreak/>
+              • <Bold>Premade</Bold> - only premade music was used, with no significant modifications<LineBreak/>
+              • <Bold>None</Bold> - the entry has no audio or it has only sounds<LineBreak/>
+              <LineBreak/>
+            </TextBlock>
+          </ScrollViewer>
+        </TabItem>
+
+        <!-- SOUNDS -->
+        <TabItem Header="Sounds" FontSize="20" Width="120">
+          <ScrollViewer>
+            <TextBlock Margin="4,0,4,0" TextWrapping="WrapWithOverflow" Foreground="{DynamicResource BasicText}" FontSize="16">
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">General notes</Run><LineBreak/>
+              • Sounds category encompasses individual sound effects, soundscapes and voiceover<LineBreak/>
+              • Soundtracks and songs are not included<LineBreak/>
+              <LineBreak/>
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">Attributing individual pieces</Run><LineBreak/>
+              • <Bold>Custom</Bold> - a sound effect or soundscapes recorded and edited during the Jam; a sound effect generated with non-genAI tools like BFXR during the jam; a voiceover recorded during the Jam<LineBreak/>
+              • <Bold>Mostly Custom</Bold> - a soundscape put together from individual premade sounds<LineBreak/>
+              • <Bold>Mostly Premade</Bold> - a premade sound effect or soundscape edited beyond simple recognition; a premade voiceover edited with various filters, distortions and/or cuts<LineBreak/>
+              • <Bold>Premade</Bold> - a premade sound effect or soundscape with no non-trivial modifications (e.g. volume balancing, cutting and adding fade-outs is considered trivial); a mostly unmodified voiceover generated with a voice synthesiser (genAI or otherwise)<LineBreak/>
+              <LineBreak/>
+              <Run FontWeight="Bold" Foreground="{DynamicResource HighlightText}" FontSize="18">Attributing whole entry</Run><LineBreak/>
+              • <Bold>Custom</Bold> - all sound effects, soundscapes and voiceovers are custom<LineBreak/>
+              • <Bold>Mostly Custom</Bold> - most sounds are custom, only a few are premade (e.g. generic UI sounds)<LineBreak/>
+              • <Bold>Partly Premade</Bold> - similar amount of custom and premade sounds; custom voiced dialogue among premade sounds effects/soundscapes<LineBreak/>
+              • <Bold>Mostly Premade</Bold> - most sounds are premade, only a few are custom; all sounds are premade, but some were edited heavily enough to not count as fully premade<LineBreak/>
+              • <Bold>Premade</Bold> - fully premade sounds only<LineBreak/>
+              • <Bold>None</Bold> - the entry has no audio at all or music only<LineBreak/>
+              <LineBreak/>
+            </TextBlock>
+          </ScrollViewer>
+        </TabItem>
+      </TabControl>
+    </Border>
+  </DockPanel>
+</Window>

@@ -21,6 +21,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
 
         public string? Title => Model.Title ?? "The Game Jam";
         public string? Theme => Model.Theme;
+        public bool AttributionSpecified => Model.AttributionSpecified;
 
         public ImageSourceProperty<JamOverviewViewModel> LogoPathProperty { get; }
         public ImageSource? Logo => LogoPathProperty.ImageSource;
