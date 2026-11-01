@@ -35,7 +35,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
                 Team = entryInfo.Team.Name ?? string.Join(", ", authorNames),
                 RawTeam = entryInfo.Team.Name,
                 Authors = authorNames,
-                Alignment = alignments?.GetAlignment(entryInfo.Alignment),
+                Alignment = alignments?.GetAlignment(entryInfo.AlignmentId ?? entryInfo.Alignment),
                 TallyCode = entryOverride?.TallyCode ?? code,
                 TallyTitle = entryOverride?.TallyTitle ?? title,
                 TallyAuthors = entryOverride?.TallyAuthors ?? team,

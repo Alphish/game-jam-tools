@@ -25,6 +25,7 @@ namespace Alphicsh.JamTally.Model.Jam
 
             foreach (var option in options)
             {
+                result.Add(option.Id, option);
                 result.Add(option.Title, option);
                 result.Add(option.ShortTitle, option);
             }

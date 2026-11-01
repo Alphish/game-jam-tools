@@ -5,8 +5,10 @@ namespace Alphicsh.JamTally.Model.Jam
 {
     public class JamAlignmentOption : IEquatable<JamAlignmentOption?>
     {
+        public string Id { get; init; } = default!;
         public string Title { get; init; } = default!;
         public string ShortTitle { get; init; } = default!;
+        public string? Color { get; init; }
 
         public override string ToString() => Title;
 
