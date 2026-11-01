@@ -21,7 +21,7 @@
       Style="{StaticResource DangerButton}"
       Margin="2"
       Width="40"
-      Command="{Binding DataContext.RemoveLinkCommand, RelativeSource={RelativeSource AncestorType=local:JamAwardsTab}}"
+      Command="{Binding DataContext.Links.RemoveLinkCommand, RelativeSource={RelativeSource AncestorType=local:JamAwardsTab}}"
       CommandParameter="{Binding}"
     >x</cc:ImpButton>
 
@@ -32,7 +32,7 @@
         Style="{StaticResource HelpButton}"
         Width="64"
         BarPosition="End"
-        Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType=local:JamAwardsTab}}"
+        Command="{Binding DataContext.Links.OpenLinkCommand, RelativeSource={RelativeSource AncestorType=local:JamAwardsTab}}"
         CommandParameter="{Binding}"
       >Open</cc:ImpButton>
       <cc:ImpTextBox Text="{Binding Url}" BarPosition="Start"/>

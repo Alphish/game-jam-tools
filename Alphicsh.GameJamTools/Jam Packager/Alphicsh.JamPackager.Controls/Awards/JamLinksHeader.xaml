@@ -21,7 +21,7 @@
       Style="{StaticResource PrimaryButton}"
       Margin="2"
       Width="40"
-      Command="{Binding AddLinkCommand}"
+      Command="{Binding Links.AddLinkCommand}"
     >+</cc:ImpButton>
 
     <Label Grid.Column="1" Style="{StaticResource TableLabel}">Title</Label>

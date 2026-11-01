@@ -42,10 +42,7 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
             EndTimeProperty = WrapperProperty.ForMember(this, vm => vm.Model.EndTime);
             HostsProperty = WrapperProperty.Create(this, nameof(Hosts), vm => vm.Model.GetHostsString(), (vm, value) => vm.Model.SetHostsString(value));
 
-            Links = CollectionViewModel.CreateMutable(Model.Links, JamLinkEditableViewModel.CollectionStub);
-            AddLinkCommand = SimpleCommand.From(AddLink);
-            RemoveLinkCommand = SimpleCommand.WithParameter<JamLinkEditableViewModel>(RemoveLink);
-            OpenLinkCommand = SimpleCommand.WithParameter<JamLinkEditableViewModel>(OpenLink);
+            Links = new JamLinkCollectionViewModel(Model.Links);
 
             Awards = CollectionViewModel.CreateMutable(Model.Awards, JamAwardEditableViewModel.CollectionStub);
             AddAwardCommand = SimpleCommand.From(AddAward);
@@ -148,34 +145,7 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
         // Links
         // -----
 
-        public CollectionViewModel<JamLinkEditable, JamLinkEditableViewModel> Links { get; }
-
-        public ICommand AddLinkCommand { get; }
-        private void AddLink()
-        {
-            var linkModel = new JamLinkEditable { Title = "Example", Url = "http://example.com/" };
-            var linkVm = new JamLinkEditableViewModel(linkModel);
-            Links.Add(linkVm);
-            Links.CompleteChanges();
-        }
-
-        public ICommand RemoveLinkCommand { get; }
-        private void RemoveLink(JamLinkEditableViewModel linkVm)
-        {
-            Links.Remove(linkVm);
-            Links.CompleteChanges();
-        }
-
-        private static WebsiteLauncher LinkLauncher { get; } = new WebsiteLauncher();
-
-        public ICommand OpenLinkCommand { get; }
-        private void OpenLink(JamLinkEditableViewModel linkVm)
-        {
-            if (!Uri.TryCreate(linkVm.Url, UriKind.Absolute, out var uri))
-                return;
-
-            LinkLauncher.LaunchFrom(uri);
-        }
+        public JamLinkCollectionViewModel Links { get; }
 
         // ------
         // Awards
