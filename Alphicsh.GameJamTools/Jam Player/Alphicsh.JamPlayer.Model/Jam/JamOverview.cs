@@ -15,6 +15,8 @@ namespace Alphicsh.JamPlayer.Model.Jam
         public string? Theme { get; init; } = default!;
 
         public IReadOnlyCollection<JamAwardCriterion> AwardCriteria { get; init; } = default!;
+        public IReadOnlyCollection<JamAlignment>? Alignments { get; init; } = default!;
+        public bool HasAlignments => Alignments != null;
 
         // -------
         // Entries

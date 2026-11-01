@@ -26,6 +26,9 @@
         <DataTemplate DataType="{x:Type jamVm:JamTeamViewModel}">
           <TextBlock FontSize="16" Foreground="{DynamicResource DimText}" Text="{Binding Name}"></TextBlock>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type jamVm:JamAlignmentViewModel}">
+          <TextBlock FontSize="16" Foreground="{Binding AlignmentBrush}" Text="{Binding Title}"></TextBlock>
+        </DataTemplate>
       </ItemsControl.Resources>
     </ItemsControl>
   </WrapPanel>

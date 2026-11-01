@@ -19,7 +19,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
         public JamEntryViewModel(JamEntry model)
             : base(model)
         {
-            Team = new JamTeamViewModel(model.Team);
+            Team = new JamTeamViewModel(model.Team, model.Alignment);
             Files = new JamFilesViewModel(model.Files);
 
             OpenPageCommand = SimpleCommand.From(OpenPage);
@@ -29,6 +29,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
         public JamTeamViewModel Team { get; }
         public string AttributionString => Model.Attribution.AttributionString;
         public bool AttributionSpecified => JamPlayerViewModel.Current.Jam.AttributionSpecified;
+
         public JamFilesViewModel Files { get; }
 
         public string? PageUrl => Model.PageUrl;
