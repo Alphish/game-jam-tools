@@ -36,6 +36,10 @@ namespace Alphicsh.JamPackager.Model.Jam
 
         public IList<JamAwardEditable> Awards { get; set; } = new List<JamAwardEditable>();
 
+        // Alignments
+
+        public JamAlignmentsDefinitionEditable AlignmentsDefinition { get; } = new JamAlignmentsDefinitionEditable();
+
         // Entries finding
 
         public string EntriesLocation { get; private set; } = default!;

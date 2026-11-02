@@ -66,6 +66,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Loading
             entryEditable.Title = entryInfo.Title;
             entryEditable.ShortTitle = entryInfo.ShortTitle;
             entryEditable.Alignment = entryInfo.Alignment;
+            entryEditable.AlignmentId = entryInfo.AlignmentId;
             ApplyTeamInfo(entryEditable.Team, entryInfo.Team);
 
             if (entryInfo.Attribution != null)

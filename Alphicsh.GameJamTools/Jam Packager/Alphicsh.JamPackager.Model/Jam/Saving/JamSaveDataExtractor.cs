@@ -41,6 +41,7 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
                 Links = jamEditable.Links.Select(link => new JamLink { Title = link.Title, Url = link.Url }).ToList(),
 
                 AwardCriteria = jamEditable.Awards.Select(MapAward).ToList(),
+                Alignments = MapAlignments(jamEditable.AlignmentsDefinition),
                 EntriesSubpath = jamEditable.EntriesLocation,
                 Entries = jamEditable.Entries.Select(entry => MapEntryToStub(entriesPath, entry)).ToList(),
             };
@@ -62,6 +63,25 @@ namespace Alphicsh.JamPackager.Model.Jam.Saving
             {
                 Id = entryEditable.DisplayShortTitle + " by " + entryEditable.Team.DisplayName,
                 EntrySubpath = entryEditable.Files.DirectoryPath.AsRelativeTo(entriesPath).Value,
+            };
+        }
+
+        private JamAlignmentInfo? MapAlignments(JamAlignmentsDefinitionEditable alignmentsEditable)
+        {
+            if (alignmentsEditable.IsEmpty())
+                return null;
+
+            return new JamAlignmentInfo
+            {
+                NeitherTitle = alignmentsEditable.NeitherTitle,
+                Options = alignmentsEditable.Alignments.Select(alignment => new JamAlignmentOptionInfo
+                {
+                    Id = alignment.Id,
+                    Title = alignment.Title,
+                    ShortTitle = alignment.ShortTitle,
+                    Keywords = alignment.KeywordsString,
+                    Color = alignment.Color,
+                }).ToList(),
             };
         }
     }

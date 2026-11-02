@@ -9,6 +9,7 @@ namespace Alphicsh.EntryPackager.Model.Entry
         public string Title { get; set; } = default!;
         public string? ShortTitle { get; set; }
         public string? Alignment { get; set; }
+        public string? AlignmentId { get; set; }
         public string DisplayShortTitle => !string.IsNullOrWhiteSpace(ShortTitle) ? ShortTitle : Title;
 
         public JamTeamEditable Team { get; } = new JamTeamEditable();
