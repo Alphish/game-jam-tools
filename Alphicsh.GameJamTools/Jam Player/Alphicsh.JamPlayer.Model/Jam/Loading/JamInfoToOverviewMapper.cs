@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Alphicsh.JamPlayer.Model.Jam.Files;
 using Alphicsh.JamTools.Common.IO;
@@ -16,7 +17,8 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
             var directoryPath = info.Location.GetParentDirectoryPath();
             var logoPath = directoryPath.AppendNullable(info.LogoFileName);
             var awardCriteria = info.AwardCriteria.Select(MapAwardCriterion).ToList();
-            var entries = info.Entries.Select(MapEntry).ToList();
+            var alignmentsById = info.Alignments?.Options.Select(MapAlignment).ToDictionary(alignment => alignment.Id);
+            var entries = info.Entries.Select(info => MapEntry(info, alignmentsById)).ToList();
 
             return new JamOverview
             {
@@ -40,9 +42,29 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
             };
         }
 
-        private JamEntry MapEntry(JamEntryInfo entryInfo)
+        private JamAlignment MapAlignment(JamAlignmentOptionInfo alignment)
+        {
+            return new JamAlignment
+            {
+                Id = alignment.Id,
+                Title = alignment.Title,
+                Color = alignment.Color,
+            };
+        }
+
+        private JamEntry MapEntry(JamEntryInfo entryInfo, IReadOnlyDictionary<string, JamAlignment>? alignmentsById)
         {
             var entryDirectory = entryInfo.Location.GetParentDirectoryPath();
+
+            JamAlignment? alignment = null;
+            if (alignmentsById != null && entryInfo.AlignmentId != null &&
+                alignmentsById.TryGetValue(entryInfo.AlignmentId, out var foundAlignment))
+            {
+                alignment = entryInfo.Alignment != null
+                    ? new JamAlignment { Id = foundAlignment.Id, Title = entryInfo.Alignment, Color = foundAlignment.Color }
+                    : foundAlignment;
+            }
+
             return new JamEntry
             {
                 Id = entryInfo.JamId!,
@@ -50,6 +72,7 @@ namespace Alphicsh.JamPlayer.Model.Jam.Loading
                 ShortTitle = entryInfo.ShortTitle ?? entryInfo.Title,
                 Team = MapTeam(entryInfo.Team),
                 Attribution = MapAttribution(entryInfo.Attribution),
+                Alignment = alignment,
                 Files = MapFiles(entryInfo.Files, entryDirectory),
                 PageUrl = entryInfo.PageUrl,
             };

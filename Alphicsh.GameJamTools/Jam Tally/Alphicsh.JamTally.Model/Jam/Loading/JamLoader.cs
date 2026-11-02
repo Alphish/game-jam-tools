@@ -84,6 +84,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
             {
                 Title = optionInfo.Title,
                 ShortTitle = optionInfo.ShortTitle,
+                Color = optionInfo.Color,
             };
         }
 

@@ -51,6 +51,19 @@ namespace Alphicsh.JamPackager.Model.Jam.Loading
                 });
             }
 
+            if (jamInfo.Alignments != null)
+            {
+                jamEditable.AlignmentsDefinition.NeitherTitle = jamInfo.Alignments.NeitherTitle;
+                jamEditable.AlignmentsDefinition.Alignments = jamInfo.Alignments.Options.Select(option => new JamAlignmentEditable
+                {
+                    Id = option.Id,
+                    Title = option.Title,
+                    ShortTitle = option.ShortTitle,
+                    KeywordsString = option.Keywords,
+                    Color = option.Color,
+                }).ToList();
+            }
+
             jamEditable.SetEntriesPath(jamEditable.DirectoryPath.Append(jamInfo.EntriesSubpath));
         }
 

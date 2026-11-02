@@ -9,11 +9,12 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
 {
     public sealed class JamTeamViewModel : WrapperViewModel<JamTeam>
     {
-        public JamTeamViewModel(JamTeam model)
+        public JamTeamViewModel(JamTeam model, JamAlignment? alignment)
             : base(model)
         {
             Authors = CollectionViewModel.CreateImmutable(model.Authors, JamAuthorViewModel.CollectionStub);
             ShortDescription = Model.Description;
+            Alignment = alignment != null ? new JamAlignmentViewModel(alignment) : null;
 
             DescriptionItems = BuildDescriptionItems();
         }
@@ -21,6 +22,7 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
         public string? Name => Model.Name;
         public CollectionViewModel<JamAuthor, JamAuthorViewModel> Authors { get; }
         public string ShortDescription { get; }
+        public JamAlignmentViewModel? Alignment { get; }
 
         // -----------------
         // Description items
@@ -45,6 +47,12 @@ namespace Alphicsh.JamPlayer.ViewModel.Jam
                 displayItems.Add(")");
             }
             displayItems.Insert(0, "by ");
+
+            if (Alignment != null)
+            {
+                displayItems.Add(" | ");
+                displayItems.Add(Alignment);
+            }
 
             return displayItems;
         }

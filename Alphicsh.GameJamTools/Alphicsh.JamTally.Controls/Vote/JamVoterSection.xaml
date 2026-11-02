@@ -50,8 +50,13 @@
         ItemsSource="{Binding AvailableAlignments}"
         SelectedValue="{Binding Alignment}"
         SelectedValuePath="Option"
-        DisplayMemberPath="Title"
-      />
+      >
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Foreground="{Binding Brush, TargetNullValue={StaticResource BasicText}}" Text="{Binding Title, Mode=OneWay}"/>
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
 
       <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource SublistHeader}">Entries by voter</TextBlock>
 

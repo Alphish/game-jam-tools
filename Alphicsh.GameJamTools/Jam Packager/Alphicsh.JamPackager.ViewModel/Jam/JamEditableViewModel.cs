@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -42,14 +43,14 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
             EndTimeProperty = WrapperProperty.ForMember(this, vm => vm.Model.EndTime);
             HostsProperty = WrapperProperty.Create(this, nameof(Hosts), vm => vm.Model.GetHostsString(), (vm, value) => vm.Model.SetHostsString(value));
 
-            Links = CollectionViewModel.CreateMutable(Model.Links, JamLinkEditableViewModel.CollectionStub);
-            AddLinkCommand = SimpleCommand.From(AddLink);
-            RemoveLinkCommand = SimpleCommand.WithParameter<JamLinkEditableViewModel>(RemoveLink);
-            OpenLinkCommand = SimpleCommand.WithParameter<JamLinkEditableViewModel>(OpenLink);
+            Links = new JamLinkCollectionViewModel(Model.Links);
 
             Awards = CollectionViewModel.CreateMutable(Model.Awards, JamAwardEditableViewModel.CollectionStub);
             AddAwardCommand = SimpleCommand.From(AddAward);
             RemoveAwardCommand = SimpleCommand.WithParameter<JamAwardEditableViewModel>(RemoveAward);
+
+            AlignmentsDefinition = new JamAlignmentsDefinitionEditableViewModel(Model.AlignmentsDefinition);
+            AutoAssignAlignmentsCommand = SimpleCommand.From(AutoAssignAlignments);
 
             Entries = CollectionViewModel.CreateMutable(Model.Entries, JamEntryEditableViewModel.CollectionStub);
             SelectedEntryProperty = MutableProperty.Create(this, nameof(SelectedEntry), initialValue: (JamEntryEditableViewModel?)null);
@@ -148,34 +149,7 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
         // Links
         // -----
 
-        public CollectionViewModel<JamLinkEditable, JamLinkEditableViewModel> Links { get; }
-
-        public ICommand AddLinkCommand { get; }
-        private void AddLink()
-        {
-            var linkModel = new JamLinkEditable { Title = "Example", Url = "http://example.com/" };
-            var linkVm = new JamLinkEditableViewModel(linkModel);
-            Links.Add(linkVm);
-            Links.CompleteChanges();
-        }
-
-        public ICommand RemoveLinkCommand { get; }
-        private void RemoveLink(JamLinkEditableViewModel linkVm)
-        {
-            Links.Remove(linkVm);
-            Links.CompleteChanges();
-        }
-
-        private static WebsiteLauncher LinkLauncher { get; } = new WebsiteLauncher();
-
-        public ICommand OpenLinkCommand { get; }
-        private void OpenLink(JamLinkEditableViewModel linkVm)
-        {
-            if (!Uri.TryCreate(linkVm.Url, UriKind.Absolute, out var uri))
-                return;
-
-            LinkLauncher.LaunchFrom(uri);
-        }
+        public JamLinkCollectionViewModel Links { get; }
 
         // ------
         // Awards
@@ -197,6 +171,37 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
         {
             Awards.Remove(awardVm);
             Awards.CompleteChanges();
+        }
+
+        // ----------
+        // Alignments
+        // ----------
+
+        public JamAlignmentsDefinitionEditableViewModel AlignmentsDefinition { get; }
+        public ICommand AutoAssignAlignmentsCommand { get; }
+        private void AutoAssignAlignments()
+        {
+            var idsByKeyword = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var alignment in Model.AlignmentsDefinition.Alignments)
+            {
+                foreach (var keyword in alignment.Keywords)
+                {
+                    idsByKeyword[keyword] = alignment.Id;
+                }
+            }
+
+            foreach (var entry in Entries)
+            {
+                if (string.IsNullOrWhiteSpace(entry.Alignment))
+                    continue;
+
+                var words = entry.Alignment.Split(' ');
+                foreach (var word in words)
+                {
+                    if (idsByKeyword.TryGetValue(word, out var alignmentId))
+                        entry.AlignmentId = alignmentId;
+                }
+            }
         }
 
         // -------

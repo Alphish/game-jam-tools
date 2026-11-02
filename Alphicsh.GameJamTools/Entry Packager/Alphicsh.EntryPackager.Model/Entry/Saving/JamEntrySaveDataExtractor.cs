@@ -34,6 +34,7 @@ namespace Alphicsh.EntryPackager.Model.Entry.Saving
                 Title = ToNullIfEmpty(entryEditable.Title) ?? string.Empty,
                 ShortTitle = ToNullIfEmpty(entryEditable.ShortTitle),
                 Alignment = ToNullIfEmpty(entryEditable.Alignment),
+                AlignmentId = ToNullIfEmpty(entryEditable.AlignmentId),
                 Team = MapTeam(entryEditable.Team),
                 Attribution = MapAttribution(entryEditable.Attribution),
                 Files = MapFiles(entryEditable.Files),

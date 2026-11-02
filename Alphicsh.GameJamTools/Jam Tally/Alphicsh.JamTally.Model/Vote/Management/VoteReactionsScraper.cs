@@ -10,7 +10,7 @@ namespace Alphicsh.JamTally.Model.Vote.Management
             = "<li[^>]*class=\"[^\"]*block-row[^\"]*\"[^>]*>";
         
         private static string ReactionTitleSubpattern { get; }
-            = "<img[^>]*class=\"reaction-sprite[^\"]*\"[^>]*title=\"(\\w+)\">";
+            = "<img[^>]*class=\"reaction-image[^\"]*\"[^>]*title=\"(\\w+)\">";
 
         private static string UsernameSubpattern { get; }
             = "<a[^>]*class=\"[^\"]*username[^\"]*\"[^>]*>(<span[^<]*>)?([^<]*)";

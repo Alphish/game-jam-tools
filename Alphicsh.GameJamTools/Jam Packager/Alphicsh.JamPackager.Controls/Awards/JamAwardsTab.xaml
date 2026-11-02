@@ -13,6 +13,8 @@
       <RowDefinition Height="1*"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="1*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="1*"/>
     </Grid.RowDefinitions>
     
     <!-- Awards -->
@@ -44,6 +46,25 @@
             <ItemsControl.Resources>
               <DataTemplate DataType="{x:Type jamVm:JamLinkEditableViewModel}">
                 <local:JamLinksItem DataContext="{Binding}"/>
+              </DataTemplate>
+            </ItemsControl.Resources>
+          </ItemsControl>
+        </StackPanel>
+      </ScrollViewer>
+    </GroupBox>
+
+    <Separator Grid.Row="3" Margin="2"/>
+
+    <!-- Alignments -->
+    <GroupBox Header="Alignments" Grid.Row="4" Margin="2">
+      <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <StackPanel>
+          <local:JamAlignmentsHeader DataContext="{Binding AlignmentsDefinition}"/>
+
+          <ItemsControl ItemsSource="{Binding AlignmentsDefinition.Alignments}">
+            <ItemsControl.Resources>
+              <DataTemplate DataType="{x:Type jamVm:JamAlignmentEditableViewModel}">
+                <local:JamAlignmentItem DataContext="{Binding}"/>
               </DataTemplate>
             </ItemsControl.Resources>
           </ItemsControl>

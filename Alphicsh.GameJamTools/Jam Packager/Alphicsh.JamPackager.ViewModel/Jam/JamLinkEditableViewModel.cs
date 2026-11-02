@@ -6,9 +6,6 @@ namespace Alphicsh.JamPackager.ViewModel.Jam
 {
     public class JamLinkEditableViewModel : WrapperViewModel<JamLinkEditable>
     {
-        public static CollectionViewModelStub<JamLinkEditable, JamLinkEditableViewModel> CollectionStub
-            => CollectionViewModelStub.Create((JamLinkEditable model) => new JamLinkEditableViewModel(model));
-
         public JamLinkEditableViewModel(JamLinkEditable model) : base(model)
         {
             TitleProperty = WrapperProperty.ForMember(this, vm => vm.Model.Title);
