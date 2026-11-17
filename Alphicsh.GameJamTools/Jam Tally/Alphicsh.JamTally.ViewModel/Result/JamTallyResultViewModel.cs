@@ -9,9 +9,9 @@ using Alphicsh.JamTools.Common.Mvvm.Commands;
 
 namespace Alphicsh.JamTally.ViewModel.Result
 {
-    public class JamTallyResultViewModel : WrapperViewModel<JamTallyResult>
+    public class JamTallyResultViewModel : WrapperViewModel<JamTallyResultManager>
     {
-        public JamTallyResultViewModel(JamTallyResult model) : base(model)
+        public JamTallyResultViewModel(JamTallyResultManager model) : base(model)
         {
             FinalRankingText = model.GetFinalRankingText();
             AwardRankingsText = model.GetAwardRankingsText();

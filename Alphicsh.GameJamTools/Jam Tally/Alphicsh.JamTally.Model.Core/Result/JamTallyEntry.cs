@@ -13,14 +13,14 @@ namespace Alphicsh.JamTally.Model.Result
         public string Title => Entry.TallyTitle;
         public string Authors => Entry.TallyAuthors;
 
-        public int TotalVotesCount { get; init; }
         public int JudgedCount { get; init; }
         public int UnjudgedCount { get; init; }
+        public int TotalVotesCount => JudgedCount + UnjudgedCount;
 
         public decimal BaseScore { get; init; }
         public decimal TotalScore { get; init; }
 
-        public IReadOnlyCollection<JamTallyNewAwardScore> AwardScores { get; init; } = default!;
+        public IReadOnlyCollection<JamTallyAwardScore> AwardScores { get; init; } = default!;
 
         public int Rank { get; set; }
         public IList<JamAwardCriterion> Awards { get; init; } = new List<JamAwardCriterion>();

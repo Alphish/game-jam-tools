@@ -9,7 +9,7 @@ namespace Alphicsh.JamTally.Trophies.Image.Generators
         public TrophiesImage AssembleTrophies(
             XDocument svgDocument,
             TrophiesImageSettings imageSettings,
-            JamTallyNewResult result
+            JamTallyResult result
             )
         {
             var image = TrophiesImage.LoadStub(svgDocument, imageSettings)

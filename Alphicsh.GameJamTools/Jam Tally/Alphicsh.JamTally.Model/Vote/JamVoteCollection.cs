@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Alphicsh.JamTally.Model.Result;
 using Alphicsh.JamTally.Model.Result.Calculation;
 using Alphicsh.JamTools.Common.IO;
@@ -8,8 +9,7 @@ namespace Alphicsh.JamTally.Model.Vote
     public class JamVoteCollection
     {
         private static JamVoteSaver VoteSaver { get; } = new JamVoteSaver();
-        private static JamTallyCalculator TallyCalculator { get; } = new JamTallyCalculator();
-        private static JamTallyNewCalculator NewCalculator { get; } = new JamTallyNewCalculator();
+        private static JamTallyCalculator Calculator { get; } = new JamTallyCalculator();
 
         public FilePath DirectoryPath { get; init; } = default!;
         public IList<JamVote> Votes { get; init; } = default!;
@@ -17,7 +17,7 @@ namespace Alphicsh.JamTally.Model.Vote
 
         public bool HasTallyResult => TallyResult != null;
         public JamTallyResult? TallyResult { get; private set; }
-        public JamTallyNewResult? NewTallyResult { get; private set; }
+        public JamTallyResultManager? ResultManager { get; private set; }
 
         public void AddVote()
         {
@@ -36,10 +36,9 @@ namespace Alphicsh.JamTally.Model.Vote
 
         public void TallyVotes()
         {
-            TallyResult = TallyCalculator.CalculateResults(this);
-            TallyResult.VoteCollection = this;
-
-            NewTallyResult = NewCalculator.Calculate(JamTallyModel.Current.Jam!, this);
+            var applicableVotes = Votes.Where(vote => vote.Ranking.Any()).ToList();
+            TallyResult = Calculator.Calculate(JamTallyModel.Current.Jam!, applicableVotes);
+            ResultManager = new JamTallyResultManager { Result = TallyResult };
         }
     }
 }

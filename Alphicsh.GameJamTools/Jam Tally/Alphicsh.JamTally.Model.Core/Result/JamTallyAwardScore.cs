@@ -2,7 +2,7 @@
 
 namespace Alphicsh.JamTally.Model.Result
 {
-    public class JamTallyNewAwardScore
+    public class JamTallyAwardScore
     {
         public JamEntry Entry { get; init; } = default!;
         public JamAwardCriterion Criterion { get; init; } = default!;

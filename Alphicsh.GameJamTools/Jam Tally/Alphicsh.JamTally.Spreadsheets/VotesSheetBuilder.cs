@@ -8,7 +8,7 @@ namespace Alphicsh.JamTally.Spreadsheets
 {
     public class VotesSheetBuilder : SheetBuilder
     {
-        private JamTallyNewResult TallyResult { get; }
+        private JamTallyResult TallyResult { get; }
 
         public SheetSpan TitleColumns { get; }
         public SheetSpan VoteColumns { get; }
@@ -22,7 +22,7 @@ namespace Alphicsh.JamTally.Spreadsheets
         public SheetSpan ReactionTotalsRows { get; }
         public SheetSpan ReactionTitleRows { get; }
 
-        public VotesSheetBuilder(XLWorkbook workbook, JamTallyNewResult tallyResult) : base(workbook.AddWorksheet("Votes"))
+        public VotesSheetBuilder(XLWorkbook workbook, JamTallyResult tallyResult) : base(workbook.AddWorksheet("Votes"))
         {
             TallyResult = tallyResult;
 

@@ -4,54 +4,39 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Alphicsh.JamTally.Model.Jam;
-using Alphicsh.JamTally.Model.Result.Alignments;
 using Alphicsh.JamTally.Model.Result.Export;
-using Alphicsh.JamTally.Model.Vote;
 using Alphicsh.JamTally.Spreadsheets;
 using Alphicsh.JamTally.Trophies.Image.Generators;
 using Alphicsh.JamTools.Common.IO;
 
 namespace Alphicsh.JamTally.Model.Result
 {
-    public class JamTallyResult
+    public class JamTallyResultManager
     {
-        public IReadOnlyCollection<JamAwardCriterion> Awards { get; init; } = default!;
-        public IReadOnlyCollection<JamEntry> Entries { get; init; } = default!;
-        public IReadOnlyCollection<JamVote> Votes { get; init; } = default!;
-
-        public int EntriesCount { get; init; }
-        public int AwardsCount { get; init; }
-        public int UnjudgedMaxCount { get; init; }
-        public int ReactionsMaxCount { get; init; }
-
-        public JamAlignmentTally? AlignmentTally { get; init; }
-
-        public JamVoteCollection VoteCollection { get; set; } = default!;
+        public JamTallyResult Result { get; init; } = default!;
 
         // -------
         // Ranking
         // -------
 
-        public IReadOnlyCollection<JamTallyEntryScore> FinalRanking { get; init; } = default!;
         public string GetFinalRankingText()
-            => string.Join("\n", FinalRanking.Select(score => score.ToString()));
+            => string.Join("\n", Result.Ranking.Select(entry => entry.ToString()));
 
         // ------
         // Awards
         // ------
 
-        public IReadOnlyCollection<JamTallyAwardRanking> AwardRankings { get; init; } = default!;
         public string GetAwardRankingsText()
         {
-            var lines = AwardRankings.SelectMany(ranking => GetAwardRankingLines(ranking));
+            var lines = Result.AwardCriteria.SelectMany(criterion => GetAwardRankingLines(criterion, Result.AwardEntryScores[criterion]));
             return string.Join("\n", lines);
         }
-        private IEnumerable<string> GetAwardRankingLines(JamTallyAwardRanking ranking)
+        private IEnumerable<string> GetAwardRankingLines(JamAwardCriterion criterion, IReadOnlyList<JamTallyAwardScore> awardScores)
         {
-            yield return ranking.Award.Name + ":";
+            yield return criterion.Name + ":";
 
-            foreach (var score in ranking.Scores)
-                yield return $"{score.Entry.Line}: {score.Count}";
+            foreach (var score in awardScores)
+                yield return $"{score.Entry.Line}: {score.Score}";
 
             yield return "";
         }
@@ -64,20 +49,20 @@ namespace Alphicsh.JamTally.Model.Result
 
         public void ExportResultsJson(FilePath directoryPath)
         {
-            ResultsJsonExporter.ExportResult(directoryPath, VoteCollection.NewTallyResult!);
+            ResultsJsonExporter.ExportResult(directoryPath, Result);
         }
 
         private static TallySpreadsheetExporter TallySpreadsheetExporter { get; } = new TallySpreadsheetExporter();
 
         public void GenerateTallySheets(FilePath exportPath)
         {
-            TallySpreadsheetExporter.Export(exportPath, VoteCollection.NewTallyResult!);
+            TallySpreadsheetExporter.Export(exportPath, Result);
         }
 
         private static ResultsPostGenerator ResultsPostGenerator { get; } = new ResultsPostGenerator();
 
         public string GenerateResultsPost()
-            => ResultsPostGenerator.Generate(VoteCollection.NewTallyResult!);
+            => ResultsPostGenerator.Generate(Result);
 
         public void GenerateTrophiesCoreTemplate(FilePath destinationPath)
         {
@@ -94,7 +79,7 @@ namespace Alphicsh.JamTally.Model.Result
             var settings = new TrophiesImageSettings { TrophyWidth = 540, TrophyHeight = 120, ColumnWidth = 600, RowHeight = 140 };
             var document = XDocument.Load(sourcePath.Value);
 
-            var image = generator.Generate(document, settings, VoteCollection.NewTallyResult!);
+            var image = generator.Generate(document, settings, Result);
             File.WriteAllText(destinationPath.Value, image.Format());
         }
 
@@ -105,7 +90,7 @@ namespace Alphicsh.JamTally.Model.Result
             var settings = new TrophiesImageSettings { TrophyWidth = 540, TrophyHeight = 120, ColumnWidth = 600, RowHeight = 140 };
             var document = XDocument.Load(sourcePath.Value);
 
-            var image = generator.AssembleTrophies(document, settings, VoteCollection.NewTallyResult!);
+            var image = generator.AssembleTrophies(document, settings, Result);
             File.WriteAllText(destinationPath.Value, image.Format());
         }
 

@@ -25,16 +25,16 @@ namespace Alphicsh.JamTally.Model.Vote
         // Entries
         // -------
 
-        public IList<JamEntry> Authored { get; internal set; } = new List<JamEntry>();
-        public IList<JamEntry> Ranking { get; internal set; } = new List<JamEntry>();
-        public IList<JamEntry> Unjudged { get; internal set; } = new List<JamEntry>();
-        public IList<JamEntry> Missing { get; internal set; } = new List<JamEntry>();
+        public IList<JamEntry> Authored { get; set; } = new List<JamEntry>();
+        public IList<JamEntry> Ranking { get; set; } = new List<JamEntry>();
+        public IList<JamEntry> Unjudged { get; set; } = new List<JamEntry>();
+        public IList<JamEntry> Missing { get; set; } = new List<JamEntry>();
 
         // ------
         // Awards
         // ------
 
-        public IReadOnlyCollection<JamVoteAward> Awards { get; internal set; } = new List<JamVoteAward>();
+        public IReadOnlyCollection<JamVoteAward> Awards { get; set; } = new List<JamVoteAward>();
         public JamEntry? GetEntryForAward(JamAwardCriterion criterion)
             => Awards.FirstOrDefault(voteAward => voteAward.Criterion == criterion)?.Entry;
 
@@ -51,9 +51,9 @@ namespace Alphicsh.JamTally.Model.Vote
         // Reviews
         // -------
 
-        public int? DirectReviewsCount { get; internal set; }
+        public int? DirectReviewsCount { get; set; }
         public bool HasDirectReviewsCount => DirectReviewsCount.HasValue && DirectReviewsCount > 0;
-        public IList<JamEntry> ReviewedEntries { get; internal set; } = new List<JamEntry>();
+        public IList<JamEntry> ReviewedEntries { get; set; } = new List<JamEntry>();
         public int ReviewsCount => DirectReviewsCount ?? ReviewedEntries.Count;
 
         public void SetReviewsCountByString(string countString)
@@ -68,12 +68,12 @@ namespace Alphicsh.JamTally.Model.Vote
         // Reactions
         // ---------
 
-        public IList<JamVoteReaction> Reactions { get; internal set; } = new List<JamVoteReaction>();
-        public IList<JamVoteReaction> AggregateReactions { get; internal set; } = new List<JamVoteReaction>();
+        public IList<JamVoteReaction> Reactions { get; set; } = new List<JamVoteReaction>();
+        public IList<JamVoteReaction> AggregateReactions { get; set; } = new List<JamVoteReaction>();
         public int GetReactionScore()
             => AggregateReactions.Sum(reaction => reaction.Value);
 
-        public string? Error { get; internal set; }
+        public string? Error { get; set; }
 
         // ----------
         // Operations
@@ -112,7 +112,7 @@ namespace Alphicsh.JamTally.Model.Vote
             }
         }
 
-        internal void RecalculateMissingEntries(IEnumerable<JamEntry> allEntries)
+        public void RecalculateMissingEntries(IEnumerable<JamEntry> allEntries)
         {
             Missing.Clear();
             var missingEntries = allEntries

@@ -6,7 +6,7 @@ namespace Alphicsh.JamTally.Spreadsheets
 {
     public class RankingSheetBuilder : SheetBuilder
     {
-        private JamTallyNewResult TallyResult { get; }
+        private JamTallyResult TallyResult { get; }
 
         public SheetSpan HeaderRows { get; }
         public SheetSpan EntriesRows { get; }
@@ -18,7 +18,7 @@ namespace Alphicsh.JamTally.Spreadsheets
         public SheetSpan VoteColumns { get; }
         public int ColumnsPerVote { get; }
 
-        public RankingSheetBuilder(XLWorkbook workbook, JamTallyNewResult tallyResult) : base(workbook.AddWorksheet("Ranking"))
+        public RankingSheetBuilder(XLWorkbook workbook, JamTallyResult tallyResult) : base(workbook.AddWorksheet("Ranking"))
         {
             TallyResult = tallyResult;
 
