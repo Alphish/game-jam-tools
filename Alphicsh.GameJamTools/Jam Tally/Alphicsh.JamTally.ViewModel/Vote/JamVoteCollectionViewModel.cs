@@ -63,7 +63,7 @@ namespace Alphicsh.JamTally.ViewModel.Vote
         private void TallyVotes()
         {
             Model.TallyVotes();
-            TallyResult = new JamTallyResultViewModel(Model.TallyResult!);
+            TallyResult = new JamTallyResultViewModel(Model.ResultManager!);
             RaisePropertyChanged(nameof(TallyResult), nameof(HasTallyResults));
         }
     }

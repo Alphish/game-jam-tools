@@ -14,8 +14,20 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
             var ranking = TallyRanking(jam.Entries, tallyVotes);
             var rankingByEntry = ranking.ToDictionary(tallyEntry => tallyEntry.Entry);
 
-            var topScores = GetAwardTopScores(ranking);
-            var awardEntries = GetAwardEntries(topScores, ranking);
+            var awardEntryScores = ranking
+                .SelectMany(entry => entry.AwardScores)
+                .GroupBy(awardScore => awardScore.Criterion)
+                .ToDictionary(
+                    group => group.Key,
+                    awardScores => awardScores.OrderByDescending(awardScore => awardScore.Score).ThenBy(awardScore => awardScore.Entry.TallyTitle).ToList() as IReadOnlyList<JamTallyNewAwardScore>
+                    );
+
+            var topScores = awardEntryScores.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.First().Score);
+            var awardEntries = awardEntryScores.ToDictionary(
+                kvp => kvp.Key,
+                kvp => kvp.Value.Where(awardScore => awardScore.Score == topScores[kvp.Key]).Select(awardScore => awardScore.Entry).ToList() as IReadOnlyList<JamEntry>
+                );
+
             foreach (var criterion in jam.AwardCriteria)
             {
                 foreach (var awardedEntry in awardEntries[criterion])
@@ -24,15 +36,16 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
                 }
             }
 
-            var topReviewScore = GetTopReviewScore(tallyVotes);
-            var topReviewers = GetTopReviewers(topReviewScore, tallyVotes);
+            var topReviewScore = tallyVotes.Max(vote => vote.ReviewScore);
+            var topReviewers = tallyVotes.Where(vote => vote.ReviewScore == topReviewScore).Select(vote => vote.Voter).ToList();
 
             return new JamTallyNewResult
             {
                 Ranking = ranking,
                 AwardCriteria = jam.AwardCriteria.ToList(),
+                AwardEntryScores = awardEntryScores,
                 AwardTopScores = topScores,
-                AwardEntries = awardEntries,
+                AwardWinners = awardEntries,
                 Votes = tallyVotes,
                 TopReviewScore = topReviewScore,
                 TopReviewers = topReviewers,
@@ -43,7 +56,7 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
         // Votes
         // -----
 
-        private IReadOnlyCollection<JamTallyVote> GetTallyVotes(JamVoteCollection votesCollection)
+        private IReadOnlyList<JamTallyVote> GetTallyVotes(JamVoteCollection votesCollection)
         {
             return votesCollection.Votes.Where(vote => vote.Ranking.Any()).Select(GetTallyVote).ToList();
         }
@@ -84,7 +97,7 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
         // Entries
         // -------
 
-        private IReadOnlyCollection<JamTallyEntry> TallyRanking(IReadOnlyCollection<JamEntry> entries, IReadOnlyCollection<JamTallyVote> votes)
+        private IReadOnlyList<JamTallyEntry> TallyRanking(IReadOnlyCollection<JamEntry> entries, IReadOnlyCollection<JamTallyVote> votes)
         {
             var entryCounters = entries.Select(entry => new JamTallyEntryCounter(entry, votes.Count)).ToDictionary(counter => counter.Entry);
 
@@ -126,41 +139,5 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
 
             return fullRanking;
         }
-
-        // ------
-        // Awards
-        // ------
-
-        private IReadOnlyDictionary<JamAwardCriterion, int> GetAwardTopScores(IReadOnlyCollection<JamTallyEntry> entries)
-        {
-            return entries.SelectMany(entry => entry.AwardScores)
-                .GroupBy(score => score.Criterion)
-                .ToDictionary(group => group.Key, scores => scores.Max(awardScore => awardScore.Score));
-        }
-
-        private IReadOnlyDictionary<JamAwardCriterion, IReadOnlyCollection<JamEntry>> GetAwardEntries(IReadOnlyDictionary<JamAwardCriterion, int> topScores, IReadOnlyCollection<JamTallyEntry> entries)
-        {
-            var awardEntries = topScores.Keys.ToDictionary(criterion => criterion, criterion => new List<JamEntry>());
-
-            var allScores = entries.SelectMany(entry => entry.AwardScores);
-            foreach (var awardScore in allScores)
-            {
-                if (awardScore.Score < topScores[awardScore.Criterion])
-                    continue;
-
-                awardEntries[awardScore.Criterion].Add(awardScore.Entry);
-            }
-
-            return awardEntries.ToDictionary(
-                kvp => kvp.Key,
-                kvp => kvp.Value.OrderBy(entry => entry.TallyTitle).ToList() as IReadOnlyCollection<JamEntry>
-                );
-        }
-
-        private int GetTopReviewScore(IReadOnlyCollection<JamTallyVote> votes)
-            => votes.Max(vote => vote.ReviewScore);
-
-        private IReadOnlyCollection<string> GetTopReviewers(int topScore, IReadOnlyCollection<JamTallyVote> votes)
-            => votes.Where(vote => vote.ReviewScore == topScore).Select(vote => vote.Voter).ToList();
     }
 }

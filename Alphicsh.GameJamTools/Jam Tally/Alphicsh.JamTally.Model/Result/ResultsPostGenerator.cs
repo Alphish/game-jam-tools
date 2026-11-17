@@ -69,7 +69,7 @@ namespace Alphicsh.JamTally.Model.Result
         {
             sb.AppendLine("[SIZE=7]Awards[/SIZE]");
             sb.AppendLine("");
-            foreach (var kvp in result.AwardEntries)
+            foreach (var kvp in result.AwardWinners)
             {
                 var awardCriterion = kvp.Key;
                 var winners = kvp.Value;

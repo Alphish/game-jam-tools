@@ -22,7 +22,7 @@ namespace Alphicsh.JamTally.Model.Result.Export
             var awards = new List<JamTallyAwardInfo>();
             foreach (var criterion in result.AwardCriteria)
             {
-                var winners = result.AwardEntries[criterion].Select(entry => entry.Id).ToList();
+                var winners = result.AwardWinners[criterion].Select(entry => entry.Id).ToList();
                 awards.Add(new JamTallyAwardInfo
                 {
                     Id = criterion.Id,
