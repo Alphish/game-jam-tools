@@ -53,7 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTally.Model", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTally.ViewModel", "Jam Tally\Alphicsh.JamTally.ViewModel\Alphicsh.JamTally.ViewModel.csproj", "{62435F13-4CDE-4782-B269-1D12217C50B9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTally.Controls", "Alphicsh.JamTally.Controls\Alphicsh.JamTally.Controls.csproj", "{4BED972C-01BA-4235-B501-B3372CEF0A2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTally.Controls", "Jam Tally\Alphicsh.JamTally.Controls\Alphicsh.JamTally.Controls.csproj", "{4BED972C-01BA-4235-B501-B3372CEF0A2A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alphicsh.JamTally.Spreadsheets", "Jam Tally\Alphicsh.JamTally.Spreadsheets\Alphicsh.JamTally.Spreadsheets.csproj", "{A47A66BF-C57C-4AA7-8203-E728544FFBF0}"
 EndProject
