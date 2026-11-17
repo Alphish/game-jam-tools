@@ -9,7 +9,6 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
     {
         private Func<JamTallyEntryCounter, decimal> BaseScoreCalculation { get; }
 
-
         public JamTallyRankScoreCalculator(Func<JamTallyEntryCounter, decimal> baseScoreCalculation)
         {
             BaseScoreCalculation = baseScoreCalculation;

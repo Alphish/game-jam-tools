@@ -14,10 +14,10 @@ namespace Alphicsh.JamTally.Model.Jam
         // Awards
         // ------
 
-        private readonly IReadOnlyCollection<JamAwardCriterion> _awards = default!;
+        private readonly IReadOnlyList<JamAwardCriterion> _awards = default!;
         private readonly IReadOnlyDictionary<string, JamAwardCriterion> _awardsByName = default!;
 
-        public IReadOnlyCollection<JamAwardCriterion> AwardCriteria
+        public IReadOnlyList<JamAwardCriterion> AwardCriteria
         {
             get => _awards;
             init
