@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Alphicsh.JamTally.Model.Result;
 using Alphicsh.JamTally.Model.Result.Calculation;
 using Alphicsh.JamTools.Common.IO;
@@ -35,7 +36,8 @@ namespace Alphicsh.JamTally.Model.Vote
 
         public void TallyVotes()
         {
-            TallyResult = Calculator.Calculate(JamTallyModel.Current.Jam!, this);
+            var applicableVotes = Votes.Where(vote => vote.Ranking.Any()).ToList();
+            TallyResult = Calculator.Calculate(JamTallyModel.Current.Jam!, applicableVotes);
             ResultManager = new JamTallyResultManager { Result = TallyResult };
         }
     }

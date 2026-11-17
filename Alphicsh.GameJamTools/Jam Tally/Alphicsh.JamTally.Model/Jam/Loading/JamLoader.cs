@@ -88,7 +88,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
             };
         }
 
-        private IReadOnlyCollection<JamEntry> MapEntries(FilePath entriesPath, IEnumerable<JamEntryStub> stubs, JamAlignments? alignments, JamOverrides overrides)
+        private IReadOnlyList<JamEntry> MapEntries(FilePath entriesPath, IEnumerable<JamEntryStub> stubs, JamAlignments? alignments, JamOverrides overrides)
         {
             var result = new List<JamEntry>();
             foreach (var stub in stubs)

@@ -39,13 +39,13 @@ namespace Alphicsh.JamTally.Model.Jam
         // Entries
         // -------
 
-        private readonly IReadOnlyCollection<JamEntry> _entries = default!;
+        private readonly IReadOnlyList<JamEntry> _entries = default!;
         private readonly IReadOnlyDictionary<string, JamEntry> _entriesByTitles = default!;
         private readonly IReadOnlyDictionary<string, JamEntry> _entriesByFullTitles = default!;
         private readonly IReadOnlyDictionary<string, JamEntry> _entriesByLines = default!;
         private readonly IReadOnlyDictionary<string, JamEntry> _entriesByFullLines = default!;
 
-        public IReadOnlyCollection<JamEntry> Entries
+        public IReadOnlyList<JamEntry> Entries
         {
             get => _entries;
             init
