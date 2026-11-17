@@ -8,14 +8,14 @@ namespace Alphicsh.JamTally.Model.Vote
     public class JamVoteCollection
     {
         private static JamVoteSaver VoteSaver { get; } = new JamVoteSaver();
-        private static JamTallyNewCalculator NewCalculator { get; } = new JamTallyNewCalculator();
+        private static JamTallyCalculator Calculator { get; } = new JamTallyCalculator();
 
         public FilePath DirectoryPath { get; init; } = default!;
         public IList<JamVote> Votes { get; init; } = default!;
         public JamAlignmentBattleData? AlignmentBattleData { get; init; }
 
-        public bool HasTallyResult => NewTallyResult != null;
-        public JamTallyNewResult? NewTallyResult { get; private set; }
+        public bool HasTallyResult => TallyResult != null;
+        public JamTallyResult? TallyResult { get; private set; }
         public JamTallyResultManager? ResultManager { get; private set; }
 
         public void AddVote()
@@ -35,8 +35,8 @@ namespace Alphicsh.JamTally.Model.Vote
 
         public void TallyVotes()
         {
-            NewTallyResult = NewCalculator.Calculate(JamTallyModel.Current.Jam!, this);
-            ResultManager = new JamTallyResultManager { Result = NewTallyResult };
+            TallyResult = Calculator.Calculate(JamTallyModel.Current.Jam!, this);
+            ResultManager = new JamTallyResultManager { Result = TallyResult };
         }
     }
 }

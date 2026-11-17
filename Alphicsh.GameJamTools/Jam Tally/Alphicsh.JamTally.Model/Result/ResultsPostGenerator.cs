@@ -6,7 +6,7 @@ namespace Alphicsh.JamTally.Model.Result
 {
     internal class ResultsPostGenerator
     {
-        public string Generate(JamTallyNewResult result)
+        public string Generate(JamTallyResult result)
         {
             var sb = new StringBuilder();
 
@@ -49,7 +49,7 @@ namespace Alphicsh.JamTally.Model.Result
             sb.AppendLine("");
         }
 
-        private void GenerateRanking(JamTallyNewResult result, StringBuilder sb)
+        private void GenerateRanking(JamTallyResult result, StringBuilder sb)
         {
             sb.AppendLine("[SIZE=7]Full Rankings[/SIZE]");
             sb.AppendLine("");
@@ -65,7 +65,7 @@ namespace Alphicsh.JamTally.Model.Result
             sb.AppendLine("");
         }
 
-        private void GenerateAwards(JamTallyNewResult result, StringBuilder sb)
+        private void GenerateAwards(JamTallyResult result, StringBuilder sb)
         {
             sb.AppendLine("[SIZE=7]Awards[/SIZE]");
             sb.AppendLine("");

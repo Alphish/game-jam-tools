@@ -9,14 +9,14 @@ namespace Alphicsh.JamTally.Model.Result.Export
     {
         private static JsonFileSaver<JamTallyResultInfo> Saver { get; } = new JsonFileSaver<JamTallyResultInfo>();
 
-        public void ExportResult(FilePath directoryPath, JamTallyNewResult result)
+        public void ExportResult(FilePath directoryPath, JamTallyResult result)
         {
             var jamResultsPath = directoryPath.Append(".jamtally/results.jamresults");
             var jamResultInfo = MapResult(result);
             Saver.Save(jamResultsPath, jamResultInfo);
         }
 
-        private JamTallyResultInfo MapResult(JamTallyNewResult result)
+        private JamTallyResultInfo MapResult(JamTallyResult result)
         {
             var ranking = result.Ranking.Select(entry => entry.EntryId).ToList();
             var awards = new List<JamTallyAwardInfo>();

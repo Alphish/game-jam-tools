@@ -46,7 +46,7 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
                 BaseScore = BaseScore,
                 TotalScore = VotesCount * BaseScore / judgedCount,
 
-                AwardScores = AwardCounts.Select(award => new JamTallyNewAwardScore { Entry = Entry, Criterion = award.Key, Score = award.Value }).ToList()
+                AwardScores = AwardCounts.Select(award => new JamTallyAwardScore { Entry = Entry, Criterion = award.Key, Score = award.Value }).ToList()
             };
         }
     }

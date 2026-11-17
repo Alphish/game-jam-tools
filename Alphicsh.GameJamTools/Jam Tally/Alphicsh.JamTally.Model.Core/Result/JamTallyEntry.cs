@@ -20,7 +20,7 @@ namespace Alphicsh.JamTally.Model.Result
         public decimal BaseScore { get; init; }
         public decimal TotalScore { get; init; }
 
-        public IReadOnlyCollection<JamTallyNewAwardScore> AwardScores { get; init; } = default!;
+        public IReadOnlyCollection<JamTallyAwardScore> AwardScores { get; init; } = default!;
 
         public int Rank { get; set; }
         public IList<JamAwardCriterion> Awards { get; init; } = new List<JamAwardCriterion>();

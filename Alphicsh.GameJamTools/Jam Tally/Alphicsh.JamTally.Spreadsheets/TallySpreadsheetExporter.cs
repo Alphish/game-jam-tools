@@ -6,13 +6,13 @@ namespace Alphicsh.JamTally.Spreadsheets
 {
     public class TallySpreadsheetExporter
     {
-        public void Export(FilePath path, JamTallyNewResult result)
+        public void Export(FilePath path, JamTallyResult result)
         {
             var workbook = GenerateWorkbook(result);
             workbook.SaveAs(path.Value);
         }
 
-        private XLWorkbook GenerateWorkbook(JamTallyNewResult result)
+        private XLWorkbook GenerateWorkbook(JamTallyResult result)
         {
             var workbook = new XLWorkbook();
 

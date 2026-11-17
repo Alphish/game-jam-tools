@@ -6,9 +6,9 @@ using Alphicsh.JamTally.Model.Vote;
 
 namespace Alphicsh.JamTally.Model.Result.Calculation
 {
-    public class JamTallyNewCalculator
+    public class JamTallyCalculator
     {
-        public JamTallyNewResult Calculate(JamOverview jam, JamVoteCollection votes)
+        public JamTallyResult Calculate(JamOverview jam, JamVoteCollection votes)
         {
             var tallyVotes = GetTallyVotes(votes);
             var ranking = TallyRanking(jam.Entries, tallyVotes);
@@ -19,7 +19,7 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
                 .GroupBy(awardScore => awardScore.Criterion)
                 .ToDictionary(
                     group => group.Key,
-                    awardScores => awardScores.OrderByDescending(awardScore => awardScore.Score).ThenBy(awardScore => awardScore.Entry.TallyTitle).ToList() as IReadOnlyList<JamTallyNewAwardScore>
+                    awardScores => awardScores.OrderByDescending(awardScore => awardScore.Score).ThenBy(awardScore => awardScore.Entry.TallyTitle).ToList() as IReadOnlyList<JamTallyAwardScore>
                     );
 
             var topScores = awardEntryScores.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.First().Score);
@@ -39,7 +39,7 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
             var topReviewScore = tallyVotes.Max(vote => vote.ReviewScore);
             var topReviewers = tallyVotes.Where(vote => vote.ReviewScore == topReviewScore).Select(vote => vote.Voter).ToList();
 
-            return new JamTallyNewResult
+            return new JamTallyResult
             {
                 Ranking = ranking,
                 AwardCriteria = jam.AwardCriteria.ToList(),

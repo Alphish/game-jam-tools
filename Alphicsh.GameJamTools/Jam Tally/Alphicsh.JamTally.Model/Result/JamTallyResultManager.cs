@@ -13,7 +13,7 @@ namespace Alphicsh.JamTally.Model.Result
 {
     public class JamTallyResultManager
     {
-        public JamTallyNewResult Result { get; init; } = default!;
+        public JamTallyResult Result { get; init; } = default!;
 
         // -------
         // Ranking
@@ -31,7 +31,7 @@ namespace Alphicsh.JamTally.Model.Result
             var lines = Result.AwardCriteria.SelectMany(criterion => GetAwardRankingLines(criterion, Result.AwardEntryScores[criterion]));
             return string.Join("\n", lines);
         }
-        private IEnumerable<string> GetAwardRankingLines(JamAwardCriterion criterion, IReadOnlyList<JamTallyNewAwardScore> awardScores)
+        private IEnumerable<string> GetAwardRankingLines(JamAwardCriterion criterion, IReadOnlyList<JamTallyAwardScore> awardScores)
         {
             yield return criterion.Name + ":";
 
