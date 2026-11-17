@@ -82,6 +82,7 @@ namespace Alphicsh.JamTally.Model.Jam.Loading
         {
             return new JamAlignmentOption
             {
+                Id = optionInfo.Id,
                 Title = optionInfo.Title,
                 ShortTitle = optionInfo.ShortTitle,
                 Color = optionInfo.Color,

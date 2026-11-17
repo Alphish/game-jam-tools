@@ -6,6 +6,7 @@ namespace Alphicsh.JamTally.Model.Result
     public class JamTallyResult
     {
         public IReadOnlyList<JamTallyEntry> Ranking { get; init; } = default!;
+        public JamTallyAlignmentResult? AlignmentResult { get; init; } = default!;
 
         public IReadOnlyList<JamAwardCriterion> AwardCriteria { get; init; } = default!;
         public IReadOnlyDictionary<JamAwardCriterion, IReadOnlyList<JamTallyAwardScore>> AwardEntryScores { get; init; } = default!;

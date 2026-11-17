@@ -42,13 +42,13 @@ namespace Alphicsh.JamTally.Model.Result.Calculation
                     var entry = vote.Ranking[i];
                     entryCounters[entry].CountRank(i + 1);
                 }
-                foreach (var entry in vote.Authored)
-                {
-                    entryCounters[entry].CountUnjudged();
-                }
                 foreach (var entry in vote.Unjudged)
                 {
                     entryCounters[entry].CountUnjudged();
+                }
+                foreach (var entry in vote.Missing)
+                {
+                    entryCounters[entry].CountMissing();
                 }
                 foreach (var award in vote.Awards)
                 {

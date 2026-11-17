@@ -27,7 +27,6 @@ namespace Alphicsh.JamTally.Model.Jam
             {
                 result.Add(option.Id, option);
                 result.Add(option.Title, option);
-                result.Add(option.ShortTitle, option);
             }
             return result;
         }
