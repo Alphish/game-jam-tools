@@ -42,6 +42,21 @@ namespace Alphicsh.JamTally.Model.Result
         }
 
         // ----------
+        // Alignments
+        // ----------
+
+        public string GetAlignmentRankingText()
+        {
+            if (Result.AlignmentResult == null)
+                return "";
+
+            var alignmentEntries = Result.AlignmentResult.Ranking.Select(alignment => alignment.ToString()).ToList();
+            var entryEntries = Result.AlignmentResult.Entries.Select(entry => entry.ToString()).ToList();
+            var allEntries = alignmentEntries.Concat(new List<string>() { "----------" }).Concat(entryEntries).ToList();
+            return string.Join("\n", allEntries);
+        }
+
+        // ----------
         // Generators
         // ----------
 

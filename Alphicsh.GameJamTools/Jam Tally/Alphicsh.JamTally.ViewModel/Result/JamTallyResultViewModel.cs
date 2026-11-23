@@ -15,6 +15,7 @@ namespace Alphicsh.JamTally.ViewModel.Result
         {
             FinalRankingText = model.GetFinalRankingText();
             AwardRankingsText = model.GetAwardRankingsText();
+            AlignmentRankingText = model.GetAlignmentRankingText();
 
             ExportResultsJsonCommand = SimpleCommand.From(ExportResultsJson);
             GenerateTallySheetsCommand = SimpleCommand.From(GenerateTallySheets);
@@ -32,6 +33,7 @@ namespace Alphicsh.JamTally.ViewModel.Result
 
         public string FinalRankingText { get; }
         public string AwardRankingsText { get; }
+        public string AlignmentRankingText { get; }
 
         // ---------------
         // Text generators
