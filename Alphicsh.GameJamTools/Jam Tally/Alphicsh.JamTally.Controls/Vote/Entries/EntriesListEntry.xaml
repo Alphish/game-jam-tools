@@ -20,6 +20,10 @@
         Text="{Binding Team, Mode=OneWay}"
         d:Text="Best Team"
       />
+      <Run
+        Text="{Binding AlignmentText, Mode=OneWay}"
+        d:Text=" (Octarine)"
+      />
     </TextBlock>
   </Border>
 </UserControl>

@@ -14,5 +14,6 @@ namespace Alphicsh.JamTally.ViewModel.Vote
 
         public string Title => Model.Title;
         public string Team => Model.Team;
+        public string AlignmentText => Model.Alignment != null ? $" ({Model.Alignment.Title})" : "";
     }
 }

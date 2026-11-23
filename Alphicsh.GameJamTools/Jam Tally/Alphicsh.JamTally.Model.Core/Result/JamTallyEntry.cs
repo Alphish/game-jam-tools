@@ -12,6 +12,7 @@ namespace Alphicsh.JamTally.Model.Result
         public string Code => Entry.TallyCode;
         public string Title => Entry.TallyTitle;
         public string Authors => Entry.TallyAuthors;
+        public JamAlignmentOption? Alignment => Entry.Alignment;
 
         public int JudgedCount { get; init; }
         public int UnjudgedCount { get; init; }
