@@ -37,6 +37,28 @@ namespace Alphicsh.JamTally.Spreadsheets
                 votesBuilder.AddVoteRegion(vote, rankingBuilder);
             }
 
+            if (result.AlignmentResult != null)
+            {
+                var alignmentRankingBuilder = new AlignmentRankingSheetBuilder(workbook, result.AlignmentResult);
+                var alignmentVotesBuilder = new AlignmentVotesSheetBuilder(workbook, result.AlignmentResult);
+
+                alignmentRankingBuilder.ApplyStyle();
+                alignmentRankingBuilder.AddAlignmentRegion();
+                alignmentRankingBuilder.AddEntriesRegion();
+                alignmentRankingBuilder.AddScoreRegion(alignmentVotesBuilder);
+                foreach (var vote in result.Votes)
+                {
+                    alignmentRankingBuilder.AddVoteRegion(vote, alignmentVotesBuilder);
+                }
+
+                alignmentVotesBuilder.ApplyStyle();
+                alignmentVotesBuilder.AddLabelRegion();
+                foreach (var vote in result.AlignmentResult.Votes)
+                {
+                    alignmentVotesBuilder.AddVoteRegion(vote, rankingBuilder);
+                }
+            }
+
             return workbook;
         }
     }
